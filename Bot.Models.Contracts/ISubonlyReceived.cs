@@ -1,4 +1,4 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface ISubonlyReceived {
+  public interface ISubonlyReceived : IReceived {
   }
 }

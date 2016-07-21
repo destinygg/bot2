@@ -45,6 +45,7 @@
     <Compile Include="IMuteReceived.cs" />
     <Compile Include="IPrivateMessageReceived.cs" />
     <Compile Include="IPublicMessageReceived.cs" />
+    <Compile Include="IReceived.cs" />
     <Compile Include="ISubonlyReceived.cs" />
     <Compile Include="IUnMuteBanReceived.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

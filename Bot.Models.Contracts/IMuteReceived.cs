@@ -1,4 +1,4 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IMuteReceived {
+  public interface IMuteReceived : IReceived {
   }
 }

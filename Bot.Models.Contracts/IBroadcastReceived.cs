@@ -1,4 +1,4 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IBroadcastReceived {
+  public interface IBroadcastReceived : IReceived {
   }
 }
