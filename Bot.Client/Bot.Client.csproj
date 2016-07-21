@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45B2D5AD-FE25-43AA-AC01-436CD0E1FEE3}</ProjectGuid>
+    <ProjectGuid>{BD9DD45B-651C-444D-885C-F96B3BBE1982}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bot.Client.Contracts</RootNamespace>
-    <AssemblyName>Bot.Client.Contracts</AssemblyName>
+    <RootNamespace>Bot.Client</RootNamespace>
+    <AssemblyName>Bot.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IClientVisitor.cs" />
+    <Compile Include="ConsolePrintClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Client.Contracts\Bot.Client.Contracts.csproj">
+      <Project>{45B2D5AD-FE25-43AA-AC01-436CD0E1FEE3}</Project>
+      <Name>Bot.Client.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Models.Contracts\Bot.Models.Contracts.csproj">
       <Project>{6164E231-B141-4647-9422-A02DA469DAFF}</Project>
       <Name>Bot.Models.Contracts</Name>

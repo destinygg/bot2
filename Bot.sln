@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Main.Moderate", "Bot.Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Models.Contracts", "Bot.Models.Contracts\Bot.Models.Contracts.csproj", "{6164E231-B141-4647-9422-A02DA469DAFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Client", "Bot.Client\Bot.Client.csproj", "{BD9DD45B-651C-444D-885C-F96B3BBE1982}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6164E231-B141-4647-9422-A02DA469DAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6164E231-B141-4647-9422-A02DA469DAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6164E231-B141-4647-9422-A02DA469DAFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD9DD45B-651C-444D-885C-F96B3BBE1982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9DD45B-651C-444D-885C-F96B3BBE1982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9DD45B-651C-444D-885C-F96B3BBE1982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9DD45B-651C-444D-885C-F96B3BBE1982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
