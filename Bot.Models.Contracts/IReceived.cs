@@ -3,6 +3,6 @@
 namespace Bot.Models.Contracts {
   public interface IReceived {
     DateTime Received { get; }
-    string Sender { get; }
+    IUser Sender { get; }
   }
 }

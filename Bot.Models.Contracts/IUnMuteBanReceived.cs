@@ -1,4 +1,4 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IUnMuteBanReceived : IReceived {
+  public interface IUnMuteBanReceived : IReceived, IHaveTarget {
   }
 }
