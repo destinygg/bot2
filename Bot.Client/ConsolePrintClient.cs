@@ -3,7 +3,7 @@ using Bot.Client.Contracts;
 using Bot.Models.Contracts;
 
 namespace Bot.Client {
-  public class ConsolePrintClient : IClientVisitor {
+  public abstract class ConsolePrintClient : IReceiver {
     public virtual void Visit(IPrivateMessageReceived privateMessageReceived) {
       Print(privateMessageReceived);
     }

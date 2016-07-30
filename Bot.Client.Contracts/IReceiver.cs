@@ -1,7 +1,7 @@
 ﻿using Bot.Models.Contracts;
 
 namespace Bot.Client.Contracts {
-  public interface IClientVisitor {
+  public interface IReceiver {
     void Visit(IPrivateMessageReceived privateMessageReceived);
     void Visit(IPublicMessageReceived publicMessageReceived);
     void Visit(IMuteReceived muteReceived);
