@@ -2,13 +2,13 @@
 
 namespace Bot.Client.Contracts {
   public interface IReceiver {
-    void Visit(IPrivateMessageReceived privateMessageReceived);
-    void Visit(IPublicMessageReceived publicMessageReceived);
-    void Visit(IMuteReceived muteReceived);
-    void Visit(IUnMuteBanReceived unMuteBanReceived);
-    void Visit(ISubonlyReceived subonlyReceived);
-    void Visit(IBanReceived banReceived);
-    void Visit(IBroadcastReceived broadcastReceived);
+    void Receive(IPrivateMessageReceived privateMessageReceived);
+    void Receive(IPublicMessageReceived publicMessageReceived);
+    void Receive(IMuteReceived muteReceived);
+    void Receive(IUnMuteBanReceived unMuteBanReceived);
+    void Receive(ISubonlyReceived subonlyReceived);
+    void Receive(IBanReceived banReceived);
+    void Receive(IBroadcastReceived broadcastReceived);
     void Run();
   }
 }

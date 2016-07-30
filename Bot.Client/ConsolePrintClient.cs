@@ -4,31 +4,31 @@ using Bot.Models.Contracts;
 
 namespace Bot.Client {
   public abstract class ConsolePrintClient : IReceiver {
-    public virtual void Visit(IPrivateMessageReceived privateMessageReceived) {
+    public virtual void Receive(IPrivateMessageReceived privateMessageReceived) {
       Print(privateMessageReceived);
     }
 
-    public virtual void Visit(IPublicMessageReceived publicMessageReceived) {
+    public virtual void Receive(IPublicMessageReceived publicMessageReceived) {
       Print(publicMessageReceived);
     }
 
-    public virtual void Visit(IMuteReceived muteReceived) {
+    public virtual void Receive(IMuteReceived muteReceived) {
       Print(muteReceived);
     }
 
-    public virtual void Visit(IUnMuteBanReceived unMuteBanReceived) {
+    public virtual void Receive(IUnMuteBanReceived unMuteBanReceived) {
       Print(unMuteBanReceived);
     }
 
-    public virtual void Visit(ISubonlyReceived subonlyReceived) {
+    public virtual void Receive(ISubonlyReceived subonlyReceived) {
       Print(subonlyReceived);
     }
 
-    public virtual void Visit(IBanReceived banReceived) {
+    public virtual void Receive(IBanReceived banReceived) {
       Print(banReceived);
     }
 
-    public virtual void Visit(IBroadcastReceived broadcastReceived) {
+    public virtual void Receive(IBroadcastReceived broadcastReceived) {
       Print(broadcastReceived);
     }
 

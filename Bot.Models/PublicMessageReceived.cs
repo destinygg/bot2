@@ -7,7 +7,7 @@ using Bot.Models.Contracts;
 
 namespace Bot.Models {
   public class PublicMessageReceived : IPublicMessageReceived {
-    public DateTime Received { get; }
+    public DateTime Timestamp { get; }
     public IUser Sender { get; }
     public string Text { get; set; }
   }
