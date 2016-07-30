@@ -9,5 +9,6 @@ namespace Bot.Client.Contracts {
     void Visit(ISubonlyReceived subonlyReceived);
     void Visit(IBanReceived banReceived);
     void Visit(IBroadcastReceived broadcastReceived);
+    void Run();
   }
 }
