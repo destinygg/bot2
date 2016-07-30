@@ -5,17 +5,17 @@ using Bot.Models.Contracts;
 namespace Bot.Client {
   public class SampleReceiver : ConsolePrintReceiver {
     private readonly IEnumerable<IReceived> _received;
-    private readonly IMessageProcessor _messageProcessor;
+    private readonly IProcessReceived _processReceived;
 
-    public SampleReceiver(IEnumerable<IReceived> received, IMessageProcessor messageProcessor) {
+    public SampleReceiver(IEnumerable<IReceived> received, IProcessReceived processReceived) {
       _received = received;
-      _messageProcessor = messageProcessor;
+      _processReceived = processReceived;
     }
 
     public override void Run() {
       foreach (var received in _received) {
         if (received is IPublicMessageReceived)
-          _messageProcessor.Process(received as IPublicMessageReceived);
+          _processReceived.Process(received as IPublicMessageReceived);
       }
     }
   }

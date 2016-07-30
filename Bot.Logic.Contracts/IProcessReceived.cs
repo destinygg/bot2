@@ -1,7 +1,7 @@
 ﻿using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
-  public interface IMessageProcessor {
+  public interface IProcessReceived {
     void Process(IPrivateMessageReceived privateMessageReceived);
     void Process(IPublicMessageReceived publicMessageReceived);
     void Process(IMuteReceived muteReceived);
