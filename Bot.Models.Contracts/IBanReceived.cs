@@ -1,4 +1,4 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IBanReceived : IReceived, IHaveTarget {
+  public interface IBanReceived : IReceived, IBan {
   }
 }

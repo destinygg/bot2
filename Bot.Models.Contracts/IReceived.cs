@@ -2,7 +2,7 @@
 
 namespace Bot.Models.Contracts {
   public interface IReceived {
-    DateTime Received { get; }
+    DateTime Timestamp { get; }
     IUser Sender { get; }
   }
 }
