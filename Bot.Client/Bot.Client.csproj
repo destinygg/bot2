@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SampleClient.cs" />
-    <Compile Include="ConsolePrintClient.cs" />
+    <Compile Include="SampleReceiver.cs" />
+    <Compile Include="ConsolePrintReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

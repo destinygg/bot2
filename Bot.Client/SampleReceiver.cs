@@ -3,11 +3,11 @@ using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
 namespace Bot.Client {
-  public class SampleClient : ConsolePrintClient {
+  public class SampleReceiver : ConsolePrintReceiver {
     private readonly IEnumerable<IReceived> _received;
     private readonly IMessageProcessor _messageProcessor;
 
-    public SampleClient(IEnumerable<IReceived> received, IMessageProcessor messageProcessor) {
+    public SampleReceiver(IEnumerable<IReceived> received, IMessageProcessor messageProcessor) {
       _received = received;
       _messageProcessor = messageProcessor;
     }
