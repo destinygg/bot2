@@ -32,6 +32,10 @@ namespace Bot.Client {
       Print(broadcastReceived);
     }
 
+    public virtual void Run() {
+      throw new NotImplementedException();
+    }
+
     private void Print(IReceived received) {
       Console.WriteLine(received.ToString());
     }
