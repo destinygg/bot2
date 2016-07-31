@@ -14,9 +14,11 @@ namespace Bot.Main.Moderate {
       var received = new List<IReceived>() {
         new PublicMessageReceived { Text = "hi" },
       };
-      var messageProcessor = new ReceivedProcessor();
-      var client = new SampleClient(received, messageProcessor);
-      client.Run();
+      var receiver = new SampleReceiver(received);
+      var client = new SampleClient(receiver);
+      var receivedProcessor = new ReceivedProcessor();
+      client.Run(receivedProcessor);
+
       Console.WriteLine("borkbork");
       Console.ReadLine();
     }

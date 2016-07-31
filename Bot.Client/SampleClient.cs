@@ -1,23 +1,18 @@
 ﻿using System.Collections.Generic;
+using Bot.Client.Contracts;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
 namespace Bot.Client {
   public class SampleClient {
-    private readonly IEnumerable<IReceived> _received;
-    private readonly IReceivedProcessor _receivedProcessor;
+    private readonly IReceiver _receiver;
 
-    public SampleClient(IEnumerable<IReceived> received, IReceivedProcessor receivedProcessor) {
-      _received = received;
-      _receivedProcessor = receivedProcessor;
-      var receiver = new SampleReceiver(_received);
+    public SampleClient(IReceiver receiver) {
+      _receiver = receiver;
     }
 
-    public void Run() {
-      foreach (var received in _received) {
-        if (received is IPublicMessageReceived)
-          _receivedProcessor.Process(received as IPublicMessageReceived);
-      }
+    public void Run(IReceivedProcessor receivedProcessor) {
+      _receiver.Run(receivedProcessor);
     }
   }
 }
