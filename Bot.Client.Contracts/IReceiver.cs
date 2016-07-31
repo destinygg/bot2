@@ -1,4 +1,5 @@
-﻿using Bot.Models.Contracts;
+﻿using Bot.Logic.Contracts;
+using Bot.Models.Contracts;
 
 namespace Bot.Client.Contracts {
   public interface IReceiver {
@@ -9,6 +10,6 @@ namespace Bot.Client.Contracts {
     void Receive(ISubonlyReceived subonlyReceived);
     void Receive(IBanReceived banReceived);
     void Receive(IBroadcastReceived broadcastReceived);
-    void Run();
+    void Run(IReceivedProcessor receivedProcessor);
   }
 }

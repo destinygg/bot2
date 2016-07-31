@@ -7,7 +7,7 @@ using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
 namespace Bot.Logic {
-  public class ProcessReceived : IProcessReceived {
+  public class ReceivedProcessor : IReceivedProcessor {
 
     public void Process(IPrivateMessageReceived privateMessageReceived) {
       
