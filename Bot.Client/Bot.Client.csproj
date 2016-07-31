@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleSender.cs" />
-    <Compile Include="SampleClient.cs" />
     <Compile Include="SampleReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

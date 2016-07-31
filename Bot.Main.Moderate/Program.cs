@@ -16,11 +16,9 @@ namespace Bot.Main.Moderate {
       };
       var sender = new ConsoleSender();
       var receiver = new SampleReceiver(received);
-      var client = new SampleClient(receiver);
       var receivedProcessor = new ReceivedProcessor(sender);
-      client.Run(receivedProcessor);
+      receiver.Run(receivedProcessor);
 
-      Console.WriteLine("borkbork");
       Console.ReadLine();
     }
   }
