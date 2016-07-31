@@ -1,4 +1,4 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IBan : IHaveTarget {
+  public interface IBan : IPunishment {
   }
 }

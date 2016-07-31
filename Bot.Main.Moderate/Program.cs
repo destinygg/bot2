@@ -12,11 +12,12 @@ namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
       var received = new List<IReceived>() {
-        new PublicMessageReceived { Text = "hi" },
+        new PublicMessageReceived("hi"),
       };
+      var sender = new ConsoleSender();
       var receiver = new SampleReceiver(received);
       var client = new SampleClient(receiver);
-      var receivedProcessor = new ReceivedProcessor();
+      var receivedProcessor = new ReceivedProcessor(sender);
       client.Run(receivedProcessor);
 
       Console.WriteLine("borkbork");

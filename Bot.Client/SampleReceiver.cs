@@ -15,7 +15,9 @@ namespace Bot.Client {
     public void Run(IReceivedProcessor receivedProcessor) {
       foreach (var received in _received) {
         if (received is IPublicMessageReceived) {
-          Console.WriteLine(((IPublicMessageReceived) received).Text);
+          var publicMessageReceived = (IPublicMessageReceived) received;
+          Console.WriteLine($"Public message received: {publicMessageReceived.Text}");
+          receivedProcessor.Process(publicMessageReceived);
         }
       }
     }

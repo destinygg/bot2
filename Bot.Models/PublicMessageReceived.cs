@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  public class PublicMessageReceived : IPublicMessageReceived {
+  public class PublicMessageReceived : PublicMessage, IPublicMessageReceived {
     public DateTime Timestamp { get; }
     public IUser Sender { get; }
-    public string Text { get; set; }
+
+    public PublicMessageReceived(string text) : base(text) {
+
+    }
   }
 }
