@@ -2,7 +2,7 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
-  public interface IScanForBans {
+  public interface IScanForCommands {
     IEnumerable<ISendable> Scan(IPublicMessageReceived message);
   }
 }
