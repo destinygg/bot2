@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bot.Client.Contracts;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 

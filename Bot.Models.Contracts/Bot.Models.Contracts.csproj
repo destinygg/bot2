@@ -46,6 +46,7 @@
     <Compile Include="IBroadcastReceived.cs" />
     <Compile Include="IHaveTarget.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="IMessageReceived.cs" />
     <Compile Include="IMute.cs" />
     <Compile Include="IMuteReceived.cs" />
     <Compile Include="IPrivateMessage.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
@@ -29,7 +28,10 @@ namespace Bot.Logic {
     }
 
     public IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived) {
-      throw new NotImplementedException();
+      var outbox = new List<ISendable>();
+      if (privateMessageReceived.Sender.IsMod)
+        outbox.AddRange(_modCommandScanner.Scan(privateMessageReceived));
+      return outbox;
     }
   }
 }
