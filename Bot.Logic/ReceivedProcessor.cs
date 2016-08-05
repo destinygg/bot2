@@ -25,14 +25,7 @@ namespace Bot.Logic {
 
     }
 
-    public void Process(IPublicMessageReceived publicMessageReceived) {
-      var confirm = new PublicMessage($"Processor processing a public message: {publicMessageReceived.Text}");
-      _sender.Send(confirm);
-      var outbox = _banLogic.Process(publicMessageReceived);
-      foreach (var outobject in outbox) {
-        _sender.Send(outobject);
-      }
-    }
+    public void Process(IPublicMessageReceived publicMessageReceived) => _banLogic.Process(publicMessageReceived);
 
     public void Process(IMuteReceived muteReceived) {
 

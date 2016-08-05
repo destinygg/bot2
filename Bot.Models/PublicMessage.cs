@@ -7,5 +7,7 @@ namespace Bot.Models {
     }
 
     public string Text { get; }
+
+    public ISendable Send() => this;
   }
 }

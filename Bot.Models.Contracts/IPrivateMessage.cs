@@ -1,5 +1,5 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IPrivateMessage {
+  public interface IPrivateMessage : ISendable {
     string Text { get; }
   }
 }

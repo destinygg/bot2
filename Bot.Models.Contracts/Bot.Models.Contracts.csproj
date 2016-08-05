@@ -53,6 +53,7 @@
     <Compile Include="IPublicMessageReceived.cs" />
     <Compile Include="IPunishment.cs" />
     <Compile Include="IReceived.cs" />
+    <Compile Include="ISendable.cs" />
     <Compile Include="ISubonly.cs" />
     <Compile Include="ISubonlyReceived.cs" />
     <Compile Include="IUnMuteBan.cs" />
