@@ -13,7 +13,8 @@ namespace Bot.Main.Moderate {
       };
       var sender = new ConsoleSender();
       var receiver = new SampleReceiver(received);
-      var receivedProcessor = new ReceivedProcessor(sender);
+      var messageProcessor = new MessageProcessor();
+      var receivedProcessor = new ReceivedProcessor(messageProcessor);
       receiver.Run(receivedProcessor);
 
       Console.ReadLine();
