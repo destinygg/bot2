@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IMessageProcessor.cs" />
     <Compile Include="IReceivedProcessor.cs" />
+    <Compile Include="IScanForBans.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
