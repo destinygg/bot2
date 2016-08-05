@@ -1,50 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bot.Client.Contracts;
 using Bot.Logic.Contracts;
-using Bot.Models;
 using Bot.Models.Contracts;
 
 namespace Bot.Logic {
   public class ReceivedProcessor : IReceivedProcessor {
-    private readonly IBanLogic _banLogic;
-    private readonly ISender _sender;
+    private readonly IMessageProcessor _messageProcessor;
 
-    public ReceivedProcessor(IBanLogic banLogic) {
-      _banLogic = banLogic;
+    public ReceivedProcessor(IMessageProcessor messageProcessor) {
+      _messageProcessor = messageProcessor;
     }
 
-    public ReceivedProcessor(ISender sender) {
-      _sender = sender;
+    IEnumerable<ISendable> IReceivedProcessor.Process(IBanReceived banReceived) {
+      throw new NotImplementedException();
     }
 
-    public void Process(IPrivateMessageReceived privateMessageReceived) {
-
+    IEnumerable<ISendable> IReceivedProcessor.Process(IBroadcastReceived broadcastReceived) {
+      throw new NotImplementedException();
     }
 
-    public void Process(IPublicMessageReceived publicMessageReceived) => _banLogic.Process(publicMessageReceived);
-
-    public void Process(IMuteReceived muteReceived) {
-
+    IEnumerable<ISendable> IReceivedProcessor.Process(ISubonlyReceived subonlyReceived) {
+      throw new NotImplementedException();
     }
 
-    public void Process(IUnMuteBanReceived unMuteBanReceived) {
-
+    IEnumerable<ISendable> IReceivedProcessor.Process(IMuteReceived muteReceived) {
+      throw new NotImplementedException();
     }
 
-    public void Process(ISubonlyReceived subonlyReceived) {
-
+    IEnumerable<ISendable> IReceivedProcessor.Process(IUnMuteBanReceived unMuteBanReceived) {
+      throw new NotImplementedException();
     }
 
-    public void Process(IBanReceived banReceived) {
+    IEnumerable<ISendable> IReceivedProcessor.Process(IPublicMessageReceived publicMessageReceived) 
+      => _messageProcessor.Process(publicMessageReceived);
 
-    }
-
-    public void Process(IBroadcastReceived broadcastReceived) {
-
-    }
+    IEnumerable<ISendable> IReceivedProcessor.Process(IPrivateMessageReceived privateMessageReceived)
+      => _messageProcessor.Process(privateMessageReceived);
   }
 }

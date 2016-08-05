@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 
 namespace Bot.Logic.Contracts {
-  public interface IBanLogic {
+  public interface IMessageProcessor {
     IEnumerable<IBroadcast> Process(IPublicMessageReceived publicMessageReceived);
+    IEnumerable<IBroadcast> Process(IPrivateMessageReceived privateMessageReceived);
   }
 }
