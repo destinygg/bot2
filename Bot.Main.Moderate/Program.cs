@@ -12,7 +12,7 @@ namespace Bot.Main.Moderate {
         new PublicMessageReceived("hi"),
       };
       var sender = new ConsoleSender();
-      var receiver = new SampleReceiver(received);
+      var receiver = new SampleReceiver(received, sender);
 
       var banScanner = new ScanForBans();
       var commandScanner = new ScanForCommands();
