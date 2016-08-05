@@ -7,9 +7,11 @@ using Bot.Models.Contracts;
 namespace Bot.Client {
   public class SampleReceiver : IReceiver {
     private readonly IEnumerable<IReceived> _received;
+    private readonly ISender _sender;
 
-    public SampleReceiver(IEnumerable<IReceived> received) {
+    public SampleReceiver(IEnumerable<IReceived> received, ISender sender) {
       _received = received;
+      _sender = sender;
     }
 
     public void Run(IReceivedProcessor receivedProcessor) {
@@ -17,7 +19,10 @@ namespace Bot.Client {
         if (received is IPublicMessageReceived) {
           var publicMessageReceived = (IPublicMessageReceived) received;
           Console.WriteLine($"Public message received: {publicMessageReceived.Text}");
-          receivedProcessor.Process(publicMessageReceived);
+          var outbox = receivedProcessor.Process(publicMessageReceived);
+          foreach (var sendable in outbox) {
+            _sender.Send(sendable.Send());
+          }
         }
       }
     }

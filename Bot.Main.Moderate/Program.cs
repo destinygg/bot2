@@ -13,7 +13,12 @@ namespace Bot.Main.Moderate {
       };
       var sender = new ConsoleSender();
       var receiver = new SampleReceiver(received);
-      var messageProcessor = new MessageProcessor();
+
+      var banScanner = new ScanForBans();
+      var commandScanner = new ScanForCommands();
+      var modCommandScanner = new ScanForModCommands();
+      var messageProcessor = new MessageProcessor(banScanner, commandScanner, modCommandScanner);
+
       var receivedProcessor = new ReceivedProcessor(messageProcessor);
       receiver.Run(receivedProcessor);
 

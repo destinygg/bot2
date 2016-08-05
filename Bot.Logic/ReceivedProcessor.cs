@@ -12,30 +12,30 @@ namespace Bot.Logic {
       _messageProcessor = messageProcessor;
     }
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(IBanReceived banReceived) {
+    public IEnumerable<ISendable> Process(IBanReceived banReceived) {
       throw new NotImplementedException();
     }
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(IBroadcastReceived broadcastReceived) {
+    public IEnumerable<ISendable> Process(IBroadcastReceived broadcastReceived) {
       throw new NotImplementedException();
     }
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(ISubonlyReceived subonlyReceived) {
+    public IEnumerable<ISendable> Process(ISubonlyReceived subonlyReceived) {
       throw new NotImplementedException();
     }
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(IMuteReceived muteReceived) {
+    public IEnumerable<ISendable> Process(IMuteReceived muteReceived) {
       throw new NotImplementedException();
     }
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(IUnMuteBanReceived unMuteBanReceived) {
+    public IEnumerable<ISendable> Process(IUnMuteBanReceived unMuteBanReceived) {
       throw new NotImplementedException();
     }
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(IPublicMessageReceived publicMessageReceived) 
+    public IEnumerable<ISendable> Process(IPublicMessageReceived publicMessageReceived) 
       => _messageProcessor.Process(publicMessageReceived);
 
-    IEnumerable<ISendable> IReceivedProcessor.Process(IPrivateMessageReceived privateMessageReceived)
+    public IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived)
       => _messageProcessor.Process(privateMessageReceived);
   }
 }

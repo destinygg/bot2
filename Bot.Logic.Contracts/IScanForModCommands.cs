@@ -2,7 +2,7 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
-  interface IScanForModCommands {
+  public interface IScanForModCommands {
     IEnumerable<ISendable> Scan(IPublicMessageReceived message);
   }
 }
