@@ -10,6 +10,9 @@ namespace Bot.Main.Moderate {
     static void Main(string[] args) {
       var received = new List<IReceived>() {
         new PublicMessageReceived("hi"),
+        new PublicMessageReceived("banplox"),
+        new PublicMessageReceived("!time"),
+        new PublicMessageReceived("!sing", true),
       };
       var sender = new ConsoleSender();
       var receiver = new SampleReceiver(received, sender);
