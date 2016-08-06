@@ -21,7 +21,7 @@ namespace Bot.Client {
           Console.WriteLine($"Public message received: {publicMessageReceived.Text}");
           var outbox = receivedProcessor.Process(publicMessageReceived);
           foreach (var sendable in outbox) {
-            _sender.Send(sendable.Send());
+            _sender.Send(sendable);
           }
         }
       }
