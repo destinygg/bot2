@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Logic", "Bot.Logic\Bot.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Models", "Bot.Models\Bot.Models.csproj", "{0FE69118-F69A-48F0-9B51-58FE52D0B826}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Database", "Bot.Database\Bot.Database.csproj", "{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{0FE69118-F69A-48F0-9B51-58FE52D0B826}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FE69118-F69A-48F0-9B51-58FE52D0B826}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FE69118-F69A-48F0-9B51-58FE52D0B826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
