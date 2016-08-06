@@ -9,10 +9,12 @@ namespace Bot.Models {
 
     public PublicMessageReceived(string text) : base(text) {
       Sender = new User("TestUser");
+      Timestamp = DateTime.UtcNow;
     }
 
     public PublicMessageReceived(string text, bool isMod) : this(text) {
       Sender = new User("TestMod", isMod);
+      Timestamp = DateTime.UtcNow;
     }
   }
 }
