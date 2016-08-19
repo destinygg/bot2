@@ -9,6 +9,7 @@ namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
       var received = new List<IReceived>() {
+        new PublicMessageReceived("!long", true),
         new PublicMessageReceived("hi"),
         new PublicMessageReceived("banplox"),
         new PublicMessageReceived("!time"),
