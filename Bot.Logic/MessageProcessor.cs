@@ -15,7 +15,7 @@ namespace Bot.Logic {
       _commandScanner = commandScanner;
     }
 
-    private IEnumerable<ISendable> _Process(IPublicMessageReceived publicMessageReceived) {
+    private IEnumerable<ISendable> _Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context) {
       var outbox = new List<ISendable>();
       if (publicMessageReceived.Sender.IsMod) {
         outbox.AddRange(_modCommandScanner.Scan(publicMessageReceived));
@@ -34,9 +34,9 @@ namespace Bot.Logic {
         outbox.AddRange(_modCommandScanner.Scan(privateMessageReceived));
       return outbox;
     }
-    
-    public async Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived) {
-      return await Task.Run(() => _Process(publicMessageReceived));
+
+    public async Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context) {
+      return await Task.Run(() => _Process(publicMessageReceived, context));
     }
 
     public async Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived) {
