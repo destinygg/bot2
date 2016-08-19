@@ -14,6 +14,7 @@ namespace Bot.Main.Moderate {
         new PublicMessageReceived("banplox"),
         new PublicMessageReceived("!time"),
         new PublicMessageReceived("!sing", true),
+        new PublicMessageReceived("!long", true),
       };
       var sender = new ConsoleSender();
       var receiver = new SampleReceiver(received, sender);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
@@ -10,27 +11,29 @@ namespace Bot.Logic {
       _messageProcessor = messageProcessor;
     }
 
-    public IEnumerable<ISendable> Process(IBanReceived banReceived)
-      => DoNothing;
+    public Task<IEnumerable<ISendable>> Process(IBanReceived banReceived)
+      => _NoMessage;
 
-    public IEnumerable<ISendable> Process(IBroadcastReceived broadcastReceived)
-      => DoNothing;
+    public Task<IEnumerable<ISendable>> Process(IBroadcastReceived broadcastReceived)
+      => _NoMessage;
 
-    public IEnumerable<ISendable> Process(ISubonlyReceived subonlyReceived)
-      => DoNothing;
+    public Task<IEnumerable<ISendable>> Process(ISubonlyReceived subonlyReceived)
+      => _NoMessage;
 
-    public IEnumerable<ISendable> Process(IMuteReceived muteReceived)
-      => DoNothing;
+    public Task<IEnumerable<ISendable>> Process(IMuteReceived muteReceived)
+      => _NoMessage;
 
-    public IEnumerable<ISendable> Process(IUnMuteBanReceived unMuteBanReceived)
-      => DoNothing;
+    public Task<IEnumerable<ISendable>> Process(IUnMuteBanReceived unMuteBanReceived)
+      => _NoMessage;
 
-    public IEnumerable<ISendable> Process(IPublicMessageReceived publicMessageReceived) 
+    public Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived)
       => _messageProcessor.Process(publicMessageReceived);
 
-    public IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived)
+    public Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived)
       => _messageProcessor.Process(privateMessageReceived);
 
-    private IEnumerable<ISendable> DoNothing => new List<ISendable>();
+    private Task<IEnumerable<ISendable>> _NoMessage
+      => Task.Run<IEnumerable<ISendable>>(() => new List<ISendable>());
+
   }
 }
