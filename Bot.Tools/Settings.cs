@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bot.Tools {
-  public class Settings {
+﻿namespace Bot.Tools {
+  public static class Settings {
+    public static int ContextSize => 1000;
   }
 }
