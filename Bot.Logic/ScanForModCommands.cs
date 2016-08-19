@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
@@ -13,7 +14,7 @@ namespace Bot.Logic {
       if (message.Text.Contains("!sing"))
         outbox.Add(new PublicMessage("/me sings a song"));
       if (message.Text.Contains("!long")) {
-        Console.WriteLine("long begin");
+        Console.WriteLine("long begin" + context.Count(x => x.Text != ""));
         for (var i = 0; i < 1000000000; i++) {
           var temp = i;
         }
@@ -29,7 +30,7 @@ namespace Bot.Logic {
         for (var i = 0; i < 1000000000; i++) {
           var temp = i;
         }
-        Console.WriteLine("long over");
+        Console.WriteLine("long over" + context.Count(x => x.Text != ""));
       }
       return outbox;
     }

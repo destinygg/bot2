@@ -6,8 +6,9 @@ namespace Bot.Models {
       Text = text;
     }
 
+    // To ensure thread safety, this object should remain readonly.
     public string Text { get; }
-
     public string ConsolePrint => $"Sending a public message: {Text}";
+
   }
 }

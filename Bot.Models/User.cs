@@ -8,6 +8,7 @@ namespace Bot.Models {
       IsMod = isMod;
     }
 
+    // To ensure thread safety, this object should remain readonly.
     public string Nick { get; }
     public IEnumerable<string> Flair { get; }
     public bool IsMod { get; }
