@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  [DebuggerDisplay("From:{Sender.Nick } Saying:{Text}")]
+  [DebuggerDisplay("From:{Sender.Nick} Saying:{Text}")]
   public class PublicMessageReceived : PublicMessage, IPublicMessageReceived {
 
     public DateTime Timestamp { get; }

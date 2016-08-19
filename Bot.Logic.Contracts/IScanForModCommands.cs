@@ -3,6 +3,6 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
   public interface IScanForModCommands {
-    IEnumerable<ISendable> Scan(IMessageReceived message);
+    IEnumerable<ISendable> Scan(IMessageReceived message, IEnumerable<IPublicMessageReceived> context);
   }
 }

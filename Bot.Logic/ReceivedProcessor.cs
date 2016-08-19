@@ -29,8 +29,8 @@ namespace Bot.Logic {
     public Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context)
       => _messageProcessor.Process(publicMessageReceived, context);
 
-    public Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived)
-      => _messageProcessor.Process(privateMessageReceived);
+    public Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context)
+      => _messageProcessor.Process(privateMessageReceived, context);
 
     private Task<IEnumerable<ISendable>> _NoMessage
       => Task.Run<IEnumerable<ISendable>>(() => new List<ISendable>());

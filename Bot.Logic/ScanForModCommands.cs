@@ -7,7 +7,7 @@ using Bot.Models.Contracts;
 namespace Bot.Logic {
 
   public class ScanForModCommands : IScanForModCommands {
-    public IEnumerable<ISendable> Scan(IMessageReceived message) {
+    public IEnumerable<ISendable> Scan(IMessageReceived message, IEnumerable<IPublicMessageReceived> context) {
       var outbox = new List<ISendable>();
       if (!message.Sender.IsMod) return outbox;
       if (message.Text.Contains("!sing"))
