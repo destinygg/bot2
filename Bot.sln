@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Database", "Bot.Databas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Tools", "Bot.Tools\Bot.Tools.csproj", "{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Pipeline", "Bot.Pipeline\Bot.Pipeline.csproj", "{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Pipeline.Contracts", "Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj", "{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
