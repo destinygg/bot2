@@ -1,6 +1,6 @@
 ﻿using Bot.Logic.Contracts;
 
-namespace Bot.Client.Contracts {
+namespace Bot.Pipeline.Contracts {
   public interface IReceiver {
     void Run(IReceivedProcessor receivedProcessor);
   }

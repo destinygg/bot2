@@ -1,8 +1,8 @@
 ﻿using System;
-using Bot.Client.Contracts;
 using Bot.Models.Contracts;
+using Bot.Pipeline.Contracts;
 
-namespace Bot.Client {
+namespace Bot.Pipeline {
   public class ConsoleSender : ISender {
 
     //Console.WriteLine($"Sending a mute targeting {mute.Target} for {mute.Duration}");

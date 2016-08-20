@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Bot.Client.Contracts;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
+using Bot.Pipeline.Contracts;
 using Bot.Tools;
 
-namespace Bot.Client {
+namespace Bot.Pipeline {
   public class SampleReceiver : IReceiver {
     private readonly LinkedList<IPublicMessageReceived> _context;
     private readonly IEnumerable<IReceived> _received;

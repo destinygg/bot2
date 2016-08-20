@@ -44,6 +44,16 @@
     <Compile Include="ISender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bot.Logic.Contracts\Bot.Logic.Contracts.csproj">
+      <Project>{8D38A0E1-D030-45B7-9C66-674CA02DFCFF}</Project>
+      <Name>Bot.Logic.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Models.Contracts\Bot.Models.Contracts.csproj">
+      <Project>{6164E231-B141-4647-9422-A02DA469DAFF}</Project>
+      <Name>Bot.Models.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
