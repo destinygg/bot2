@@ -8,14 +8,14 @@ using Bot.Pipeline.Contracts;
 using Bot.Tools;
 
 namespace Bot.Pipeline {
-  public class SampleReceiver : IReceiver {
+  public class SampleReceivedProducer : IReceivedProducer {
     private readonly LinkedList<IPublicMessageReceived> _context;
     private readonly IEnumerable<IReceived> _received;
-    private readonly ISender _sender;
+    private readonly ISenderProducer _senderProducer;
 
-    public SampleReceiver(IEnumerable<IReceived> received, ISender sender) {
+    public SampleReceivedProducer(IEnumerable<IReceived> received, ISenderProducer senderProducer) {
       _received = received;
-      _sender = sender;
+      _senderProducer = senderProducer;
       _context = new LinkedList<IPublicMessageReceived>();
       for (var i = 0; i < Settings.ContextSize; i++) {
         _context.AddFirst(new PublicMessageReceived(true));
@@ -37,7 +37,7 @@ namespace Bot.Pipeline {
 
     private void _Send(Task<IEnumerable<ISendable>> taskOutbox) {
       foreach (var sendable in taskOutbox.Result) {
-        _sender.Send(sendable);
+        _senderProducer.Send(sendable);
       }
     }
 

@@ -17,7 +17,7 @@ namespace Bot.Main.Moderate {
         new PublicMessageReceived("!long", true),
       };
       var sender = new ConsoleSender();
-      var receiver = new SampleReceiver(received, sender);
+      var receiver = new SampleReceivedProducer(received, sender);
 
       var banScanner = new ScanForBans();
       var commandScanner = new ScanForCommands();

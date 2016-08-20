@@ -3,7 +3,7 @@ using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
-  public class ConsoleSender : ISender {
+  public class ConsoleSender : ISenderProducer {
 
     //Console.WriteLine($"Sending a mute targeting {mute.Target} for {mute.Duration}");
 

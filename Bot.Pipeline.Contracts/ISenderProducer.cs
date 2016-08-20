@@ -1,7 +1,7 @@
 ﻿using Bot.Models.Contracts;
 
 namespace Bot.Pipeline.Contracts {
-  public interface ISender {
+  public interface ISenderProducer {
     void Send(ISendable sendable);
   }
 }
