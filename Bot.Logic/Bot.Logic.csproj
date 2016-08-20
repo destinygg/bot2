@@ -48,10 +48,6 @@
     <Compile Include="ScanForModCommands.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Client.Contracts\Bot.Client.Contracts.csproj">
-      <Project>{45B2D5AD-FE25-43AA-AC01-436CD0E1FEE3}</Project>
-      <Name>Bot.Client.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Logic.Contracts\Bot.Logic.Contracts.csproj">
       <Project>{8D38A0E1-D030-45B7-9C66-674CA02DFCFF}</Project>
       <Name>Bot.Logic.Contracts</Name>

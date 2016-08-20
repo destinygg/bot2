@@ -50,14 +50,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Client.Contracts\Bot.Client.Contracts.csproj">
-      <Project>{45b2d5ad-fe25-43aa-ac01-436cd0e1fee3}</Project>
-      <Name>Bot.Client.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bot.Client\Bot.Client.csproj">
-      <Project>{BD9DD45B-651C-444D-885C-F96B3BBE1982}</Project>
-      <Name>Bot.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Logic.Contracts\Bot.Logic.Contracts.csproj">
       <Project>{8D38A0E1-D030-45B7-9C66-674CA02DFCFF}</Project>
       <Name>Bot.Logic.Contracts</Name>
