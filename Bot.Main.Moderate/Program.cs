@@ -27,6 +27,9 @@ namespace Bot.Main.Moderate {
       var receivedProcessor = new ReceivedProcessor(messageProcessor);
       receiver.Run(receivedProcessor);
 
+      var contextualizedProducer = new ContextualizedProducer(receiver.Produce);
+      var contextualizedBlock = contextualizedProducer.Produce;
+
       Console.ReadLine();
     }
   }

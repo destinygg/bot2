@@ -44,6 +44,7 @@
     <Compile Include="IBanReceived.cs" />
     <Compile Include="IBroadcast.cs" />
     <Compile Include="IBroadcastReceived.cs" />
+    <Compile Include="IContextualized.cs" />
     <Compile Include="IHaveTarget.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="IMessageReceived.cs" />
