@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IContextualizedProducer.cs" />
-    <Compile Include="IOutputProducer.cs" />
+    <Compile Include="ISendableProducer.cs" />
     <Compile Include="IReceivedProducer.cs" />
     <Compile Include="ISenderProducer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,4 @@
 ﻿namespace Bot.Pipeline.Contracts {
-  public interface IOutputProducer {
+  public interface ISendableProducer {
   }
 }

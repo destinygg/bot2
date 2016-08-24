@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="ConsoleSender.cs" />
     <Compile Include="ContextualizedProducer.cs" />
-    <Compile Include="OutputProducer.cs" />
+    <Compile Include="SendableProducer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleReceivedProducer.cs" />
   </ItemGroup>
