@@ -30,6 +30,9 @@ namespace Bot.Main.Moderate {
       var contextualizedProducer = new ContextualizedProducer(receiver.Produce);
       var contextualizedBlock = contextualizedProducer.Produce;
 
+      var sendableProducer = new SendableProducer(contextualizedBlock);
+      var sendableBlock = sendableProducer.Produce;
+
       Console.ReadLine();
     }
   }
