@@ -4,12 +4,12 @@ using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
 namespace Bot.Logic {
-  public class MessageProcessor : IMessageProcessor {
+  public class ContextualizedProcessor : IContextualizedProcessor {
     private readonly IScanForBans _banScanner;
     private readonly IScanForModCommands _modCommandScanner;
     private readonly IScanForCommands _commandScanner;
 
-    public MessageProcessor(IScanForBans banScanner, IScanForCommands commandScanner, IScanForModCommands modCommandScanner) {
+    public ContextualizedProcessor(IScanForBans banScanner, IScanForCommands commandScanner, IScanForModCommands modCommandScanner) {
       _banScanner = banScanner;
       _modCommandScanner = modCommandScanner;
       _commandScanner = commandScanner;

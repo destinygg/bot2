@@ -5,10 +5,10 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic {
   public class ReceivedProcessor : IReceivedProcessor {
-    private readonly IMessageProcessor _messageProcessor;
+    private readonly IContextualizedProcessor _contextualizedProcessor;
 
-    public ReceivedProcessor(IMessageProcessor messageProcessor) {
-      _messageProcessor = messageProcessor;
+    public ReceivedProcessor(IContextualizedProcessor contextualizedProcessor) {
+      _contextualizedProcessor = contextualizedProcessor;
     }
 
     public Task<IEnumerable<ISendable>> Process(IBanReceived banReceived)
@@ -27,10 +27,10 @@ namespace Bot.Logic {
       => _NoMessage;
 
     public Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context)
-      => _messageProcessor.Process(publicMessageReceived, context);
+      => _contextualizedProcessor.Process(publicMessageReceived, context);
 
     public Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context)
-      => _messageProcessor.Process(privateMessageReceived, context);
+      => _contextualizedProcessor.Process(privateMessageReceived, context);
 
     private Task<IEnumerable<ISendable>> _NoMessage
       => Task.Run<IEnumerable<ISendable>>(() => new List<ISendable>());

@@ -22,7 +22,7 @@ namespace Bot.Main.Moderate {
       var banScanner = new ScanForBans();
       var commandScanner = new ScanForCommands();
       var modCommandScanner = new ScanForModCommands();
-      var messageProcessor = new MessageProcessor(banScanner, commandScanner, modCommandScanner);
+      var messageProcessor = new ContextualizedProcessor(banScanner, commandScanner, modCommandScanner);
 
       var receivedProcessor = new ReceivedProcessor(messageProcessor);
       receiver.Run(receivedProcessor);
