@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
@@ -28,6 +30,14 @@ namespace Bot.Logic {
       return outbox;
     }
 
+    private IEnumerable<ISendable> _Process(IContextualized contextualized) {
+      var context = contextualized.Context.Where(c => c is IPublicMessageReceived).Cast<IPublicMessageReceived>();
+      if (contextualized.First is IPublicMessageReceived) {
+        return _Process((IPublicMessageReceived) contextualized.First, context);
+      }
+      return new List<ISendable>();
+    }
+
     private IEnumerable<ISendable> _Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context) {
       var outbox = new List<ISendable>();
       if (privateMessageReceived.Sender.IsMod)
@@ -41,6 +51,10 @@ namespace Bot.Logic {
 
     public async Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context) {
       return await Task.Run(() => _Process(privateMessageReceived, context));
+    }
+
+    public async Task<IEnumerable<ISendable>> Process(IContextualized contextualized) {
+      return await Task.Run(() => _Process(contextualized));
     }
   }
 }

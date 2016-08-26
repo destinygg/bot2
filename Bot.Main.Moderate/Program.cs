@@ -16,8 +16,8 @@ namespace Bot.Main.Moderate {
         new PublicMessageReceived("!sing", true),
         new PublicMessageReceived("!long", true),
       };
-      var sender = new ConsoleSender();
-      var receiver = new SampleReceivedProducer(received, sender);
+      
+      var receiver = new SampleReceivedProducer(received);
 
       var banScanner = new ScanForBans();
       var commandScanner = new ScanForCommands();
@@ -30,7 +30,7 @@ namespace Bot.Main.Moderate {
       var contextualizedProducer = new ContextualizedProducer(receiver.Produce);
       var contextualizedBlock = contextualizedProducer.Produce;
 
-      var sendableProducer = new SendableProducer(contextualizedBlock);
+      var sendableProducer = new SendableProducer(contextualizedBlock, messageProcessor);
       var sendableBlock = sendableProducer.Produce;
 
       Console.ReadLine();

@@ -8,11 +8,11 @@ using Bot.Pipeline.Contracts;
 namespace Bot.Pipeline {
   public class ContextualizedProducer : IContextualizedProducer {
     private readonly ISourceBlock<IReceived> _sourceBlock;
-    private readonly IList<IReceived> _context;
+    private readonly Stack<IReceived> _context;
 
     public ContextualizedProducer(ISourceBlock<IReceived> sourceBlock) {
       _sourceBlock = sourceBlock;
-      _context = new List<IReceived>();
+      _context = new Stack<IReceived>();
     }
 
     public ISourceBlock<IContextualized> Produce {
@@ -24,8 +24,8 @@ namespace Bot.Pipeline {
     }
 
     private IContextualized Transform(IReceived first) {
-      _context.Add(first);
-      return new Contextualized(_context.ToList());
+      _context.Push(first);
+      return new Contextualized(_context.ToList()); // Creates a new List
     }
   }
 }
