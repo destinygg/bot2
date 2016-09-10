@@ -11,29 +11,29 @@ namespace Bot.Logic {
       _contextualizedProcessor = contextualizedProcessor;
     }
 
-    public Task<IEnumerable<ISendable>> Process(IBanReceived banReceived)
+    public IEnumerable<ISendable> Process(IBanReceived banReceived)
       => _NoMessage;
 
-    public Task<IEnumerable<ISendable>> Process(IBroadcastReceived broadcastReceived)
+    public IEnumerable<ISendable> Process(IBroadcastReceived broadcastReceived)
       => _NoMessage;
 
-    public Task<IEnumerable<ISendable>> Process(ISubonlyReceived subonlyReceived)
+    public IEnumerable<ISendable> Process(ISubonlyReceived subonlyReceived)
       => _NoMessage;
 
-    public Task<IEnumerable<ISendable>> Process(IMuteReceived muteReceived)
+    public IEnumerable<ISendable> Process(IMuteReceived muteReceived)
       => _NoMessage;
 
-    public Task<IEnumerable<ISendable>> Process(IUnMuteBanReceived unMuteBanReceived)
+    public IEnumerable<ISendable> Process(IUnMuteBanReceived unMuteBanReceived)
       => _NoMessage;
 
-    public Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context)
+    public IEnumerable<ISendable> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context)
       => _contextualizedProcessor.Process(publicMessageReceived, context);
 
-    public Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context)
+    public IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context)
       => _contextualizedProcessor.Process(privateMessageReceived, context);
 
-    private Task<IEnumerable<ISendable>> _NoMessage
-      => Task.Run<IEnumerable<ISendable>>(() => new List<ISendable>());
+    private IEnumerable<ISendable> _NoMessage
+      => new List<ISendable>();
 
   }
 }

@@ -4,12 +4,12 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
   public interface IReceivedProcessor {
-    Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context);
-    Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context);
-    Task<IEnumerable<ISendable>> Process(IMuteReceived muteReceived);
-    Task<IEnumerable<ISendable>> Process(IUnMuteBanReceived unMuteBanReceived);
-    Task<IEnumerable<ISendable>> Process(ISubonlyReceived subonlyReceived);
-    Task<IEnumerable<ISendable>> Process(IBanReceived banReceived);
-    Task<IEnumerable<ISendable>> Process(IBroadcastReceived broadcastReceived);
+    IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context);
+    IEnumerable<ISendable> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context);
+    IEnumerable<ISendable> Process(IMuteReceived muteReceived);
+    IEnumerable<ISendable> Process(IUnMuteBanReceived unMuteBanReceived);
+    IEnumerable<ISendable> Process(ISubonlyReceived subonlyReceived);
+    IEnumerable<ISendable> Process(IBanReceived banReceived);
+    IEnumerable<ISendable> Process(IBroadcastReceived broadcastReceived);
   }
 }

@@ -17,7 +17,7 @@ namespace Bot.Logic {
       _commandScanner = commandScanner;
     }
 
-    private IEnumerable<ISendable> _Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context) {
+    public IEnumerable<ISendable> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context) {
       var outbox = new List<ISendable>();
       if (publicMessageReceived.Sender.IsMod) {
         outbox.AddRange(_modCommandScanner.Scan(publicMessageReceived, context));
@@ -30,31 +30,21 @@ namespace Bot.Logic {
       return outbox;
     }
 
-    private IEnumerable<ISendable> _Process(IContextualized contextualized) {
+    public IEnumerable<ISendable> Process(IContextualized contextualized) {
       var context = contextualized.Context.Where(c => c is IPublicMessageReceived).Cast<IPublicMessageReceived>();
       if (contextualized.First is IPublicMessageReceived) {
-        return _Process((IPublicMessageReceived) contextualized.First, context);
+        return Process((IPublicMessageReceived) contextualized.First, context);
       }
       return new List<ISendable>();
     }
 
-    private IEnumerable<ISendable> _Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context) {
+    public IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context) {
       var outbox = new List<ISendable>();
       if (privateMessageReceived.Sender.IsMod)
         outbox.AddRange(_modCommandScanner.Scan(privateMessageReceived, context));
       return outbox;
     }
 
-    public async Task<IEnumerable<ISendable>> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context) {
-      return await Task.Run(() => _Process(publicMessageReceived, context));
-    }
 
-    public async Task<IEnumerable<ISendable>> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context) {
-      return await Task.Run(() => _Process(privateMessageReceived, context));
-    }
-
-    public async Task<IEnumerable<ISendable>> Process(IContextualized contextualized) {
-      return await Task.Run(() => _Process(contextualized));
-    }
   }
 }
