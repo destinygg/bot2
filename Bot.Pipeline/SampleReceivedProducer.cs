@@ -14,7 +14,7 @@ namespace Bot.Pipeline {
       _producer = new BufferBlock<IReceived>();
     }
 
-    public void Run(IReceivedProcessor receivedProcessor) {
+    public void Run() {
       foreach (var received in _received) {
         _producer.Post(received);
       }
