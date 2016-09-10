@@ -29,10 +29,8 @@ namespace Bot.Pipeline {
     }
 
     public void Run() {
-      var transform = new ActionBlock<IReadOnlyList<ISendable>>(r => Send(r), new ExecutionDataflowBlockOptions {
-        MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded
-      });
-      _sendableBlock.LinkTo(transform);
+      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => Send(r));
+      _sendableBlock.LinkTo(actionBlock);
     }
   }
 }

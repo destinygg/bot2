@@ -18,7 +18,8 @@ namespace Bot.Pipeline {
     public ISourceBlock<IReadOnlyList<ISendable>> Produce {
       get {
         var transform = new TransformBlock<IContextualized, IReadOnlyList<ISendable>>(r => Transform(r), new ExecutionDataflowBlockOptions {
-          MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded
+          MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
+          EnsureOrdered = false
         });
         _sourceBlock.LinkTo(transform);
         return transform;
