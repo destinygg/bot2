@@ -33,6 +33,9 @@ namespace Bot.Main.Moderate {
       var sendableProducer = new SendableProducer(contextualizedBlock, messageProcessor);
       var sendableBlock = sendableProducer.Produce;
 
+      var sender = new ConsoleSender(sendableBlock);
+      sender.Run();
+
       Console.ReadLine();
     }
   }
