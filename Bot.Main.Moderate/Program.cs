@@ -16,16 +16,12 @@ namespace Bot.Main.Moderate {
         new PublicMessageReceived("!sing", true),
         new PublicMessageReceived("!long", true),
       };
+      var contextualizedProcessor = new ContextualizedProcessor(new ScanForBans(), new ScanForCommands(), new ScanForModCommands());
 
       var receiver = new SampleReceivedProducer(received);
       var contextualizedProducer = new ContextualizedProducer(receiver.Produce);
-      var contextualizedProcessor = new ContextualizedProcessor(new ScanForBans(), new ScanForCommands(), new ScanForModCommands());
       var sendableProducer = new SendableProducer(contextualizedProducer.Produce, contextualizedProcessor);
       var sender = new ConsoleSender(sendableProducer.Produce);
-
-      receiver.Run();
-      sender.Run();
-
       Console.ReadLine();
     }
   }

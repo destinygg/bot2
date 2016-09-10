@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
 using Bot.Models.Contracts;
-using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
-  public class ConsoleSender : ISender {
-    private readonly ISourceBlock<IReadOnlyList<ISendable>> _sendableBlock;
+  public class ConsoleSender {
 
     public ConsoleSender(ISourceBlock<IReadOnlyList<ISendable>> sendableBlock) {
-      _sendableBlock = sendableBlock;
+      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => Send(r));
+      sendableBlock.LinkTo(actionBlock);
     }
 
     //Console.WriteLine($"Sending a mute targeting {mute.Target} for {mute.Duration}");
@@ -28,9 +27,5 @@ namespace Bot.Pipeline {
       }
     }
 
-    public void Run() {
-      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => Send(r));
-      _sendableBlock.LinkTo(actionBlock);
-    }
   }
 }
