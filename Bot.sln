@@ -27,6 +27,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Pipeline.Contracts", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Database.Tests", "Bot.Database.Tests\Bot.Database.Tests.csproj", "{A2AF2DDB-AA26-4EF0-8AE5-AC673BA86BEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF0A94B1-3750-4AC8-A12A-395B1B4E4EB0}"
+	ProjectSection(SolutionItems) = preProject
+		sqlite.testsettings = sqlite.testsettings
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
