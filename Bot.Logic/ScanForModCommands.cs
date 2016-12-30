@@ -9,11 +9,12 @@ namespace Bot.Logic {
 
   public class ScanForModCommands : IScanForModCommands {
     public IEnumerable<ISendable> Scan(IMessageReceived message, IEnumerable<IPublicMessageReceived> context) {
+      context = context.ToList();
       var outbox = new List<ISendable>();
       if (!message.Sender.IsMod) return outbox;
-      if (message.Text.Contains("!sing"))
+      if (message.StartsWith("!sing"))
         outbox.Add(new PublicMessage("/me sings a song"));
-      if (message.Text.Contains("!long")) {
+      if (message.StartsWith("!long")) {
         Console.WriteLine("long begin" + context.Count(x => x.Text != ""));
         for (var i = 0; i < 1000000000; i++) {
           var temp = i;
