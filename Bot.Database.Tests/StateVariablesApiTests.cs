@@ -15,8 +15,8 @@ namespace Bot.Database.Tests {
       var expected = DateTime.UtcNow;
 
       // Act
-      api.SetOnTime(expected);
-      var actual = api.GetOnTime();
+      api.OnTime = expected;
+      var actual = api.OnTime;
 
       // Assert
       Assert.AreEqual(expected.ToUnixTime(), actual.ToUnixTime()); // Need Unix time to round; 
