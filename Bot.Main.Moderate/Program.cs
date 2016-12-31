@@ -20,8 +20,8 @@ namespace Bot.Main.Moderate {
 
       var receiver = new SampleReceivedProducer(received);
       var contextualizedProducer = new ContextualizedProducer(receiver);
-      var sendableProducer = new SendableProducer(contextualizedProducer.ContextualizedBlock, contextualizedProcessor);
-      var sender = new ConsoleSender(sendableProducer.SendableBlock);
+      var sendableProducer = new SendableProducer(contextualizedProducer, contextualizedProcessor);
+      var sender = new ConsoleSender(sendableProducer);
       Console.ReadLine();
     }
   }

@@ -7,11 +7,11 @@ using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
   public class SendableProducer : ISendableProducer {
-    private readonly ISourceBlock<IContextualized> _sourceBlock;
+    private readonly IContextualizedProducer _contextualizedProducer;
     private readonly IContextualizedProcessor _contextualizedProcessor;
 
-    public SendableProducer(ISourceBlock<IContextualized> sourceBlock, IContextualizedProcessor contextualizedProcessor) {
-      _sourceBlock = sourceBlock;
+    public SendableProducer(IContextualizedProducer contextualizedProducer, IContextualizedProcessor contextualizedProcessor) {
+      _contextualizedProducer = contextualizedProducer;
       _contextualizedProcessor = contextualizedProcessor;
     }
 
@@ -21,7 +21,7 @@ namespace Bot.Pipeline {
           MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
           EnsureOrdered = false
         });
-        _sourceBlock.LinkTo(transform);
+        _contextualizedProducer.ContextualizedBlock.LinkTo(transform);
         return transform;
       }
     }
