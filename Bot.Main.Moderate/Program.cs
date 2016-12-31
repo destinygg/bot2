@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using Bot.Logic;
-using Bot.Models;
-using Bot.Models.Contracts;
+using Bot.Logic.Contracts;
 using Bot.Pipeline;
+using Bot.Pipeline.Contracts;
+using SimpleInjector;
 
 namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
-      var received = new List<IReceived>() {
-        new PublicMessageReceived("!long", true),
-        new PublicMessageReceived("hi"),
-        new PublicMessageReceived("banplox"),
-        new PublicMessageReceived("!time"),
-        new PublicMessageReceived("!sing", true),
-        new PublicMessageReceived("!long", true),
-      };
-      var contextualizedProcessor = new ContextualizedProcessor(new ScanForBans(), new ScanForCommands(), new ScanForModCommands());
+      var container = new Container();
+      container.Register<IReceivedProducer, SampleReceivedProducer>();
+      container.Register<IContextualizedProducer, ContextualizedProducer>();
+      container.Register<ISendableProducer, SendableProducer>();
+      container.Register<IScanForBans, ScanForBans>();
+      container.Register<IScanForCommands, ScanForCommands>();
+      container.Register<IScanForModCommands, ScanForModCommands>();
+      container.Register<IContextualizedProcessor, ContextualizedProcessor>();
+      container.Verify();
 
-      var receiver = new SampleReceivedProducer(received);
-      var contextualizedProducer = new ContextualizedProducer(receiver);
-      var sendableProducer = new SendableProducer(contextualizedProducer, contextualizedProcessor);
-      var sender = new ConsoleSender(sendableProducer);
+      var sender = container.GetInstance<ConsoleSender>();
       Console.ReadLine();
     }
   }

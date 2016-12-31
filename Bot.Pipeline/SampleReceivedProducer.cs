@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks.Dataflow;
+using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 
@@ -8,8 +9,15 @@ namespace Bot.Pipeline {
     private readonly IEnumerable<IReceived> _received;
     private readonly BufferBlock<IReceived> _producer;
 
-    public SampleReceivedProducer(IEnumerable<IReceived> received) {
-      _received = received;
+    public SampleReceivedProducer() {
+      _received = new List<IReceived>() {
+        new PublicMessageReceived("!long", true),
+        new PublicMessageReceived("hi"),
+        new PublicMessageReceived("banplox"),
+        new PublicMessageReceived("!time"),
+        new PublicMessageReceived("!sing", true),
+        new PublicMessageReceived("!long", true),
+      };
       _producer = new BufferBlock<IReceived>();
       Run();
     }
