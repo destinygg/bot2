@@ -7,18 +7,17 @@ using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
   public class ContextualizedProducer : IContextualizedProducer {
-    private readonly ISourceBlock<IReceived> _sourceBlock;
-    private readonly Stack<IReceived> _context;
+    private readonly IReceivedProducer _receivedProducer;
+    private readonly Stack<IReceived> _context = new Stack<IReceived>();
 
-    public ContextualizedProducer(ISourceBlock<IReceived> sourceBlock) {
-      _sourceBlock = sourceBlock;
-      _context = new Stack<IReceived>();
+    public ContextualizedProducer(IReceivedProducer receivedProducer) {
+      _receivedProducer = receivedProducer;
     }
 
     public ISourceBlock<IContextualized> Produce {
       get {
         var transform = new TransformBlock<IReceived, IContextualized>(r => Transform(r));
-        _sourceBlock.LinkTo(transform);
+        _receivedProducer.Produce.LinkTo(transform);
         return transform;
       }
     }

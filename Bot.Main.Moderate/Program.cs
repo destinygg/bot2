@@ -19,7 +19,7 @@ namespace Bot.Main.Moderate {
       var contextualizedProcessor = new ContextualizedProcessor(new ScanForBans(), new ScanForCommands(), new ScanForModCommands());
 
       var receiver = new SampleReceivedProducer(received);
-      var contextualizedProducer = new ContextualizedProducer(receiver.Produce);
+      var contextualizedProducer = new ContextualizedProducer(receiver);
       var sendableProducer = new SendableProducer(contextualizedProducer.Produce, contextualizedProcessor);
       var sender = new ConsoleSender(sendableProducer.Produce);
       Console.ReadLine();
