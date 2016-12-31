@@ -20,7 +20,7 @@ namespace Bot.Pipeline {
       }
     }
 
-    public ISourceBlock<IReceived> Produce => _producer;
+    public ISourceBlock<IReceived> ReceivedBlock => _producer;
 
   }
 }

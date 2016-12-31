@@ -14,10 +14,10 @@ namespace Bot.Pipeline {
       _receivedProducer = receivedProducer;
     }
 
-    public ISourceBlock<IContextualized> Produce {
+    public ISourceBlock<IContextualized> ContextualizedBlock {
       get {
         var transform = new TransformBlock<IReceived, IContextualized>(r => Transform(r));
-        _receivedProducer.Produce.LinkTo(transform);
+        _receivedProducer.ReceivedBlock.LinkTo(transform);
         return transform;
       }
     }

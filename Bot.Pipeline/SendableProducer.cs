@@ -15,7 +15,7 @@ namespace Bot.Pipeline {
       _contextualizedProcessor = contextualizedProcessor;
     }
 
-    public ISourceBlock<IReadOnlyList<ISendable>> Produce {
+    public ISourceBlock<IReadOnlyList<ISendable>> SendableBlock {
       get {
         var transform = new TransformBlock<IContextualized, IReadOnlyList<ISendable>>(r => Transform(r), new ExecutionDataflowBlockOptions {
           MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
