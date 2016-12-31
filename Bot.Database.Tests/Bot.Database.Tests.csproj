@@ -64,6 +64,14 @@
       <Project>{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}</Project>
       <Name>Bot.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
+      <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
+      <Name>Bot.Pipeline.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline\Bot.Pipeline.csproj">
+      <Project>{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}</Project>
+      <Name>Bot.Pipeline</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>

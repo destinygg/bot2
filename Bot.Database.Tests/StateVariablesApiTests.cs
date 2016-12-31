@@ -1,4 +1,5 @@
 ﻿using System;
+using Bot.Pipeline;
 using Bot.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,7 +11,8 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void GetAndSetOnTime() {
       // Arrange
-      var factory = new ApiFactory();
+      var consoleLogger = new ConsoleLogger();
+      var factory = new ApiFactory(consoleLogger);
       var api = factory.GetStateVariablesApi;
       var expected = DateTime.UtcNow;
 

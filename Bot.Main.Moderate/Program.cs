@@ -16,6 +16,7 @@ namespace Bot.Main.Moderate {
       container.Register<IScanForCommands, ScanForCommands>();
       container.Register<IScanForModCommands, ScanForModCommands>();
       container.Register<IContextualizedProcessor, ContextualizedProcessor>();
+      container.Register<ILogger, ConsoleLogger>();
       container.Verify();
 
       var sender = container.GetInstance<ConsoleSender>();
