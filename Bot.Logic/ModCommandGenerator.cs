@@ -9,7 +9,7 @@ namespace Bot.Logic {
 
   public class ModCommandGenerator : IModCommandGenerator {
 
-    public IReadOnlyList<ISendable> Scan(IContextualized contextualized) {
+    public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
       var context = contextualized.Context;
       var message = contextualized.First as IPublicMessageReceived;

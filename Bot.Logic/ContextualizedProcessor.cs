@@ -21,12 +21,12 @@ namespace Bot.Logic {
       if (message != null) {
         Console.WriteLine(message.Text);
         if (message.FromMod) {
-          outbox.AddRange(_modCommandGenerator.Scan(contextualized));
-          outbox.AddRange(_commandGenerator.Scan(contextualized));
+          outbox.AddRange(_modCommandGenerator.Generate(contextualized));
+          outbox.AddRange(_commandGenerator.Generate(contextualized));
         } else if (message is IPublicMessageReceived) {
-          outbox.AddRange(_banGenerator.Scan(contextualized));
+          outbox.AddRange(_banGenerator.Generate(contextualized));
           if (outbox.Count == 0) {
-            outbox.AddRange(_commandGenerator.Scan(contextualized));
+            outbox.AddRange(_commandGenerator.Generate(contextualized));
           }
         }
       }

@@ -7,7 +7,7 @@ using Bot.Models.Contracts;
 namespace Bot.Logic {
   public class CommandGenerator : ICommandGenerator {
 
-    public IReadOnlyList<ISendable> Scan(IContextualized contextualized) {
+    public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
       var message = contextualized.First as IPublicMessageReceived;
       if (message != null) {
