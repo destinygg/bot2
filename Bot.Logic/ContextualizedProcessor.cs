@@ -5,13 +5,13 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic {
   public class ContextualizedProcessor : IContextualizedProcessor {
-    private readonly IScanForBans _banScanner;
-    private readonly IScanForModCommands _modCommandScanner;
-    private readonly IScanForCommands _commandScanner;
+    private readonly IBanGenerator _banScanner;
+    private readonly IModCommandGenerator _modCommandGenerator;
+    private readonly ICommandGenerator _commandScanner;
 
-    public ContextualizedProcessor(IScanForBans banScanner, IScanForCommands commandScanner, IScanForModCommands modCommandScanner) {
+    public ContextualizedProcessor(IBanGenerator banScanner, ICommandGenerator commandScanner, IModCommandGenerator modCommandGenerator) {
       _banScanner = banScanner;
-      _modCommandScanner = modCommandScanner;
+      _modCommandGenerator = modCommandGenerator;
       _commandScanner = commandScanner;
     }
 
@@ -21,7 +21,7 @@ namespace Bot.Logic {
       if (message != null) {
         Console.WriteLine(message.Text);
         if (message.FromMod) {
-          outbox.AddRange(_modCommandScanner.Scan(contextualized));
+          outbox.AddRange(_modCommandGenerator.Scan(contextualized));
           outbox.AddRange(_commandScanner.Scan(contextualized));
         } else if (message is IPublicMessageReceived) {
           outbox.AddRange(_banScanner.Scan(contextualized));

@@ -42,9 +42,9 @@
   <ItemGroup>
     <Compile Include="IContextualizedProcessor.cs" />
     <Compile Include="IScan.cs" />
-    <Compile Include="IScanForBans.cs" />
-    <Compile Include="IScanForCommands.cs" />
-    <Compile Include="IScanForModCommands.cs" />
+    <Compile Include="IBanGenerator.cs" />
+    <Compile Include="ICommandGenerator.cs" />
+    <Compile Include="IModCommandGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

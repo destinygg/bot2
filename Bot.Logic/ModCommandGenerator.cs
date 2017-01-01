@@ -7,7 +7,7 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic {
 
-  public class ScanForModCommands : IScanForModCommands {
+  public class ModCommandGenerator : IModCommandGenerator {
 
     public IReadOnlyList<ISendable> Scan(IContextualized contextualized) {
       var outbox = new List<ISendable>();

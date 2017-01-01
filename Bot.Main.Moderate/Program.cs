@@ -12,9 +12,9 @@ namespace Bot.Main.Moderate {
       container.Register<IReceivedProducer, SampleReceivedProducer>();
       container.Register<IContextualizedProducer, ContextualizedProducer>();
       container.Register<ISendableProducer, SendableProducer>();
-      container.Register<IScanForBans, ScanForBans>();
-      container.Register<IScanForCommands, ScanForCommands>();
-      container.Register<IScanForModCommands, ScanForModCommands>();
+      container.Register<IBanGenerator, BanGenerator>();
+      container.Register<ICommandGenerator, CommandGenerator>();
+      container.Register<IModCommandGenerator, ModCommandGenerator>();
       container.Register<IContextualizedProcessor, ContextualizedProcessor>();
       container.Register<ILogger, ConsoleLogger>();
       container.Register<ISender, ConsoleSender>();
