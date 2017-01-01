@@ -26,7 +26,7 @@ namespace Bot.Pipeline {
       }
     }
     private IReadOnlyList<ISendable> Transform(IContextualized contextualized) {
-      return _sendableGenerator.Process(contextualized);
+      return _sendableGenerator.Generate(contextualized);
     }
   }
 }

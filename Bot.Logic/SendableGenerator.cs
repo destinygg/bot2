@@ -15,7 +15,7 @@ namespace Bot.Logic {
       _commandGenerator = commandGenerator;
     }
 
-    public IReadOnlyList<ISendable> Process(IContextualized contextualized) {
+    public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
       var message = contextualized.First as IMessageReceived;
       if (message != null) {
