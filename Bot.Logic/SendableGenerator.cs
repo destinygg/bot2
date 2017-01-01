@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
+using Bot.Pipeline.Contracts;
 
 namespace Bot.Logic {
   public class SendableGenerator : ISendableGenerator {
-    private readonly IBanGenerator _banGenerator;
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
+    private readonly IBanGenerator _banGenerator;
+    private readonly ILogger _logger;
 
-    public SendableGenerator(IBanGenerator banGenerator, ICommandGenerator commandGenerator, IModCommandGenerator modCommandGenerator) {
+    public SendableGenerator(IBanGenerator banGenerator, ICommandGenerator commandGenerator, IModCommandGenerator modCommandGenerator, ILogger logger) {
       _banGenerator = banGenerator;
       _modCommandGenerator = modCommandGenerator;
+      _logger = logger;
       _commandGenerator = commandGenerator;
     }
 
@@ -19,7 +22,7 @@ namespace Bot.Logic {
       var outbox = new List<ISendable>();
       var message = contextualized.First as IMessageReceived;
       if (message != null) {
-        Console.WriteLine(message.Text);
+        _logger.LogVerbose(message.Text);
         if (message.FromMod) {
           outbox.AddRange(_modCommandGenerator.Generate(contextualized));
           outbox.AddRange(_commandGenerator.Generate(contextualized));

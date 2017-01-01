@@ -14,5 +14,9 @@ namespace Bot.Pipeline {
     public void LogInformation(string information) {
       Console.WriteLine(information);
     }
+
+    public void LogVerbose(string verbose) {
+      Console.WriteLine(verbose);
+    }
   }
 }

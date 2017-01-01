@@ -4,10 +4,16 @@ using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
+using Bot.Pipeline.Contracts;
 
 namespace Bot.Logic {
 
   public class ModCommandGenerator : IModCommandGenerator {
+    private readonly ILogger _logger;
+
+    public ModCommandGenerator(ILogger logger) {
+      _logger = logger;
+    }
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
@@ -18,23 +24,23 @@ namespace Bot.Logic {
         if (message.StartsWith("!sing"))
           outbox.Add(new PublicMessage("/me sings a song"));
         if (message.StartsWith("!long")) {
-          Console.WriteLine("long begin" + context.Count());
+          _logger.LogInformation("long begin" + context.Count());
           for (var i = 0; i < 1000000000; i++) {
             var temp = i;
           }
-          Console.WriteLine("1");
+          _logger.LogInformation("1");
           for (var i = 0; i < 1000000000; i++) {
             var temp = i;
           }
-          Console.WriteLine("2");
+          _logger.LogInformation("2");
           for (var i = 0; i < 1000000000; i++) {
             var temp = i;
           }
-          Console.WriteLine("3");
+          _logger.LogInformation("3");
           for (var i = 0; i < 1000000000; i++) {
             var temp = i;
           }
-          Console.WriteLine("long over" + context.Count());
+          _logger.LogInformation("long over" + context.Count());
         }
       }
       return outbox;
