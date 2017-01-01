@@ -8,7 +8,7 @@ using Bot.Pipeline.Contracts;
 namespace Bot.Pipeline {
   public class ContextualizedProducer : IContextualizedProducer {
     private readonly IReceivedProducer _receivedProducer;
-    private readonly Stack<IReceived> _context = new Stack<IReceived>();
+    private readonly Stack<IReceived> _allReceived = new Stack<IReceived>();
 
     public ContextualizedProducer(IReceivedProducer receivedProducer) {
       _receivedProducer = receivedProducer;
@@ -23,8 +23,8 @@ namespace Bot.Pipeline {
     }
 
     private IContextualized Transform(IReceived first) {
-      _context.Push(first);
-      return new Contextualized(_context.ToList()); // Creates a new List
+      _allReceived.Push(first);
+      return new Contextualized(_allReceived.ToList()); // The .ToList() creates a new instance; important!
     }
   }
 }

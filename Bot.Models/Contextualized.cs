@@ -7,11 +7,15 @@ using Bot.Models.Contracts;
 
 namespace Bot.Models {
   public class Contextualized : IContextualized {
-    public Contextualized(IReadOnlyList<IReceived> context) {
-      Context = context;
+
+    private readonly IReadOnlyList<IReceived> _allReceived;
+
+    public Contextualized(IReadOnlyList<IReceived> allReceived) {
+      _allReceived = allReceived;
     }
 
-    public IReceived First => Context.First();
-    public IReadOnlyList<IReceived> Context { get; }
+    public IReceived First => _allReceived.First();
+    public IReadOnlyList<IReceived> Context => _allReceived.Skip(1).ToList();
+
   }
 }
