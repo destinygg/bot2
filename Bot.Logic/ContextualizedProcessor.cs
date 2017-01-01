@@ -17,34 +17,23 @@ namespace Bot.Logic {
       _commandScanner = commandScanner;
     }
 
-    public IEnumerable<ISendable> Process(IPublicMessageReceived publicMessageReceived, IEnumerable<IPublicMessageReceived> context) {
+    public IReadOnlyList<ISendable> Process(IContextualized contextualized) {
       var outbox = new List<ISendable>();
-      if (publicMessageReceived.Sender.IsMod) {
-        outbox.AddRange(_modCommandScanner.Scan(publicMessageReceived, context));
-      } else {
-        outbox.AddRange(_banScanner.Scan(publicMessageReceived));
-      }
-      if (outbox.Count == 0) {
-        outbox.AddRange(_commandScanner.Scan(publicMessageReceived));
+      var message = contextualized.First as IMessageReceived;
+      if (message != null) {
+        Console.WriteLine(message.Text);
+        if (message.Sender.IsMod) {
+          outbox.AddRange(_modCommandScanner.Scan(contextualized));
+          outbox.AddRange(_commandScanner.Scan(contextualized));
+        } else if (message is IPublicMessageReceived) {
+          outbox.AddRange(_banScanner.Scan(contextualized));
+          if (outbox.Count == 0) {
+            outbox.AddRange(_commandScanner.Scan(contextualized));
+          }
+        }
       }
       return outbox;
     }
-
-    public IEnumerable<ISendable> Process(IContextualized contextualized) {
-      var context = contextualized.Context.Where(c => c is IPublicMessageReceived).Cast<IPublicMessageReceived>();
-      if (contextualized.First is IPublicMessageReceived) {
-        return Process((IPublicMessageReceived) contextualized.First, context);
-      }
-      return new List<ISendable>();
-    }
-
-    public IEnumerable<ISendable> Process(IPrivateMessageReceived privateMessageReceived, IEnumerable<IPublicMessageReceived> context) {
-      var outbox = new List<ISendable>();
-      if (privateMessageReceived.Sender.IsMod)
-        outbox.AddRange(_modCommandScanner.Scan(privateMessageReceived, context));
-      return outbox;
-    }
-
 
   }
 }

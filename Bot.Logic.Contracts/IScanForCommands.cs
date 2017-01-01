@@ -3,6 +3,6 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
   public interface IScanForCommands {
-    IEnumerable<ISendable> Scan(IPublicMessageReceived message);
+    IReadOnlyList<ISendable> Scan(IContextualized contextualized);
   }
 }

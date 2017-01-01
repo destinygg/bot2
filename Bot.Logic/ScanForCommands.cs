@@ -6,10 +6,15 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic {
   public class ScanForCommands : IScanForCommands {
-    public IEnumerable<ISendable> Scan(IPublicMessageReceived message) {
+
+    public IReadOnlyList<ISendable> Scan(IContextualized contextualized) {
       var outbox = new List<ISendable>();
-      if (message.Text.Contains("!time"))
-        outbox.Add(new PublicMessage(DateTime.Now.ToShortTimeString()));
+      var message = contextualized.First as IPublicMessageReceived;
+      if (message != null) {
+        if (message.StartsWith("!time")) {
+          outbox.Add(new PublicMessage(DateTime.Now.ToShortTimeString()));
+        }
+      }
       return outbox;
     }
   }
