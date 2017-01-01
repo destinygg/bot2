@@ -10,7 +10,7 @@ namespace Bot.Pipeline {
     private readonly BufferBlock<IReceived> _producer;
 
     public SampleReceivedProducer() {
-      _received = new List<IReceived>() {
+      _received = new List<IReceived> {
         new PublicMessageReceived("!long", true),
         new PublicMessageReceived("hi"),
         new PublicMessageReceived("banplox"),

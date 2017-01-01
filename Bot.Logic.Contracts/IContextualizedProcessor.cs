@@ -1,6 +1,5 @@
-﻿using Bot.Models.Contracts;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
   public interface IContextualizedProcessor {
