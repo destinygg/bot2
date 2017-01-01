@@ -4,12 +4,12 @@ using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
 
 namespace Bot.Logic {
-  public class ContextualizedProcessor : IContextualizedProcessor {
+  public class SendableGenerator : ISendableGenerator {
     private readonly IBanGenerator _banGenerator;
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
-    public ContextualizedProcessor(IBanGenerator banGenerator, ICommandGenerator commandGenerator, IModCommandGenerator modCommandGenerator) {
+    public SendableGenerator(IBanGenerator banGenerator, ICommandGenerator commandGenerator, IModCommandGenerator modCommandGenerator) {
       _banGenerator = banGenerator;
       _modCommandGenerator = modCommandGenerator;
       _commandGenerator = commandGenerator;

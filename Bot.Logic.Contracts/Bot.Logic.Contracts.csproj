@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IContextualizedProcessor.cs" />
+    <Compile Include="ISendableGenerator.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="IBanGenerator.cs" />
     <Compile Include="ICommandGenerator.cs" />

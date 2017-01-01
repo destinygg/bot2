@@ -2,7 +2,7 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
-  public interface IContextualizedProcessor {
+  public interface ISendableGenerator {
     IReadOnlyList<ISendable> Process(IContextualized contextualized);
   }
 }

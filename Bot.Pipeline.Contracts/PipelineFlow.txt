@@ -1,5 +1,5 @@
 ﻿ReceivedProducer -> ContextualizedProducer -> SendableProducer -> Sender
                                              ∧
-                             ModCommandLogic ||
-                                CommandLogic ||
-                                    BanLogic ||
+     ModCommandGenerator \                   ||
+        CommandGenerator  > SendableGenerator||
+            BanGenerator /

@@ -15,7 +15,7 @@ namespace Bot.Main.Moderate {
       container.Register<IBanGenerator, BanGenerator>();
       container.Register<ICommandGenerator, CommandGenerator>();
       container.Register<IModCommandGenerator, ModCommandGenerator>();
-      container.Register<IContextualizedProcessor, ContextualizedProcessor>();
+      container.Register<ISendableGenerator, SendableGenerator>();
       container.Register<ILogger, ConsoleLogger>();
       container.Register<ISender, ConsoleSender>();
       container.Verify();

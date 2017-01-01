@@ -8,11 +8,11 @@ using Bot.Pipeline.Contracts;
 namespace Bot.Pipeline {
   public class SendableProducer : ISendableProducer {
     private readonly IContextualizedProducer _contextualizedProducer;
-    private readonly IContextualizedProcessor _contextualizedProcessor;
+    private readonly ISendableGenerator _sendableGenerator;
 
-    public SendableProducer(IContextualizedProducer contextualizedProducer, IContextualizedProcessor contextualizedProcessor) {
+    public SendableProducer(IContextualizedProducer contextualizedProducer, ISendableGenerator sendableGenerator) {
       _contextualizedProducer = contextualizedProducer;
-      _contextualizedProcessor = contextualizedProcessor;
+      _sendableGenerator = sendableGenerator;
     }
 
     public ISourceBlock<IReadOnlyList<ISendable>> SendableBlock {
@@ -26,7 +26,7 @@ namespace Bot.Pipeline {
       }
     }
     private IReadOnlyList<ISendable> Transform(IContextualized contextualized) {
-      return _contextualizedProcessor.Process(contextualized);
+      return _sendableGenerator.Process(contextualized);
     }
   }
 }
