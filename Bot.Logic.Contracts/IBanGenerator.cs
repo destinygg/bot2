@@ -1,5 +1,5 @@
 ﻿namespace Bot.Logic.Contracts {
-  public interface IScanForBans : IScan {
-
+  public interface IBanGenerator : IGenerator {
+    
   }
 }

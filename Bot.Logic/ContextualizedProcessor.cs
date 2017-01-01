@@ -5,14 +5,14 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic {
   public class ContextualizedProcessor : IContextualizedProcessor {
-    private readonly IBanGenerator _banScanner;
+    private readonly IBanGenerator _banGenerator;
     private readonly IModCommandGenerator _modCommandGenerator;
-    private readonly ICommandGenerator _commandScanner;
+    private readonly ICommandGenerator _commandGenerator;
 
-    public ContextualizedProcessor(IBanGenerator banScanner, ICommandGenerator commandScanner, IModCommandGenerator modCommandGenerator) {
-      _banScanner = banScanner;
+    public ContextualizedProcessor(IBanGenerator banGenerator, ICommandGenerator commandGenerator, IModCommandGenerator modCommandGenerator) {
+      _banGenerator = banGenerator;
       _modCommandGenerator = modCommandGenerator;
-      _commandScanner = commandScanner;
+      _commandGenerator = commandGenerator;
     }
 
     public IReadOnlyList<ISendable> Process(IContextualized contextualized) {
@@ -22,11 +22,11 @@ namespace Bot.Logic {
         Console.WriteLine(message.Text);
         if (message.FromMod) {
           outbox.AddRange(_modCommandGenerator.Scan(contextualized));
-          outbox.AddRange(_commandScanner.Scan(contextualized));
+          outbox.AddRange(_commandGenerator.Scan(contextualized));
         } else if (message is IPublicMessageReceived) {
-          outbox.AddRange(_banScanner.Scan(contextualized));
+          outbox.AddRange(_banGenerator.Scan(contextualized));
           if (outbox.Count == 0) {
-            outbox.AddRange(_commandScanner.Scan(contextualized));
+            outbox.AddRange(_commandGenerator.Scan(contextualized));
           }
         }
       }

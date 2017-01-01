@@ -1,5 +1,5 @@
 ﻿namespace Bot.Logic.Contracts {
-  public interface IScanForModCommands : IScan {
-
+  public interface IModCommandGenerator : IGenerator {
+    
   }
 }

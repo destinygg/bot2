@@ -2,7 +2,7 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Logic.Contracts {
-  public interface IScan {
+  public interface IGenerator {
     IReadOnlyList<ISendable> Scan(IContextualized contextualized);
   }
 }
