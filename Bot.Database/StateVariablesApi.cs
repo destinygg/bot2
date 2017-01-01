@@ -1,10 +1,11 @@
 ﻿using System;
+using Bot.Database.Contracts;
 using Bot.Database.Models;
 using Bot.Pipeline.Contracts;
 using Bot.Tools;
 
 namespace Bot.Database {
-  public class StateVariablesApi : DbApi {
+  public class StateVariablesApi : DbApi, IStateVariablesApi {
     private readonly ILogger _logger;
 
     public StateVariablesApi(ILogger logger) {

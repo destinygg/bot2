@@ -60,6 +60,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Contracts\Bot.Database.Contracts.csproj">
+      <Project>{78952539-F2BB-4DCD-8457-EFE0F58FBD69}</Project>
+      <Name>Bot.Database.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
       <Project>{2BB43866-1CC5-46DE-9370-F11F6D3F4DFC}</Project>
       <Name>Bot.Database</Name>

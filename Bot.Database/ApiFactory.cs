@@ -1,13 +1,14 @@
-﻿using Bot.Pipeline.Contracts;
+﻿using Bot.Database.Contracts;
+using Bot.Pipeline.Contracts;
 
 namespace Bot.Database {
-  public class ApiFactory {
+  public class ApiFactory : IApiFactory {
     private readonly ILogger _logger;
 
     public ApiFactory(ILogger logger) {
       _logger = logger;
     }
 
-    public StateVariablesApi GetStateVariablesApi => new StateVariablesApi(_logger);
+    public IStateVariablesApi GetStateVariablesApi => new StateVariablesApi(_logger);
   }
 }

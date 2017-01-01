@@ -63,6 +63,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Contracts\Bot.Database.Contracts.csproj">
+      <Project>{78952539-F2BB-4DCD-8457-EFE0F58FBD69}</Project>
+      <Name>Bot.Database.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
       <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
       <Name>Bot.Pipeline.Contracts</Name>
