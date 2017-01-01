@@ -48,6 +48,7 @@
     <Compile Include="ILogger.cs" />
     <Compile Include="ISendableProducer.cs" />
     <Compile Include="IReceivedProducer.cs" />
+    <Compile Include="ISender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PipelineFlow.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

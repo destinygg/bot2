@@ -17,9 +17,12 @@ namespace Bot.Main.Moderate {
       container.Register<IScanForModCommands, ScanForModCommands>();
       container.Register<IContextualizedProcessor, ContextualizedProcessor>();
       container.Register<ILogger, ConsoleLogger>();
+      container.Register<ISender, ConsoleSender>();
       container.Verify();
 
-      var sender = container.GetInstance<ConsoleSender>();
+      var sender = container.GetInstance<ISender>();
+      var sendableProducer = container.GetInstance<ISendableProducer>();
+      sender.Send(sendableProducer);
       Console.ReadLine();
     }
   }

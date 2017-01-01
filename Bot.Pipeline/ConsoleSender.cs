@@ -5,12 +5,7 @@ using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
-  public class ConsoleSender {
-
-    public ConsoleSender(ISendableProducer sendableProducer) {
-      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => Send(r));
-      sendableProducer.SendableBlock.LinkTo(actionBlock);
-    }
+  public class ConsoleSender : ISender {
 
     //Console.WriteLine($"Sending a mute targeting {mute.Target} for {mute.Duration}");
 
@@ -22,7 +17,12 @@ namespace Bot.Pipeline {
 
     //Console.WriteLine($"Sending a broadcast saying: {broadcast.Text}");
 
-    private void Send(IReadOnlyList<ISendable> sendables) {
+    public void Send(ISendableProducer sendableProducer) {
+      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => Send(r));
+      sendableProducer.SendableBlock.LinkTo(actionBlock);
+    }
+
+    private void Send(IEnumerable<ISendable> sendables) {
       foreach (var sendable in sendables) {
         Console.WriteLine(sendable.ConsolePrint);
       }
