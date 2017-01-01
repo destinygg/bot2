@@ -24,6 +24,6 @@ namespace Bot.Models {
     // To ensure thread safety, this object should remain readonly.
     public DateTime Timestamp { get; }
     public IUser Sender { get; }
-
+    public bool FromMod => Sender.IsMod;
   }
 }

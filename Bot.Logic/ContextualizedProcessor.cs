@@ -22,7 +22,7 @@ namespace Bot.Logic {
       var message = contextualized.First as IMessageReceived;
       if (message != null) {
         Console.WriteLine(message.Text);
-        if (message.Sender.IsMod) {
+        if (message.FromMod) {
           outbox.AddRange(_modCommandScanner.Scan(contextualized));
           outbox.AddRange(_commandScanner.Scan(contextualized));
         } else if (message is IPublicMessageReceived) {

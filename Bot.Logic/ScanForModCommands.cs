@@ -14,7 +14,7 @@ namespace Bot.Logic {
       var context = contextualized.Context;
       var message = contextualized.First as IPublicMessageReceived;
       if (message != null) {
-        if (!message.Sender.IsMod) return outbox;
+        if (!message.FromMod) return outbox;
         if (message.StartsWith("!sing"))
           outbox.Add(new PublicMessage("/me sings a song"));
         if (message.StartsWith("!long")) {
