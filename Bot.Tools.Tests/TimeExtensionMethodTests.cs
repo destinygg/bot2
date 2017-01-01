@@ -1,5 +1,4 @@
 ﻿using System;
-using Bot.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Tools.Tests {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks.Dataflow;
 using Bot.Logic.Contracts;
 using Bot.Models.Contracts;
@@ -25,8 +24,6 @@ namespace Bot.Pipeline {
         return transform;
       }
     }
-    private IReadOnlyList<ISendable> Transform(IContextualized contextualized) {
-      return _sendableGenerator.Generate(contextualized);
-    }
+    private IReadOnlyList<ISendable> Transform(IContextualized contextualized) => _sendableGenerator.Generate(contextualized);
   }
 }
