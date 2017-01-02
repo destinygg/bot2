@@ -19,6 +19,7 @@ namespace Bot.Main.Moderate {
       container.Register<ILogger, ConsoleLogger>();
       container.Register<ISender, ConsoleSender>();
       container.Register<IModCommands, ModCommands>();
+      container.Register<IModRegex, ModRegex>(Lifestyle.Singleton);
       container.Verify();
 
       var sender = container.GetInstance<ISender>();

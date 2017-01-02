@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IModCommands.cs" />
+    <Compile Include="IModRegex.cs" />
     <Compile Include="ISendableGenerator.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="IBanGenerator.cs" />
