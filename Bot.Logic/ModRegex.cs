@@ -8,8 +8,8 @@ namespace Bot.Logic {
 
     public Regex Sing => _compiledIgnoreCase(@"^!sing.*");
     public Regex Dance => _compiledIgnoreCase(@"^!dance.*");
-    public Regex Stalk => _compiledIgnoreCase(@"^!stalk (.+)");
 
+    public Regex Stalk => _compiledIgnoreCase(@"^!stalk (.+)");
     public Regex SubOnly => _compiledIgnoreCase(@"^!(?:sub.*) (on|off)$");
 
     public Regex AddCommand => _compiledIgnoreCase(@"^!addcommand !(\S+) (.+)");

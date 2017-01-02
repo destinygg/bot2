@@ -5,8 +5,8 @@ namespace Bot.Logic.Contracts {
   public interface IModRegex {
     Regex Sing { get; }
     Regex Dance { get; }
-    Regex Stalk { get; }
 
+    Regex Stalk { get; }
     Regex SubOnly { get; }
 
     Regex AddCommand { get; }
