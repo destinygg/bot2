@@ -1,49 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
-using Bot.Models;
 using Bot.Models.Contracts;
-using Bot.Pipeline.Contracts;
+using Bot.Tools;
 
 namespace Bot.Logic {
 
   public class ModCommandGenerator : IModCommandGenerator {
-    private readonly ILogger _logger;
+    private readonly IModCommands _modCommands;
 
-    public ModCommandGenerator(ILogger logger) {
-      _logger = logger;
+    public ModCommandGenerator(IModCommands modCommands) {
+      _modCommands = modCommands;
     }
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
-      var outbox = new List<ISendable>();
       var context = contextualized.Context;
       var message = contextualized.First as IPublicMessageReceived;
       if (message != null) {
-        if (!message.FromMod) return outbox;
         if (message.StartsWith("!sing"))
-          outbox.Add(new PublicMessage("/me sings a song"));
-        if (message.StartsWith("!long")) {
-          _logger.LogInformation("long begin" + context.Count());
-          for (var i = 0; i < 1000000000; i++) {
-            var temp = i;
-          }
-          _logger.LogInformation("1");
-          for (var i = 0; i < 1000000000; i++) {
-            var temp = i;
-          }
-          _logger.LogInformation("2");
-          for (var i = 0; i < 1000000000; i++) {
-            var temp = i;
-          }
-          _logger.LogInformation("3");
-          for (var i = 0; i < 1000000000; i++) {
-            var temp = i;
-          }
-          _logger.LogInformation("long over" + context.Count());
-        }
+          return _modCommands.Sing().Wrap().ToList();
+        if (message.StartsWith("!long"))
+          return _modCommands.Long(context).Wrap().ToList();
       }
-      return outbox;
+      return new List<ISendable>();
     }
+
   }
 }

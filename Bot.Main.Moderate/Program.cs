@@ -18,6 +18,7 @@ namespace Bot.Main.Moderate {
       container.Register<ISendableGenerator, SendableGenerator>();
       container.Register<ILogger, ConsoleLogger>();
       container.Register<ISender, ConsoleSender>();
+      container.Register<IModCommands, ModCommands>();
       container.Verify();
 
       var sender = container.GetInstance<ISender>();
