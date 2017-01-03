@@ -20,6 +20,7 @@ namespace Bot.Main.Moderate {
       container.Register<ISender, ConsoleSender>();
       container.Register<IModCommands, ModCommands>();
       container.Register<IModRegex, ModRegex>(Lifestyle.Singleton);
+      container.Register<IModCommandParser, ModCommandParser>();
       container.Verify();
 
       var sender = container.GetInstance<ISender>();
