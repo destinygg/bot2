@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Bot.Logic.Contracts;
 
 namespace Bot.Logic {
-  public class ModRegex : IModRegex {
+  public class ModCommandRegex : IModCommandRegex {
 
     public Regex Sing => _compiledIgnoreCase(@"^!sing.*");
     public Regex Dance => _compiledIgnoreCase(@"^!dance.*");

@@ -6,37 +6,37 @@ using Bot.Pipeline.Contracts;
 
 namespace Bot.Logic {
   public class ModCommandParser : IModCommandParser {
-    private readonly IModRegex _modRegex;
+    private readonly IModCommandRegex _modCommandRegex;
     private readonly ILogger _logger;
 
-    public ModCommandParser(IModRegex modRegex, ILogger logger) {
-      _modRegex = modRegex;
+    public ModCommandParser(IModCommandRegex modCommandRegex, ILogger logger) {
+      _modCommandRegex = modCommandRegex;
       _logger = logger;
     }
 
-    public string Stalk(string input) => _firstGroup(_modRegex.Stalk, input);
-    public bool SubOnly(string input) => _firstGroup(_modRegex.SubOnly, input) == "on";
+    public string Stalk(string input) => _firstGroup(_modCommandRegex.Stalk, input);
+    public bool SubOnly(string input) => _firstGroup(_modCommandRegex.SubOnly, input) == "on";
 
-    public Tuple<string, string> AddCommand(string input) => _stringStringGroupsToTuple(_modRegex.Mute, input);
-    public string DelCommand(string input) => _firstGroup(_modRegex.DelCommand, input);
+    public Tuple<string, string> AddCommand(string input) => _stringStringGroupsToTuple(_modCommandRegex.Mute, input);
+    public string DelCommand(string input) => _firstGroup(_modCommandRegex.DelCommand, input);
 
-    public Tuple<string, TimeSpan> AddMute(string input) => _numberUnitStringGroupsToTuple(_modRegex.Mute, input);
-    public Tuple<string, TimeSpan> AddBan(string input) => _numberUnitStringGroupsToTuple(_modRegex.AddBan, input);
-    public Tuple<string, TimeSpan> AddMuteRegex(string input) => _numberUnitStringGroupsToTuple(_modRegex.Mute, input);
-    public Tuple<string, TimeSpan> AddBanRegex(string input) => _numberUnitStringGroupsToTuple(_modRegex.Mute, input);
+    public Tuple<string, TimeSpan> AddMute(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Mute, input);
+    public Tuple<string, TimeSpan> AddBan(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.AddBan, input);
+    public Tuple<string, TimeSpan> AddMuteRegex(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Mute, input);
+    public Tuple<string, TimeSpan> AddBanRegex(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Mute, input);
 
-    public string DelMute(string input) => _firstGroup(_modRegex.DelMute, input);
-    public string DelBan(string input) => _firstGroup(_modRegex.DelBan, input);
-    public string DelMuteRegex(string input) => _firstGroup(_modRegex.DelMuteRegex, input);
-    public string DelBanRegex(string input) => _firstGroup(_modRegex.DelBanRegex, input);
+    public string DelMute(string input) => _firstGroup(_modCommandRegex.DelMute, input);
+    public string DelBan(string input) => _firstGroup(_modCommandRegex.DelBan, input);
+    public string DelMuteRegex(string input) => _firstGroup(_modCommandRegex.DelMuteRegex, input);
+    public string DelBanRegex(string input) => _firstGroup(_modCommandRegex.DelBanRegex, input);
 
-    public Tuple<string, TimeSpan> Mute(string input) => _numberUnitStringGroupsToTuple(_modRegex.Mute, input);
-    public Tuple<string, TimeSpan> Ban(string input) => _numberUnitStringGroupsToTuple(_modRegex.Ban, input);
-    public Tuple<string, TimeSpan> Ipban(string input) => _numberUnitStringGroupsToTuple(_modRegex.Ipban, input);
-    public string UnMuteBan(string input) => _firstGroup(_modRegex.UnMuteBan, input);
+    public Tuple<string, TimeSpan> Mute(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Mute, input);
+    public Tuple<string, TimeSpan> Ban(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Ban, input);
+    public Tuple<string, TimeSpan> Ipban(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Ipban, input);
+    public string UnMuteBan(string input) => _firstGroup(_modCommandRegex.UnMuteBan, input);
 
-    public Tuple<string, TimeSpan> Nuke(string input) => _numberUnitStringGroupsToTuple(_modRegex.Nuke, input);
-    public Tuple<string, TimeSpan> RegexNuke(string input) => _numberUnitStringGroupsToTuple(_modRegex.RegexNuke, input);
+    public Tuple<string, TimeSpan> Nuke(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Nuke, input);
+    public Tuple<string, TimeSpan> RegexNuke(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.RegexNuke, input);
 
     private string _firstGroup(Regex regex, string input) => regex.Match(input).Groups[1].Value;
 
@@ -63,19 +63,19 @@ namespace Bot.Logic {
         i = int.MaxValue;
       }
 
-      if (_modRegex.Seconds.Any(x => x == s)) {
+      if (_modCommandRegex.Seconds.Any(x => x == s)) {
         return TimeSpan.FromSeconds(i);
       }
-      if (_modRegex.Minutes.Any(x => x == s)) {
+      if (_modCommandRegex.Minutes.Any(x => x == s)) {
         return TimeSpan.FromMinutes(i);
       }
-      if (_modRegex.Hours.Any(x => x == s)) {
+      if (_modCommandRegex.Hours.Any(x => x == s)) {
         return TimeSpan.FromHours(i);
       }
-      if (_modRegex.Days.Any(x => x == s)) {
+      if (_modCommandRegex.Days.Any(x => x == s)) {
         return TimeSpan.FromDays(i);
       }
-      if (_modRegex.Perm.Any(x => x == s)) {
+      if (_modCommandRegex.Perm.Any(x => x == s)) {
         return TimeSpan.Zero;
       }
       if (s == "") {

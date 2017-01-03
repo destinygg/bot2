@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 namespace Bot.Logic.Contracts {
-  public interface IModRegex {
+  public interface IModCommandRegex {
     Regex Sing { get; }
     Regex Dance { get; }
 

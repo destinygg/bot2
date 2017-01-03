@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="ModCommands.cs" />
     <Compile Include="ModCommandParser.cs" />
-    <Compile Include="ModRegex.cs" />
+    <Compile Include="ModCommandRegex.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />

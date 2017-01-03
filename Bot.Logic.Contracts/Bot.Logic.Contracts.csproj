@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="IModCommands.cs" />
     <Compile Include="IModCommandParser.cs" />
-    <Compile Include="IModRegex.cs" />
+    <Compile Include="IModCommandRegex.cs" />
     <Compile Include="ISendableGenerator.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="IBanGenerator.cs" />
