@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IModCommands.cs" />
+    <Compile Include="IModCommandLogic.cs" />
     <Compile Include="IModCommandParser.cs" />
     <Compile Include="IModCommandRegex.cs" />
     <Compile Include="ISendableGenerator.cs" />

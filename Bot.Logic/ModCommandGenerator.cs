@@ -7,10 +7,10 @@ using Bot.Tools;
 namespace Bot.Logic {
 
   public class ModCommandGenerator : IModCommandGenerator {
-    private readonly IModCommands _modCommands;
+    private readonly IModCommandLogic _modCommandLogic;
 
-    public ModCommandGenerator(IModCommands modCommands) {
-      _modCommands = modCommands;
+    public ModCommandGenerator(IModCommandLogic modCommandLogic) {
+      _modCommandLogic = modCommandLogic;
     }
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
@@ -18,9 +18,9 @@ namespace Bot.Logic {
       var message = contextualized.First as IPublicMessageReceived;
       if (message != null) {
         if (message.StartsWith("!sing"))
-          return _modCommands.Sing().Wrap().ToList();
+          return _modCommandLogic.Sing().Wrap().ToList();
         if (message.StartsWith("!long"))
-          return _modCommands.Long(context).Wrap().ToList();
+          return _modCommandLogic.Long(context).Wrap().ToList();
       }
       return new List<ISendable>();
     }

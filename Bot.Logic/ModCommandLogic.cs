@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 
 namespace Bot.Logic {
-  public class ModCommands : IModCommands {
+  public class ModCommandLogic : IModCommandLogic {
     private readonly ILogger _logger;
 
-    public ModCommands(ILogger logger) {
+    public ModCommandLogic(ILogger logger) {
       _logger = logger;
     }
 
