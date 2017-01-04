@@ -41,8 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contextualized.cs" />
-    <Compile Include="PublicMessage.cs" />
-    <Compile Include="PublicMessageReceived.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="SendablePublicMessage.cs" />
+    <Compile Include="ReceivedPublicMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

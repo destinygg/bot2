@@ -12,7 +12,7 @@ namespace Bot.Logic {
       var message = contextualized.First as IPublicMessageReceived;
       if (message != null) {
         if (message.StartsWith("!time")) {
-          outbox.Add(new PublicMessage(DateTime.Now.ToShortTimeString()));
+          outbox.Add(new SendablePublicMessage(DateTime.Now.ToShortTimeString()));
         }
       }
       return outbox;

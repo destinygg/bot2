@@ -31,10 +31,10 @@ namespace Bot.Logic {
         var temp = i;
       }
       _logger.LogInformation($"Long running process ending, context length: {context.Count()}");
-      return new PublicMessage("This is a debug command; output appears in log.");
+      return new SendablePublicMessage("This is a debug command; output appears in log.");
     }
 
-    public ISendable Sing() => new PublicMessage("/me sings a song");
+    public ISendable Sing() => new SendablePublicMessage("/me sings a song");
 
   }
 }

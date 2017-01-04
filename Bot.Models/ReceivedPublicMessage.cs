@@ -4,19 +4,19 @@ using Bot.Models.Contracts;
 
 namespace Bot.Models {
   [DebuggerDisplay("From:{Sender.Nick} Saying:{Text}")]
-  public class PublicMessageReceived : PublicMessage, IPublicMessageReceived {
+  public class ReceivedPublicMessage : Message, IPublicMessageReceived {
 
-    public PublicMessageReceived(string text) : base(text) {
+    public ReceivedPublicMessage(string text) : base(text) {
       Sender = new User("TestUser");
       Timestamp = DateTime.UtcNow;
     }
 
-    public PublicMessageReceived(string text, bool isMod) : this(text) {
+    public ReceivedPublicMessage(string text, bool isMod) : this(text) {
       Sender = new User("TestMod", isMod);
       Timestamp = DateTime.UtcNow;
     }
 
-    public PublicMessageReceived(bool isBlank) : this("") {
+    public ReceivedPublicMessage(bool isBlank) : this("") {
       Sender = new User("");
       Timestamp = new DateTime(1970, 1, 1);
     }

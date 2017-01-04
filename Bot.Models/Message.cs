@@ -2,8 +2,8 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  public class PublicMessage : IPublicMessage {
-    public PublicMessage(string text) {
+  public abstract class Message : IMessage {
+    protected Message(string text) {
       Text = text;
     }
 
@@ -12,6 +12,5 @@ namespace Bot.Models {
     public bool StartsWith(string phrase) => Text.StartsWith(phrase);
     public bool IsMatch(Regex regex) => regex.IsMatch(Text);
     public string ConsolePrint => $"Sending a public message: {Text}";
-
   }
 }
