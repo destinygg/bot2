@@ -51,8 +51,6 @@
     <Compile Include="IMute.cs" />
     <Compile Include="IMuteReceived.cs" />
     <Compile Include="IPrivateMessage.cs" />
-    <Compile Include="IPrivateMessageReceived.cs" />
-    <Compile Include="IPublicMessage.cs" />
     <Compile Include="IPublicMessageReceived.cs" />
     <Compile Include="IPunishment.cs" />
     <Compile Include="IReceived.cs" />
