@@ -19,5 +19,10 @@ namespace Bot.Tools {
       return Convert.ToInt64((date - epoch).TotalSeconds);
     }
 
+    public static bool IsWithin(this DateTime date, TimeSpan maxDuration) {
+      var delta = date - DateTime.UtcNow;
+      return delta <= maxDuration;
+    }
+
   }
 }
