@@ -11,12 +11,12 @@ namespace Bot.Pipeline {
 
     public SampleReceivedProducer() {
       _received = new List<IReceived> {
-        new ReceivedPublicModMessage("!long"),
-        new ReceivedPublicMessage("hi"),
-        new ReceivedPublicMessage("banplox"),
-        new ReceivedPublicMessage("!time"),
-        new ReceivedPublicModMessage("!sing"),
-        new ReceivedPublicModMessage("!long"),
+        new ModPublicReceivedMessage("!long"),
+        new PublicReceivedMessage("hi"),
+        new PublicReceivedMessage("banplox"),
+        new PublicReceivedMessage("!time"),
+        new ModPublicReceivedMessage("!sing"),
+        new ModPublicReceivedMessage("!long"),
       };
       _producer = new BufferBlock<IReceived>();
       Run();
