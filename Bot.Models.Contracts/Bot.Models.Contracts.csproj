@@ -47,7 +47,6 @@
     <Compile Include="IContextualized.cs" />
     <Compile Include="IHaveTarget.cs" />
     <Compile Include="IMessage.cs" />
-    <Compile Include="IMessageReceived.cs" />
     <Compile Include="IMute.cs" />
     <Compile Include="IMuteReceived.cs" />
     <Compile Include="IPunishment.cs" />

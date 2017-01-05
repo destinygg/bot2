@@ -1,0 +1,4 @@
+﻿                                            <- ModPublicReceivedMessage
+             (IReceived) <- ReceivedMessage <-    PublicReceivedMessage
+(IMessage) <- Message 
+             (ISendable) <- SendableMessage
