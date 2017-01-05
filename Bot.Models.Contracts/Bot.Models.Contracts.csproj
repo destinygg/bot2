@@ -40,22 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBan.cs" />
-    <Compile Include="IBanReceived.cs" />
-    <Compile Include="IBroadcast.cs" />
-    <Compile Include="IBroadcastReceived.cs" />
     <Compile Include="IContextualized.cs" />
-    <Compile Include="IHaveTarget.cs" />
+    <Compile Include="ITargetable.cs" />
     <Compile Include="IMessage.cs" />
-    <Compile Include="IMute.cs" />
-    <Compile Include="IMuteReceived.cs" />
     <Compile Include="IPunishment.cs" />
     <Compile Include="IReceived.cs" />
     <Compile Include="ISendable.cs" />
     <Compile Include="ISubonly.cs" />
-    <Compile Include="ISubonlyReceived.cs" />
-    <Compile Include="IUnMuteBan.cs" />
-    <Compile Include="IUnMuteBanReceived.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

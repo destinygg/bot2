@@ -1,5 +1,5 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface ISubonly : ISendable {
+  public interface ISubonly {
     bool IsEnabled { get; }
   }
 }

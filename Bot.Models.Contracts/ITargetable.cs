@@ -1,5 +1,5 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IHaveTarget {
+  public interface ITargetable {
     IUser Target { get; }
   }
 }
