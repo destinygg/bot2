@@ -45,7 +45,7 @@
     <Compile Include="ReceivedMessage.cs" />
     <Compile Include="ModPublicReceivedMessage.cs" />
     <Compile Include="PublicReceivedMessage.cs" />
-    <Compile Include="SendablePublicMessage.cs" />
+    <Compile Include="SendableMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
