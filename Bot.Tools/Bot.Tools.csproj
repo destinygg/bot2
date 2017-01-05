@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjectExtensionMethods.cs" />
+    <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="TimeExtensionMethods.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
