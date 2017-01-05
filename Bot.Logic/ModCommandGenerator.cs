@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
+using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Tools;
 
@@ -18,7 +19,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var context = contextualized.Context;
-      var message = contextualized.First as IPublicMessageReceived;
+      var message = contextualized.First as ReceivedMessage;
       if (message != null) {
         if (message.IsMatch(_modCommandRegex.Sing))
           return _modCommandLogic.Sing().Wrap().ToList();

@@ -9,7 +9,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
-      var message = contextualized.First as IPublicMessageReceived;
+      var message = contextualized.First as ReceivedMessage;
       if (message != null) {
         if (message.StartsWith("!time")) {
           outbox.Add(new SendableMessage(DateTime.Now.ToShortTimeString()));

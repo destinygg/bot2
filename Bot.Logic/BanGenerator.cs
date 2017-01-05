@@ -8,11 +8,10 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
-      var message = contextualized.First as IPublicMessageReceived;
-      if (message != null) {
-        if (message.Text.Contains("banplox")) {
-          outbox.Add(new SendableMessage($"{message.Sender.Nick} banned for saying {message.Text}"));
-        }
+      var message = contextualized.First as ReceivedMessage;
+      if (message == null) return outbox;
+      if (message.Text.Contains("banplox")) {
+        outbox.Add(new SendableMessage($"{message.Sender.Nick} banned for saying {message.Text}"));
       }
       return outbox;
     }

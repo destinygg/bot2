@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bot.Logic.Contracts;
+using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 
@@ -20,13 +21,13 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
-      var message = contextualized.First as IMessageReceived;
+      var message = contextualized.First as ReceivedMessage;
       if (message != null) {
         _logger.LogVerbose(message.Text);
         if (message.FromMod) {
           outbox.AddRange(_modCommandGenerator.Generate(contextualized));
           outbox.AddRange(_commandGenerator.Generate(contextualized));
-        } else if (message is IPublicMessageReceived) {
+        } else if (message is PublicReceivedMessage) {
           outbox.AddRange(_banGenerator.Generate(contextualized));
           if (outbox.Count == 0) {
             outbox.AddRange(_commandGenerator.Generate(contextualized));
