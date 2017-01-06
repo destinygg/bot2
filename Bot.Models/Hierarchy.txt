@@ -1,18 +1,24 @@
 ﻿() = Interface
 [] = Abstract
 
+
+
                                             <-     PublicReceivedMessage
                                             <-    PrivateReceivedMessage
                                             <-  ModPublicReceivedMessage <- BroadcastReceivedMessage
                         <-[ReceivedMessage] <- ModPrivateReceivedMessage
 (IMessage) <- [Message]
-                        <- SendableMessage <- BroadcastSendableMessage
+                        <- SendableMessage  <-  BroadcastSendableMessage
 
 
-                             <- ReceivedUnMuteBan
-              <- [UnMuteBan] <- SendableUnMuteBan
+
+                              <- ReceivedUnMuteBan
+              <- [UnMuteBan]  <- SendableUnMuteBan
 (ITargetable) 
-              <- (IPunishment) <- [Mute] <- ReceivedMute
-                                         <- SendableMute
-                               <- [Ban]  <- ReceivedBan
-                                         <- SendableBan
+              <- [Punishment] <- [Mute] <- ReceivedMute
+                                        <- SendableMute
+                              <- [Ban]  <- ReceivedBan
+                                        <- SendableBan <- SendablePermIpBan
+                                                       <- SendablePermBan
+                                                       <- SendableIpBan
+

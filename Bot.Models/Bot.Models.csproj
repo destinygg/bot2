@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Punishment.cs" />
     <Compile Include="Contextualized.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="ReceivedMessage.cs" />

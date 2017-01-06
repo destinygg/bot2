@@ -43,7 +43,6 @@
     <Compile Include="IContextualized.cs" />
     <Compile Include="ITargetable.cs" />
     <Compile Include="IMessage.cs" />
-    <Compile Include="IPunishment.cs" />
     <Compile Include="IReceived.cs" />
     <Compile Include="ISendable.cs" />
     <Compile Include="ISubonly.cs" />
