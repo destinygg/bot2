@@ -24,7 +24,7 @@ namespace Bot.Pipeline {
 
     private void _send(IEnumerable<ISendable> sendables) {
       foreach (var sendable in sendables) {
-        Console.WriteLine(sendable.ConsolePrint);
+        Console.WriteLine(sendable);
       }
     }
 

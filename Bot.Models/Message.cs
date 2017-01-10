@@ -11,6 +11,5 @@ namespace Bot.Models {
     public string Text { get; }
     public bool StartsWith(string phrase) => Text.StartsWith(phrase);
     public bool IsMatch(Regex regex) => regex.IsMatch(Text);
-    public string ConsolePrint => $"Sending a public message: {Text}";
   }
 }
