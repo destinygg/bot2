@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bot.Pipeline.Contracts;
 
 namespace Bot.Tools {
   public static class TimeExtensionMethods {
@@ -22,6 +23,32 @@ namespace Bot.Tools {
     public static bool IsWithin(this DateTime date, TimeSpan maxDuration) {
       var delta = date - DateTime.UtcNow;
       return delta <= maxDuration;
+    }
+
+    public static string ToPretty(this TimeSpan span, ILogger logger) {
+      var day = Convert.ToInt32(span.ToString("%d"));
+      var hour = Convert.ToInt32(span.ToString("%h"));
+      var minute = Convert.ToInt32(span.ToString("%m"));
+
+      if (span.CompareTo(TimeSpan.Zero) == -1) {
+        logger.LogWarning($"Time to sync the clock?{span}");
+        return "a few seconds";
+      }
+
+      if (day > 1) {
+        if (hour == 0) return $"{day} days";
+        return $"{day} days {hour}h";
+      }
+
+      if (day == 1) {
+        if (hour == 0) return "1 day";
+        return $"1 day {hour}h";
+      }
+
+      if (hour == 0) return $"{minute}m";
+      if (minute == 0) return $"{hour}h";
+
+      return $"{hour}h {minute}m";
     }
 
   }
