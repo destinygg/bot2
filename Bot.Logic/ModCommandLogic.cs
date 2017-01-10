@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
+using Bot.Tools;
 
 namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
@@ -36,5 +38,10 @@ namespace Bot.Logic {
 
     public ISendable Sing() => new SendableMessage("/me sings a song");
 
+    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration) => context
+      .OfType<ReceivedMessage>()
+      .Where(m => m.Timestamp.IsWithin(Settings.NukeBlastRadius))
+      .Where(m => m.Text.Contains(phrase) || m.Text.SimilarTo(phrase) >= Settings.NukeMinimumStringSimilarity)
+      .Select(m => new SendableMute(m.Sender, duration)).ToList();
   }
 }

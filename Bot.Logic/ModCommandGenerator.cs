@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
@@ -25,6 +26,11 @@ namespace Bot.Logic {
           return _modCommandLogic.Sing().Wrap().ToList();
         if (message.StartsWith("!long"))
           return _modCommandLogic.Long(context).Wrap().ToList();
+        if (message.IsMatch(_modCommandRegex.Nuke)) {
+          var phrase = _modCommandParser.Nuke(message.Text).Item1;
+          var duration = _modCommandParser.Nuke(message.Text).Item2;
+          return _modCommandLogic.Nuke(context, phrase, duration);
+        }
       }
       return new List<ISendable>();
     }
