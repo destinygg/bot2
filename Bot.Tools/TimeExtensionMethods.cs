@@ -51,5 +51,16 @@ namespace Bot.Tools {
       return $"{hour}h {minute}m";
     }
 
+    /// <summary>
+    /// Multiplies a timespan by an integer value
+    /// http://stackoverflow.com/a/14285561/625919
+    /// </summary>
+    public static TimeSpan Multiply(this TimeSpan multiplicand, int multiplier) => TimeSpan.FromTicks(multiplicand.Ticks * multiplier);
+
+    /// <summary>
+    /// Multiplies a timespan by a double value
+    /// http://stackoverflow.com/a/14285561/625919
+    /// </summary>
+    public static TimeSpan Multiply(this TimeSpan multiplicand, double multiplier) => TimeSpan.FromTicks((long) (multiplicand.Ticks * multiplier));
   }
 }

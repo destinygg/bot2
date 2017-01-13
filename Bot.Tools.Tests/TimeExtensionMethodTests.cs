@@ -135,8 +135,6 @@ namespace Bot.Tools.Tests {
       }
 
       CollectionAssert.AreEqual(expectedAnswer, actualAnswer);
-
-      var s = TimeSpan.MinValue;
     }
   }
 }
