@@ -2,8 +2,6 @@
 
 namespace Bot.Models {
   public class SendableUnMuteBan : UnMuteBan, ISendable {
-    public SendableUnMuteBan(IUser user) {
-      Target = user;
-    }
+    public SendableUnMuteBan(IUser target) : base(target) { }
   }
 }
