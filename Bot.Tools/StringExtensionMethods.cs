@@ -34,6 +34,8 @@ namespace Bot.Tools {
     /// <returns></returns>
     public static double SimilarTo(this string fx, string fy) {
       const double floatingPointDifferenceTolerance = 0.0000000001;
+      fx = fx.ToLowerInvariant();
+      fy = fy.ToLowerInvariant();
       var n = fx.Length;
       var m = fy.Length;
       if (m < n) {

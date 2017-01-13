@@ -45,5 +45,18 @@ namespace Bot.Tools.Tests {
       Assert.AreEqual(0, zero);
     }
 
+    [TestMethod]
+    public void CaseInsensitive() {
+      // Arrange
+      var stringA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      var stringB = "abcdefghijklmnopqrstuvwxyz";
+
+      // Act
+      var one = stringA.SimilarTo(stringB);
+
+      // Assert
+      Assert.AreEqual(1, one);
+    }
+
   }
 }
