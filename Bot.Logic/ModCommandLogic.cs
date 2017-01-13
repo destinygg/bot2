@@ -43,19 +43,19 @@ namespace Bot.Logic {
 
     public ISendable Sing() => new SendableMessage("/me sings a song");
 
-    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration) =>
-      _getStringNukeVictims(context, phrase).Select(u => new SendableMute(u, duration)).ToList();
+    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration)
+      => _GetStringNukeVictims(context, phrase).Select(u => new SendableMute(u, duration)).ToList();
 
-    private IEnumerable<IUser> _getStringNukeVictims(IEnumerable<IReceived> context, string phrase) => context
+    private IEnumerable<IUser> _GetStringNukeVictims(IEnumerable<IReceived> context, string phrase)
+      => _GetNukeVictims(context, phrase, s => s.SimilarTo(phrase) >= Settings.NukeMinimumStringSimilarity);
+
+    private IEnumerable<IUser> _GetRegexNukeVictims(IEnumerable<IReceived> context, string phrase)
+      => _GetNukeVictims(context, phrase, s => new Regex(phrase, RegexOptions.IgnoreCase).IsMatch(s));
+
+    private IEnumerable<IUser> _GetNukeVictims(IEnumerable<IReceived> context, string phrase, Predicate<string> isMatchOrSimilar) => context
       .OfType<ReceivedMessage>()
       .Where(m => m.Timestamp.IsWithin(Settings.DefaultNukeBlastRadius) && !m.FromMod())
-      .Where(m => m.Text.Contains(phrase) || m.Text.SimilarTo(phrase) >= Settings.NukeMinimumStringSimilarity)
-      .Select(m => m.Sender).Distinct();
-
-    private IEnumerable<IUser> _getRegexNukeVictims(IEnumerable<IReceived> context, string phrase) => context
-      .OfType<ReceivedMessage>()
-      .Where(m => m.Timestamp.IsWithin(Settings.DefaultNukeBlastRadius) && !m.FromMod())
-      .Where(m => m.Text.Contains(phrase) || m.IsMatch(new Regex(phrase, RegexOptions.IgnoreCase)))
+      .Where(m => m.Text.Contains(phrase) || isMatchOrSimilar(phrase))
       .Select(m => m.Sender).Distinct();
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context) {
@@ -73,8 +73,8 @@ namespace Bot.Logic {
 
       context = context.Where(r => IsBeforeWithAegisWindow(r, firstNukeTimeStamp)).ToList();
 
-      var stringVictims = stringsToAegis.SelectMany(n => _getStringNukeVictims(context, n));
-      var regexVictims = regexesToAegis.SelectMany(n => _getRegexNukeVictims(context, n));
+      var stringVictims = stringsToAegis.SelectMany(n => _GetStringNukeVictims(context, n));
+      var regexVictims = regexesToAegis.SelectMany(n => _GetRegexNukeVictims(context, n));
 
       var allVictims = stringVictims.Concat(regexVictims).Distinct();
       var alreadyUnMuteBanned = context.OfType<ReceivedUnMuteBan>().Select(umb => umb.Target);
