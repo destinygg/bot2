@@ -49,12 +49,12 @@ namespace Bot.Logic {
     private IEnumerable<IUser> _GetStringNukeVictims(IEnumerable<IReceived> context, string phrase)
       => _GetNukeVictims(context, phrase, s => s.SimilarTo(phrase) >= Settings.NukeMinimumStringSimilarity);
 
-    private IEnumerable<IUser> _GetRegexNukeVictims(IEnumerable<IReceived> context, string phrase)
-      => _GetNukeVictims(context, phrase, s => new Regex(phrase, RegexOptions.IgnoreCase).IsMatch(s));
+    private IEnumerable<IUser> _GetRegexNukeVictims(IEnumerable<IReceived> context, string regex)
+      => _GetNukeVictims(context, regex, s => new Regex(regex, RegexOptions.IgnoreCase).IsMatch(s));
 
     private IEnumerable<IUser> _GetNukeVictims(IEnumerable<IReceived> context, string phrase, Predicate<string> isMatchOrSimilar) => context
       .OfType<ReceivedMessage>()
-      .Where(m => m.Timestamp.IsWithin(Settings.DefaultNukeBlastRadius) && !m.FromMod())
+      .Where(m => m.Timestamp.IsWithin(Settings.NukeBlastRadius) && !m.FromMod())
       .Where(m => m.Text.Contains(phrase, StringComparison.InvariantCultureIgnoreCase) || isMatchOrSimilar(m.Text))
       .Select(m => m.Sender).Distinct();
 
@@ -74,8 +74,9 @@ namespace Bot.Logic {
       context = context.Where(r => IsBeforeWithAegisWindow(r, firstNukeTimeStamp)).ToList();
 
       var stringVictims = stringsToAegis.SelectMany(n => _GetStringNukeVictims(context, n));
-      var regexVictims = regexesToAegis.SelectMany(n => _GetRegexNukeVictims(context, n));
+      var regexVictims = regexesToAegis.SelectMany(r => _GetRegexNukeVictims(context, r));
 
+      //TODO consider checking if these are actual victims?
       var allVictims = stringVictims.Concat(regexVictims).Distinct();
       var alreadyUnMuteBanned = context.OfType<ReceivedUnMuteBan>().Select(umb => umb.Target);
       return allVictims.Except(alreadyUnMuteBanned).Select(v => new SendableUnMuteBan(v)).ToList();
