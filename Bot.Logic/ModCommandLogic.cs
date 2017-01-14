@@ -55,7 +55,7 @@ namespace Bot.Logic {
     private IEnumerable<IUser> _GetNukeVictims(IEnumerable<IReceived> context, string phrase, Predicate<string> isMatchOrSimilar) => context
       .OfType<ReceivedMessage>()
       .Where(m => m.Timestamp.IsWithin(Settings.DefaultNukeBlastRadius) && !m.FromMod())
-      .Where(m => m.Text.Contains(phrase) || isMatchOrSimilar(phrase))
+      .Where(m => m.Text.Contains(phrase, StringComparison.InvariantCultureIgnoreCase) || isMatchOrSimilar(m.Text))
       .Select(m => m.Sender).Distinct();
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context) {

@@ -33,6 +33,20 @@ namespace Bot.Tools.Tests {
     }
 
     [TestMethod]
+    public void OrderInvariant() {
+      // Arrange
+      var stringA = "The quick brown fox jumped";
+      var stringB = "The quick brown fox jumped over the lazy dog.";
+
+      // Act
+      var semi1 = stringA.SimilarTo(stringB);
+      var semi2 = stringB.SimilarTo(stringA);
+
+      // Assert
+      Assert.AreEqual(semi1, semi2);
+    }
+
+    [TestMethod]
     public void ZeroMatch() {
       // Arrange
       var stringA = "";

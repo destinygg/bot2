@@ -101,5 +101,12 @@ namespace Bot.Tools {
       }
       return Math.Sqrt(ssnc / Math.Pow(n + m, 2));
     }
+
+    //http://stackoverflow.com/a/4381627
+    public static bool Contains(this string source, string toCheck, StringComparison comp) {
+      if (string.IsNullOrEmpty(toCheck) || string.IsNullOrEmpty(source))
+        return true;
+      return source.IndexOf(toCheck, comp) >= 0;
+    }
   }
 }
