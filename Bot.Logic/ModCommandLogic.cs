@@ -83,6 +83,6 @@ namespace Bot.Logic {
     }
 
     private bool IsBeforeWithAegisWindow(IReceived received, DateTime dateTime)
-      => received.Timestamp <= dateTime.Add(Settings.AegisRadiusAroundFirstNuke);
+      => received.Timestamp >= dateTime.Subtract(Settings.AegisRadiusAroundFirstNuke);
   }
 }
