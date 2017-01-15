@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Bot.Models;
-using Bot.Pipeline;
+using Bot.Pipeline.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Bot.Logic.Tests {
   [TestClass]
@@ -19,15 +20,16 @@ namespace Bot.Logic.Tests {
         .ModMessage("!nuke MESSage")
         .GetContext;
 
-      var consoleLogger = new ConsoleLogger();
+      var logger = new Mock<ILogger>().Object;
       var regex = new ModCommandRegex();
-      var parser = new ModCommandParser(regex, consoleLogger);
-      var logic = new ModCommandLogic(consoleLogger, regex, parser);
+      var parser = new ModCommandParser(regex, logger);
+      var logic = new ModCommandLogic(logger, regex, parser);
 
       //Act
-      var aegisedUsers = logic.Aegis(context).Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
+      var aegis = logic.Aegis(context);
 
       //Assert
+      var aegisedUsers = aegis.Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
     }
 
