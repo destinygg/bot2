@@ -45,13 +45,17 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ContextFactory.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModCommandLogicTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic.Contracts\Bot.Logic.Contracts.csproj">
@@ -61,6 +65,22 @@
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
       <Project>{1B710B73-3FF1-4944-909B-538927C0041B}</Project>
       <Name>Bot.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Models.Contracts\Bot.Models.Contracts.csproj">
+      <Project>{6164E231-B141-4647-9422-A02DA469DAFF}</Project>
+      <Name>Bot.Models.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
+      <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
+      <Name>Bot.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
+      <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
+      <Name>Bot.Pipeline.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline\Bot.Pipeline.csproj">
+      <Project>{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}</Project>
+      <Name>Bot.Pipeline</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
