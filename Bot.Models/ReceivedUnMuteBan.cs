@@ -7,7 +7,7 @@ namespace Bot.Models {
       Sender = sender;
     }
 
-    public DateTime Timestamp { get; } = DateTime.Now;
+    public DateTime Timestamp { get; } = DateTime.UtcNow;
     public IUser Sender { get; }
   }
 }

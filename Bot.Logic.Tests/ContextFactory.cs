@@ -10,8 +10,8 @@ namespace Bot.Logic.Tests {
   /// This Builder generates the list of IReceived that Contextualized takes in its ctor
   /// </remarks>>
   public class ContextBuilder {
-    private static DateTime _RootTime => DateTime.Today;
     private DateTime _Time { get; set; } = _RootTime;
+    private DateTime _RootTime { get; } = DateTime.UtcNow.Date;
     private readonly TimeSpan _gap;
 
     private IList<IReceived> _Nontargets { get; } = new List<IReceived>();
