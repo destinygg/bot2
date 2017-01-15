@@ -10,46 +10,49 @@ namespace Bot.Tools.Tests {
       var now = DateTime.UtcNow;
 
       // Act
-      var expected = now.IsBeforeAndWithin(TimeSpan.FromSeconds(1));
+      var t = now.IsBeforeAndWithin(now, TimeSpan.FromSeconds(1));
 
       // Assert
-      Assert.IsTrue(expected);
+      Assert.IsTrue(t);
     }
 
     [TestMethod]
     public void IsBeforeAndWithin_After() {
       // Arrange
-      var after = DateTime.UtcNow + TimeSpan.FromSeconds(1);
+      var now = DateTime.UtcNow;
+      var after = now + TimeSpan.FromSeconds(1);
 
       // Act
-      var expected = after.IsBeforeAndWithin(TimeSpan.FromSeconds(2));
+      var f = after.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
 
       // Assert
-      Assert.IsFalse(expected);
+      Assert.IsFalse(f);
     }
 
     [TestMethod]
     public void IsBeforeAndWithin_Before_True() {
       // Arrange
-      var before = DateTime.UtcNow - TimeSpan.FromSeconds(1);
+      var now = DateTime.UtcNow;
+      var before = now - TimeSpan.FromSeconds(1);
 
       // Act
-      var expected = before.IsBeforeAndWithin(TimeSpan.FromSeconds(2));
+      var t = before.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
 
       // Assert
-      Assert.IsTrue(expected);
+      Assert.IsTrue(t);
     }
 
     [TestMethod]
     public void IsBeforeAndWithin_Before_False() {
       // Arrange
-      var before = DateTime.UtcNow - TimeSpan.FromSeconds(3);
+      var now = DateTime.UtcNow;
+      var before = now - TimeSpan.FromSeconds(3);
 
       // Act
-      var expected = before.IsBeforeAndWithin(TimeSpan.FromSeconds(2));
+      var f = before.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
 
       // Assert
-      Assert.IsFalse(expected);
+      Assert.IsFalse(f);
     }
 
   }
