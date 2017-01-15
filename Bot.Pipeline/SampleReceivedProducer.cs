@@ -9,14 +9,14 @@ namespace Bot.Pipeline {
     private readonly IEnumerable<IReceived> _received;
     private readonly BufferBlock<IReceived> _producer;
 
-    public SampleReceivedProducer() {
+    public SampleReceivedProducer(IReceivedFactory factory) {
       _received = new List<IReceived> {
-        new ModPublicReceivedMessage("!long"),
-        new PublicReceivedMessage("hi"),
-        new PublicReceivedMessage("banplox"),
-        new PublicReceivedMessage("!time"),
-        new ModPublicReceivedMessage("!sing"),
-        new ModPublicReceivedMessage("!long"),
+        factory.ModPublicReceivedMessage("!long"),
+        factory.PublicReceivedMessage("hi"),
+        factory.PublicReceivedMessage("banplox"),
+        factory.PublicReceivedMessage("!time"),
+        factory.ModPublicReceivedMessage("!sing"),
+        factory.ModPublicReceivedMessage("!long"),
       };
       _producer = new BufferBlock<IReceived>();
       Run();

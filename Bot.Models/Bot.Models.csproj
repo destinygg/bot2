@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IReceivedFactory.cs" />
+    <Compile Include="ReceivedFactory.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
     <Compile Include="Contextualized.cs" />
@@ -59,6 +61,10 @@
     <ProjectReference Include="..\Bot.Models.Contracts\Bot.Models.Contracts.csproj">
       <Project>{6164E231-B141-4647-9422-A02DA469DAFF}</Project>
       <Name>Bot.Models.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Tools.Contracts\Bot.Tools.Contracts.csproj">
+      <Project>{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}</Project>
+      <Name>Bot.Tools.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
