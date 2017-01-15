@@ -20,10 +20,8 @@ namespace Bot.Tools {
       return Convert.ToInt64((date - epoch).TotalSeconds);
     }
 
-    public static bool IsWithin(this DateTime date, TimeSpan maxDuration) {
-      var delta = date - DateTime.UtcNow;
-      return delta <= maxDuration;
-    }
+    public static bool IsBeforeAndWithin(this DateTime beforeAndWithin, TimeSpan window)
+      => DateTime.UtcNow - window.Duration() <= beforeAndWithin && beforeAndWithin <= DateTime.UtcNow;
 
     public static string ToPretty(this TimeSpan span, ILogger logger) {
       var day = Convert.ToInt32(span.ToString("%d"));

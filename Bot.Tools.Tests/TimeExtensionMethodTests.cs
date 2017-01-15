@@ -36,30 +36,6 @@ namespace Bot.Tools.Tests {
     }
 
     [TestMethod]
-    public void IsWithin() {
-      // Arrange
-      var now = DateTime.UtcNow;
-
-      // Act
-      var expected = now.IsWithin(TimeSpan.FromSeconds(1));
-
-      // Assert
-      Assert.IsTrue(expected);
-    }
-
-    [TestMethod]
-    public void IsNotWithin() {
-      // Arrange
-      var hourAhead = DateTime.UtcNow + TimeSpan.FromHours(1);
-
-      // Act
-      var expected = hourAhead.IsWithin(TimeSpan.FromSeconds(1));
-
-      // Assert
-      Assert.IsFalse(expected);
-    }
-
-    [TestMethod]
     public void PrettyDeltaTime_HasPrettyOutput() {
       var logger = new ConsoleLogger();
       var testList = new List<TimeSpan> {
