@@ -7,17 +7,20 @@ using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 using Bot.Tools;
+using Bot.Tools.Contracts;
 
 namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
     private readonly ILogger _logger;
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IModCommandParser _modCommandParser;
+    private readonly ITimeService _timeService;
 
-    public ModCommandLogic(ILogger logger, IModCommandRegex modCommandRegex, IModCommandParser modCommandParser) {
+    public ModCommandLogic(ILogger logger, IModCommandRegex modCommandRegex, IModCommandParser modCommandParser, ITimeService timeService) {
       _logger = logger;
       _modCommandRegex = modCommandRegex;
       _modCommandParser = modCommandParser;
+      _timeService = timeService;
     }
 
     public ISendable Long(IReadOnlyList<IReceived> context) {
@@ -54,7 +57,7 @@ namespace Bot.Logic {
 
     private IEnumerable<IUser> _GetNukeVictims(IEnumerable<IReceived> context, string phrase, Predicate<string> isMatchOrSimilar) => context
       .OfType<ReceivedMessage>()
-      .Where(m => m.Timestamp.IsBeforeAndWithin(Settings.NukeBlastRadius) && !m.FromMod())
+      .Where(m => m.Timestamp.IsBeforeAndWithin(_timeService.UtcNow, Settings.NukeBlastRadius) && !m.FromMod())
       .Where(m => m.Text.Contains(phrase, StringComparison.InvariantCultureIgnoreCase) || isMatchOrSimilar(m.Text))
       .Select(m => m.Sender).Distinct();
 

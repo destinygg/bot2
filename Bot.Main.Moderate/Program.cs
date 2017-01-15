@@ -3,6 +3,8 @@ using Bot.Logic;
 using Bot.Logic.Contracts;
 using Bot.Pipeline;
 using Bot.Pipeline.Contracts;
+using Bot.Tools;
+using Bot.Tools.Contracts;
 using SimpleInjector;
 
 namespace Bot.Main.Moderate {
@@ -21,6 +23,7 @@ namespace Bot.Main.Moderate {
       container.Register<IModCommandLogic, ModCommandLogic>();
       container.Register<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton);
       container.Register<IModCommandParser, ModCommandParser>();
+      container.Register<ITimeService, TimeService>();
       container.Verify();
 
       var sender = container.GetInstance<ISender>();

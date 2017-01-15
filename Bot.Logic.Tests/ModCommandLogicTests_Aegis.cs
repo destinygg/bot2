@@ -3,6 +3,7 @@ using System.Linq;
 using Bot.Models;
 using Bot.Pipeline.Contracts;
 using Bot.Tools;
+using Bot.Tools.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -11,9 +12,10 @@ namespace Bot.Logic.Tests {
   public class ModCommandLogicTests_Aegis {
     private ModCommandLogic _GetLogic() {
       var logger = new Mock<ILogger>().Object;
+      var timeService = new Mock<ITimeService>().Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
-      return new ModCommandLogic(logger, regex, parser);
+      return new ModCommandLogic(logger, regex, parser, timeService);
     }
 
     [TestMethod]
