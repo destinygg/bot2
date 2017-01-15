@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bot.Models;
 using Bot.Models.Contracts;
+using Bot.Tools;
 
 namespace Bot.Logic.Tests {
   /// <remarks>
@@ -10,39 +11,35 @@ namespace Bot.Logic.Tests {
   /// This Builder generates the list of IReceived that Contextualized takes in its ctor
   /// </remarks>>
   public class ContextBuilder {
-    private DateTime _Time { get; set; } = _RootTime;
-    private DateTime _RootTime { get; } = DateTime.UtcNow.Date;
-    private readonly TimeSpan _gap;
+    private readonly DateTime _rootTime = TimeService.UnixEpoch;
+    private readonly TimeSpan _gap = TimeSpan.FromMinutes(1);
+    private DateTime _time;
 
-    private IList<IReceived> _Nontargets { get; } = new List<IReceived>();
-    private IList<IReceived> _Targets { get; } = new List<IReceived>();
+    private readonly IList<IReceived> _nontargets = new List<IReceived>();
+    private readonly IList<IReceived> _targets = new List<IReceived>();
 
-    private IReadOnlyList<IUser> _NonTargetUsers => _Nontargets.Select(r => r.Sender).ToList();
-    private IReadOnlyList<IUser> _TargetUsers => _Targets.Select(r => r.Sender).ToList();
-
-    public ContextBuilder(TimeSpan gap) {
-      _gap = gap;
-    }
+    private IReadOnlyList<IUser> _NonTargetUsers => _nontargets.Select(r => r.Sender).ToList();
+    private IReadOnlyList<IUser> _TargetUsers => _targets.Select(r => r.Sender).ToList();
 
     public ContextBuilder() {
-      _gap = TimeSpan.FromMinutes(1);
+      _time = _rootTime;
     }
 
-    public IReadOnlyList<IReceived> GetContext => _Targets.Concat(_Nontargets).ToList(); // Is 1 indexed
+    public IReadOnlyList<IReceived> GetContext => _targets.Concat(_nontargets).ToList(); // Is 1 indexed
     public bool IsValid(IReadOnlyList<IUser> targets) => targets.SequenceEqual(_TargetUsers) && !_NonTargetUsers.Intersect(targets).Any();
 
     public ContextBuilder TargetedMessage(string message, TimeSpan? timestamp = null)
-      => AddReceived(timestamp, () => _Targets.Add(new PublicReceivedMessage(message, _Time)));
+      => AddReceived(timestamp, t => _targets.Add(new PublicReceivedMessage(message, t)));
 
     public ContextBuilder PublicMessage(string message, TimeSpan? timestamp = null)
-      => AddReceived(timestamp, () => _Nontargets.Add(new PublicReceivedMessage(message, _Time)));
+      => AddReceived(timestamp, t => _nontargets.Add(new PublicReceivedMessage(message, t)));
 
     public ContextBuilder ModMessage(string message, TimeSpan? timestamp = null)
-      => AddReceived(timestamp, () => _Nontargets.Add(new ModPublicReceivedMessage(message, _Time)));
+      => AddReceived(timestamp, t => _nontargets.Add(new ModPublicReceivedMessage(message, t)));
 
-    private ContextBuilder AddReceived(TimeSpan? timestamp, Action addReceived) {
-      _Time = timestamp == null ? _Time.Add(_gap) : _RootTime.Add((TimeSpan) timestamp);
-      addReceived.Invoke();
+    private ContextBuilder AddReceived(TimeSpan? timestamp, Action<DateTime> addReceived) {
+      _time = timestamp == null ? _time.Add(_gap) : _rootTime.Add((TimeSpan) timestamp);
+      addReceived.Invoke(_time);
       return this;
     }
 

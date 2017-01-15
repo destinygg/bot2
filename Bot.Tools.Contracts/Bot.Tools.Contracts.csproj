@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</ProjectGuid>
+    <ProjectGuid>{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bot.Tools</RootNamespace>
-    <AssemblyName>Bot.Tools</AssemblyName>
+    <RootNamespace>Bot.Tools.Contracts</RootNamespace>
+    <AssemblyName>Bot.Tools.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,22 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObjectExtensionMethods.cs" />
-    <Compile Include="StringExtensionMethods.cs" />
-    <Compile Include="TimeExtensionMethods.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="ITimeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
-      <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
-      <Name>Bot.Pipeline.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bot.Tools.Contracts\Bot.Tools.Contracts.csproj">
-      <Project>{ae61c63c-e6d2-45e9-80af-a9f19bd8e28e}</Project>
-      <Name>Bot.Tools.Contracts</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
