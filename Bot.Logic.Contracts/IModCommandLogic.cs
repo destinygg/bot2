@@ -7,6 +7,7 @@ namespace Bot.Logic.Contracts {
     ISendable Long(IReadOnlyList<IReceived> context);
     ISendable Sing();
     IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration);
+    IReadOnlyList<ISendable> RegexNuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration);
     IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context);
   }
 }

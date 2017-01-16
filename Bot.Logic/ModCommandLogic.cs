@@ -49,6 +49,9 @@ namespace Bot.Logic {
     public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration)
       => _GetStringNukeVictims(context, phrase, _timeService.UtcNow).Select(u => new SendableMute(u, duration)).ToList();
 
+    public IReadOnlyList<ISendable> RegexNuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration)
+      => _GetRegexNukeVictims(context, phrase, _timeService.UtcNow).Select(u => new SendableMute(u, duration)).ToList();
+
     private IEnumerable<IUser> _GetStringNukeVictims(IEnumerable<IReceived> context, string phrase, DateTime nukeTimestamp)
       => _GetNukeVictims(context, phrase, nukeTimestamp, s => s.SimilarTo(phrase) >= Settings.NukeMinimumStringSimilarity);
 

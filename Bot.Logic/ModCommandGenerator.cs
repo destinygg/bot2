@@ -31,6 +31,11 @@ namespace Bot.Logic {
           var duration = _modCommandParser.Nuke(message.Text).Item2;
           return _modCommandLogic.Nuke(context, phrase, duration);
         }
+        if (message.IsMatch(_modCommandRegex.RegexNuke)) {
+          var phrase = _modCommandParser.RegexNuke(message.Text).Item1;
+          var duration = _modCommandParser.RegexNuke(message.Text).Item2;
+          return _modCommandLogic.Nuke(context, phrase, duration);
+        }
         if (message.IsMatch(_modCommandRegex.Aegis))
           return _modCommandLogic.Aegis(context);
       }
