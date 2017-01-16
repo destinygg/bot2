@@ -23,10 +23,10 @@ namespace Bot.Tools.Tests {
       var after = now + TimeSpan.FromSeconds(1);
 
       // Act
-      var f = after.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
+      var t = after.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
 
       // Assert
-      Assert.IsFalse(f);
+      Assert.IsTrue(t);
     }
 
     [TestMethod]
@@ -46,10 +46,10 @@ namespace Bot.Tools.Tests {
     public void IsBeforeAndWithin_Before_False() {
       // Arrange
       var now = DateTime.UtcNow;
-      var before = now - TimeSpan.FromSeconds(3);
+      var wayBefore = now - TimeSpan.FromSeconds(3);
 
       // Act
-      var f = before.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
+      var f = wayBefore.IsBeforeAndWithin(now, TimeSpan.FromSeconds(2));
 
       // Assert
       Assert.IsFalse(f);

@@ -20,9 +20,9 @@ namespace Bot.Tools {
       return Convert.ToInt64((date - epoch).TotalSeconds);
     }
 
-    public static bool IsBeforeAndWithin(this DateTime beforeAndWithin, DateTime now, TimeSpan window)
-      => now - window.Duration() <= beforeAndWithin && beforeAndWithin <= now;
-
+    public static bool IsBeforeAndWithin(this DateTime testIfBefore, DateTime now, TimeSpan window)
+      => now - window.Duration() <= testIfBefore;// && beforeAndWithin <= now;
+    
     public static string ToPretty(this TimeSpan span, ILogger logger) {
       var day = Convert.ToInt32(span.ToString("%d"));
       var hour = Convert.ToInt32(span.ToString("%h"));
