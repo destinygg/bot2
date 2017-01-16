@@ -10,9 +10,12 @@ using Moq;
 namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Aegis {
-    private ModCommandLogic _GetLogic() {
+    private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
+      var lastTime = contextBuilder.GetContext.Last().Timestamp;
       var logger = new Mock<ILogger>().Object;
-      var timeService = new Mock<ITimeService>().Object;
+      var timeServiceMock = new Mock<ITimeService>();
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(lastTime.Add(contextBuilder.Gap));
+      var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
       return new ModCommandLogic(logger, regex, parser, timeService);
@@ -31,7 +34,7 @@ namespace Bot.Logic.Tests {
         .ModMessage("!nuke MESSage")
         .GetContext;
 
-      var logic = _GetLogic();
+      var logic = _GetLogic(contextBuilder);
 
       //Act
       var aegis = logic.Aegis(context);
@@ -51,7 +54,7 @@ namespace Bot.Logic.Tests {
         .ModMessage("!nuke MESSage")
         .GetContext;
 
-      var logic = _GetLogic();
+      var logic = _GetLogic(contextBuilder);
 
       //Act
       var aegis = logic.Aegis(context);
@@ -73,9 +76,11 @@ namespace Bot.Logic.Tests {
         .ModMessage("!nuke xyz")
         .ModMessage("!nuke abc")
         .PublicMessage("derp")
+        .TargetedMessage("xyz")
+        .TargetedMessage("abc")
         .GetContext;
 
-      var logic = _GetLogic();
+      var logic = _GetLogic(contextBuilder);
 
       //Act
       var aegis = logic.Aegis(context);
@@ -99,7 +104,7 @@ namespace Bot.Logic.Tests {
         .PublicMessage("derp")
         .GetContext;
 
-      var logic = _GetLogic();
+      var logic = _GetLogic(contextBuilder);
 
       //Act
       var aegis = logic.Aegis(context);
@@ -123,7 +128,7 @@ namespace Bot.Logic.Tests {
         .PublicMessage("derp")
         .GetContext;
 
-      var logic = _GetLogic();
+      var logic = _GetLogic(contextBuilder);
 
       //Act
       var aegis = logic.Aegis(context);

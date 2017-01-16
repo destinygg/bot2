@@ -12,7 +12,6 @@ namespace Bot.Logic.Tests {
   /// </remarks>>
   public class ContextBuilder {
     private readonly DateTime _rootTime = TimeService.UnixEpoch;
-    private readonly TimeSpan _gap = TimeSpan.FromMinutes(1);
     private DateTime _time;
 
     private readonly IList<IReceived> _nontargets = new List<IReceived>();
@@ -25,7 +24,8 @@ namespace Bot.Logic.Tests {
       _time = _rootTime;
     }
 
-    public IReadOnlyList<IReceived> GetContext => _targets.Concat(_nontargets).ToList(); // Is 1 indexed
+    public TimeSpan Gap { get; } = TimeSpan.FromMinutes(1);
+    public IReadOnlyList<IReceived> GetContext => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList(); // Is 1 indexed
     public bool IsValid(IReadOnlyList<IUser> targets) => targets.SequenceEqual(_TargetUsers) && !_NonTargetUsers.Intersect(targets).Any();
 
     public ContextBuilder TargetedMessage(string message, TimeSpan? timestamp = null)
@@ -38,7 +38,7 @@ namespace Bot.Logic.Tests {
       => AddReceived(timestamp, t => _nontargets.Add(new ModPublicReceivedMessage(message, t)));
 
     private ContextBuilder AddReceived(TimeSpan? timestamp, Action<DateTime> addReceived) {
-      _time = timestamp == null ? _time.Add(_gap) : _rootTime.Add((TimeSpan) timestamp);
+      _time = timestamp == null ? _time.Add(Gap) : _rootTime.Add((TimeSpan) timestamp);
       addReceived.Invoke(_time);
       return this;
     }
