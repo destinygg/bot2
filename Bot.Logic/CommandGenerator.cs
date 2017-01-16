@@ -18,7 +18,7 @@ namespace Bot.Logic {
       var message = contextualized.First as ReceivedMessage;
       if (message != null) {
         if (message.StartsWith("!time")) {
-          outbox.Add(new SendableMessage(_timeService.UtcNow.ToShortTimeString()));
+          outbox.Add(new SendableMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time"));
         }
       }
       return outbox;
