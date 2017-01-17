@@ -24,5 +24,7 @@ namespace Bot.Models {
     public ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage message) => new ReceivedRegexNuke(message, _modCommandParser, _timeService);
     public ReceivedStringNuke ReceivedStringNuke(ReceivedMessage message) => new ReceivedStringNuke(message, _modCommandParser, _timeService);
 
+    public ReceivedRegexNuke ReceivedRegexNuke(string command) => new ReceivedRegexNuke(ModPublicReceivedMessage(command), _modCommandParser, _timeService);
+    public ReceivedStringNuke ReceivedStringNuke(string command) => new ReceivedStringNuke(ModPublicReceivedMessage(command), _modCommandParser, _timeService);
   }
 }

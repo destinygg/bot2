@@ -10,5 +10,7 @@ namespace Bot.Models {
     ReceivedUnMuteBan ReceivedUnMuteBan(IUser sender, IUser target);
     ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage message);
     ReceivedStringNuke ReceivedStringNuke(ReceivedMessage message);
+    ReceivedRegexNuke ReceivedRegexNuke(string command);
+    ReceivedStringNuke ReceivedStringNuke(string command);
   }
 }
