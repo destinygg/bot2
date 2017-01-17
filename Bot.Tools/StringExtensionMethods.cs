@@ -103,10 +103,10 @@ namespace Bot.Tools {
     }
 
     //http://stackoverflow.com/a/4381627
-    public static bool Contains(this string source, string toCheck, StringComparison comp) {
+    public static bool IgnoreCaseContains(this string source, string toCheck) {
       if (string.IsNullOrEmpty(toCheck) || string.IsNullOrEmpty(source))
         return true;
-      return source.IndexOf(toCheck, comp) >= 0;
+      return source.IndexOf(toCheck, StringComparison.InvariantCultureIgnoreCase) >= 0;
     }
   }
 }
