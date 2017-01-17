@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IReceivedFactory.cs" />
+    <Compile Include="ReceivedNuke.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
@@ -49,6 +50,8 @@
     <Compile Include="ReceivedMessage.cs" />
     <Compile Include="ModPublicReceivedMessage.cs" />
     <Compile Include="PublicReceivedMessage.cs" />
+    <Compile Include="ReceivedRegexNuke.cs" />
+    <Compile Include="ReceivedStringNuke.cs" />
     <Compile Include="ReceivedUnMuteBan.cs" />
     <Compile Include="SendableMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,13 +61,25 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Logic.Contracts\Bot.Logic.Contracts.csproj">
+      <Project>{8D38A0E1-D030-45B7-9C66-674CA02DFCFF}</Project>
+      <Name>Bot.Logic.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Models.Contracts\Bot.Models.Contracts.csproj">
       <Project>{6164E231-B141-4647-9422-A02DA469DAFF}</Project>
       <Name>Bot.Models.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
+      <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
+      <Name>Bot.Pipeline.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools.Contracts\Bot.Tools.Contracts.csproj">
       <Project>{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}</Project>
       <Name>Bot.Tools.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
+      <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
+      <Name>Bot.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
