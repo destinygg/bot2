@@ -43,6 +43,7 @@
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />
+    <Compile Include="NukeLogic.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />

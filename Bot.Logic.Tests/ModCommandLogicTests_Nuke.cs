@@ -18,7 +18,8 @@ namespace Bot.Logic.Tests {
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
-      return new ModCommandLogic(logger, regex, parser, timeService);
+      var nukeLogic = new NukeLogic(regex, parser, timeService);
+      return new ModCommandLogic(logger, nukeLogic);
     }
 
     [TestMethod]
