@@ -13,7 +13,7 @@ namespace Bot.Models {
 
     public override TimeSpan Duration { get; }
 
-    public override bool IsMatch(string victimText)
-      => _nukedRegex.IsMatch(victimText);
+    public override bool IsMatch(string possibleVictimText)
+      => _nukedRegex.IsMatch(possibleVictimText);
   }
 }

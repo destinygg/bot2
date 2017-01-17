@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IContextualized.cs" />
+    <Compile Include="IReceivedNuke.cs" />
     <Compile Include="IReceivedExtensionMethods.cs" />
     <Compile Include="ITargetable.cs" />
     <Compile Include="IMessage.cs" />
