@@ -42,7 +42,7 @@ namespace Bot.Logic.Tests {
       var nuke = logic.Nuke(context, _factory.ReceivedStringNuke("!nuke10m message"));
 
       //Assert
-      var nukedUsers = nuke.Cast<SendableMute>().Select(umb => umb.Target).ToList();
+      var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(nukedUsers));
     }
 
@@ -63,7 +63,7 @@ namespace Bot.Logic.Tests {
       var nuke = logic.Nuke(context, _factory.ReceivedStringNuke("!nuke10m message"));
 
       //Assert
-      var nukedUsers = nuke.Cast<SendableMute>().Select(umb => umb.Target).ToList();
+      var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(nukedUsers));
     }
 

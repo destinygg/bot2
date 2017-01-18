@@ -55,7 +55,7 @@ namespace Bot.Logic {
       return Tuple.Create(target, _toTimespan(number, unit));
     }
 
-    private TimeSpan _toTimespan(string stringInt, string s, bool ip = false) {
+    private TimeSpan _toTimespan(string stringInt, string unit, bool ip = false) {
       int i;
       try {
         i = stringInt == "" ? 10 : int.Parse(stringInt);
@@ -63,26 +63,26 @@ namespace Bot.Logic {
         i = int.MaxValue;
       }
 
-      if (_modCommandRegex.Seconds.Any(x => x == s)) {
+      if (_modCommandRegex.Seconds.Any(x => x == unit)) {
         return TimeSpan.FromSeconds(i);
       }
-      if (_modCommandRegex.Minutes.Any(x => x == s)) {
+      if (_modCommandRegex.Minutes.Any(x => x == unit)) {
         return TimeSpan.FromMinutes(i);
       }
-      if (_modCommandRegex.Hours.Any(x => x == s)) {
+      if (_modCommandRegex.Hours.Any(x => x == unit)) {
         return TimeSpan.FromHours(i);
       }
-      if (_modCommandRegex.Days.Any(x => x == s)) {
+      if (_modCommandRegex.Days.Any(x => x == unit)) {
         return TimeSpan.FromDays(i);
       }
-      if (_modCommandRegex.Perm.Any(x => x == s)) {
+      if (_modCommandRegex.Perm.Any(x => x == unit)) {
         return TimeSpan.Zero;
       }
-      if (s == "") {
+      if (unit == "") {
         if (ip && stringInt == "") return TimeSpan.Zero;
         return TimeSpan.FromMinutes(i);
       }
-      _logger.LogError($"Somehow an invalid time passed the regex. StringInt:{stringInt}, s:{s}, ip:{ip}");
+      _logger.LogError($"Somehow an invalid time passed the regex. StringInt:{stringInt}, s:{unit}, ip:{ip}");
       return TimeSpan.FromMinutes(10);
     }
 
