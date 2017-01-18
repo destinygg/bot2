@@ -19,7 +19,7 @@ namespace Bot.Models {
     public PublicReceivedMessage PublicReceivedMessage(string text) => new PublicReceivedMessage(text, _timeService);
     public PublicReceivedMessage PublicReceivedMessage(string text, DateTime timestamp) => new PublicReceivedMessage(text, timestamp);
 
-    public ReceivedUnMuteBan ReceivedUnMuteBan(IUser sender, IUser target) => new ReceivedUnMuteBan(sender, target, _timeService);
+    public ReceivedPardon ReceivedPardon(IUser sender, IUser target) => new ReceivedPardon(sender, target, _timeService);
 
     public ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage message) => new ReceivedRegexNuke(message, _modCommandParser, _timeService);
     public ReceivedStringNuke ReceivedStringNuke(ReceivedMessage message) => new ReceivedStringNuke(message, _modCommandParser, _timeService);

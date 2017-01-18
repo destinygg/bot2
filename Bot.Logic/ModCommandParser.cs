@@ -33,7 +33,7 @@ namespace Bot.Logic {
     public Tuple<string, TimeSpan> Mute(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Mute, input);
     public Tuple<string, TimeSpan> Ban(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Ban, input);
     public Tuple<string, TimeSpan> Ipban(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Ipban, input);
-    public string UnMuteBan(string input) => _firstGroup(_modCommandRegex.UnMuteBan, input);
+    public string Pardon(string input) => _firstGroup(_modCommandRegex.Pardon, input);
 
     public Tuple<string, TimeSpan> Nuke(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Nuke, input);
     public Tuple<string, TimeSpan> RegexNuke(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.RegexNuke, input);

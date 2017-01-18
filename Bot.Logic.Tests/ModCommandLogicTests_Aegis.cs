@@ -42,7 +42,7 @@ namespace Bot.Logic.Tests {
       var aegis = logic.Aegis(context);
 
       //Assert
-      var aegisedUsers = aegis.Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
+      var aegisedUsers = aegis.Cast<SendablePardon>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
     }
 
@@ -62,7 +62,7 @@ namespace Bot.Logic.Tests {
       var aegis = logic.Aegis(context);
 
       //Assert
-      var aegisedUsers = aegis.Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
+      var aegisedUsers = aegis.Cast<SendablePardon>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
     }
 
@@ -88,7 +88,7 @@ namespace Bot.Logic.Tests {
       var aegis = logic.Aegis(context);
 
       //Assert
-      var aegisedUsers = aegis.Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
+      var aegisedUsers = aegis.Cast<SendablePardon>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
     }
 
@@ -112,7 +112,7 @@ namespace Bot.Logic.Tests {
       var aegis = logic.Aegis(context);
 
       //Assert
-      var aegisedUsers = aegis.Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
+      var aegisedUsers = aegis.Cast<SendablePardon>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
     }
 
@@ -136,7 +136,7 @@ namespace Bot.Logic.Tests {
       var aegis = logic.Aegis(context);
 
       //Assert
-      var aegisedUsers = aegis.Cast<SendableUnMuteBan>().Select(umb => umb.Target).ToList();
+      var aegisedUsers = aegis.Cast<SendablePardon>().Select(umb => umb.Target).ToList();
       Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
     }
 

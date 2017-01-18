@@ -30,7 +30,7 @@ namespace Bot.Logic.Contracts {
     Regex Mute { get; }
     Regex Ban { get; }
     Regex Ipban { get; }
-    Regex UnMuteBan { get; }
+    Regex Pardon { get; }
 
     Regex Nuke { get; }
     Regex RegexNuke { get; }

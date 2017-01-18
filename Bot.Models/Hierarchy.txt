@@ -12,8 +12,8 @@
 
 
 
-                              <- ReceivedUnMuteBan
-              <- [UnMuteBan]  <- SendableUnMuteBan
+                          <- ReceivedPardon
+              <- [Pardon] <- SendablePardon
 (ITargetable) 
               <- [Punishment] <- [Mute] <- ReceivedMute
                                         <- SendableMute

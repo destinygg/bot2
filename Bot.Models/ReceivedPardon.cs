@@ -3,8 +3,8 @@ using Bot.Models.Contracts;
 using Bot.Tools.Contracts;
 
 namespace Bot.Models {
-  public class ReceivedUnMuteBan : UnMuteBan, IReceived {
-    public ReceivedUnMuteBan(IUser sender, IUser target, ITimeService timeService) : base(target) {
+  public class ReceivedPardon : Pardon, IReceived {
+    public ReceivedPardon(IUser sender, IUser target, ITimeService timeService) : base(target) {
       Timestamp = timeService.UtcNow;
       Sender = sender;
     }

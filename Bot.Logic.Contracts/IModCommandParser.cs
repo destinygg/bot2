@@ -38,7 +38,7 @@ namespace Bot.Logic.Contracts {
     /// <returns>user, duration</returns>
     Tuple<string, TimeSpan> Ipban(string input);
     /// <returns>user</returns>
-    string UnMuteBan(string input);
+    string Pardon(string input);
 
     /// <returns>phrase, duration</returns>
     Tuple<string, TimeSpan> Nuke(string input);

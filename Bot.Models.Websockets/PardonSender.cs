@@ -1,6 +1,6 @@
 namespace Bot.Models.Websockets {
-  public class UnMuteBanSender {
-    public UnMuteBanSender(string nick) {
+  public class PardonSender {
+    public PardonSender(string nick) {
       data = nick;
     }
 

@@ -33,7 +33,7 @@ namespace Bot.Logic {
     public Regex Mute => _generate("mute|m", true, true);
     public Regex Ban => _generate("ban|b", true, true);
     public Regex Ipban => _generate("ipban|ip|i", true, true);
-    public Regex UnMuteBan => _compiledIgnoreCase(@"^!(?:unban|unmute) (.+)");
+    public Regex Pardon => _compiledIgnoreCase(@"^!(?:unban|unmute) (.+)");
 
     public Regex Nuke => _generate("nuke|annihilate|obliterate", false, false);
     public Regex RegexNuke => _generate("regexnuke|regexpnuke|nukeregex|nukeregexp", false, false);

@@ -1,8 +1,8 @@
 ﻿using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  public abstract class UnMuteBan : ITargetable {
-    protected UnMuteBan(IUser target) {
+  public abstract class Pardon : ITargetable {
+    protected Pardon(IUser target) {
       Target = target;
     }
 

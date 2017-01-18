@@ -9,7 +9,7 @@ namespace Bot.Pipeline {
 
     //Console.WriteLine($"Sending a mute targeting {mute.Target} for {mute.Duration}");
 
-    //Console.WriteLine($"Sending an unmuteban targeting {unMuteBan.Target}");
+    //Console.WriteLine($"Sending a pardon targeting {pardon.Target}");
 
     //Console.WriteLine($"Sending a subonly that is {subonly.IsEnabled}");
 

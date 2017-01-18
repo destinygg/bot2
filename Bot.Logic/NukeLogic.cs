@@ -31,8 +31,8 @@ namespace Bot.Logic {
       var victims = nukes.SelectMany(n => _GetVictims(n, context));
 
       //TODO consider checking if these are actual victims?
-      var alreadyUnMuteBanned = context.OfType<ReceivedUnMuteBan>().Select(umb => umb.Target);
-      return victims.Except(alreadyUnMuteBanned).Select(v => new SendableUnMuteBan(v)).ToList();
+      var alreadyPardoned = context.OfType<ReceivedPardon>().Select(umb => umb.Target);
+      return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
     private IEnumerable<ReceivedStringNuke> _GetStringNukes(IEnumerable<ReceivedMessage> modMessages) =>
