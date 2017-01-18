@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
@@ -39,11 +38,9 @@ namespace Bot.Logic {
 
     public ISendable Sing() => new SendableMessage("/me sings a song");
 
-    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration)
-      => _nukeLogic.Nuke(context, phrase, duration);
+    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, IReceivedNuke nuke)
+      => _nukeLogic.Nuke(nuke, context);
 
-    public IReadOnlyList<ISendable> RegexNuke(IReadOnlyList<IReceived> context, string phrase, TimeSpan duration)
-      => _nukeLogic.RegexNuke(context, phrase, duration);
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context)
       => _nukeLogic.Aegis(context);

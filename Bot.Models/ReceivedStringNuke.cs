@@ -13,7 +13,7 @@ namespace Bot.Models {
 
     public override TimeSpan Duration { get; }
 
-    public override bool IsMatch(string possibleVictimText)
+    protected override bool WillPunish(string possibleVictimText)
       => possibleVictimText.IgnoreCaseContains(_nukedString) || possibleVictimText.SimilarTo(_nukedString) >= Settings.NukeMinimumStringSimilarity;
   }
 }

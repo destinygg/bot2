@@ -10,6 +10,7 @@ using Moq;
 namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Nuke {
+    private IReceivedFactory _factory;
     private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
       var lastTime = contextBuilder.GetContext.Last().Timestamp;
       var logger = new Mock<ILogger>().Object;
@@ -18,7 +19,8 @@ namespace Bot.Logic.Tests {
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
-      var nukeLogic = new NukeLogic(regex, parser, timeService);
+      _factory = new ReceivedFactory(timeService, parser);
+      var nukeLogic = new NukeLogic(regex, _factory);
       return new ModCommandLogic(logger, nukeLogic);
     }
 
@@ -37,7 +39,7 @@ namespace Bot.Logic.Tests {
       var logic = _GetLogic(contextBuilder);
 
       //Act
-      var nuke = logic.Nuke(context, "message", TimeSpan.FromMinutes(1));
+      var nuke = logic.Nuke(context, _factory.ReceivedStringNuke("!nuke10m message"));
 
       //Assert
       var nukedUsers = nuke.Cast<SendableMute>().Select(umb => umb.Target).ToList();
@@ -58,7 +60,7 @@ namespace Bot.Logic.Tests {
       var logic = _GetLogic(contextBuilder);
 
       //Act
-      var nuke = logic.Nuke(context, "message", TimeSpan.FromMinutes(1));
+      var nuke = logic.Nuke(context, _factory.ReceivedStringNuke("!nuke10m message"));
 
       //Assert
       var nukedUsers = nuke.Cast<SendableMute>().Select(umb => umb.Target).ToList();

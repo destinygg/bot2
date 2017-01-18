@@ -11,11 +11,13 @@ namespace Bot.Logic {
     private readonly IModCommandLogic _modCommandLogic;
     private readonly IModCommandParser _modCommandParser;
     private readonly IModCommandRegex _modCommandRegex;
+    private readonly IReceivedFactory _receivedFactory;
 
-    public ModCommandGenerator(IModCommandLogic modCommandLogic, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex) {
+    public ModCommandGenerator(IModCommandLogic modCommandLogic, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
       _modCommandLogic = modCommandLogic;
       _modCommandParser = modCommandParser;
       _modCommandRegex = modCommandRegex;
+      _receivedFactory = receivedFactory;
     }
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
@@ -27,14 +29,10 @@ namespace Bot.Logic {
         if (message.StartsWith("!long"))
           return _modCommandLogic.Long(context).Wrap().ToList();
         if (message.IsMatch(_modCommandRegex.Nuke)) {
-          var phrase = _modCommandParser.Nuke(message.Text).Item1;
-          var duration = _modCommandParser.Nuke(message.Text).Item2;
-          return _modCommandLogic.Nuke(context, phrase, duration);
+          return _modCommandLogic.Nuke(context, _receivedFactory.ReceivedStringNuke(message));
         }
         if (message.IsMatch(_modCommandRegex.RegexNuke)) {
-          var phrase = _modCommandParser.RegexNuke(message.Text).Item1;
-          var duration = _modCommandParser.RegexNuke(message.Text).Item2;
-          return _modCommandLogic.Nuke(context, phrase, duration);
+          return _modCommandLogic.Nuke(context, _receivedFactory.ReceivedRegexNuke(message));
         }
         if (message.IsMatch(_modCommandRegex.Aegis))
           return _modCommandLogic.Aegis(context);
