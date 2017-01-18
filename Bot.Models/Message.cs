@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Bot.Models.Contracts;
+﻿using Bot.Models.Contracts;
 
 namespace Bot.Models {
   public abstract class Message : IMessage {
@@ -9,7 +8,6 @@ namespace Bot.Models {
 
     // To ensure thread safety, this object should remain readonly.
     public string Text { get; }
-    public bool StartsWith(string phrase) => Text.StartsWith(phrase);
-    public bool IsMatch(Regex regex) => regex.IsMatch(Text);
+
   }
 }
