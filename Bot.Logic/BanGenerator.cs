@@ -11,7 +11,7 @@ namespace Bot.Logic {
       var message = contextualized.First as ReceivedMessage;
       if (message == null) return outbox;
       if (message.Text.Contains("banplox")) {
-        outbox.Add(new SendableMessage($"{message.Sender.Nick} banned for saying {message.Text}"));
+        outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Text}"));
       }
       return outbox;
     }

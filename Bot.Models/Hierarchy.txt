@@ -8,7 +8,8 @@
                                             <-  ModPublicReceivedMessage <- BroadcastReceivedMessage
                         <-[ReceivedMessage] <- ModPrivateReceivedMessage
 (IMessage) <- [Message]
-                        <- SendableMessage  <-  BroadcastSendableMessage
+                        <- SendablePublicMessage  <- BroadcastSendableMessage
+                        <- SendablePrivateMessage
 
 
 

@@ -33,10 +33,10 @@ namespace Bot.Logic {
         var temp = i;
       }
       _logger.LogInformation($"Long running process ending, context length: {context.Count()}");
-      return new SendableMessage("This is a debug command; output appears in log.");
+      return new SendablePublicMessage("This is a debug command; output appears in log.");
     }
 
-    public ISendable Sing() => new SendableMessage("/me sings a song");
+    public ISendable Sing() => new SendablePublicMessage("/me sings a song");
 
     public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, IReceivedNuke nuke)
       => _nukeLogic.Nuke(nuke, context);
