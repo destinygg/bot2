@@ -20,6 +20,9 @@ namespace Bot.Tools {
       return Convert.ToInt64((date - epoch).TotalSeconds);
     }
 
+    public static bool IsWithin(this DateTime test, DateTime now, TimeSpan window) =>
+      (test - now).Duration() <= window;
+
     public static bool IsBeforeAndWithin(this DateTime testIfBefore, DateTime now, TimeSpan window)
       => now - window.Duration() <= testIfBefore;// && beforeAndWithin <= now;
     
