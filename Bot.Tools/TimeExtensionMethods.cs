@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bot.Pipeline.Contracts;
 
 namespace Bot.Tools {
@@ -22,9 +18,6 @@ namespace Bot.Tools {
 
     public static bool IsWithin(this DateTime test, DateTime now, TimeSpan window) =>
       (test - now).Duration() <= window;
-
-    public static bool IsBeforeAndWithin(this DateTime testIfBefore, DateTime now, TimeSpan window)
-      => now - window.Duration() <= testIfBefore;// && beforeAndWithin <= now;
     
     public static string ToPretty(this TimeSpan span, ILogger logger) {
       var day = Convert.ToInt32(span.ToString("%d"));

@@ -55,7 +55,6 @@
     <Compile Include="StringExtensionMethodsTests.cs" />
     <Compile Include="TimeExtensionMethodTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IsBeforeAndWithinUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
