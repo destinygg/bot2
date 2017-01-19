@@ -6,7 +6,7 @@ using Bot.Tools.Contracts;
 namespace Bot.Models {
   public class ReceivedRegexNuke : ReceivedNuke {
     private readonly Regex _nukedRegex;
-    public ReceivedRegexNuke(ReceivedMessage message, IModCommandParser parser, ITimeService timeService) : base(message, timeService) {
+    public ReceivedRegexNuke(ReceivedMessage message, IModCommandParser parser) : base(message) {
       _nukedRegex = new Regex(parser.Nuke(message.Text).Item1, RegexOptions.IgnoreCase);
       Duration = parser.Nuke(message.Text).Item2;
     }

@@ -6,8 +6,8 @@ using Bot.Tools.Contracts;
 namespace Bot.Models {
   public abstract class ReceivedNuke : IReceivedNuke {
 
-    protected ReceivedNuke(ReceivedMessage message, ITimeService timeService) {
-      Timestamp = timeService.UtcNow;
+    protected ReceivedNuke(ReceivedMessage message) {
+      Timestamp = message.Timestamp;
       Sender = message.Sender;
     }
 
@@ -16,9 +16,8 @@ namespace Bot.Models {
       WillPunish(message.Text) &&
       WithinRange(message);
 
-    private bool WithinRange<T>(T message) where T : IReceived =>
-      message.Timestamp >= Timestamp - Settings.NukeBlastRadius &&
-      message.Timestamp <= Timestamp + Settings.NukeBlastRadius;
+    private bool WithinRange<T>(T message) where T : IReceived => 
+      message.Timestamp.IsWithin(Timestamp, Settings.NukeBlastRadius);
 
     protected abstract bool WillPunish(string possibleVictimText);
     public abstract TimeSpan Duration { get; }

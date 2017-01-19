@@ -50,10 +50,14 @@ namespace Bot.Logic.Tests {
     public void OutOfRangeAegis() {
       //Arrange
       var contextBuilder = new ContextBuilder();
+      var nukeTime = TimeSpan.FromMinutes(10);
+      var outOfAegisRange = nukeTime - Settings.NukeBlastRadius - TimeSpan.FromTicks(1);
+      var insideAegisRange = nukeTime - Settings.NukeBlastRadius;
+
       var context = contextBuilder
-        .PublicMessage("message") //Out of aegis range
-        .TargetedMessage("message", Settings.AegisRadiusAroundFirstNuke.Add(TimeSpan.FromTicks(1)))
-        .ModMessage("!nuke MESSage")
+        .PublicMessage("message", outOfAegisRange) //Out of aegis range
+        .TargetedMessage("message", insideAegisRange)
+        .ModMessage("!nuke MESSage", nukeTime)
         .GetContext;
 
       var logic = _GetLogic(contextBuilder);
