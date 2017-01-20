@@ -25,7 +25,9 @@ namespace Bot.Logic.Tests {
     }
 
     public TimeSpan Gap { get; } = TimeSpan.FromMinutes(1);
+
     public IReadOnlyList<IReceived> GetContext => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList(); // Is 1 indexed
+
     public bool IsValid(IReadOnlyList<IUser> targets)
       => targets.OrderBy(u => u.Nick).SequenceEqual(_TargetUsers.OrderBy(u => u.Nick)) && !_NonTargetUsers.Intersect(targets).Any();
 

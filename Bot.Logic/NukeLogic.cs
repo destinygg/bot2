@@ -18,8 +18,7 @@ namespace Bot.Logic {
       _GetVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
-    private IEnumerable<IUser> _GetVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) =>
-      context
+    private IEnumerable<IUser> _GetVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
       .OfType<ReceivedMessage>()
       .Where(nuke.WillPunish)
       .Select(m => m.Sender)
@@ -35,13 +34,11 @@ namespace Bot.Logic {
       return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
-    private IEnumerable<ReceivedStringNuke> _GetStringNukes(IEnumerable<ReceivedMessage> modMessages) =>
-      modMessages
+    private IEnumerable<ReceivedStringNuke> _GetStringNukes(IEnumerable<ReceivedMessage> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))
       .Select(rm => _receivedFactory.ReceivedStringNuke(rm));
 
-    private IEnumerable<ReceivedRegexNuke> _GetRegexNukes(IEnumerable<ReceivedMessage> modMessages) =>
-      modMessages
+    private IEnumerable<ReceivedRegexNuke> _GetRegexNukes(IEnumerable<ReceivedMessage> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.RegexNuke))
       .Select(rm => _receivedFactory.ReceivedRegexNuke(rm));
   }

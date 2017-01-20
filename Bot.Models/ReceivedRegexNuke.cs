@@ -7,8 +7,8 @@ namespace Bot.Models {
   public class ReceivedRegexNuke : ReceivedNuke {
     private readonly Regex _nukedRegex;
     public ReceivedRegexNuke(ReceivedMessage message, IModCommandParser parser) : base(message) {
-      _nukedRegex = new Regex(parser.Nuke(message.Text).Item1, RegexOptions.IgnoreCase);
-      Duration = parser.Nuke(message.Text).Item2;
+      _nukedRegex = new Regex(parser.RegexNuke(message.Text).Item1, RegexOptions.IgnoreCase);
+      Duration = parser.RegexNuke(message.Text).Item2;
     }
 
     public override TimeSpan Duration { get; }
