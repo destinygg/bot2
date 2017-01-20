@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Bot.Models;
 using Bot.Models.Contracts;
@@ -32,19 +33,38 @@ namespace Bot.Logic.Tests {
       => targets.OrderBy(u => u.Nick).SequenceEqual(_TargetUsers.OrderBy(u => u.Nick)) && !_NonTargetUsers.Intersect(targets).Any();
 
     public ContextBuilder TargetedMessage(string message, TimeSpan? timestamp = null)
-      => AddReceived(timestamp, t => _targets.Add(new PublicReceivedMessage(message, t)));
+      => _AddReceived(timestamp, t => _targets.Add(new PublicReceivedMessage(message, t)));
 
     public ContextBuilder PublicMessage(string message, TimeSpan? timestamp = null)
-      => AddReceived(timestamp, t => _nontargets.Add(new PublicReceivedMessage(message, t)));
+      => _AddReceived(timestamp, t => _nontargets.Add(new PublicReceivedMessage(message, t)));
 
     public ContextBuilder ModMessage(string message, TimeSpan? timestamp = null)
-      => AddReceived(timestamp, t => _nontargets.Add(new ModPublicReceivedMessage(message, t)));
+      => _AddReceived(timestamp, t => _nontargets.Add(new ModPublicReceivedMessage(message, t)));
 
-    private ContextBuilder AddReceived(TimeSpan? timestamp, Action<DateTime> addReceived) {
+    private ContextBuilder _AddReceived(TimeSpan? timestamp, Action<DateTime> addReceived) {
       _time = timestamp == null ? _time.Add(Gap) : _rootTime.Add((TimeSpan) timestamp);
       addReceived.Invoke(_time);
       return this;
     }
 
+    public ContextBuilder TargetedMessage(string message, string timestamp)
+      => TargetedMessage(message, _ParseExact(timestamp));
+
+    public ContextBuilder PublicMessage(string message, string timestamp)
+      => PublicMessage(message, _ParseExact(timestamp));
+
+    public ContextBuilder ModMessage(string message, string timestamp)
+      => ModMessage(message, _ParseExact(timestamp));
+
+    private TimeSpan _ParseExact(string timestamp) =>
+      TimeSpan.ParseExact(timestamp, "g", CultureInfo.CurrentCulture);
+
+    private DateTime _zerothReceivedTimestamp;
+    public ContextBuilder SetTimestampOfZerothReceived(TimeSpan timestamp) {
+      _zerothReceivedTimestamp = _rootTime.Add(timestamp);
+      return this;
+    }
+
+    public DateTime GetTimestampOfZerothReceived => _zerothReceivedTimestamp == DateTime.MinValue ? GetContext.Last().Timestamp : _zerothReceivedTimestamp;
   }
 }
