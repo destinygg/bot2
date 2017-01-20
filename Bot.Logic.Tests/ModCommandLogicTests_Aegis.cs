@@ -11,15 +11,14 @@ namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Aegis {
     private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
-      var lastTime = contextBuilder.GetContext.Last().Timestamp;
       var logger = new Mock<ILogger>().Object;
       var timeServiceMock = new Mock<ITimeService>();
-      timeServiceMock.Setup(ts => ts.UtcNow).Returns(lastTime.Add(contextBuilder.Gap));
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(contextBuilder.GetTimestampOfZerothReceived);
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
       var factory = new ReceivedFactory(timeService, parser);
-      var nukeLogic = new NukeLogic(regex, factory);
+      var nukeLogic = new NukeLogic(regex, factory, timeService);
       return new ModCommandLogic(logger, nukeLogic);
     }
 
@@ -97,17 +96,37 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void DoubleRegexNukeAegis() {
+    public void RegexNukeAegisExtremeRange() {
       //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .PublicMessage("innocent")
-        .TargetedMessage("xyz")
-        .TargetedMessage("abc")
-        .PublicMessage("herp")
-        .ModMessage("!nukeregex xyz")
-        .ModMessage("!nukeregex abc")
-        .PublicMessage("derp")
+        .PublicMessage("abc", TimeSpan.FromTicks(-1))
+        .PublicMessage("abc", TimeSpan.Zero)
+        .ModMessage("!nukeregex30m abc", Settings.NukeBlastRadius)
+        .TargetedMessage("abc", Settings.NukeBlastRadius.Multiply(2))
+        .SetTimestampOfZerothReceived(Settings.NukeBlastRadius.Multiply(2) + TimeSpan.FromMinutes(30))
+        .GetContext;
+
+      var logic = _GetLogic(contextBuilder);
+
+      //Act
+      var aegis = logic.Aegis(context);
+
+      //Assert
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
+      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+    }
+
+    [TestMethod]
+    public void RegexNukeAegisOutOfRange() {
+      //Arrange
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .PublicMessage("abc", TimeSpan.FromTicks(-1))
+        .PublicMessage("abc", TimeSpan.Zero)
+        .ModMessage("!nukeregex30m abc", Settings.NukeBlastRadius)
+        .PublicMessage("abc", Settings.NukeBlastRadius.Multiply(2))
+        .SetTimestampOfZerothReceived(Settings.NukeBlastRadius.Multiply(2) + TimeSpan.FromMinutes(30) + TimeSpan.FromTicks(1))
         .GetContext;
 
       var logic = _GetLogic(contextBuilder);

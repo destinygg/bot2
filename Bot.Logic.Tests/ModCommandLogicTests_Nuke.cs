@@ -12,15 +12,14 @@ namespace Bot.Logic.Tests {
   public class ModCommandLogicTests_Nuke {
     private IReceivedFactory _factory;
     private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
-      var lastTime = contextBuilder.GetContext.Last().Timestamp;
       var logger = new Mock<ILogger>().Object;
       var timeServiceMock = new Mock<ITimeService>();
-      timeServiceMock.Setup(ts => ts.UtcNow).Returns(lastTime.Add(contextBuilder.Gap));
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(contextBuilder.GetTimestampOfZerothReceived);
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
       _factory = new ReceivedFactory(timeService, parser);
-      var nukeLogic = new NukeLogic(regex, _factory);
+      var nukeLogic = new NukeLogic(regex, _factory, timeService);
       return new ModCommandLogic(logger, nukeLogic);
     }
 
@@ -51,10 +50,11 @@ namespace Bot.Logic.Tests {
       //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .PublicMessage("message") //Out of nuke range
-        .TargetedMessage("message") //Inside nuke range
+        .PublicMessage("message", TimeSpan.Zero - TimeSpan.FromTicks(1)) //Out of nuke range
+        .TargetedMessage("message", TimeSpan.Zero) //Inside nuke range
         .TargetedMessage("message", Settings.NukeBlastRadius)
-        .PublicMessage("innocent", Settings.NukeBlastRadius + TimeSpan.FromTicks(1))
+        .PublicMessage("innocent", Settings.NukeBlastRadius + TimeSpan.FromMinutes(1))
+        .SetTimestampOfZerothReceived(Settings.NukeBlastRadius)
         .GetContext;
 
       var logic = _GetLogic(contextBuilder);

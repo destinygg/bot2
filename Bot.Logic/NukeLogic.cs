@@ -3,31 +3,41 @@ using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
+using Bot.Tools.Contracts;
 
 namespace Bot.Logic {
   public class NukeLogic : INukeLogic {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
+    private readonly ITimeService _timeService;
 
-    public NukeLogic(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
+    public NukeLogic(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory, ITimeService timeService) {
       _modCommandRegex = modCommandRegex;
       _receivedFactory = receivedFactory;
+      _timeService = timeService;
     }
 
     public IReadOnlyList<ISendable> Nuke(IReceivedNuke nuke, IReadOnlyList<IReceived> context) =>
-      _GetVictims(nuke, context)
+      _GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
-    private IEnumerable<IUser> _GetVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
+    private IEnumerable<IUser> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
       .OfType<ReceivedMessage>()
       .Where(nuke.WillPunish)
+      .Where(m => !_IsExpired(m, nuke))
       .Select(m => m.Sender)
       .Distinct();
+
+    private bool _IsExpired(ReceivedMessage message, IReceivedNuke nuke) {
+      var punishmentTimestamp = message.Timestamp <= nuke.Timestamp ? nuke.Timestamp : message.Timestamp;
+      var expirationDate = punishmentTimestamp + nuke.Duration;
+      return expirationDate < _timeService.UtcNow;
+    }
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context) {
       var modMessages = context.OfType<ReceivedMessage>().Where(m => m.FromMod()).ToList();
       var nukes = _GetStringNukes(modMessages).Concat<IReceivedNuke>(_GetRegexNukes(modMessages));
-      var victims = nukes.SelectMany(n => _GetVictims(n, context));
+      var victims = nukes.SelectMany(n => _GetCurrentVictims(n, context));
 
       //TODO consider checking if these are actual victims?
       var alreadyPardoned = context.OfType<ReceivedPardon>().Select(umb => umb.Target);
