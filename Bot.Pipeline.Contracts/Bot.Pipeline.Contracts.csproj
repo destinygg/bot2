@@ -44,12 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IContextualizedProducer.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="ISampleReceived.cs" />
-    <Compile Include="ISendableProducer.cs" />
-    <Compile Include="IReceivedProducer.cs" />
-    <Compile Include="ISender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
