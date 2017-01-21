@@ -24,7 +24,15 @@ namespace Bot.Main.Moderate {
       container.Register<IReceivedFactory, ReceivedFactory>();
       container.Register<INukeLogic, NukeLogic>();
       container.Register<ISampleReceived, SampleReceived>();
+      container.Register<IContextualizedToSendable, ContextualizedToSendable>();
+      container.Register<IReceivedToContextualized, ReceivedToContextualized>();
+      container.Register<ISender, ConsoleSender>();
+      container.Register<IPipeline, Pipeline.Pipeline>();
       container.Verify();
+
+      var data = container.GetInstance<ISampleReceived>();
+      var pipeline = container.GetInstance<IPipeline>();
+      pipeline.Run(data);
 
       Console.ReadLine();
     }
