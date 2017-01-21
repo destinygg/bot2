@@ -12,7 +12,7 @@ namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
       var container = new Container();
-      container.Register<IReceivedProducer, SampleReceivedProducer>();
+      container.Register<IReceivedProducer, SampleReceivedProducer>(Lifestyle.Singleton);
       container.Register<IContextualizedProducer, ContextualizedProducer>();
       container.Register<ISendableProducer, SendableProducer>();
       container.Register<IBanGenerator, BanGenerator>();
@@ -27,7 +27,12 @@ namespace Bot.Main.Moderate {
       container.Register<ITimeService, TimeService>();
       container.Register<IReceivedFactory, ReceivedFactory>();
       container.Register<INukeLogic, NukeLogic>();
+      container.Register<ISampleReceived, SampleReceived>();
       container.Verify();
+
+      var sampleRecieved = container.GetInstance<IReceivedProducer>();
+      var data = container.GetInstance<ISampleReceived>();
+      sampleRecieved.Run(data);
 
       var sender = container.GetInstance<ISender>();
       sender.Run();

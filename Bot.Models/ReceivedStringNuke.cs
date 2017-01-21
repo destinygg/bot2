@@ -1,7 +1,6 @@
 ﻿using System;
 using Bot.Logic.Contracts;
 using Bot.Tools;
-using Bot.Tools.Contracts;
 
 namespace Bot.Models {
   public class ReceivedStringNuke : ReceivedNuke {
