@@ -44,8 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IContextualizedToSendable.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="IPipeline.cs" />
+    <Compile Include="IReceivedToContextualized.cs" />
     <Compile Include="ISampleReceived.cs" />
+    <Compile Include="ISender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
