@@ -4,6 +4,6 @@ using Bot.Models.Contracts;
 
 namespace Bot.Pipeline.Contracts {
   public interface ISendableProducer {
-    ISourceBlock<IReadOnlyList<ISendable>> SendableBlock { get; }
+    TransformBlock<IContextualized, IReadOnlyList<ISendable>> SendableBlock { get; }
   }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Bot.Models;
 using Bot.Models.Contracts;
@@ -7,7 +9,6 @@ using Bot.Pipeline.Contracts;
 namespace Bot.Pipeline {
   public class SampleReceivedProducer : IReceivedProducer {
     private readonly IEnumerable<IReceived> _received;
-    private readonly BufferBlock<IReceived> _producer;
 
     public SampleReceivedProducer(IReceivedFactory factory) {
       _received = new List<IReceived> {
@@ -18,17 +19,22 @@ namespace Bot.Pipeline {
         factory.ModPublicReceivedMessage("!sing"),
         factory.ModPublicReceivedMessage("!long"),
       };
-      _producer = new BufferBlock<IReceived>();
-      Run();
+      ReceivedBlock = new BufferBlock<IReceived>();
+      Task.Factory.StartNew(Run);
     }
 
-    private void Run() {
-      foreach (var received in _received) {
-        _producer.Post(received);
+    private async void Run() {
+      var k = 1;
+      while (true) {
+        await Task.Delay(1000);
+        ReceivedBlock.Post(new PublicReceivedMessage("Post: hi", DateTime.Now));
+        await ReceivedBlock.SendAsync(new PublicReceivedMessage("SendAsync: hi", DateTime.Now));
+        Console.WriteLine("Send: {0}", k);
+        k++;
       }
     }
 
-    public ISourceBlock<IReceived> ReceivedBlock => _producer;
+    public BufferBlock<IReceived> ReceivedBlock { get; }
 
   }
 }

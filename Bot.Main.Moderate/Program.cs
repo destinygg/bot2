@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot.Logic;
 using Bot.Logic.Contracts;
+using Bot.Models;
 using Bot.Pipeline;
 using Bot.Pipeline.Contracts;
 using Bot.Tools;
@@ -24,11 +25,13 @@ namespace Bot.Main.Moderate {
       container.Register<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton);
       container.Register<IModCommandParser, ModCommandParser>();
       container.Register<ITimeService, TimeService>();
+      container.Register<IReceivedFactory, ReceivedFactory>();
+      container.Register<INukeLogic, NukeLogic>();
       container.Verify();
 
       var sender = container.GetInstance<ISender>();
-      var sendableProducer = container.GetInstance<ISendableProducer>();
-      sender.Send(sendableProducer);
+      sender.Run();
+      
       Console.ReadLine();
     }
   }

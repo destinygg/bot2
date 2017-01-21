@@ -17,12 +17,18 @@ namespace Bot.Pipeline {
 
     //Console.WriteLine($"Sending a broadcast saying: {broadcast.Text}");
 
-    public void Send(ISendableProducer sendableProducer) {
-      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => _send(r));
-      sendableProducer.SendableBlock.LinkTo(actionBlock);
+    private readonly ISendableProducer _sendableProducer;
+
+    public ConsoleSender(ISendableProducer sendableProducer) {
+      _sendableProducer = sendableProducer;
     }
 
-    private void _send(IEnumerable<ISendable> sendables) {
+    public void Run() {
+      var actionBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => _Send(r));
+      _sendableProducer.SendableBlock.LinkTo(actionBlock);
+    }
+
+    private void _Send(IEnumerable<ISendable> sendables) {
       foreach (var sendable in sendables) {
         Console.WriteLine(sendable);
       }

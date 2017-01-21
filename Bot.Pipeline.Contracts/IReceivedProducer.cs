@@ -3,6 +3,6 @@ using Bot.Models.Contracts;
 
 namespace Bot.Pipeline.Contracts {
   public interface IReceivedProducer {
-    ISourceBlock<IReceived> ReceivedBlock { get; }
+    BufferBlock<IReceived> ReceivedBlock { get; }
   }
 }

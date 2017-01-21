@@ -6,24 +6,17 @@ using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
   public class SendableProducer : ISendableProducer {
-    private readonly IContextualizedProducer _contextualizedProducer;
-    private readonly ISendableGenerator _sendableGenerator;
 
     public SendableProducer(IContextualizedProducer contextualizedProducer, ISendableGenerator sendableGenerator) {
-      _contextualizedProducer = contextualizedProducer;
-      _sendableGenerator = sendableGenerator;
+      SendableBlock = new TransformBlock<IContextualized, IReadOnlyList<ISendable>>(c => Transform(sendableGenerator, c), new ExecutionDataflowBlockOptions {
+        MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
+        EnsureOrdered = false
+      });
+      contextualizedProducer.ContextualizedBlock.LinkTo(SendableBlock);
     }
 
-    public ISourceBlock<IReadOnlyList<ISendable>> SendableBlock {
-      get {
-        var transform = new TransformBlock<IContextualized, IReadOnlyList<ISendable>>(r => Transform(r), new ExecutionDataflowBlockOptions {
-          MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
-          EnsureOrdered = false
-        });
-        _contextualizedProducer.ContextualizedBlock.LinkTo(transform);
-        return transform;
-      }
-    }
-    private IReadOnlyList<ISendable> Transform(IContextualized contextualized) => _sendableGenerator.Generate(contextualized);
+    public TransformBlock<IContextualized, IReadOnlyList<ISendable>> SendableBlock { get; }
+
+    private IReadOnlyList<ISendable> Transform(ISendableGenerator sendableGenerator, IContextualized contextualized) => sendableGenerator.Generate(contextualized);
   }
 }

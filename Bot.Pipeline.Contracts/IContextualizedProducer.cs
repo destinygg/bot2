@@ -3,6 +3,6 @@ using Bot.Models.Contracts;
 
 namespace Bot.Pipeline.Contracts {
   public interface IContextualizedProducer {
-    ISourceBlock<IContextualized> ContextualizedBlock { get; }
+    TransformBlock<IReceived, IContextualized> ContextualizedBlock { get; }
   }
 }

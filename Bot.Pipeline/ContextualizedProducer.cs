@@ -8,20 +8,14 @@ using Bot.Tools;
 
 namespace Bot.Pipeline {
   public class ContextualizedProducer : IContextualizedProducer {
-    private readonly IReceivedProducer _receivedProducer;
     private readonly List<IReceived> _allReceived = new List<IReceived>(); // Todo: Optimization: Use a circular buffer
 
     public ContextualizedProducer(IReceivedProducer receivedProducer) {
-      _receivedProducer = receivedProducer;
+      ContextualizedBlock = new TransformBlock<IReceived, IContextualized>(r => Transform(r));
+      receivedProducer.ReceivedBlock.LinkTo(ContextualizedBlock);
     }
 
-    public ISourceBlock<IContextualized> ContextualizedBlock {
-      get {
-        var transform = new TransformBlock<IReceived, IContextualized>(r => Transform(r));
-        _receivedProducer.ReceivedBlock.LinkTo(transform);
-        return transform;
-      }
-    }
+    public TransformBlock<IReceived, IContextualized> ContextualizedBlock { get; }
 
     private IContextualized Transform(IReceived first) {
       _allReceived.Insert(0, first);
