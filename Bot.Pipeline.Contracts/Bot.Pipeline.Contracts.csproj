@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="IContextualizedProducer.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="ISampleReceived.cs" />
     <Compile Include="ISendableProducer.cs" />
     <Compile Include="IReceivedProducer.cs" />
     <Compile Include="ISender.cs" />
