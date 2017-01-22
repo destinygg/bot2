@@ -15,7 +15,7 @@ namespace Bot.Models {
 
     public bool WillPunish<T>(T message) where T : IReceived, IMessage =>
       !message.FromMod() &&
-      WillPunish(message.Text) &&
+      MatchesNukedTerm(message.Text) &&
       WithinRange(message) &&
       !_IsExpired(message);
 
@@ -28,7 +28,7 @@ namespace Bot.Models {
       return expirationDate < _timeService.UtcNow;
     }
 
-    protected abstract bool WillPunish(string possibleVictimText);
+    protected abstract bool MatchesNukedTerm(string possibleVictimText);
     public abstract TimeSpan Duration { get; }
     public DateTime Timestamp { get; }
     public IUser Sender { get; }

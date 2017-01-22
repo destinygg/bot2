@@ -3,7 +3,6 @@ using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
-using Bot.Tools.Contracts;
 
 namespace Bot.Logic {
   public class NukeLogic : INukeLogic {

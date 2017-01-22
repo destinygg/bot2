@@ -13,7 +13,7 @@ namespace Bot.Models {
 
     public override TimeSpan Duration { get; }
 
-    protected override bool WillPunish(string possibleVictimText)
-      => _nukedRegex.IsMatch(possibleVictimText);
+    protected override bool MatchesNukedTerm(string possibleVictimText) => _nukedRegex.IsMatch(possibleVictimText);
+
   }
 }
