@@ -39,7 +39,7 @@ namespace Bot.Logic.Tests {
       => _AddReceived(timestamp, t => _nontargets.Add(new PublicReceivedMessage(message, t)));
 
     public ContextBuilder ModMessage(string message, TimeSpan? timestamp = null)
-      => _AddReceived(timestamp, t => _nontargets.Add(new ModPublicReceivedMessage(message, t)));
+      => _AddReceived(timestamp, t => _nontargets.Add(new PublicReceivedMessageFromMod(message, t)));
 
     private ContextBuilder _AddReceived(TimeSpan? timestamp, Action<DateTime> addReceived) {
       _time = timestamp == null ? _time.Add(Gap) : _rootTime.Add((TimeSpan) timestamp);

@@ -43,6 +43,7 @@
     <Compile Include="Civilian.cs" />
     <Compile Include="IReceivedFactory.cs" />
     <Compile Include="Moderator.cs" />
+    <Compile Include="ReceivedMessageFromMod.cs" />
     <Compile Include="ReceivedNuke.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="Punishment.cs" />

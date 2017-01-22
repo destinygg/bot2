@@ -3,8 +3,8 @@ using Bot.Models.Contracts;
 
 namespace Bot.Models {
   public interface IReceivedFactory {
-    ModPublicReceivedMessage ModPublicReceivedMessage(string text);
-    ModPublicReceivedMessage ModPublicReceivedMessage(string text, DateTime timestamp);
+    PublicReceivedMessageFromMod ModPublicReceivedMessage(string text);
+    PublicReceivedMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp);
     PublicReceivedMessage PublicReceivedMessage(string text);
     PublicReceivedMessage PublicReceivedMessage(string text, DateTime timestamp);
     ReceivedPardon ReceivedPardon(IUser sender, IUser target);
