@@ -51,7 +51,7 @@
     <Compile Include="Contextualized.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="ReceivedMessage.cs" />
-    <Compile Include="ModPublicReceivedMessage.cs" />
+    <Compile Include="PublicReceivedMessageFromMod.cs" />
     <Compile Include="PublicReceivedMessage.cs" />
     <Compile Include="ReceivedRegexNuke.cs" />
     <Compile Include="ReceivedStringNuke.cs" />
