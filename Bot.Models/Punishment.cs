@@ -3,12 +3,12 @@ using Bot.Models.Contracts;
 
 namespace Bot.Models {
   public abstract class Punishment : ITargetable {
-    protected Punishment(IUser target, TimeSpan duration) {
+    protected Punishment(Civilian target, TimeSpan duration) {
       Target = target;
       Duration = duration;
     }
 
-    protected Punishment(IUser target, TimeSpan duration, string reason) {
+    protected Punishment(Civilian target, TimeSpan duration, string reason) {
       Target = target;
       Duration = duration;
       Reason = reason;

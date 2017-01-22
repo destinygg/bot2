@@ -21,11 +21,12 @@ namespace Bot.Logic {
       _GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
-    private IEnumerable<IUser> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
-      .OfType<ReceivedMessage>()
+    private IEnumerable<Civilian> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
+      .OfType<MessageFromCivilian>()
       .Where(nuke.WillPunish)
       .Where(m => !_IsExpired(m, nuke))
       .Select(m => m.Sender)
+      .OfType<Civilian>() // todo shadowing?
       .Distinct();
 
     private bool _IsExpired(ReceivedMessage message, IReceivedNuke nuke) {
@@ -35,7 +36,7 @@ namespace Bot.Logic {
     }
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context) {
-      var modMessages = context.OfType<ReceivedMessage>().Where(m => m.FromMod()).ToList();
+      var modMessages = context.OfType<MessageFromMod>().ToList();
       var nukes = _GetStringNukes(modMessages).Concat<IReceivedNuke>(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => _GetCurrentVictims(n, context));
 

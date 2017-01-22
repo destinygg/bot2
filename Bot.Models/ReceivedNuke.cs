@@ -1,7 +1,6 @@
 ﻿using System;
 using Bot.Models.Contracts;
 using Bot.Tools;
-using Bot.Tools.Contracts;
 
 namespace Bot.Models {
   public abstract class ReceivedNuke : IReceivedNuke {
