@@ -2,8 +2,8 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  public class User : IUser {
-    public User(string nick, bool isMod = false) {
+  public abstract class User : IUser {
+    protected User(string nick, bool isMod) {
       Nick = nick;
       IsMod = isMod;
     }
@@ -12,6 +12,6 @@ namespace Bot.Models {
     public string Nick { get; }
     public IEnumerable<string> Flair { get; }
     public bool IsMod { get; }
-    public override string ToString() => IsMod ? $"{Nick}(Mod)" : Nick;
+
   }
 }
