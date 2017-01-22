@@ -27,7 +27,7 @@ namespace Bot.Logic {
         if (message.FromMod()) {
           outbox.AddRange(_modCommandGenerator.Generate(contextualized));
           outbox.AddRange(_commandGenerator.Generate(contextualized));
-        } else if (message is PublicReceivedMessage) {
+        } else if (message is PublicMessageFromCivilian) {
           outbox.AddRange(_banGenerator.Generate(contextualized));
           if (outbox.Count == 0) {
             outbox.AddRange(_commandGenerator.Generate(contextualized));

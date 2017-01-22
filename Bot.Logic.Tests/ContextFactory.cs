@@ -33,10 +33,10 @@ namespace Bot.Logic.Tests {
       => targets.OrderBy(u => u.Nick).SequenceEqual(_TargetUsers.OrderBy(u => u.Nick)) && !_NonTargetUsers.Intersect(targets).Any();
 
     public ContextBuilder TargetedMessage(string message, TimeSpan? timestamp = null)
-      => _AddReceived(timestamp, t => _targets.Add(new PublicReceivedMessage(message, t)));
+      => _AddReceived(timestamp, t => _targets.Add(new PublicMessageFromCivilian(message, t)));
 
     public ContextBuilder PublicMessage(string message, TimeSpan? timestamp = null)
-      => _AddReceived(timestamp, t => _nontargets.Add(new PublicReceivedMessage(message, t)));
+      => _AddReceived(timestamp, t => _nontargets.Add(new PublicMessageFromCivilian(message, t)));
 
     public ContextBuilder ModMessage(string message, TimeSpan? timestamp = null)
       => _AddReceived(timestamp, t => _nontargets.Add(new PublicMessageFromMod(message, t)));

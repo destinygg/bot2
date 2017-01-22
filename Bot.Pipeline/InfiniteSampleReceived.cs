@@ -17,7 +17,7 @@ namespace Bot.Pipeline {
       get {
         var rng = new Random();
         while (true) {
-          yield return new PublicReceivedMessage("Hi!" + rng.Next(), _timeService.UtcNow);
+          yield return new PublicMessageFromCivilian("Hi!" + rng.Next(), _timeService.UtcNow);
         }
       }
     }
