@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using Bot.Tools.Contracts;
 
 namespace Bot.Models {
-  public abstract class MessageFromCivilian : ReceivedMessage {
-    protected MessageFromCivilian(Civilian sender, string text, ITimeService timeService) : base(sender, text, timeService) { }
-    protected MessageFromCivilian(Civilian sender, string text, DateTime timestamp) : base(sender, text, timestamp) { }
+  [DebuggerDisplay("PublicFrom:{Sender} Saying:{Text}")]
+  public class PublicMessageFromCivilian : MessageFromCivilian {
+    public PublicMessageFromCivilian(string text, ITimeService timeService) : base(new Civilian("SampleUser"), text, timeService) { }
+    public PublicMessageFromCivilian(string text, DateTime timestamp) : base(new Civilian(timestamp.ToShortTimeString()), text, timestamp) { }
 
   }
 }

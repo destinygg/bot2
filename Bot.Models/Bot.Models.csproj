@@ -44,7 +44,7 @@
     <Compile Include="IReceivedFactory.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="MessageFromMod.cs" />
-    <Compile Include="PublicMessageFromCivilian.cs" />
+    <Compile Include="MessageFromCivilian.cs" />
     <Compile Include="ReceivedNuke.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="Punishment.cs" />
@@ -53,7 +53,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="ReceivedMessage.cs" />
     <Compile Include="PublicMessageFromMod.cs" />
-    <Compile Include="PublicReceivedMessage.cs" />
+    <Compile Include="PublicMessageFromCivilian.cs" />
     <Compile Include="ReceivedRegexNuke.cs" />
     <Compile Include="ReceivedStringNuke.cs" />
     <Compile Include="ReceivedPardon.cs" />
