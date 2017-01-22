@@ -3,12 +3,12 @@
 
 
 
-                                            <-     PublicReceivedMessage
-                                            <-    PrivateReceivedMessage
-                                            <-  ModPublicReceivedMessage <- BroadcastReceivedMessage
-                        <-[ReceivedMessage] <- ModPrivateReceivedMessage
+                                                                     <-       PublicMessageFromMod <- ReceivedBroadcast
+                                            <- [MessageFromMod]      <-      PrivateMessageFromMod
+                                                                     <-  PublicMessageFromCivilian
+                        <-[ReceivedMessage] <- [MessageFromCivilian] <- PrivateMessageFromCivilian
 (IMessage) <- [Message]
-                        <- SendablePublicMessage  <- BroadcastSendableMessage
+                        <-  SendablePublicMessage <- SendableBroadcast
                         <- SendablePrivateMessage
 
 

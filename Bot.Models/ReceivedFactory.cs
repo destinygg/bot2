@@ -13,8 +13,8 @@ namespace Bot.Models {
       _modCommandParser = modCommandParser;
     }
 
-    public PublicReceivedMessageFromMod ModPublicReceivedMessage(string text) => new PublicReceivedMessageFromMod(text, _timeService);
-    public PublicReceivedMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp) => new PublicReceivedMessageFromMod(text, timestamp);
+    public PublicMessageFromMod ModPublicReceivedMessage(string text) => new PublicMessageFromMod(text, _timeService);
+    public PublicMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp) => new PublicMessageFromMod(text, timestamp);
 
     public PublicReceivedMessage PublicReceivedMessage(string text) => new PublicReceivedMessage(text, _timeService);
     public PublicReceivedMessage PublicReceivedMessage(string text, DateTime timestamp) => new PublicReceivedMessage(text, timestamp);
