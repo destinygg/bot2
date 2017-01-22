@@ -1,11 +1,14 @@
 ﻿using System;
 using Bot.Models.Contracts;
 using Bot.Tools;
+using Bot.Tools.Contracts;
 
 namespace Bot.Models {
   public abstract class ReceivedNuke : IReceivedNuke {
+    private readonly ITimeService _timeService;
 
-    protected ReceivedNuke(ReceivedMessage message) {
+    protected ReceivedNuke(ReceivedMessage message, ITimeService timeService) {
+      _timeService = timeService;
       Timestamp = message.Timestamp;
       Sender = message.Sender;
     }
@@ -13,10 +16,17 @@ namespace Bot.Models {
     public bool WillPunish<T>(T message) where T : IReceived, IMessage =>
       !message.FromMod() &&
       WillPunish(message.Text) &&
-      WithinRange(message);
+      WithinRange(message) &&
+      !_IsExpired(message);
 
-    private bool WithinRange<T>(T message) where T : IReceived => 
+    private bool WithinRange<T>(T message) where T : IReceived =>
       message.Timestamp.IsWithin(Timestamp, Settings.NukeBlastRadius);
+
+    private bool _IsExpired(IReceived message) {
+      var punishmentTimestamp = message.Timestamp <= Timestamp ? Timestamp : message.Timestamp;
+      var expirationDate = punishmentTimestamp + Duration;
+      return expirationDate < _timeService.UtcNow;
+    }
 
     protected abstract bool WillPunish(string possibleVictimText);
     public abstract TimeSpan Duration { get; }

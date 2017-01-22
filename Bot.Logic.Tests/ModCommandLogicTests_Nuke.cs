@@ -19,7 +19,7 @@ namespace Bot.Logic.Tests {
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
       _factory = new ReceivedFactory(timeService, parser);
-      var nukeLogic = new NukeLogic(regex, _factory, timeService);
+      var nukeLogic = new NukeLogic(regex, _factory);
       return new ModCommandLogic(logger, nukeLogic);
     }
 

@@ -21,10 +21,10 @@ namespace Bot.Models {
 
     public ReceivedPardon ReceivedPardon(IUser sender, IUser target) => new ReceivedPardon(sender, target, _timeService);
 
-    public ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage message) => new ReceivedRegexNuke(message, _modCommandParser);
-    public ReceivedStringNuke ReceivedStringNuke(ReceivedMessage message) => new ReceivedStringNuke(message, _modCommandParser);
+    public ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage message) => new ReceivedRegexNuke(message, _timeService, _modCommandParser);
+    public ReceivedStringNuke ReceivedStringNuke(ReceivedMessage message) => new ReceivedStringNuke(message, _timeService, _modCommandParser);
 
-    public ReceivedRegexNuke ReceivedRegexNuke(string command) => new ReceivedRegexNuke(ModPublicReceivedMessage(command), _modCommandParser);
-    public ReceivedStringNuke ReceivedStringNuke(string command) => new ReceivedStringNuke(ModPublicReceivedMessage(command), _modCommandParser);
+    public ReceivedRegexNuke ReceivedRegexNuke(string command) => new ReceivedRegexNuke(ModPublicReceivedMessage(command), _timeService, _modCommandParser);
+    public ReceivedStringNuke ReceivedStringNuke(string command) => new ReceivedStringNuke(ModPublicReceivedMessage(command), _timeService,_modCommandParser);
   }
 }

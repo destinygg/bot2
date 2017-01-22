@@ -9,12 +9,10 @@ namespace Bot.Logic {
   public class NukeLogic : INukeLogic {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
-    private readonly ITimeService _timeService;
 
-    public NukeLogic(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory, ITimeService timeService) {
+    public NukeLogic(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
       _modCommandRegex = modCommandRegex;
       _receivedFactory = receivedFactory;
-      _timeService = timeService;
     }
 
     public IReadOnlyList<ISendable> Nuke(IReceivedNuke nuke, IReadOnlyList<IReceived> context) =>
@@ -24,16 +22,9 @@ namespace Bot.Logic {
     private IEnumerable<Civilian> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
       .OfType<MessageFromCivilian>()
       .Where(nuke.WillPunish)
-      .Where(m => !_IsExpired(m, nuke))
       .Select(m => m.Sender)
       .OfType<Civilian>() // todo shadowing?
       .Distinct();
-
-    private bool _IsExpired(ReceivedMessage message, IReceivedNuke nuke) {
-      var punishmentTimestamp = message.Timestamp <= nuke.Timestamp ? nuke.Timestamp : message.Timestamp;
-      var expirationDate = punishmentTimestamp + nuke.Duration;
-      return expirationDate < _timeService.UtcNow;
-    }
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context) {
       var modMessages = context.OfType<MessageFromMod>().ToList();
