@@ -15,6 +15,7 @@ namespace Bot.Models {
 
     protected override bool MatchesNukedTerm(string possibleVictimText) => 
       possibleVictimText.IgnoreCaseContains(_nukedString) || 
+      possibleVictimText.RemoveWhitespace().IgnoreCaseContains(_nukedString) ||
       possibleVictimText.SimilarTo(_nukedString) >= Settings.NukeMinimumStringSimilarity;
 
   }

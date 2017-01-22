@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bot.Tools {
   public static class StringExtensionMethods {
@@ -107,6 +104,13 @@ namespace Bot.Tools {
       if (string.IsNullOrEmpty(toCheck) || string.IsNullOrEmpty(source))
         return true;
       return source.IndexOf(toCheck, StringComparison.InvariantCultureIgnoreCase) >= 0;
+    }
+
+    //http://stackoverflow.com/a/14591148
+    public static string RemoveWhitespace(this string input) {
+      return new string(input
+          .Where(c => !Char.IsWhiteSpace(c))
+          .ToArray());
     }
   }
 }
