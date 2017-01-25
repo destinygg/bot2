@@ -125,12 +125,15 @@
     <Compile Include="InitializeDb.cs" />
     <Compile Include="StateIntegerApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateInteger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
+      <Project>{4B8E79EA-6F68-4F39-8520-4F77751A606E}</Project>
+      <Name>Bot.Database.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>
