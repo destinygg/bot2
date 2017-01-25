@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bot.Database.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Api {
   public class BotDbContext : DbContext {
+
     #region DbSet
     public DbSet<StateInteger> StateIntegers { get; set; }
     #endregion
