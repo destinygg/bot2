@@ -14,7 +14,7 @@ namespace Bot.Models {
     }
 
     public bool WillPunish<T>(T message) where T : IReceived, IMessage =>
-      !message.FromMod() &&
+      !message.IsFromMod() &&
       MatchesNukedTerm(message.Text) &&
       WithinRange(message) &&
       !_IsExpired(message);

@@ -24,7 +24,7 @@ namespace Bot.Logic {
       var message = contextualized.First as ReceivedMessage;
       if (message != null) {
         _logger.LogVerbose(message.Text);
-        if (message.FromMod()) {
+        if (message.IsFromMod()) {
           outbox.AddRange(_modCommandGenerator.Generate(contextualized));
           outbox.AddRange(_commandGenerator.Generate(contextualized));
         } else if (message is PublicMessageFromCivilian) {
