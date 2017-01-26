@@ -12,22 +12,25 @@ namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
       var container = new Container();
-      container.Register<IBanGenerator, BanGenerator>();
-      container.Register<ICommandGenerator, CommandGenerator>();
-      container.Register<IModCommandGenerator, ModCommandGenerator>();
-      container.Register<ISendableGenerator, SendableGenerator>();
-      container.Register<ILogger, ConsoleLogger>();
-      container.Register<IModCommandLogic, ModCommandLogic>();
-      container.Register<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton);
-      container.Register<IModCommandParser, ModCommandParser>();
-      container.Register<ITimeService, TimeService>();
-      container.Register<IReceivedFactory, ReceivedFactory>();
-      container.Register<INukeLogic, NukeLogic>();
-      container.Register<ISampleReceived, SampleReceived>();
-      container.Register<IContextualizedToSendable, ContextualizedToSendable>();
-      container.Register<IReceivedToContextualized, ReceivedToContextualized>();
-      container.Register<ISender, ConsoleSender>();
-      container.Register<IPipeline, Pipeline.Pipeline>();
+      container.RegisterSingleton<INukeLogic, NukeLogic>();
+      container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
+      container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
+      container.RegisterSingleton<IModCommandParser, ModCommandParser>();
+
+      container.RegisterSingleton<IModCommandGenerator, ModCommandGenerator>();
+      container.RegisterSingleton<ICommandGenerator, CommandGenerator>();
+      container.RegisterSingleton<IBanGenerator, BanGenerator>();
+      container.RegisterSingleton<ISendableGenerator, SendableGenerator>();
+
+      container.RegisterSingleton<IReceivedToContextualized, ReceivedToContextualized>();
+      container.RegisterSingleton<IContextualizedToSendable, ContextualizedToSendable>();
+      container.RegisterSingleton<ISender, ConsoleSender>();
+      container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
+
+      container.RegisterSingleton<ILogger, ConsoleLogger>();
+      container.RegisterSingleton<ITimeService, TimeService>();
+      container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
+      container.RegisterSingleton<ISampleReceived, SampleReceived>();
       container.Verify();
 
       var data = container.GetInstance<ISampleReceived>();
