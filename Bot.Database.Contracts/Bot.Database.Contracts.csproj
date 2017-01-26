@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="IApiFactory.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="IStateVariablesApi.cs" />
+    <Compile Include="IStateIntegerApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
