@@ -12,13 +12,13 @@ namespace Bot.Api.Tests {
     [TestMethod]
     public void LatestLiveTimeUpdate() {
       var s = new StateIntegerApi();
-      s.LatestStreamOnTime = DateTime.UtcNow;
+      //s.LatestStreamOnTime = DateTime.UtcNow;
     }
 
     [TestMethod]
     public void LatestLiveTimeRead() {
-      var s = new StateIntegerApi();
-      var time = s.LatestStreamOnTime;
+      //var s = new StateIntegerApi();
+      //var time = s.LatestStreamOnTime;
     }
   }
 }

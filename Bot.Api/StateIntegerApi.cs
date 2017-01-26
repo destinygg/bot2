@@ -1,34 +1,23 @@
 ﻿using System;
-using System.Linq;
+using Bot.Database.Contracts;
 using Bot.Database.Entities;
 using Bot.Tools;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Api {
-  public class StateIntegerApi{
+  public class StateIntegerApi : Repository<StateInteger>, IStateIntegerApi {
+    public StateIntegerApi(DbSet<StateInteger> entities) : base(entities) { }
 
     public DateTime LatestStreamOnTime {
       get { return _Read(nameof(LatestStreamOnTime)).FromUnixTime(); }
-      set {
-        var epochTime = value.ToUnixTime();
-        _Write(new StateInteger(nameof(LatestStreamOnTime), epochTime));
-      }
+      set { _Update(nameof(LatestStreamOnTime), value.ToUnixTime()); }
     }
 
-    public DateTime LatestStreamOffTime { get; set; }
-    public int DeathCount { get; set; }
+    private long _Read(string key) =>
+      SingleOrDefault(x => x.Key == key).Value;
 
-    private long _Read(string key) {
-      using (var context = new BotDbContext()) {
-        return context.StateIntegers.First(si => si.Key == key).Value;
-      }
-    }
-
-    private int _Write(StateInteger stateInteger) {
-      using (var context = new BotDbContext()) {
-        context.StateIntegers.Update(stateInteger);
-        return context.SaveChanges();
-      }
-    }
+    private void _Update(string key, long value) =>
+      Update(new StateInteger(key, value));
 
   }
 }
