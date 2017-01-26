@@ -7,12 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Api {
   public class Repository<TEntity> : IRepository<TEntity> where TEntity : class {
-    protected readonly DbContext Context;
     protected readonly DbSet<TEntity> Entities;
 
-    public Repository(DbContext context) {
-      Context = context;
-      Entities = Context.Set<TEntity>();
+    public Repository(DbSet<TEntity> entities) {
+      Entities = entities;
     }
 
     public IEnumerable<TEntity> GetAll() =>
@@ -41,5 +39,6 @@ namespace Bot.Api {
 
     public void Remove(IEnumerable<TEntity> entities) =>
       Entities.RemoveRange(entities);
+
   }
 }
