@@ -27,5 +27,7 @@ namespace Bot.Database {
       }
     }
 
+    public DateTime LatestStreamOffTime { get; set; }
+    public long DeathCount { get; set; }
   }
 }
