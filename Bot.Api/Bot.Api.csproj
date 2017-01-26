@@ -123,7 +123,7 @@
   <ItemGroup>
     <Compile Include="BotDbContext.cs" />
     <Compile Include="BotDbContextManager.cs" />
-    <Compile Include="InitializeDb.cs" />
+    <Compile Include="DatabaseManager.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="StateIntegerApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
