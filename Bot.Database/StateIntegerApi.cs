@@ -5,14 +5,14 @@ using Bot.Pipeline.Contracts;
 using Bot.Tools;
 
 namespace Bot.Database {
-  public class StateVariablesApi : DbApi, IStateVariablesApi {
+  public class StateIntegerApi : DbApi, IStateIntegerApi {
     private readonly ILogger _logger;
 
-    public StateVariablesApi(ILogger logger) {
+    public StateIntegerApi(ILogger logger) {
       _logger = logger;
     }
 
-    public DateTime OnTime {
+    public DateTime LatestStreamOnTime {
       get { return Db.Get<StateVariables>(x => x.Key == MagicStrings.OnTime).Value.FromUnixTime(); }
       set {
         var liveObj = new StateVariables {

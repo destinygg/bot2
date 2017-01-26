@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="StateVariablesApi.cs" />
+    <Compile Include="StateIntegerApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

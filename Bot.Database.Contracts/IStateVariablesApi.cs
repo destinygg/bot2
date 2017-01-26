@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Bot.Database.Contracts {
-  public interface IStateVariablesApi {
-    DateTime OnTime { get; set; }
+  public interface IStateIntegerApi {
+    DateTime LatestStreamOnTime { get; set; }
   }
 }

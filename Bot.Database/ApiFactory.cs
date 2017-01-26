@@ -9,6 +9,6 @@ namespace Bot.Database {
       _logger = logger;
     }
 
-    public IStateVariablesApi GetStateVariablesApi => new StateVariablesApi(_logger);
+    public IStateIntegerApi GetStateIntegerApi => new StateIntegerApi(_logger);
   }
 }
