@@ -6,7 +6,7 @@ using Bot.Database.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Api {
-  public class Repository<TEntity> : IRepository<TEntity> where TEntity : class {
+  public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class {
     protected readonly DbSet<TEntity> Entities;
 
     public Repository(DbSet<TEntity> entities) {
