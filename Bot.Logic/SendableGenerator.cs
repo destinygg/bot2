@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
@@ -29,7 +30,7 @@ namespace Bot.Logic {
           outbox.AddRange(_commandGenerator.Generate(contextualized));
         } else if (message is PublicMessageFromCivilian) {
           outbox.AddRange(_banGenerator.Generate(contextualized));
-          if (outbox.Count == 0) {
+          if (!outbox.Any()) { // Civilian hasn't been punished
             outbox.AddRange(_commandGenerator.Generate(contextualized));
           }
         }
