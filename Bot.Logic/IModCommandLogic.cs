@@ -4,9 +4,9 @@ using Bot.Models.Contracts;
 
 namespace Bot.Logic {
   public interface IModCommandLogic {
-    ISendable Long(IReadOnlyList<IReceived> context);
+    ISendable Long(IReadOnlyList<IReceived<IUser>> context);
     ISendable Sing();
-    IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived> context, IReceivedNuke nuke);
-    IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context);
+    IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived<IUser>> context, IReceivedNuke nuke);
+    IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser>> context);
   }
 }
