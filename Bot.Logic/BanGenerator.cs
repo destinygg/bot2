@@ -15,5 +15,17 @@ namespace Bot.Logic {
       }
       return outbox;
     }
+
+    //IReadOnlyCollection?
+    //public IReadOnlyList<ISendable> Generate(IContextualized contextualized) =>
+    //  Herpderp(contextualized).ToList();
+
+    //private IEnumerable<ISendable> Herpderp(IContextualized contextualized) {
+    //  var message = contextualized.First as ReceivedMessage;
+    //  if (message != null && message.Text.Contains("banplox")) {
+    //    yield return new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Text}");
+    //  }
+    //}
+
   }
 }
