@@ -11,7 +11,7 @@ namespace Bot.Models {
       _allReceived = allReceived;
     }
 
-    public IReceived First => _allReceived.First();
+    public IReceived Latest => _allReceived.First();
     public IReadOnlyList<IReceived> Context => _allReceived.Skip(1).ToList();
 
   }

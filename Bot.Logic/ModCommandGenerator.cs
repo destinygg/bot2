@@ -22,7 +22,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var context = contextualized.Context;
-      var message = contextualized.First as ReceivedMessage;
+      var message = contextualized.Latest as ReceivedMessage;
       if (message != null) {
         if (message.IsMatch(_modCommandRegex.Sing))
           return _modCommandLogic.Sing().Wrap().ToList();

@@ -8,7 +8,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
       var outbox = new List<ISendable>();
-      var message = contextualized.First as ReceivedMessage;
+      var message = contextualized.Latest as ReceivedMessage;
       if (message == null) return outbox;
       if (message.Text.Contains("banplox")) {
         outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Text}"));

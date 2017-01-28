@@ -3,13 +3,13 @@
 namespace Bot.Models.Contracts {
   public interface IContextualized {
 
-    /// <summary>
-    /// The first Received message
+    /// <summary> 
+    /// The latest Received transmission
     /// </summary>
-    IReceived First { get; }
+    IReceived Latest { get; }
 
     /// <summary>
-    /// The rest of the Received messages; doesn't include First
+    /// The rest of the Received transmissions; doesn't include Latest
     /// </summary>
     IReadOnlyList<IReceived> Context { get; }
   }
