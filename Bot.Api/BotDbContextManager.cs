@@ -4,12 +4,16 @@ using Microsoft.EntityFrameworkCore;
 namespace Bot.Api {
   public class BotDbContextManager {
 
-    public void CallWithForeignKeysAndSaving(Action<BotDbContext> injectedAction) {
+    public void Save(Action<BotDbContext> dbCommand) {
       using (var context = new BotDbContext()) {
-        context.Database.ExecuteSqlCommand("PRAGMA foreign_keys = ON");
-        injectedAction(context);
+        _InvokeWithEnforcedForeignKeys(dbCommand, context);
         context.SaveChanges();
       }
+    }
+
+    private void _InvokeWithEnforcedForeignKeys(Action<BotDbContext> dbCommand, BotDbContext context) {
+      context.Database.ExecuteSqlCommand("PRAGMA foreign_keys = ON");
+      dbCommand(context);
     }
 
   }

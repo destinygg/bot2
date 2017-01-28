@@ -6,7 +6,7 @@ namespace Bot.Api {
 
     public void EnsureCreated() {
       var manager = new BotDbContextManager();
-      manager.CallWithForeignKeysAndSaving(context => {
+      manager.Save(context => {
         context.Database.EnsureCreated();
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerApi.LatestStreamOnTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerApi.LatestStreamOffTime), 0));
@@ -16,7 +16,7 @@ namespace Bot.Api {
 
     public void EnsureDeleted() {
       var manager = new BotDbContextManager();
-      manager.CallWithForeignKeysAndSaving(context => {
+      manager.Save(context => {
         context.Database.EnsureDeleted();
       });
     }
