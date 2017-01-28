@@ -6,11 +6,11 @@ namespace Bot.Models.Contracts {
     /// <summary> 
     /// The latest Received transmission
     /// </summary>
-    IReceived Latest { get; }
+    IReceived<IUser> Latest { get; }
 
     /// <summary>
     /// The rest of the Received transmissions; doesn't include Latest
     /// </summary>
-    IReadOnlyList<IReceived> Context { get; }
+    IReadOnlyList<IReceived<IUser>> Context { get; }
   }
 }

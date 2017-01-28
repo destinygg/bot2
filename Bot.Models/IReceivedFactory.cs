@@ -7,7 +7,7 @@ namespace Bot.Models {
     PublicMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp);
     PublicMessageFromCivilian PublicReceivedMessage(string text);
     PublicMessageFromCivilian PublicReceivedMessage(string text, DateTime timestamp);
-    ReceivedPardon ReceivedPardon(IUser sender, IUser target);
+    ReceivedPardon ReceivedPardon(Moderator sender, Civilian target);
     ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage message);
     ReceivedStringNuke ReceivedStringNuke(ReceivedMessage message);
     ReceivedRegexNuke ReceivedRegexNuke(string command);

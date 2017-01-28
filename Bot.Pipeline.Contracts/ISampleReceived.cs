@@ -3,6 +3,6 @@ using Bot.Models.Contracts;
 
 namespace Bot.Pipeline.Contracts {
   public interface ISampleReceived {
-    IEnumerable<IReceived> Receiveds { get; }
+    IEnumerable<IReceived<IUser>> Receiveds { get; }
   }
 }

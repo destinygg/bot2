@@ -13,16 +13,15 @@ namespace Bot.Models {
       Sender = message.Sender;
     }
 
-    public bool WillPunish<T>(T message) where T : IReceived, IMessage =>
-      !message.IsFromMod() &&
+    public bool WillPunish<T>(T message) where T : IReceived<IUser>, IMessage =>
       MatchesNukedTerm(message.Text) &&
       WithinRange(message) &&
       !_IsExpired(message);
 
-    private bool WithinRange<T>(T message) where T : IReceived =>
+    private bool WithinRange<T>(T message) where T : IReceived<IUser> =>
       message.Timestamp.IsWithin(Timestamp, Settings.NukeBlastRadius);
 
-    private bool _IsExpired(IReceived message) {
+    private bool _IsExpired(IReceived<IUser> message) {
       var punishmentTimestamp = message.Timestamp <= Timestamp ? Timestamp : message.Timestamp;
       var expirationDate = punishmentTimestamp + Duration;
       return expirationDate < _timeService.UtcNow;

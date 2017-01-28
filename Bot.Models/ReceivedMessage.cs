@@ -3,7 +3,7 @@ using Bot.Models.Contracts;
 using Bot.Tools.Contracts;
 
 namespace Bot.Models {
-  public abstract class ReceivedMessage : Message, IReceived {
+  public abstract class ReceivedMessage : Message, IReceived<IUser> {
     protected ReceivedMessage(IUser sender, string text, ITimeService timeService) : base(text) {
       Timestamp = timeService.UtcNow;
       Sender = sender;

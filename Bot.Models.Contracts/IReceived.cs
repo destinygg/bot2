@@ -1,8 +1,8 @@
 ﻿using System;
 
 namespace Bot.Models.Contracts {
-  public interface IReceived {
+  public interface IReceived<T> where T : IUser {
     DateTime Timestamp { get; }
-    IUser Sender { get; }
+    T Sender { get; }
   }
 }

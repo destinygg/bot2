@@ -13,7 +13,7 @@ namespace Bot.Pipeline {
       _timeService = timeService;
     }
 
-    public IEnumerable<IReceived> Receiveds {
+    public IEnumerable<IReceived<IUser>> Receiveds {
       get {
         var rng = new Random();
         while (true) {

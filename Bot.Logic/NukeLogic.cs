@@ -14,18 +14,18 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable> Nuke(IReceivedNuke nuke, IReadOnlyList<IReceived> context) =>
+    public IReadOnlyList<ISendable> Nuke(IReceivedNuke nuke, IReadOnlyList<IReceived<IUser>> context) =>
       _GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
-    private IEnumerable<Civilian> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived> context) => context
+    private IEnumerable<Civilian> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived<IUser>> context) => context
       .OfType<MessageFromCivilian>()
       .Where(nuke.WillPunish)
       .Select(m => m.Sender)
       .OfType<Civilian>() // todo shadowing?
       .Distinct();
 
-    public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived> context) {
+    public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser>> context) {
       var modMessages = context.OfType<MessageFromMod>().ToList();
       var nukes = _GetStringNukes(modMessages).Concat<IReceivedNuke>(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => _GetCurrentVictims(n, context));

@@ -5,14 +5,14 @@ using Bot.Models.Contracts;
 namespace Bot.Models {
   public class Contextualized : IContextualized {
 
-    private readonly IReadOnlyList<IReceived> _allReceived;
+    private readonly IReadOnlyList<IReceived<IUser>> _allReceived;
 
-    public Contextualized(IReadOnlyList<IReceived> allReceived) {
+    public Contextualized(IReadOnlyList<IReceived<IUser>> allReceived) {
       _allReceived = allReceived;
     }
 
-    public IReceived Latest => _allReceived.First();
-    public IReadOnlyList<IReceived> Context => _allReceived.Skip(1).ToList();
+    public IReceived<IUser> Latest => _allReceived.First();
+    public IReadOnlyList<IReceived<IUser>> Context => _allReceived.Skip(1).ToList();
 
   }
 }

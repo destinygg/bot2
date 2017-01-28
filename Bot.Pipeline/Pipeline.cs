@@ -6,9 +6,9 @@ using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
   public class Pipeline : IPipeline {
-    private readonly BufferBlock<IReceived> _bufferBlock = new BufferBlock<IReceived>();
+    private readonly BufferBlock<IReceived<IUser>> _bufferBlock = new BufferBlock<IReceived<IUser>>();
     public Pipeline(IReceivedToContextualized receivedToContextualized, IContextualizedToSendable contextualizedToSendable, ISender sender) {
-      var receivedToContextualizedBlock = new TransformBlock<IReceived, IContextualized>(r => receivedToContextualized.GetContextualized(r));
+      var receivedToContextualizedBlock = new TransformBlock<IReceived<IUser>, IContextualized>(r => receivedToContextualized.GetContextualized(r));
       var contextualizedToSendableBlock = new TransformBlock<IContextualized, IReadOnlyList<ISendable>>(c => contextualizedToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
         MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
         EnsureOrdered = false,
