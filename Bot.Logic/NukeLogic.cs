@@ -19,10 +19,9 @@ namespace Bot.Logic {
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
     private IEnumerable<Civilian> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived<IUser>> context) => context
-      .OfType<MessageFromCivilian>()
+      .OfType<IReceivedMessage<Civilian>>()
       .Where(nuke.WillPunish)
       .Select(m => m.Sender)
-      .OfType<Civilian>() // todo shadowing?
       .Distinct();
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser>> context) {
