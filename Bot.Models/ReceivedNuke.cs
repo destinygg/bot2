@@ -7,7 +7,7 @@ namespace Bot.Models {
   public abstract class ReceivedNuke : IReceivedNuke {
     private readonly ITimeService _timeService;
 
-    protected ReceivedNuke(ReceivedMessage<Moderator> message, ITimeService timeService) {
+    protected ReceivedNuke(IReceivedMessage<Moderator> message, ITimeService timeService) {
       _timeService = timeService;
       Timestamp = message.Timestamp;
       Sender = message.Sender;

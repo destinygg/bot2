@@ -8,8 +8,8 @@ namespace Bot.Models {
     PublicMessageFromCivilian PublicReceivedMessage(string text);
     PublicMessageFromCivilian PublicReceivedMessage(string text, DateTime timestamp);
     ReceivedPardon ReceivedPardon(Moderator sender, Civilian target);
-    ReceivedRegexNuke ReceivedRegexNuke(ReceivedMessage<Moderator> message);
-    ReceivedStringNuke ReceivedStringNuke(ReceivedMessage<Moderator> message);
+    ReceivedRegexNuke ReceivedRegexNuke(IReceivedMessage<Moderator> message);
+    ReceivedStringNuke ReceivedStringNuke(IReceivedMessage<Moderator> message);
     ReceivedRegexNuke ReceivedRegexNuke(string command);
     ReceivedStringNuke ReceivedStringNuke(string command);
   }
