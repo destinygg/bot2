@@ -6,7 +6,7 @@ using Bot.Tools.Contracts;
 namespace Bot.Models {
   public class ReceivedStringNuke : ReceivedNuke {
     private readonly string _nukedString;
-    public ReceivedStringNuke(ReceivedMessage message, ITimeService timeService, IModCommandParser parser) : base(message, timeService) {
+    public ReceivedStringNuke(ReceivedMessage<Moderator> message, ITimeService timeService, IModCommandParser parser) : base(message, timeService) {
       Duration = parser.Nuke(message.Text).Item2;
       _nukedString = parser.Nuke(message.Text).Item1;
     }

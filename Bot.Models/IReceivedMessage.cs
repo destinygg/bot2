@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bot.Models.Contracts;
+﻿using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  public interface IReceivedMessage : IReceived<IUser>, IMessage {
+  public interface IReceivedMessage<out T> : IReceived<T>, IMessage
+    where T : IUser {
 
   }
 }
