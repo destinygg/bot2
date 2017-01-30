@@ -2,11 +2,11 @@
 using Bot.Models.Contracts;
 
 namespace Bot.Models {
-  public class Contextualized<TUser, TTransmission> : IContextualized<TUser, TTransmission>
+  public class Snapshot<TUser, TTransmission> : ISnapshot<TUser, TTransmission>
     where TTransmission : ITransmittable
     where TUser : IUser {
 
-    public Contextualized(IReceived<TUser, TTransmission> latest, IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
+    public Snapshot(IReceived<TUser, TTransmission> latest, IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       Latest = latest;
       Context = context;
     }

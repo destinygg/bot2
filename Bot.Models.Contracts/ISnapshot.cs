@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Bot.Models.Contracts {
-  public interface IContextualized<out TUser, out TTransmission>
+  public interface ISnapshot<out TUser, out TTransmission>
     where TUser : IUser
     where TTransmission : ITransmittable{
 

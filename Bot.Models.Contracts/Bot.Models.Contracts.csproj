@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IContextualized.cs" />
+    <Compile Include="ISnapshot.cs" />
     <Compile Include="IReceivedExtensionMethods.cs" />
     <Compile Include="ITargetable.cs" />
     <Compile Include="IMessage.cs" />

@@ -6,9 +6,9 @@ using Bot.Models.Contracts;
 namespace Bot.Logic {
   public class BanGenerator : IBanGenerator {
 
-    public IReadOnlyList<ISendable> Generate(IContextualized<IUser, ITransmittable> contextualized) {
+    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var outbox = new List<ISendable>();
-      var message = contextualized.Latest as ReceivedMessage<Civilian>;
+      var message = snapshot.Latest as ReceivedMessage<Civilian>;
       if (message == null) return outbox;
       if (message.Text.Contains("banplox")) {
         outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Text}"));
@@ -17,11 +17,11 @@ namespace Bot.Logic {
     }
 
     //IReadOnlyCollection?
-    //public IReadOnlyList<ISendable> Generate(IContextualized contextualized) =>
-    //  Herpderp(contextualized).ToList();
+    //public IReadOnlyList<ISendable> Generate(ISnapshot snapshot) =>
+    //  Herpderp(snapshot).ToList();
 
-    //private IEnumerable<ISendable> Herpderp(IContextualized contextualized) {
-    //  var message = contextualized.First as ReceivedMessage;
+    //private IEnumerable<ISendable> Herpderp(ISnapshot snapshot) {
+    //  var message = snapshot.First as ReceivedMessage;
     //  if (message != null && message.Text.Contains("banplox")) {
     //    yield return new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Text}");
     //  }

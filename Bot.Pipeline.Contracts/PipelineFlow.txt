@@ -1,5 +1,5 @@
-﻿ReceivedProducer -> ContextualizedProducer -> SendableProducer -> Sender
-                                             ∧
-     ModCommandGenerator \                   ||
-        CommandGenerator  > SendableGenerator||
-            BanGenerator /
+﻿IEnumerable<IReceived> -> ReceivedToSnapshot -> SnapshotToSendable -> Sender
+                                               ∧
+       ModCommandGenerator \                   ||
+          CommandGenerator  > SendableGenerator||
+              BanGenerator /

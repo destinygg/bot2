@@ -50,7 +50,7 @@
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
-    <Compile Include="Contextualized.cs" />
+    <Compile Include="Snapshot.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="ReceivedMessage.cs" />
     <Compile Include="PublicMessageFromMod.cs" />

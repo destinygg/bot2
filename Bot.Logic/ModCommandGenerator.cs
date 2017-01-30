@@ -20,9 +20,9 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable> Generate(IContextualized<IUser, ITransmittable> contextualized) {
-      var context = contextualized.Context;
-      var message = contextualized.Latest as ReceivedMessage<Moderator>;
+    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+      var context = snapshot.Context;
+      var message = snapshot.Latest as ReceivedMessage<Moderator>;
       if (message != null) {
         if (message.IsMatch(_modCommandRegex.Sing))
           return _modCommandLogic.Sing().Wrap().ToList();

@@ -7,17 +7,17 @@ using Bot.Pipeline.Contracts;
 namespace Bot.Pipeline {
   public class Pipeline : IPipeline {
     private readonly BufferBlock<IReceived<IUser, ITransmittable>> _bufferBlock = new BufferBlock<IReceived<IUser, ITransmittable>>();
-    public Pipeline(IReceivedToContextualized receivedToContextualized, IContextualizedToSendable contextualizedToSendable, ISender sender) {
-      var receivedToContextualizedBlock = new TransformBlock<IReceived<IUser, ITransmittable>, IContextualized<IUser, ITransmittable>>(r => receivedToContextualized.GetContextualized(r));
-      var contextualizedToSendableBlock = new TransformBlock<IContextualized<IUser, ITransmittable>, IReadOnlyList<ISendable>>(c => contextualizedToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
+    public Pipeline(IReceivedToSnapshot receivedToSnapshot, ISnapshotToSendable snapshotToSendable, ISender sender) {
+      var receivedToSnapshotBlock = new TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>(r => receivedToSnapshot.GetSnapshot(r));
+      var snapshotToSendableBlock = new TransformBlock<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable>>(c => snapshotToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
         MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
         EnsureOrdered = false,
       });
       var senderBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => sender.Send(r));
 
-      _bufferBlock.LinkTo(receivedToContextualizedBlock);
-      receivedToContextualizedBlock.LinkTo(contextualizedToSendableBlock);
-      contextualizedToSendableBlock.LinkTo(senderBlock);
+      _bufferBlock.LinkTo(receivedToSnapshotBlock);
+      receivedToSnapshotBlock.LinkTo(snapshotToSendableBlock);
+      snapshotToSendableBlock.LinkTo(senderBlock);
     }
 
     public async void Run(ISampleReceived sampleReceived) {

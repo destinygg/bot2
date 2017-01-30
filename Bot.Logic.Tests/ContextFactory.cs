@@ -8,8 +8,7 @@ using Bot.Tools;
 
 namespace Bot.Logic.Tests {
   /// <remarks>
-  /// "Context" here differs from IContextualized in that IContextualized's context skips the first message.
-  /// This Builder generates the list of IReceived that Contextualized takes in its ctor
+  /// "Context" here differs from ISnapshot in that ISnapshot's context skips the first message.
   /// </remarks>>
   public class ContextBuilder {
     private readonly DateTime _rootTime = TimeService.UnixEpoch;

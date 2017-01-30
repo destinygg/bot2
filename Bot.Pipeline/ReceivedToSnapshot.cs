@@ -7,13 +7,13 @@ using Bot.Pipeline.Contracts;
 using Bot.Tools;
 
 namespace Bot.Pipeline {
-  public class ReceivedToContextualized : IReceivedToContextualized {
+  public class ReceivedToSnapshot : IReceivedToSnapshot {
 
     private readonly List<IReceived<IUser, ITransmittable>> context = new List<IReceived<IUser, ITransmittable>>(); // Todo: Optimization: Use a circular buffer
 
-    public IContextualized<IUser, ITransmittable> GetContextualized(IReceived<IUser, ITransmittable> first) {
+    public ISnapshot<IUser, ITransmittable> GetSnapshot(IReceived<IUser, ITransmittable> first) {
       try {
-        return new Contextualized<IUser, ITransmittable>(first, context.ToList()); // The .ToList() creates a new instance; important!
+        return new Snapshot<IUser, ITransmittable>(first, context.ToList()); // The .ToList() creates a new instance; important!
       } finally {
         context.Insert(0, first);
         if (context.Count > Settings.ContextSize) {

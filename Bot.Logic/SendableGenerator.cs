@@ -20,18 +20,18 @@ namespace Bot.Logic {
       _commandGenerator = commandGenerator;
     }
 
-    public IReadOnlyList<ISendable> Generate(IContextualized<IUser, ITransmittable> contextualized) {
+    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var outbox = new List<ISendable>();
-      var message = contextualized.Latest as IReceivedMessage<IUser>;
+      var message = snapshot.Latest as IReceivedMessage<IUser>;
       if (message != null) {
         _logger.LogVerbose(message.Text);
         if (message.IsFromMod()) {
-          outbox.AddRange(_modCommandGenerator.Generate(contextualized));
-          outbox.AddRange(_commandGenerator.Generate(contextualized));
+          outbox.AddRange(_modCommandGenerator.Generate(snapshot));
+          outbox.AddRange(_commandGenerator.Generate(snapshot));
         } else if (message is PublicMessageFromCivilian) {
-          outbox.AddRange(_banGenerator.Generate(contextualized));
+          outbox.AddRange(_banGenerator.Generate(snapshot));
           if (!outbox.Any()) { // Civilian hasn't been punished
-            outbox.AddRange(_commandGenerator.Generate(contextualized));
+            outbox.AddRange(_commandGenerator.Generate(snapshot));
           }
         }
       }

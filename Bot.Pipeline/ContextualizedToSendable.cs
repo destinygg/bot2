@@ -4,13 +4,13 @@ using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 
 namespace Bot.Pipeline {
-  public class ContextualizedToSendable : IContextualizedToSendable {
+  public class SnapshotToSendable : ISnapshotToSendable {
     private readonly ISendableGenerator _sendableGenerator;
 
-    public ContextualizedToSendable(ISendableGenerator sendableGenerator) {
+    public SnapshotToSendable(ISendableGenerator sendableGenerator) {
       _sendableGenerator = sendableGenerator;
     }
 
-    public IReadOnlyList<ISendable> GetSendables(IContextualized<IUser, ITransmittable> contextualized) => _sendableGenerator.Generate(contextualized);
+    public IReadOnlyList<ISendable> GetSendables(ISnapshot<IUser, ITransmittable> snapshot) => _sendableGenerator.Generate(snapshot);
   }
 }

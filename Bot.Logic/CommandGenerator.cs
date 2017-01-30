@@ -13,9 +13,9 @@ namespace Bot.Logic {
       _timeService = timeService;
     }
 
-    public IReadOnlyList<ISendable> Generate(IContextualized<IUser, ITransmittable> contextualized) {
+    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var outbox = new List<ISendable>();
-      var message = contextualized.Latest as IReceivedMessage<IUser>;
+      var message = snapshot.Latest as IReceivedMessage<IUser>;
       if (message != null) {
         if (message.StartsWith("!time")) {
           outbox.Add(new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time"));
