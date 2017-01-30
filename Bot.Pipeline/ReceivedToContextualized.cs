@@ -8,9 +8,9 @@ using Bot.Tools;
 namespace Bot.Pipeline {
   public class ReceivedToContextualized : IReceivedToContextualized {
 
-    private readonly List<IReceived<IUser>> _allReceived = new List<IReceived<IUser>>(); // Todo: Optimization: Use a circular buffer
+    private readonly List<IReceived<IUser, ITransmittable>> _allReceived = new List<IReceived<IUser, ITransmittable>>(); // Todo: Optimization: Use a circular buffer
 
-    public IContextualized GetContextualized(IReceived<IUser> first) {
+    public IContextualized GetContextualized(IReceived<IUser, ITransmittable> first) {
       _allReceived.Insert(0, first);
       if (_allReceived.Count > Settings.ContextSize) {
         _allReceived.RemoveAt(Settings.ContextSize);

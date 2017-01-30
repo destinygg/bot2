@@ -14,14 +14,14 @@ namespace Bot.Models {
     }
 
     public bool WillPunish(IReceivedMessage<Civilian> message) =>
-      MatchesNukedTerm(message.Text) &&
+      MatchesNukedTerm(message.Transmission.Text) &&
       WithinRange(message) &&
       !_IsExpired(message);
 
     private bool WithinRange(IReceivedMessage<Civilian> message) =>
       message.Timestamp.IsWithin(Timestamp, Settings.NukeBlastRadius);
 
-    private bool _IsExpired(IReceived<IUser> message) {
+    private bool _IsExpired(IReceivedMessage<IUser> message) {
       var punishmentTimestamp = message.Timestamp <= Timestamp ? Timestamp : message.Timestamp;
       var expirationDate = punishmentTimestamp + Duration;
       return expirationDate < _timeService.UtcNow;
@@ -31,6 +31,10 @@ namespace Bot.Models {
     public abstract TimeSpan Duration { get; }
     public DateTime Timestamp { get; }
     public IUser Sender { get; }
+
+    public IMessage Transmission { // Are you sure this should be a Received?
+      get { throw new NotImplementedException(); }
+    }
 
   }
 }

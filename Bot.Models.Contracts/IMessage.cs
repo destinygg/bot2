@@ -1,5 +1,5 @@
 ﻿namespace Bot.Models.Contracts {
-  public interface IMessage {
+  public interface IMessage : ITransmittable {
     string Text { get; }
   }
 }

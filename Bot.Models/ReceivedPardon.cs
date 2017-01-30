@@ -3,7 +3,7 @@ using Bot.Models.Contracts;
 using Bot.Tools.Contracts;
 
 namespace Bot.Models {
-  public class ReceivedPardon : Pardon, IReceived<Moderator> {
+  public class ReceivedPardon : Pardon, IReceived<Moderator, Pardon> {
     public ReceivedPardon(Moderator sender, Civilian target, ITimeService timeService) : base(target) {
       Timestamp = timeService.UtcNow;
       Sender = sender;
@@ -11,5 +11,6 @@ namespace Bot.Models {
 
     public DateTime Timestamp { get; }
     public Moderator Sender { get; }
+    public Pardon Transmission => this;
   }
 }

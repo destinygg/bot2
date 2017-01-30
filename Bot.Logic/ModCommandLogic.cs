@@ -15,7 +15,7 @@ namespace Bot.Logic {
       _nukeLogic = nukeLogic;
     }
 
-    public ISendable Long(IReadOnlyList<IReceived<IUser>> context) {
+    public ISendable Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       _logger.LogInformation($"Long running process beginning, context length: {context.Count()}");
       for (var i = 0; i < 1000000000; i++) {
         var temp = i;
@@ -38,11 +38,11 @@ namespace Bot.Logic {
 
     public ISendable Sing() => new SendablePublicMessage("/me sings a song");
 
-    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived<IUser>> context, IReceivedNuke nuke)
+    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IReceivedNuke nuke)
       => _nukeLogic.Nuke(nuke, context);
 
 
-    public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser>> context)
+    public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context)
       => _nukeLogic.Aegis(context);
   }
 }

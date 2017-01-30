@@ -11,7 +11,7 @@ namespace Bot.Pipeline {
       _factory = factory;
     }
 
-    public IEnumerable<IReceived<IUser>> Receiveds => new List<IReceived<IUser>> {
+    public IEnumerable<IReceived<IUser, ITransmittable>> Receiveds => new List<IReceived<IUser, ITransmittable>> {
         _factory.ModPublicReceivedMessage("!long"),
         _factory.PublicReceivedMessage("hi"),
         _factory.PublicReceivedMessage("banplox"),

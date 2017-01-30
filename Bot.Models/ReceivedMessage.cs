@@ -18,6 +18,7 @@ namespace Bot.Models {
     // To ensure thread safety, this object should remain readonly.
     public DateTime Timestamp { get; }
     public T Sender { get; }
+    public IMessage Transmission => this;
 
   }
 }

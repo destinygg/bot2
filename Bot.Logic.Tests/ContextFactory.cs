@@ -15,8 +15,8 @@ namespace Bot.Logic.Tests {
     private readonly DateTime _rootTime = TimeService.UnixEpoch;
     private DateTime _time;
 
-    private readonly IList<IReceived<IUser>> _nontargets = new List<IReceived<IUser>>();
-    private readonly IList<IReceived<IUser>> _targets = new List<IReceived<IUser>>();
+    private readonly IList<IReceived<IUser, ITransmittable>> _nontargets = new List<IReceived<IUser, ITransmittable>>();
+    private readonly IList<IReceived<IUser, ITransmittable>> _targets = new List<IReceived<IUser, ITransmittable>>();
 
     private IReadOnlyList<IUser> _NonTargetUsers => _nontargets.Select(r => r.Sender).ToList();
     private IReadOnlyList<IUser> _TargetUsers => _targets.Select(r => r.Sender).ToList();
@@ -27,7 +27,7 @@ namespace Bot.Logic.Tests {
 
     public TimeSpan Gap { get; } = TimeSpan.FromMinutes(1);
 
-    public IReadOnlyList<IReceived<IUser>> GetContext => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList(); // Is 1 indexed
+    public IReadOnlyList<IReceived<IUser, ITransmittable>> GetContext => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList(); // Is 1 indexed
 
     public bool IsValid(IReadOnlyList<IUser> targets)
       => targets.OrderBy(u => u.Nick).SequenceEqual(_TargetUsers.OrderBy(u => u.Nick)) && !_NonTargetUsers.Intersect(targets).Any();

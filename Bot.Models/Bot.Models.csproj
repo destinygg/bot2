@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Civilian.cs" />
+    <Compile Include="IReceivedMessageExtensionMethods.cs" />
     <Compile Include="IReceivedFactory.cs" />
     <Compile Include="IReceivedMessage.cs" />
     <Compile Include="IReceivedNuke.cs" />

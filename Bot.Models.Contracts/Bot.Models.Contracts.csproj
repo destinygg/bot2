@@ -41,13 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IContextualized.cs" />
-    <Compile Include="IMessageExtensionMethods.cs" />
     <Compile Include="IReceivedExtensionMethods.cs" />
     <Compile Include="ITargetable.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="IReceived.cs" />
     <Compile Include="ISendable.cs" />
     <Compile Include="ISubonly.cs" />
+    <Compile Include="ITransmittable.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
