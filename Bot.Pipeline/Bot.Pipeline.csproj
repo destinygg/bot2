@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="ContextualizedToSendable.cs" />
+    <Compile Include="SnapshotToSendable.cs" />
     <Compile Include="InfiniteSampleReceived.cs" />
     <Compile Include="ReceivedToSnapshot.cs" />
     <Compile Include="SampleReceived.cs" />
