@@ -8,8 +8,8 @@ namespace Bot.Pipeline {
   public class Pipeline : IPipeline {
     private readonly BufferBlock<IReceived<IUser, ITransmittable>> _bufferBlock = new BufferBlock<IReceived<IUser, ITransmittable>>();
     public Pipeline(IReceivedToContextualized receivedToContextualized, IContextualizedToSendable contextualizedToSendable, ISender sender) {
-      var receivedToContextualizedBlock = new TransformBlock<IReceived<IUser, ITransmittable>, IContextualized>(r => receivedToContextualized.GetContextualized(r));
-      var contextualizedToSendableBlock = new TransformBlock<IContextualized, IReadOnlyList<ISendable>>(c => contextualizedToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
+      var receivedToContextualizedBlock = new TransformBlock<IReceived<IUser, ITransmittable>, IContextualized<IUser, ITransmittable>>(r => receivedToContextualized.GetContextualized(r));
+      var contextualizedToSendableBlock = new TransformBlock<IContextualized<IUser, ITransmittable>, IReadOnlyList<ISendable>>(c => contextualizedToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
         MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
         EnsureOrdered = false,
       });

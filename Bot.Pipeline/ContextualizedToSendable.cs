@@ -11,6 +11,6 @@ namespace Bot.Pipeline {
       _sendableGenerator = sendableGenerator;
     }
 
-    public IReadOnlyList<ISendable> GetSendables(IContextualized contextualized) => _sendableGenerator.Generate(contextualized);
+    public IReadOnlyList<ISendable> GetSendables(IContextualized<IUser, ITransmittable> contextualized) => _sendableGenerator.Generate(contextualized);
   }
 }

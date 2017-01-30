@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 
 namespace Bot.Models.Contracts {
-  public interface IContextualized {
+  public interface IContextualized<out TUser, out TTransmission>
+    where TUser : IUser
+    where TTransmission : ITransmittable{
 
     /// <summary> 
     /// The latest Received transmission
     /// </summary>
-    IReceived<IUser, ITransmittable> Latest { get; }
+    IReceived<TUser, TTransmission> Latest { get; }
 
     /// <summary>
     /// The rest of the Received transmissions; doesn't include Latest

@@ -2,6 +2,6 @@
 
 namespace Bot.Pipeline.Contracts {
   public interface IReceivedToContextualized {
-    IContextualized GetContextualized(IReceived<IUser, ITransmittable> received);
+    IContextualized<IUser, ITransmittable> GetContextualized(IReceived<IUser, ITransmittable> received);
   }
 }

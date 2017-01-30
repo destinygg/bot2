@@ -6,7 +6,7 @@ using Bot.Models.Contracts;
 namespace Bot.Logic {
   public class BanGenerator : IBanGenerator {
 
-    public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
+    public IReadOnlyList<ISendable> Generate(IContextualized<IUser, ITransmittable> contextualized) {
       var outbox = new List<ISendable>();
       var message = contextualized.Latest as ReceivedMessage<Civilian>;
       if (message == null) return outbox;

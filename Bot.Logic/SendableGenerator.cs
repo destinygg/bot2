@@ -20,7 +20,7 @@ namespace Bot.Logic {
       _commandGenerator = commandGenerator;
     }
 
-    public IReadOnlyList<ISendable> Generate(IContextualized contextualized) {
+    public IReadOnlyList<ISendable> Generate(IContextualized<IUser, ITransmittable> contextualized) {
       var outbox = new List<ISendable>();
       var message = contextualized.Latest as IReceivedMessage<IUser>;
       if (message != null) {
