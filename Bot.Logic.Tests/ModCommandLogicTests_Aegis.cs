@@ -17,7 +17,7 @@ namespace Bot.Logic.Tests {
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
-      var factory = new ReceivedFactory(timeService, parser);
+      var factory = new ReceivedFactory(timeService, parser, regex, logger);
       var nukeLogic = new NukeLogic(regex, factory);
       return new ModCommandLogic(logger, nukeLogic);
     }

@@ -34,12 +34,12 @@ namespace Bot.Logic {
       return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
-    private IEnumerable<ReceivedStringNuke> _GetStringNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
+    private IEnumerable<ReceivedNuke> _GetStringNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))
-      .Select(rm => _receivedFactory.ReceivedStringNuke(rm));
+      .Select(rm => _receivedFactory.ReceivedNuke(rm));
 
-    private IEnumerable<ReceivedRegexNuke> _GetRegexNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
+    private IEnumerable<ReceivedNuke> _GetRegexNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.RegexNuke))
-      .Select(rm => _receivedFactory.ReceivedRegexNuke(rm));
+      .Select(rm => _receivedFactory.ReceivedNuke(rm));
   }
 }

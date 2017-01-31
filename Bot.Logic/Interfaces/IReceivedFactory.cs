@@ -9,9 +9,7 @@ namespace Bot.Logic.Interfaces {
     PublicMessageFromCivilian PublicReceivedMessage(string text);
     PublicMessageFromCivilian PublicReceivedMessage(string text, DateTime timestamp);
     ReceivedPardon ReceivedPardon(Moderator sender, Civilian target);
-    ReceivedRegexNuke ReceivedRegexNuke(IReceivedMessage<Moderator> message);
-    ReceivedStringNuke ReceivedStringNuke(IReceivedMessage<Moderator> message);
-    ReceivedRegexNuke ReceivedRegexNuke(string command);
-    ReceivedStringNuke ReceivedStringNuke(string command);
+    ReceivedNuke ReceivedNuke(IReceivedMessage<Moderator> message);
+    ReceivedNuke ReceivedNuke(string command);
   }
 }

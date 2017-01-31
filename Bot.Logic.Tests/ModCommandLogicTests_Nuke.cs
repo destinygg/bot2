@@ -18,7 +18,7 @@ namespace Bot.Logic.Tests {
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
-      _factory = new ReceivedFactory(timeService, parser);
+      _factory = new ReceivedFactory(timeService, parser, regex, logger);
       var nukeLogic = new NukeLogic(regex, _factory);
       return new ModCommandLogic(logger, nukeLogic);
     }
@@ -38,7 +38,7 @@ namespace Bot.Logic.Tests {
       var logic = _GetLogic(contextBuilder);
 
       //Act
-      var nuke = logic.Nuke(context, _factory.ReceivedStringNuke("!nuke10m message"));
+      var nuke = logic.Nuke(context, _factory.ReceivedNuke("!nuke10m message"));
 
       //Assert
       var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
@@ -60,7 +60,7 @@ namespace Bot.Logic.Tests {
       var logic = _GetLogic(contextBuilder);
 
       //Act
-      var nuke = logic.Nuke(context, _factory.ReceivedStringNuke("!nuke10m message"));
+      var nuke = logic.Nuke(context, _factory.ReceivedNuke("!nuke10m message"));
 
       //Assert
       var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
