@@ -67,6 +67,21 @@
     <Compile Include="SendablePardon.cs" />
     <Compile Include="Pardon.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Websockets\BanReceiver.cs" />
+    <Compile Include="Websockets\BanSender.cs" />
+    <Compile Include="Websockets\BroadcastReceiver.cs" />
+    <Compile Include="Websockets\JoinReceiver.cs" />
+    <Compile Include="Websockets\MessageReceiver.cs" />
+    <Compile Include="Websockets\MessageSender.cs" />
+    <Compile Include="Websockets\MuteReceiver.cs" />
+    <Compile Include="Websockets\MuteSender.cs" />
+    <Compile Include="Websockets\NamesReceiver.cs" />
+    <Compile Include="Websockets\PardonSender.cs" />
+    <Compile Include="Websockets\PrivateMessageSender.cs" />
+    <Compile Include="Websockets\QuitReceiver.cs" />
+    <Compile Include="Websockets\UnBanReceiver.cs" />
+    <Compile Include="Websockets\UnMuteReceiver.cs" />
+    <Compile Include="Websockets\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
