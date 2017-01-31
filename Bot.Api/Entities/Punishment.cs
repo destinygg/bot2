@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bot.Database.Entities {
+namespace Bot.Api.Entities {
 
   public class AutoPunishment {
     public int Id { get; set; }
@@ -30,5 +30,5 @@ namespace Bot.Database.Entities {
     public int Id { get; set; }
     public string Name { get; set; }
   }
-  
+
 }

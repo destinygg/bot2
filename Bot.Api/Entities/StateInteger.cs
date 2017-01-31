@@ -1,4 +1,4 @@
-﻿namespace Bot.Database.Entities {
+﻿namespace Bot.Api.Entities {
   public class StateInteger {
     public StateInteger(string key, long value) {
       Key = key;

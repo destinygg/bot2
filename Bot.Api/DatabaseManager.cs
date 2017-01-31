@@ -1,5 +1,5 @@
-﻿using Bot.Database.Contracts;
-using Bot.Database.Entities;
+﻿using Bot.Api.Entities;
+using Bot.Database.Contracts;
 
 namespace Bot.Api {
   public class DatabaseManager {

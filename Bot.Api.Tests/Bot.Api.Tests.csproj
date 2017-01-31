@@ -188,10 +188,6 @@
       <Project>{78952539-F2BB-4DCD-8457-EFE0F58FBD69}</Project>
       <Name>Bot.Database.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
-      <Project>{4B8E79EA-6F68-4F39-8520-4F77751A606E}</Project>
-      <Name>Bot.Database.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

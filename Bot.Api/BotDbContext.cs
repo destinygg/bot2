@@ -1,4 +1,4 @@
-﻿using Bot.Database.Entities;
+﻿using Bot.Api.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
