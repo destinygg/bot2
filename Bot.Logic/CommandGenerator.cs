@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bot.Logic.Interfaces;
 using Bot.Models;
-using Bot.Models.Contracts;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 

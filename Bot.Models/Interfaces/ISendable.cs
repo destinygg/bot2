@@ -1,4 +1,4 @@
-﻿namespace Bot.Models.Contracts {
+﻿namespace Bot.Models.Interfaces {
   public interface ISendable {
 
   }

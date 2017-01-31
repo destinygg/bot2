@@ -41,8 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Civilian.cs" />
+    <Compile Include="Interfaces\IMessage.cs" />
+    <Compile Include="Interfaces\IReceived.cs" />
+    <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
     <Compile Include="Interfaces\IReceivedMessageExtensionMethods.cs" />
     <Compile Include="Interfaces\IReceivedMessage.cs" />
+    <Compile Include="Interfaces\ISendable.cs" />
+    <Compile Include="Interfaces\ISnapshot.cs" />
+    <Compile Include="Interfaces\ISubonly.cs" />
+    <Compile Include="Interfaces\ITargetable.cs" />
+    <Compile Include="Interfaces\ITransmittable.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
@@ -60,10 +69,6 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Models.Contracts\Bot.Models.Contracts.csproj">
-      <Project>{6164E231-B141-4647-9422-A02DA469DAFF}</Project>
-      <Name>Bot.Models.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>

@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-using Bot.Models.Contracts;
 
 namespace Bot.Models.Interfaces {
   public static class IReceivedMessageExtensionMethods {

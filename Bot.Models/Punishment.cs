@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 
 namespace Bot.Models {
   public abstract class Punishment : ITargetable {

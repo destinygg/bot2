@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bot.Logic.Interfaces;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 
 namespace Bot.Models {
   [DebuggerDisplay("Muted {Target} for {Duration.TotalMinutes}m for: {Reason}")]

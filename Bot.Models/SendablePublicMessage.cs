@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 
 namespace Bot.Models {
   [DebuggerDisplay("Sending: {Text}")]

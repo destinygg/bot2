@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bot.Models.Contracts {
+namespace Bot.Models.Interfaces {
   public interface IUser {
     string Nick { get; }
     IEnumerable<string> Flair { get; }

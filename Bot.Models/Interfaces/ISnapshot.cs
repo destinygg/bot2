@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Bot.Models.Contracts {
+namespace Bot.Models.Interfaces {
   public interface ISnapshot<out TUser, out TTransmission>
     where TUser : IUser
-    where TTransmission : ITransmittable{
+    where TTransmission : ITransmittable {
 
     /// <summary> 
     /// The latest Received transmission

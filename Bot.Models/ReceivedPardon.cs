@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Models {

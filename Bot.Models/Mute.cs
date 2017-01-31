@@ -1,5 +1,4 @@
 ﻿using System;
-using Bot.Models.Contracts;
 
 namespace Bot.Models {
   public abstract class Mute : Punishment {

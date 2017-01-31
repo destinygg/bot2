@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Models.Contracts {
+namespace Bot.Models.Interfaces {
   public interface IReceived<out TUser, out TTransmission>
     where TUser : IUser
     where TTransmission : ITransmittable {

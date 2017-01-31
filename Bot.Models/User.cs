@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 
 namespace Bot.Models {
   public abstract class User : IUser {

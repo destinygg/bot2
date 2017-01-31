@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
-using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline {
