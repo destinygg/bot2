@@ -21,9 +21,9 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var outbox = new List<ISendable>();
-      var message = snapshot.Latest as IReceivedMessage<IUser>;
+      var message = snapshot.Latest as IReceived<IUser, IMessage>;
       if (message != null) {
-        _logger.LogVerbose(message.Text);
+        _logger.LogVerbose(message.Transmission.Text);
         if (message.IsFromMod()) {
           outbox.AddRange(_modCommandGenerator.Generate(snapshot));
           outbox.AddRange(_commandGenerator.Generate(snapshot));

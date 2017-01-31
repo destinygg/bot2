@@ -5,7 +5,7 @@ using Bot.Models.Interfaces;
 namespace Bot.Logic.Interfaces {
   public interface IParsedNuke {
     TimeSpan Duration { get; }
-    bool WillPunish(IReceivedMessage<Civilian> message);
+    bool WillPunish(IReceived<Civilian, PublicMessage> message);
 
   }
 }

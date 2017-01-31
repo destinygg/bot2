@@ -45,7 +45,6 @@
     <Compile Include="Interfaces\IReceived.cs" />
     <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
     <Compile Include="Interfaces\IReceivedMessageExtensionMethods.cs" />
-    <Compile Include="Interfaces\IReceivedMessage.cs" />
     <Compile Include="Interfaces\ISendable.cs" />
     <Compile Include="Interfaces\ISnapshot.cs" />
     <Compile Include="Interfaces\ISubonly.cs" />

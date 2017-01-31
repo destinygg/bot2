@@ -10,22 +10,22 @@ namespace Bot.Logic {
   public class ParsedNuke : IParsedNuke {
     private readonly ITimeService _timeService;
 
-    public ParsedNuke(IReceivedMessage<Moderator> message, ITimeService timeService, IModCommandRegex modCommandRegex, IModCommandParser parser, ILogger logger) {
+    public ParsedNuke(IReceived<Moderator, IMessage> message, ITimeService timeService, IModCommandRegex modCommandRegex, IModCommandParser parser, ILogger logger) {
       _timeService = timeService;
       Timestamp = message.Timestamp;
       Sender = message.Sender;
 
       if (message.IsMatch(modCommandRegex.Nuke)) {
-        var phraseDuration = parser.Nuke(message.Text);
+        var phraseDuration = parser.Nuke(message.Transmission.Text);
         _matchesNukedTerm = _StringNuke(phraseDuration.Item1);
         Duration = phraseDuration.Item2;
       } else if (message.IsMatch(modCommandRegex.RegexNuke)) {
-        var phraseDuration = parser.RegexNuke(message.Text);
+        var phraseDuration = parser.RegexNuke(message.Transmission.Text);
         var regex = new Regex(phraseDuration.Item1, RegexOptions.IgnoreCase);
         _matchesNukedTerm = _RegexNuke(regex);
         Duration = phraseDuration.Item2;
       } else {
-        logger.LogError($"ParsedNuke failed to parse:{message.Text}");
+        logger.LogError($"ParsedNuke failed to parse:{message.Transmission.Text}");
       }
     }
 
@@ -36,17 +36,17 @@ namespace Bot.Logic {
       possibleVictimText.RemoveWhitespace().IgnoreCaseContains(nukedString) ||
       possibleVictimText.SimilarTo(nukedString) >= Settings.NukeMinimumStringSimilarity;
 
-    public bool WillPunish(IReceivedMessage<Civilian> message) =>
+    public bool WillPunish(IReceived<Civilian, PublicMessage> message) =>
       _matchesNukedTerm(message.Transmission.Text) &&
       _WithinRange(message) &&
       !_IsExpired(message);
 
     private readonly Predicate<string> _matchesNukedTerm;
 
-    private bool _WithinRange(IReceivedMessage<Civilian> message) =>
+    private bool _WithinRange(IReceived<Civilian, PublicMessage> message) =>
       message.Timestamp.IsWithin(Timestamp, Settings.NukeBlastRadius);
 
-    private bool _IsExpired(IReceivedMessage<IUser> message) {
+    private bool _IsExpired(IReceived<Civilian, PublicMessage> message) {
       var punishmentTimestamp = message.Timestamp <= Timestamp ? Timestamp : message.Timestamp;
       var expirationDate = punishmentTimestamp + Duration;
       return expirationDate < _timeService.UtcNow;

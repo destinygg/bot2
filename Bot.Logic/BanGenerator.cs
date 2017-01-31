@@ -8,10 +8,10 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var outbox = new List<ISendable>();
-      var message = snapshot.Latest as ReceivedMessage<Civilian>;
+      var message = snapshot.Latest as ReceivedMessage<Civilian, PublicMessage>;
       if (message == null) return outbox;
-      if (message.Text.Contains("banplox")) {
-        outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Text}"));
+      if (message.Transmission.Text.Contains("banplox")) {
+        outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Transmission.Text}"));
       }
       return outbox;
     }

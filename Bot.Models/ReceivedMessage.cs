@@ -3,22 +3,25 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Models {
-  public abstract class ReceivedMessage<T> : Message, IReceivedMessage<T>
-    where T : IUser {
-    protected ReceivedMessage(T sender, string text, ITimeService timeService) : base(text) {
+  public abstract class ReceivedMessage<TUser, TTransmission> : IReceived<TUser, TTransmission>
+    where TUser : IUser
+    where TTransmission : ITransmittable, IMessage {
+    protected ReceivedMessage(TUser sender, TTransmission message, ITimeService timeService) {
       Timestamp = timeService.UtcNow;
+      Transmission = message;
       Sender = sender;
     }
 
-    protected ReceivedMessage(T sender, string text, DateTime timestamp) : base(text) {
+    protected ReceivedMessage(TUser sender, TTransmission message, DateTime timestamp) {
       Timestamp = timestamp;
+      Transmission = message;
       Sender = sender;
     }
 
     // To ensure thread safety, this object should remain readonly.
     public DateTime Timestamp { get; }
-    public T Sender { get; }
-    public IMessage Transmission => this;
+    public TUser Sender { get; }
+    public TTransmission Transmission { get; }
 
   }
 }

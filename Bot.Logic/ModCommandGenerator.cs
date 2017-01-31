@@ -21,7 +21,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var context = snapshot.Context;
-      var message = snapshot.Latest as ReceivedMessage<Moderator>;
+      var message = snapshot.Latest as ReceivedMessage<Moderator, IMessage>;
       if (message != null) {
         if (message.IsMatch(_modCommandRegex.Sing))
           return _modCommandLogic.Sing().Wrap().ToList();

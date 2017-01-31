@@ -14,7 +14,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var outbox = new List<ISendable>();
-      var message = snapshot.Latest as IReceivedMessage<IUser>;
+      var message = snapshot.Latest as IReceived<IUser, IMessage>;
       if (message != null) {
         if (message.StartsWith("!time")) {
           outbox.Add(new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time"));

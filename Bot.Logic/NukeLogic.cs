@@ -19,13 +19,13 @@ namespace Bot.Logic {
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
     private IEnumerable<Civilian> _GetCurrentVictims(IParsedNuke nuke, IEnumerable<IReceived<IUser, ITransmittable>> context) => context
-      .OfType<IReceivedMessage<Civilian>>()
+      .OfType<IReceived<Civilian, PublicMessage>>()
       .Where(nuke.WillPunish)
       .Select(m => m.Sender)
       .Distinct();
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
-      var modMessages = context.OfType<IReceivedMessage<Moderator>>().ToList();
+      var modMessages = context.OfType<IReceived<Moderator, IMessage>>().ToList();
       var nukes = _GetStringNukes(modMessages).Concat<IParsedNuke>(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => _GetCurrentVictims(n, context));
 
@@ -34,11 +34,11 @@ namespace Bot.Logic {
       return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
-    private IEnumerable<ParsedNuke> _GetStringNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
+    private IEnumerable<ParsedNuke> _GetStringNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))
       .Select(rm => _receivedFactory.ParsedNuke(rm));
 
-    private IEnumerable<ParsedNuke> _GetRegexNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
+    private IEnumerable<ParsedNuke> _GetRegexNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.RegexNuke))
       .Select(rm => _receivedFactory.ParsedNuke(rm));
   }
