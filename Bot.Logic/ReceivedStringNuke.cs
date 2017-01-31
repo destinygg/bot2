@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Logic.Contracts;
+using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
@@ -14,8 +14,8 @@ namespace Bot.Logic {
 
     public override TimeSpan Duration { get; }
 
-    protected override bool MatchesNukedTerm(string possibleVictimText) => 
-      possibleVictimText.IgnoreCaseContains(_nukedString) || 
+    protected override bool MatchesNukedTerm(string possibleVictimText) =>
+      possibleVictimText.IgnoreCaseContains(_nukedString) ||
       possibleVictimText.RemoveWhitespace().IgnoreCaseContains(_nukedString) ||
       possibleVictimText.SimilarTo(_nukedString) >= Settings.NukeMinimumStringSimilarity;
 

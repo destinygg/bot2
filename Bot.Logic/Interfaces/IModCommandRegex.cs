@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Bot.Logic.Contracts {
+namespace Bot.Logic.Interfaces {
   public interface IModCommandRegex {
     Regex Sing { get; }
     Regex Dance { get; }

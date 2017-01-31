@@ -59,10 +59,6 @@
     <Compile Include="ConsoleSender.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Logic.Contracts\Bot.Logic.Contracts.csproj">
-      <Project>{8D38A0E1-D030-45B7-9C66-674CA02DFCFF}</Project>
-      <Name>Bot.Logic.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
       <Project>{1B710B73-3FF1-4944-909B-538927C0041B}</Project>
       <Name>Bot.Logic</Name>

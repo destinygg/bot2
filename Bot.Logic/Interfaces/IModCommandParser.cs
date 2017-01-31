@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Logic.Contracts {
+namespace Bot.Logic.Interfaces {
   public interface IModCommandParser {
 
     /// <returns>User</returns>

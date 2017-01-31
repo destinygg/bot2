@@ -1,6 +1,5 @@
 ﻿using System;
 using Bot.Logic;
-using Bot.Logic.Contracts;
 using Bot.Logic.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;

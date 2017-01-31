@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Bot.Logic.Contracts;
+using Bot.Logic.Interfaces;
 
 namespace Bot.Logic {
   public class ModCommandRegex : IModCommandRegex {

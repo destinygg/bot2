@@ -1,5 +1,5 @@
-﻿namespace Bot.Logic.Contracts {
+﻿namespace Bot.Logic.Interfaces {
   public interface ICommandGenerator : IGenerator {
-    
+
   }
 }
