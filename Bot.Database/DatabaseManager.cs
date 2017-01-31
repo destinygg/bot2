@@ -1,7 +1,7 @@
-﻿using Bot.Api.Entities;
-using Bot.Api.Interfaces;
+﻿using Bot.Database.Entities;
+using Bot.Database.Interfaces;
 
-namespace Bot.Api {
+namespace Bot.Database {
   public class DatabaseManager {
 
     public void EnsureCreated() {

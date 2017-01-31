@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bot.Api {
+namespace Bot.Database {
   public class BotDbContextManager {
 
     public void Save(Action<BotDbContext> dbCommand) {

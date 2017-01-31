@@ -1,8 +1,8 @@
-﻿using Bot.Api.Entities;
+﻿using Bot.Database.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bot.Api {
+namespace Bot.Database {
   public class BotDbContext : DbContext {
 
     #region DbSet

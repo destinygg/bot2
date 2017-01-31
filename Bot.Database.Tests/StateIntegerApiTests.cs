@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Api.Tests {
+namespace Bot.Database.Tests {
   [TestClass]
   public class StateIntegerApiTests {
 
