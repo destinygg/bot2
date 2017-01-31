@@ -2,6 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using Bot.Logic.Interfaces;
 using Bot.Models;
+using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {

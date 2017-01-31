@@ -3,6 +3,7 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Contracts;
+using Bot.Models.Interfaces;
 using Bot.Tools;
 
 namespace Bot.Logic {

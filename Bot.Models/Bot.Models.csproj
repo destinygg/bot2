@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Civilian.cs" />
-    <Compile Include="IReceivedMessageExtensionMethods.cs" />
-    <Compile Include="IReceivedMessage.cs" />
+    <Compile Include="Interfaces\IReceivedMessageExtensionMethods.cs" />
+    <Compile Include="Interfaces\IReceivedMessage.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
