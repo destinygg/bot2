@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
+using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Tools;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Tools;
