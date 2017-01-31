@@ -1,9 +1,9 @@
 ﻿using System;
 using Bot.Logic.Contracts;
-using Bot.Models.Contracts;
+using Bot.Models;
 using Bot.Tools.Contracts;
 
-namespace Bot.Models {
+namespace Bot.Logic {
   public class ReceivedFactory : IReceivedFactory {
     private readonly ITimeService _timeService;
     private readonly IModCommandParser _modCommandParser;
@@ -25,6 +25,6 @@ namespace Bot.Models {
     public ReceivedStringNuke ReceivedStringNuke(IReceivedMessage<Moderator> message) => new ReceivedStringNuke(message, _timeService, _modCommandParser);
 
     public ReceivedRegexNuke ReceivedRegexNuke(string command) => new ReceivedRegexNuke(ModPublicReceivedMessage(command), _timeService, _modCommandParser);
-    public ReceivedStringNuke ReceivedStringNuke(string command) => new ReceivedStringNuke(ModPublicReceivedMessage(command), _timeService,_modCommandParser);
+    public ReceivedStringNuke ReceivedStringNuke(string command) => new ReceivedStringNuke(ModPublicReceivedMessage(command), _timeService, _modCommandParser);
   }
 }

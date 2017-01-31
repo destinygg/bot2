@@ -1,7 +1,7 @@
 ﻿using System;
-using Bot.Models.Contracts;
+using Bot.Models;
 
-namespace Bot.Models {
+namespace Bot.Logic {
   public interface IReceivedFactory {
     PublicMessageFromMod ModPublicReceivedMessage(string text);
     PublicMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp);

@@ -42,10 +42,16 @@
   <ItemGroup>
     <Compile Include="IModCommandLogic.cs" />
     <Compile Include="INukeLogic.cs" />
+    <Compile Include="IReceivedFactory.cs" />
+    <Compile Include="IReceivedNuke.cs" />
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />
     <Compile Include="NukeLogic.cs" />
+    <Compile Include="ReceivedFactory.cs" />
+    <Compile Include="ReceivedNuke.cs" />
+    <Compile Include="ReceivedRegexNuke.cs" />
+    <Compile Include="ReceivedStringNuke.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />

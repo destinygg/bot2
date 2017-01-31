@@ -1,9 +1,10 @@
 using System;
 using System.Text.RegularExpressions;
 using Bot.Logic.Contracts;
+using Bot.Models;
 using Bot.Tools.Contracts;
 
-namespace Bot.Models {
+namespace Bot.Logic {
   public class ReceivedRegexNuke : ReceivedNuke {
     private readonly Regex _nukedRegex;
     public ReceivedRegexNuke(IReceivedMessage<Moderator> message, ITimeService timeService, IModCommandParser parser) : base(message, timeService) {

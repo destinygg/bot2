@@ -1,9 +1,10 @@
 ﻿using System;
 using Bot.Logic.Contracts;
+using Bot.Models;
 using Bot.Tools;
 using Bot.Tools.Contracts;
 
-namespace Bot.Models {
+namespace Bot.Logic {
   public class ReceivedStringNuke : ReceivedNuke {
     private readonly string _nukedString;
     public ReceivedStringNuke(IReceivedMessage<Moderator> message, ITimeService timeService, IModCommandParser parser) : base(message, timeService) {

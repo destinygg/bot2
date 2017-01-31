@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Bot.Models;
+using Bot.Logic;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
 

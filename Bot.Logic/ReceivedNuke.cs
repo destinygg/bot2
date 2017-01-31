@@ -1,9 +1,10 @@
 ﻿using System;
+using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Tools;
 using Bot.Tools.Contracts;
 
-namespace Bot.Models {
+namespace Bot.Logic {
   public abstract class ReceivedNuke : IReceivedNuke {
     private readonly ITimeService _timeService;
 
