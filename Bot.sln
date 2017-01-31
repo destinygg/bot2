@@ -36,8 +36,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Tools.Tests", "Bot.Tool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Logic.Tests", "Bot.Logic.Tests\Bot.Logic.Tests.csproj", "{47FE6C11-F6BD-451D-963E-D7C82C5131AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Tools.Contracts", "Bot.Tools.Contracts\Bot.Tools.Contracts.csproj", "{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Api", "Bot.Api\Bot.Api.csproj", "{2261BC21-69BB-44F0-8956-D6AD48091539}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Api.Tests", "Bot.Api.Tests\Bot.Api.Tests.csproj", "{7939BA0B-ED17-441A-BE62-B2DB44D54F34}"
@@ -106,10 +104,6 @@ Global
 		{47FE6C11-F6BD-451D-963E-D7C82C5131AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47FE6C11-F6BD-451D-963E-D7C82C5131AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47FE6C11-F6BD-451D-963E-D7C82C5131AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE61C63C-E6D2-45E9-80AF-A9F19BD8E28E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2261BC21-69BB-44F0-8956-D6AD48091539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2261BC21-69BB-44F0-8956-D6AD48091539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2261BC21-69BB-44F0-8956-D6AD48091539}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,6 +1,6 @@
 ﻿using System;
 using Bot.Models.Contracts;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Models {
   public class ReceivedPardon : Pardon, IReceived<Moderator, Pardon> {

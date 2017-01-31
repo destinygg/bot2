@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Tools {
   public class TimeService : ITimeService {

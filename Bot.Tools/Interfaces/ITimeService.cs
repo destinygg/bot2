@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Tools.Contracts {
+namespace Bot.Tools.Interfaces {
   public interface ITimeService {
     DateTime UtcNow { get; }
     DateTime DestinyNow { get; }

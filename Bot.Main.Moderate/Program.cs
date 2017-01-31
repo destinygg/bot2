@@ -5,7 +5,7 @@ using Bot.Models;
 using Bot.Pipeline;
 using Bot.Pipeline.Contracts;
 using Bot.Tools;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 using SimpleInjector;
 
 namespace Bot.Main.Moderate {

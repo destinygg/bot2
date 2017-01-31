@@ -1,7 +1,7 @@
 ﻿using System;
 using Bot.Logic.Contracts;
 using Bot.Models;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class ReceivedFactory : IReceivedFactory {

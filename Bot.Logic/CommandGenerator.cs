@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class CommandGenerator : ICommandGenerator {

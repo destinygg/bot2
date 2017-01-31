@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ITimeService.cs" />
     <Compile Include="ObjectExtensionMethods.cs" />
     <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="TimeExtensionMethods.cs" />
@@ -51,10 +52,6 @@
     <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
       <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
       <Name>Bot.Pipeline.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bot.Tools.Contracts\Bot.Tools.Contracts.csproj">
-      <Project>{ae61c63c-e6d2-45e9-80af-a9f19bd8e28e}</Project>
-      <Name>Bot.Tools.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

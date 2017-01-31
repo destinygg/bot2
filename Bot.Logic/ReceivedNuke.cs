@@ -2,7 +2,7 @@
 using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Tools;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public abstract class ReceivedNuke : IReceivedNuke {

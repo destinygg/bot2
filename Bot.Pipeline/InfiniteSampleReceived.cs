@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Bot.Models;
 using Bot.Models.Contracts;
 using Bot.Pipeline.Contracts;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
   public class InfiniteSampleReceived : ISampleReceived {

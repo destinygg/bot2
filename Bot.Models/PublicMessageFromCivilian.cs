@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Bot.Tools.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Models {
   [DebuggerDisplay("{Sender}: {Text}")]
