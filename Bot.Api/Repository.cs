@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Bot.Database.Contracts;
+using Bot.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Api {

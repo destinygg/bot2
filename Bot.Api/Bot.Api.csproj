@@ -126,6 +126,8 @@
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Entities\Punishment.cs" />
     <Compile Include="Entities\StateInteger.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IStateIntegerApi.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="StateIntegerApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,10 +136,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Database.Contracts\Bot.Database.Contracts.csproj">
-      <Project>{78952539-F2BB-4DCD-8457-EFE0F58FBD69}</Project>
-      <Name>Bot.Database.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>

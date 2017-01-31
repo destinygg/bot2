@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Database.Contracts", "Bot.Database.Contracts\Bot.Database.Contracts.csproj", "{78952539-F2BB-4DCD-8457-EFE0F58FBD69}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Main.Moderate", "Bot.Main.Moderate\Bot.Main.Moderate.csproj", "{1D2A245A-8AE1-4EB9-9EF5-E0766A69DC59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Logic", "Bot.Logic\Bot.Logic.csproj", "{1B710B73-3FF1-4944-909B-538927C0041B}"
@@ -38,10 +36,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{78952539-F2BB-4DCD-8457-EFE0F58FBD69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78952539-F2BB-4DCD-8457-EFE0F58FBD69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78952539-F2BB-4DCD-8457-EFE0F58FBD69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78952539-F2BB-4DCD-8457-EFE0F58FBD69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D2A245A-8AE1-4EB9-9EF5-E0766A69DC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D2A245A-8AE1-4EB9-9EF5-E0766A69DC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D2A245A-8AE1-4EB9-9EF5-E0766A69DC59}.Release|Any CPU.ActiveCfg = Release|Any CPU

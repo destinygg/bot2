@@ -1,6 +1,6 @@
 ﻿using System;
 using Bot.Api.Entities;
-using Bot.Database.Contracts;
+using Bot.Api.Interfaces;
 using Bot.Tools;
 using Microsoft.EntityFrameworkCore;
 

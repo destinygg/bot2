@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Database.Contracts {
+namespace Bot.Api.Interfaces {
   public interface IStateIntegerApi {
     DateTime LatestStreamOnTime { get; set; }
     DateTime LatestStreamOffTime { get; set; }
