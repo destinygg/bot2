@@ -49,14 +49,14 @@
     <Compile Include="Interfaces\IModCommandRegex.cs" />
     <Compile Include="Interfaces\INukeLogic.cs" />
     <Compile Include="Interfaces\IReceivedFactory.cs" />
-    <Compile Include="Interfaces\IReceivedNuke.cs" />
+    <Compile Include="Interfaces\IParsedNuke.cs" />
     <Compile Include="Interfaces\ISendableGenerator.cs" />
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />
     <Compile Include="NukeLogic.cs" />
     <Compile Include="ReceivedFactory.cs" />
-    <Compile Include="ReceivedNuke.cs" />
+    <Compile Include="ParsedNuke.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />

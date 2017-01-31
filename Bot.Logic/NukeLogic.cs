@@ -14,11 +14,11 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable> Nuke(IReceivedNuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>
+    public IReadOnlyList<ISendable> Nuke(IParsedNuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>
       _GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
-    private IEnumerable<Civilian> _GetCurrentVictims(IReceivedNuke nuke, IEnumerable<IReceived<IUser, ITransmittable>> context) => context
+    private IEnumerable<Civilian> _GetCurrentVictims(IParsedNuke nuke, IEnumerable<IReceived<IUser, ITransmittable>> context) => context
       .OfType<IReceivedMessage<Civilian>>()
       .Where(nuke.WillPunish)
       .Select(m => m.Sender)
@@ -26,7 +26,7 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       var modMessages = context.OfType<IReceivedMessage<Moderator>>().ToList();
-      var nukes = _GetStringNukes(modMessages).Concat<IReceivedNuke>(_GetRegexNukes(modMessages));
+      var nukes = _GetStringNukes(modMessages).Concat<IParsedNuke>(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => _GetCurrentVictims(n, context));
 
       //TODO consider checking if these are actual victims?
@@ -34,12 +34,12 @@ namespace Bot.Logic {
       return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
-    private IEnumerable<ReceivedNuke> _GetStringNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
+    private IEnumerable<ParsedNuke> _GetStringNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))
-      .Select(rm => _receivedFactory.ReceivedNuke(rm));
+      .Select(rm => _receivedFactory.ParsedNuke(rm));
 
-    private IEnumerable<ReceivedNuke> _GetRegexNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
+    private IEnumerable<ParsedNuke> _GetRegexNukes(IEnumerable<IReceivedMessage<Moderator>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.RegexNuke))
-      .Select(rm => _receivedFactory.ReceivedNuke(rm));
+      .Select(rm => _receivedFactory.ParsedNuke(rm));
   }
 }

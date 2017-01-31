@@ -7,10 +7,10 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class ReceivedNuke : IReceivedNuke {
+  public class ParsedNuke : IParsedNuke {
     private readonly ITimeService _timeService;
 
-    public ReceivedNuke(IReceivedMessage<Moderator> message, ITimeService timeService, IModCommandRegex modCommandRegex, IModCommandParser parser, ILogger logger) {
+    public ParsedNuke(IReceivedMessage<Moderator> message, ITimeService timeService, IModCommandRegex modCommandRegex, IModCommandParser parser, ILogger logger) {
       _timeService = timeService;
       Timestamp = message.Timestamp;
       Sender = message.Sender;

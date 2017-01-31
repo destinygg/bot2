@@ -38,7 +38,7 @@ namespace Bot.Logic.Tests {
       var logic = _GetLogic(contextBuilder);
 
       //Act
-      var nuke = logic.Nuke(context, _factory.ReceivedNuke("!nuke10m message"));
+      var nuke = logic.Nuke(context, _factory.ParsedNuke("!nuke10m message"));
 
       //Assert
       var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
@@ -60,7 +60,7 @@ namespace Bot.Logic.Tests {
       var logic = _GetLogic(contextBuilder);
 
       //Act
-      var nuke = logic.Nuke(context, _factory.ReceivedNuke("!nuke10m message"));
+      var nuke = logic.Nuke(context, _factory.ParsedNuke("!nuke10m message"));
 
       //Assert
       var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();

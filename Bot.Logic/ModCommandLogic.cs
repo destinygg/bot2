@@ -38,7 +38,7 @@ namespace Bot.Logic {
 
     public ISendable Sing() => new SendablePublicMessage("/me sings a song");
 
-    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IReceivedNuke nuke)
+    public IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke)
       => _nukeLogic.Nuke(nuke, context);
 
 
