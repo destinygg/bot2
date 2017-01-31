@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ITimeService.cs" />
     <Compile Include="ObjectExtensionMethods.cs" />
     <Compile Include="StringExtensionMethods.cs" />

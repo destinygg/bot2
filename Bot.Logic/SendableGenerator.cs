@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Contracts;
 using Bot.Models;
 using Bot.Models.Contracts;
-using Bot.Pipeline.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class SendableGenerator : ISendableGenerator {

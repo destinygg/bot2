@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Pipeline.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Tools {
   public static class TimeExtensionMethods {

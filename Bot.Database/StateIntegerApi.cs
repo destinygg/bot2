@@ -1,8 +1,8 @@
 ﻿using System;
 using Bot.Database.Contracts;
 using Bot.Database.Models;
-using Bot.Pipeline.Contracts;
 using Bot.Tools;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Database {
   public class StateIntegerApi : DbApi, IStateIntegerApi {

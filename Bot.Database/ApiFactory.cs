@@ -1,5 +1,5 @@
 ﻿using Bot.Database.Contracts;
-using Bot.Pipeline.Contracts;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Database {
   public class ApiFactory : IApiFactory {

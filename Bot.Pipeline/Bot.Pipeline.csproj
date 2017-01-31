@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IPipeline.cs" />
     <Compile Include="Interfaces\IReceivedToSnapshot.cs" />
     <Compile Include="Interfaces\ISampleReceived.cs" />

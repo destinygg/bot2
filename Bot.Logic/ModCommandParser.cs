@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Bot.Logic.Contracts;
+using Bot.Tools.Interfaces;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Bot.Logic.Contracts;
-using Bot.Pipeline.Contracts;
 
-namespace Bot.Logic {
-  public class ModCommandParser : IModCommandParser {
+namespace Bot.Logic
+{
+  public class ModCommandParser : IModCommandParser
+  {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly ILogger _logger;
 
-    public ModCommandParser(IModCommandRegex modCommandRegex, ILogger logger) {
+    public ModCommandParser(IModCommandRegex modCommandRegex, ILogger logger)
+    {
       _modCommandRegex = modCommandRegex;
       _logger = logger;
     }
@@ -40,14 +43,16 @@ namespace Bot.Logic {
 
     private string _firstGroup(Regex regex, string input) => regex.Match(input).Groups[1].Value;
 
-    private Tuple<string, string> _stringStringGroupsToTuple(Regex regex, string input) {
+    private Tuple<string, string> _stringStringGroupsToTuple(Regex regex, string input)
+    {
       var gc = regex.Match(input).Groups;
       var string1 = gc[1].Value;
       var string2 = gc[2].Value;
       return Tuple.Create(string1, string2);
     }
 
-    private Tuple<string, TimeSpan> _numberUnitStringGroupsToTuple(Regex regex, string input) {
+    private Tuple<string, TimeSpan> _numberUnitStringGroupsToTuple(Regex regex, string input)
+    {
       var gc = regex.Match(input).Groups;
       var number = gc[1].Value;
       var unit = gc[2].Value;
@@ -55,30 +60,40 @@ namespace Bot.Logic {
       return Tuple.Create(target, _toTimespan(number, unit));
     }
 
-    private TimeSpan _toTimespan(string stringInt, string unit, bool ip = false) {
+    private TimeSpan _toTimespan(string stringInt, string unit, bool ip = false)
+    {
       int i;
-      try {
+      try
+      {
         i = stringInt == "" ? 10 : int.Parse(stringInt);
-      } catch (OverflowException) {
+      }
+      catch (OverflowException)
+      {
         i = int.MaxValue;
       }
 
-      if (_modCommandRegex.Seconds.Any(x => x == unit)) {
+      if (_modCommandRegex.Seconds.Any(x => x == unit))
+      {
         return TimeSpan.FromSeconds(i);
       }
-      if (_modCommandRegex.Minutes.Any(x => x == unit)) {
+      if (_modCommandRegex.Minutes.Any(x => x == unit))
+      {
         return TimeSpan.FromMinutes(i);
       }
-      if (_modCommandRegex.Hours.Any(x => x == unit)) {
+      if (_modCommandRegex.Hours.Any(x => x == unit))
+      {
         return TimeSpan.FromHours(i);
       }
-      if (_modCommandRegex.Days.Any(x => x == unit)) {
+      if (_modCommandRegex.Days.Any(x => x == unit))
+      {
         return TimeSpan.FromDays(i);
       }
-      if (_modCommandRegex.Perm.Any(x => x == unit)) {
+      if (_modCommandRegex.Perm.Any(x => x == unit))
+      {
         return TimeSpan.Zero;
       }
-      if (unit == "") {
+      if (unit == "")
+      {
         if (ip && stringInt == "") return TimeSpan.Zero;
         return TimeSpan.FromMinutes(i);
       }
