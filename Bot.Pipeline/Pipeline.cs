@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Bot.Models.Contracts;
-using Bot.Pipeline.Contracts;
+using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline {
   public class Pipeline : IPipeline {

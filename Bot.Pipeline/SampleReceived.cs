@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bot.Logic;
 using Bot.Models.Contracts;
-using Bot.Pipeline.Contracts;
+using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline {
   public class SampleReceived : ISampleReceived {

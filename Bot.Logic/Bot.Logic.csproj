@@ -71,10 +71,6 @@
       <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
       <Name>Bot.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bot.Pipeline.Contracts\Bot.Pipeline.Contracts.csproj">
-      <Project>{197F6F95-04C7-4A9C-BFCB-7B21EB73C9C2}</Project>
-      <Name>Bot.Pipeline.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>

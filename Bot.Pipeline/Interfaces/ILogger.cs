@@ -1,4 +1,4 @@
-﻿namespace Bot.Pipeline.Contracts {
+﻿namespace Bot.Pipeline.Interfaces {
   public interface ILogger {
     void LogWarning(string warning);
     void LogError(string error);

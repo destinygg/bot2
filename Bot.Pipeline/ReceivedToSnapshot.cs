@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Models;
 using Bot.Models.Contracts;
-using Bot.Pipeline.Contracts;
+using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 
 namespace Bot.Pipeline {

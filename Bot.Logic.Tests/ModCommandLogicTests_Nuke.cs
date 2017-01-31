@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Bot.Models;
-using Bot.Pipeline.Contracts;
+using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

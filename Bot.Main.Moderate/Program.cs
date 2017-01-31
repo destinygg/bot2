@@ -1,9 +1,8 @@
 ﻿using System;
 using Bot.Logic;
 using Bot.Logic.Contracts;
-using Bot.Models;
 using Bot.Pipeline;
-using Bot.Pipeline.Contracts;
+using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using SimpleInjector;

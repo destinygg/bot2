@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Pipeline.Contracts;
+using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline {
   public class ConsoleLogger : ILogger {
