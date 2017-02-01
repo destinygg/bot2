@@ -11,6 +11,6 @@ namespace Bot.Pipeline {
       _sendableGenerator = sendableGenerator;
     }
 
-    public IReadOnlyList<ISendable> GetSendables(ISnapshot<IUser, ITransmittable> snapshot) => _sendableGenerator.Generate(snapshot);
+    public IReadOnlyList<ISendable<ITransmittable>> GetSendables(ISnapshot<IUser, ITransmittable> snapshot) => _sendableGenerator.Generate(snapshot);
   }
 }

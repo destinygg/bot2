@@ -19,7 +19,7 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       var context = snapshot.Context;
       var message = snapshot.Latest as ReceivedMessage<Moderator, IMessage>;
       if (message != null) {
@@ -36,7 +36,7 @@ namespace Bot.Logic {
         if (message.IsMatch(_modCommandRegex.Aegis))
           return _modCommandLogic.Aegis(context);
       }
-      return new List<ISendable>();
+      return new List<ISendable<ITransmittable>>();
     }
 
   }

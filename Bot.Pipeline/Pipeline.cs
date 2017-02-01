@@ -9,11 +9,11 @@ namespace Bot.Pipeline {
     private readonly BufferBlock<IReceived<IUser, ITransmittable>> _bufferBlock = new BufferBlock<IReceived<IUser, ITransmittable>>();
     public Pipeline(IReceivedToSnapshot receivedToSnapshot, ISnapshotToSendable snapshotToSendable, ISender sender) {
       var receivedToSnapshotBlock = new TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>(r => receivedToSnapshot.GetSnapshot(r));
-      var snapshotToSendableBlock = new TransformBlock<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable>>(c => snapshotToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
+      var snapshotToSendableBlock = new TransformBlock<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>(c => snapshotToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
         MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
         EnsureOrdered = false,
       });
-      var senderBlock = new ActionBlock<IReadOnlyList<ISendable>>(r => sender.Send(r));
+      var senderBlock = new ActionBlock<IReadOnlyList<ISendable<ITransmittable>>>(r => sender.Send(r));
 
       _bufferBlock.LinkTo(receivedToSnapshotBlock);
       receivedToSnapshotBlock.LinkTo(snapshotToSendableBlock);

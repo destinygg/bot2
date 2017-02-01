@@ -6,8 +6,8 @@ using Bot.Models.Interfaces;
 namespace Bot.Logic {
   public class BanGenerator : IBanGenerator {
 
-    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
-      var outbox = new List<ISendable>();
+    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+      var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest as ReceivedMessage<Civilian, PublicMessage>;
       if (message == null) return outbox;
       if (message.Transmission.Text.Contains("banplox")) {

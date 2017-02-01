@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.Interfaces {
   public interface IModCommandLogic {
-    ISendable Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
-    ISendable Sing();
-    IReadOnlyList<ISendable> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke);
-    IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
+    ISendable<PublicMessage> Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
+    ISendable<PublicMessage> Sing();
+    IReadOnlyList<ISendable<Mute>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke);
+    IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
   }
 }

@@ -6,7 +6,7 @@ using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline {
   public class ConsoleSender : ISender {
-    public void Send(IEnumerable<ISendable> sendables) {
+    public void Send(IEnumerable<ISendable<ITransmittable>> sendables) {
       foreach (var sendable in sendables) {
         if (sendable is SendablePublicMessage) {
           var pm = (SendablePublicMessage) sendable;

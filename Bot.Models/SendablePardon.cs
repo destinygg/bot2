@@ -3,7 +3,12 @@ using Bot.Models.Interfaces;
 
 namespace Bot.Models {
   [DebuggerDisplay("Pardoned {Target})")]
-  public class SendablePardon : Pardon, ISendable {
-    public SendablePardon(IUser target) : base(target) { }
+  public class SendablePardon : ISendable<Pardon> {
+    public SendablePardon(IUser target) {
+      Transmission = new Pardon(target);
+    }
+
+    public Pardon Transmission { get; }
+    public IUser Target => Transmission.Target;
   }
 }

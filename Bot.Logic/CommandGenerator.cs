@@ -12,8 +12,8 @@ namespace Bot.Logic {
       _timeService = timeService;
     }
 
-    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
-      var outbox = new List<ISendable>();
+    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+      var outbox = new List<ISendable<PublicMessage>>();
       var message = snapshot.Latest as IReceived<IUser, IMessage>;
       if (message != null) {
         if (message.StartsWith("!time")) {

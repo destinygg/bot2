@@ -19,8 +19,8 @@ namespace Bot.Logic {
       _commandGenerator = commandGenerator;
     }
 
-    public IReadOnlyList<ISendable> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
-      var outbox = new List<ISendable>();
+    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+      var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest as IReceived<IUser, IMessage>;
       if (message != null) {
         _logger.LogVerbose(message.Transmission.Text);

@@ -14,7 +14,7 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable> Nuke(IParsedNuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>
+    public IReadOnlyList<ISendable<Mute>> Nuke(IParsedNuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>
       _GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
@@ -24,7 +24,7 @@ namespace Bot.Logic {
       .Select(m => m.Sender)
       .Distinct();
 
-    public IReadOnlyList<ISendable> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
+    public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       var modMessages = context.OfType<IReceived<Moderator, IMessage>>().ToList();
       var nukes = _GetStringNukes(modMessages).Concat<IParsedNuke>(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => _GetCurrentVictims(n, context));
