@@ -1,8 +1,8 @@
 ﻿using Bot.Models.Interfaces;
 
 namespace Bot.Models {
-  public abstract class Pardon : ITargetable {
-    protected Pardon(IUser target) {
+  public class Pardon : ITargetable {
+    public Pardon(IUser target) {
       Target = target;
     }
 
