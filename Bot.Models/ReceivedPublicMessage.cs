@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
@@ -15,5 +16,6 @@ namespace Bot.Models {
 
     // To ensure thread safety, this object should remain readonly.
     public override PublicMessage Transmission { get; }
+    public override Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> Accept(IReceivedVisitor visitor) => visitor.Visit(this);
   }
 }

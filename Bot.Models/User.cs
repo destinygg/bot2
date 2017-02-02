@@ -12,6 +12,6 @@ namespace Bot.Models {
     public string Nick { get; }
     public IEnumerable<string> Flair { get; }
     public bool IsMod { get; }
-
+    public abstract IReceivedVisitor Accept(IUserVisitor visitor);
   }
 }

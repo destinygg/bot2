@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
@@ -21,5 +22,6 @@ namespace Bot.Models {
     public TUser Sender { get; }
     public abstract TTransmission Transmission { get; }
     public string Text => Transmission.Text;
+    public abstract Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> Accept(IReceivedVisitor visitor);
   }
 }

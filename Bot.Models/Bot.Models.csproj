@@ -45,12 +45,14 @@
     <Compile Include="Interfaces\IReceived.cs" />
     <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
     <Compile Include="Interfaces\IReceivedMessageExtensionMethods.cs" />
+    <Compile Include="Interfaces\IReceivedVisitor.cs" />
     <Compile Include="Interfaces\ISendable.cs" />
     <Compile Include="Interfaces\ISnapshot.cs" />
     <Compile Include="Interfaces\ISubonly.cs" />
     <Compile Include="Interfaces\ITargetable.cs" />
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Interfaces\IUserVisitor.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="PrivateMessage.cs" />
     <Compile Include="PublicMessage.cs" />

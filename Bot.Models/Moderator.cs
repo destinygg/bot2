@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Bot.Models.Interfaces;
 
 namespace Bot.Models {
   [DebuggerDisplay("{Nick}(Mod)")]
@@ -7,5 +8,6 @@ namespace Bot.Models {
       
     }
 
+    public override IReceivedVisitor Accept(IUserVisitor visitor) => visitor.Visit(this);
   }
 }

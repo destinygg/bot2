@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
+using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools;
@@ -30,6 +31,11 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<ITimeService, TimeService>();
       container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
       container.RegisterSingleton<ISampleReceived, SampleReceived>();
+
+      container.RegisterSingleton<IUserVisitor, UserVisitor>();
+      container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
+      container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
+
       container.Verify();
 
       var data = container.GetInstance<ISampleReceived>();
