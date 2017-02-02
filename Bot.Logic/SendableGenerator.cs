@@ -7,9 +7,9 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class SendableGenerator : ISendableGenerator {
     private readonly ILogger _logger;
-    private readonly IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>> _userVisitor;
+    private readonly IUserVisitor<IReceivedVisitor<SendablesFactory>> _userVisitor;
 
-    public SendableGenerator(ILogger logger, IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>> userVisitor) {
+    public SendableGenerator(ILogger logger, IUserVisitor<IReceivedVisitor<SendablesFactory>> userVisitor) {
       _logger = logger;
       _userVisitor = userVisitor;
     }
@@ -17,8 +17,8 @@ namespace Bot.Logic {
     public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       _logger.LogVerbose(snapshot.Latest.ToString());
       var receivedVisitor = snapshot.Latest.Sender.Accept(_userVisitor);
-      var func = snapshot.Latest.Accept(receivedVisitor);
-      return func(snapshot);
+      var sendablesFactory = snapshot.Latest.Accept(receivedVisitor);
+      return sendablesFactory.Create(snapshot);
     }
 
   }

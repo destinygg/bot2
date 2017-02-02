@@ -4,7 +4,7 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class UserToReceivedVisitor : IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>> {
+  public class UserToReceivedVisitor : IUserVisitor<IReceivedVisitor<SendablesFactory>> {
     private readonly ModeratorReceivedToSendablesVisitor _moderatorReceivedToSendablesVisitor;
     private readonly CivilianReceivedToSendablesVisitor _civilianReceivedToSendablesVisitor;
 
@@ -13,8 +13,8 @@ namespace Bot.Logic {
       _civilianReceivedToSendablesVisitor = civilianReceivedToSendablesVisitor;
     }
 
-    public IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>> Visit(Moderator moderator) => _moderatorReceivedToSendablesVisitor;
+    public IReceivedVisitor<SendablesFactory> Visit(Moderator moderator) => _moderatorReceivedToSendablesVisitor;
 
-    public IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>> Visit(Civilian civilian) => _civilianReceivedToSendablesVisitor;
+    public IReceivedVisitor<SendablesFactory> Visit(Civilian civilian) => _civilianReceivedToSendablesVisitor;
   }
 }

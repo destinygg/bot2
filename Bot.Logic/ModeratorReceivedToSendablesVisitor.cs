@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class ModeratorReceivedToSendablesVisitor : IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>> {
+  public class ModeratorReceivedToSendablesVisitor : IReceivedVisitor<SendablesFactory> {
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
@@ -15,11 +14,9 @@ namespace Bot.Logic {
       _commandGenerator = commandGenerator;
     }
 
-    public Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> Visit(ReceivedPardon pardon) =>
-      _ => new List<ISendable<ITransmittable>>();
+    public SendablesFactory Visit(ReceivedPardon pardon) => new SendablesFactory(_ => new List<ISendable<ITransmittable>>());
 
-    public Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> Visit<TUser>(ReceivedPublicMessage<TUser> receivedPublicMessage) where TUser : IUser => snapshot =>
-      _modCommandGenerator.Generate(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList();
-
+    public SendablesFactory Visit<TUser>(ReceivedPublicMessage<TUser> receivedPublicMessage) where TUser : IUser => new SendablesFactory(snapshot => 
+      _modCommandGenerator.Generate(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList());
   }
 }
