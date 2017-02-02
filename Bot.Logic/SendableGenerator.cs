@@ -6,9 +6,9 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class SendableGenerator : ISendableGenerator {
     private readonly ILogger _logger;
-    private readonly IUserVisitor _userVisitor;
+    private readonly IUserVisitor<IReceivedVisitor> _userVisitor;
 
-    public SendableGenerator(ILogger logger, IUserVisitor userVisitor) {
+    public SendableGenerator(ILogger logger, IUserVisitor<IReceivedVisitor> userVisitor) {
       _logger = logger;
       _userVisitor = userVisitor;
     }

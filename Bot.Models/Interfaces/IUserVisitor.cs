@@ -1,6 +1,6 @@
 ﻿namespace Bot.Models.Interfaces {
-  public interface IUserVisitor {
-    IReceivedVisitor Visit(Moderator moderator);
-    IReceivedVisitor Visit(Civilian civilian);
+  public interface IUserVisitor<out TResult> {
+    TResult Visit(Moderator moderator);
+    TResult Visit(Civilian civilian);
   }
 }

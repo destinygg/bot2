@@ -32,7 +32,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
       container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
-      container.RegisterSingleton<IUserVisitor, UserVisitor>();
+      container.RegisterSingleton<IUserVisitor<IReceivedVisitor>, UserToReceivedVisitor>();
       container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
       container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
 

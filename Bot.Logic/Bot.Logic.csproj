@@ -64,7 +64,7 @@
     <Compile Include="BanGenerator.cs" />
     <Compile Include="CommandGenerator.cs" />
     <Compile Include="ModCommandGenerator.cs" />
-    <Compile Include="UserVisitor.cs" />
+    <Compile Include="UserToReceivedVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
