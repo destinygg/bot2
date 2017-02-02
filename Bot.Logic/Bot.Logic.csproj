@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CivilianReceivedVisitor.cs" />
+    <Compile Include="CivilianReceivedToSendablesVisitor.cs" />
     <Compile Include="Interfaces\IBanGenerator.cs" />
     <Compile Include="Interfaces\ICommandGenerator.cs" />
     <Compile Include="Interfaces\IGenerator.cs" />
@@ -55,7 +55,7 @@
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />
-    <Compile Include="ModeratorReceivedVisitor.cs" />
+    <Compile Include="ModeratorReceivedToSendablesVisitor.cs" />
     <Compile Include="NukeLogic.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="ParsedNuke.cs" />

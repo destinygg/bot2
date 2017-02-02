@@ -6,11 +6,11 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class ModeratorReceivedVisitor : IReceivedVisitor {
+  public class ModeratorReceivedToSendablesVisitor : IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>> {
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
-    public ModeratorReceivedVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator) {
+    public ModeratorReceivedToSendablesVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator) {
       _modCommandGenerator = modCommandGenerator;
       _commandGenerator = commandGenerator;
     }

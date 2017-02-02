@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Models.Interfaces;
@@ -32,9 +33,9 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
       container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
-      container.RegisterSingleton<IUserVisitor<IReceivedVisitor>, UserToReceivedVisitor>();
-      container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
-      container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
+      container.RegisterSingleton<IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>>, UserToReceivedVisitor>();
+      container.RegisterSingleton<CivilianReceivedToSendablesVisitor, CivilianReceivedToSendablesVisitor>();
+      container.RegisterSingleton<ModeratorReceivedToSendablesVisitor, ModeratorReceivedToSendablesVisitor>();
 
       container.Verify();
 

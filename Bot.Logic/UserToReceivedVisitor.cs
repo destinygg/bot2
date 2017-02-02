@@ -1,18 +1,20 @@
-﻿using Bot.Models;
+﻿using System;
+using System.Collections.Generic;
+using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class UserToReceivedVisitor : IUserVisitor<IReceivedVisitor> {
-    private readonly ModeratorReceivedVisitor _moderatorReceivedVisitor;
-    private readonly CivilianReceivedVisitor _civilianReceivedVisitor;
+  public class UserToReceivedVisitor : IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>> {
+    private readonly ModeratorReceivedToSendablesVisitor _moderatorReceivedToSendablesVisitor;
+    private readonly CivilianReceivedToSendablesVisitor _civilianReceivedToSendablesVisitor;
 
-    public UserToReceivedVisitor(ModeratorReceivedVisitor moderatorReceivedVisitor, CivilianReceivedVisitor civilianReceivedVisitor) {
-      _moderatorReceivedVisitor = moderatorReceivedVisitor;
-      _civilianReceivedVisitor = civilianReceivedVisitor;
+    public UserToReceivedVisitor(ModeratorReceivedToSendablesVisitor moderatorReceivedToSendablesVisitor, CivilianReceivedToSendablesVisitor civilianReceivedToSendablesVisitor) {
+      _moderatorReceivedToSendablesVisitor = moderatorReceivedToSendablesVisitor;
+      _civilianReceivedToSendablesVisitor = civilianReceivedToSendablesVisitor;
     }
 
-    public IReceivedVisitor Visit(Moderator moderator) => _moderatorReceivedVisitor;
+    public IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>> Visit(Moderator moderator) => _moderatorReceivedToSendablesVisitor;
 
-    public IReceivedVisitor Visit(Civilian civilian) => _civilianReceivedVisitor;
+    public IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>> Visit(Civilian civilian) => _civilianReceivedToSendablesVisitor;
   }
 }

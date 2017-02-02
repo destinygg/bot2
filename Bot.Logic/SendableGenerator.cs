@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bot.Logic.Interfaces;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
@@ -6,9 +7,9 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class SendableGenerator : ISendableGenerator {
     private readonly ILogger _logger;
-    private readonly IUserVisitor<IReceivedVisitor> _userVisitor;
+    private readonly IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>> _userVisitor;
 
-    public SendableGenerator(ILogger logger, IUserVisitor<IReceivedVisitor> userVisitor) {
+    public SendableGenerator(ILogger logger, IUserVisitor<IReceivedVisitor<Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>> userVisitor) {
       _logger = logger;
       _userVisitor = userVisitor;
     }

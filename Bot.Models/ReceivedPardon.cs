@@ -15,6 +15,6 @@ namespace Bot.Models {
     public Moderator Sender { get; }
     public Pardon Transmission { get; }
     public IUser Target => Transmission.Target;
-    public Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> Accept(IReceivedVisitor visitor) => visitor.Visit(this);
+    public TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

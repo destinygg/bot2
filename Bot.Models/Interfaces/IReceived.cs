@@ -8,6 +8,6 @@ namespace Bot.Models.Interfaces {
     DateTime Timestamp { get; }
     TUser Sender { get; }
     TTransmission Transmission { get; }
-    Func<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> Accept(IReceivedVisitor visitor);
+    TResult Accept<TResult>(IReceivedVisitor<TResult> visitor);
   }
 }
