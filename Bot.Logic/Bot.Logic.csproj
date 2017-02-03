@@ -65,7 +65,7 @@
     <Compile Include="CommandGenerator.cs" />
     <Compile Include="ModCommandGenerator.cs" />
     <Compile Include="SendablesFactory.cs" />
-    <Compile Include="UserToReceivedVisitor.cs" />
+    <Compile Include="UserToReceivedSendablesVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">

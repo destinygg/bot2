@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Bot.Models;
+﻿using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class UserToReceivedVisitor : IUserVisitor<IReceivedVisitor<SendablesFactory>> {
+  public class UserToReceivedSendablesVisitor : IUserVisitor<IReceivedVisitor<SendablesFactory>> {
     private readonly ModeratorReceivedToSendablesVisitor _moderatorReceivedToSendablesVisitor;
     private readonly CivilianReceivedToSendablesVisitor _civilianReceivedToSendablesVisitor;
 
-    public UserToReceivedVisitor(ModeratorReceivedToSendablesVisitor moderatorReceivedToSendablesVisitor, CivilianReceivedToSendablesVisitor civilianReceivedToSendablesVisitor) {
+    public UserToReceivedSendablesVisitor(ModeratorReceivedToSendablesVisitor moderatorReceivedToSendablesVisitor, CivilianReceivedToSendablesVisitor civilianReceivedToSendablesVisitor) {
       _moderatorReceivedToSendablesVisitor = moderatorReceivedToSendablesVisitor;
       _civilianReceivedToSendablesVisitor = civilianReceivedToSendablesVisitor;
     }
