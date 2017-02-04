@@ -2,17 +2,17 @@
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.SnapshotFactoryVisitor {
-  public class UserToSnapshotVisitor : IUserVisitor<IReceivedVisitor<SnapshotFactory>> {
-    private readonly ReceivedFromModeratorToSnapshotVisitor _receivedFromModeratorToSnapshotVisitor;
-    private readonly ReceivedFromCivilianToSnapshotVisitor _receivedFromCivilianToSnapshotVisitor;
+  public class UserVisitor : IUserVisitor<IReceivedVisitor<SnapshotFactory>> {
+    private readonly ModeratorReceivedVisitor _moderatorReceivedVisitor;
+    private readonly CivilianReceivedVisitor _civilianReceivedVisitor;
 
-    public UserToSnapshotVisitor(ReceivedFromModeratorToSnapshotVisitor receivedFromModeratorToSnapshotVisitor, ReceivedFromCivilianToSnapshotVisitor receivedFromCivilianToSnapshotVisitor) {
-      _receivedFromModeratorToSnapshotVisitor = receivedFromModeratorToSnapshotVisitor;
-      _receivedFromCivilianToSnapshotVisitor = receivedFromCivilianToSnapshotVisitor;
+    public UserVisitor(ModeratorReceivedVisitor moderatorReceivedVisitor, CivilianReceivedVisitor civilianReceivedVisitor) {
+      _moderatorReceivedVisitor = moderatorReceivedVisitor;
+      _civilianReceivedVisitor = civilianReceivedVisitor;
     }
 
-    public IReceivedVisitor<SnapshotFactory> Visit(Moderator moderator) => _receivedFromModeratorToSnapshotVisitor;
+    public IReceivedVisitor<SnapshotFactory> Visit(Moderator moderator) => _moderatorReceivedVisitor;
 
-    public IReceivedVisitor<SnapshotFactory> Visit(Civilian civilian) => _receivedFromCivilianToSnapshotVisitor;
+    public IReceivedVisitor<SnapshotFactory> Visit(Civilian civilian) => _civilianReceivedVisitor;
   }
 }

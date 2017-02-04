@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="SnapshotVisitor\CivilianSnapshotVisitor.cs" />
     <Compile Include="SnapshotVisitor\BaseSnapshotVisitor.cs" />
-    <Compile Include="SnapshotFactoryVisitor\ReceivedFromModeratorToSnapshotVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\ModeratorReceivedVisitor.cs" />
     <Compile Include="Interfaces\IBanGenerator.cs" />
     <Compile Include="Interfaces\ICommandGenerator.cs" />
     <Compile Include="Interfaces\IGenerator.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="NukeLogic.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="ParsedNuke.cs" />
-    <Compile Include="SnapshotFactoryVisitor\ReceivedFromCivilianToSnapshotVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\CivilianReceivedVisitor.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="ModCommandGenerator.cs" />
     <Compile Include="SnapshotFactoryVisitor\SnapshotFactory.cs" />
     <Compile Include="SnapshotFactoryVisitor\UserToSnapshotVisitor.cs" />
-    <Compile Include="SnapshotFactoryVisitor\UserVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\BaseReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\UserVisitor.cs" />
   </ItemGroup>
   <ItemGroup>

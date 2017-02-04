@@ -6,12 +6,12 @@ using Bot.Tools.Interfaces;
 using Microsoft.CSharp.RuntimeBinder;
 
 namespace Bot.Logic.SnapshotFactoryVisitor {
-  public abstract class UserVisitor<TUser> : IReceivedVisitor<SnapshotFactory>
+  public abstract class BaseReceivedVisitor<TUser> : IReceivedVisitor<SnapshotFactory>
     where TUser : IUser {
     private readonly ILogger _logger;
     private readonly ITimeService _timeService;
 
-    protected UserVisitor(ILogger logger, ITimeService timeService) {
+    protected BaseReceivedVisitor(ILogger logger, ITimeService timeService) {
       _logger = logger;
       _timeService = timeService;
     }
