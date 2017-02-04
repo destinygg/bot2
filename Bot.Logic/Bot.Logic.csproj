@@ -65,6 +65,7 @@
     <Compile Include="CommandGenerator.cs" />
     <Compile Include="ModCommandGenerator.cs" />
     <Compile Include="SendablesFactory.cs" />
+    <Compile Include="SnapshotFactory.cs" />
     <Compile Include="UserToReceivedSendablesVisitor.cs" />
   </ItemGroup>
   <ItemGroup>

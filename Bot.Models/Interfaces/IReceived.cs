@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Bot.Models.Interfaces {
   public interface IReceived<out TUser, out TTransmission>
