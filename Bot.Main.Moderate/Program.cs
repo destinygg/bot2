@@ -39,9 +39,9 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<ReceivedFromModeratorToSnapshotVisitor, ReceivedFromModeratorToSnapshotVisitor>();
       container.RegisterSingleton<ReceivedFromCivilianToSnapshotVisitor, ReceivedFromCivilianToSnapshotVisitor>();
 
-      container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, UserToReceivedSendablesVisitor>();
-      container.RegisterSingleton<CivilianReceivedToSendablesVisitor, CivilianReceivedToSendablesVisitor>();
-      container.RegisterSingleton<ModeratorReceivedToSendablesVisitor, ModeratorReceivedToSendablesVisitor>();
+      container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, UserVisitor>();
+      container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
+      container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
 
       container.Verify();
 

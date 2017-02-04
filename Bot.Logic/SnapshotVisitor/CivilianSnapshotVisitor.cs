@@ -6,11 +6,11 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
-  public class CivilianReceivedToSendablesVisitor : FromUserToSendablesVisitor<Civilian> {
+  public class CivilianSnapshotVisitor : BaseSnapshotVisitor<Civilian> {
     private readonly IBanGenerator _banGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
-    public CivilianReceivedToSendablesVisitor(IBanGenerator banGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
+    public CivilianSnapshotVisitor(IBanGenerator banGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
       _banGenerator = banGenerator;
       _commandGenerator = commandGenerator;
     }

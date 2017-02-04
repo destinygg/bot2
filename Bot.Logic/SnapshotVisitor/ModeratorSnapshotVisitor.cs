@@ -6,11 +6,11 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
-  public class ModeratorReceivedToSendablesVisitor : FromUserToSendablesVisitor<Moderator> {
+  public class ModeratorSnapshotVisitor : BaseSnapshotVisitor<Moderator> {
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
-    public ModeratorReceivedToSendablesVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
+    public ModeratorSnapshotVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
       _modCommandGenerator = modCommandGenerator;
       _commandGenerator = commandGenerator;
     }

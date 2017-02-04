@@ -5,11 +5,11 @@ using Bot.Tools.Interfaces;
 using Microsoft.CSharp.RuntimeBinder;
 
 namespace Bot.Logic.SnapshotVisitor {
-  public abstract class FromUserToSendablesVisitor<TUser> : ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>
+  public abstract class BaseSnapshotVisitor<TUser> : ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>
     where TUser : IUser {
     private readonly ILogger _logger;
 
-    protected FromUserToSendablesVisitor(ILogger logger) {
+    protected BaseSnapshotVisitor(ILogger logger) {
       _logger = logger;
     }
 
