@@ -14,14 +14,21 @@ namespace Bot.Logic {
       _commandGenerator = commandGenerator;
     }
 
-    public SendablesFactory Visit(ReceivedPardon pardon) => new SendablesFactory(_ => new List<ISendable<ITransmittable>>());
+    public SendablesFactory Visit<TUser, TTransmission>(Received<TUser, TTransmission> received)
+      where TUser : IUser
+      where TTransmission : ITransmittable =>
+      SpecialVisit(received as dynamic);
 
-    public SendablesFactory Visit<TUser>(ReceivedPublicMessage<TUser> receivedPublicMessage) where TUser : IUser => new SendablesFactory(snapshot => {
+    private SendablesFactory SpecialVisit(Received<Moderator, Message> message) => new SendablesFactory(snapshot => {
       var bans = _banGenerator.Generate(snapshot);
       return bans.Any()
         ? bans
         : _commandGenerator.Generate(snapshot);
     });
 
+    private SendablesFactory SpecialVisit<TUser, TTransmission>(Received<TUser, TTransmission> received)
+      where TUser : IUser
+      where TTransmission : ITransmittable =>
+      new SendablesFactory(_ => new List<ISendable<ITransmittable>>());
   }
 }

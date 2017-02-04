@@ -16,6 +16,5 @@ namespace Bot.Models {
 
     // To ensure thread safety, this object should remain readonly.
     public override PublicMessage Transmission { get; }
-    public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

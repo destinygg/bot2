@@ -58,6 +58,7 @@
     <Compile Include="PublicMessage.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
+    <Compile Include="Received.cs" />
     <Compile Include="ReceivedPublicMessage.cs" />
     <Compile Include="Snapshot.cs" />
     <Compile Include="Message.cs" />
