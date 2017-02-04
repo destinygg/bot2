@@ -1,8 +1,9 @@
-﻿using Bot.Models;
+﻿using System.Collections.Generic;
+using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.SendablesFactoryVisitor {
-  public class UserToReceivedSendablesVisitor : IUserVisitor<IReceivedVisitor<SendablesFactory>> {
+  public class UserToReceivedSendablesVisitor : IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> {
     private readonly ModeratorReceivedToSendablesVisitor _moderatorReceivedToSendablesVisitor;
     private readonly CivilianReceivedToSendablesVisitor _civilianReceivedToSendablesVisitor;
 
@@ -11,8 +12,8 @@ namespace Bot.Logic.SendablesFactoryVisitor {
       _civilianReceivedToSendablesVisitor = civilianReceivedToSendablesVisitor;
     }
 
-    public IReceivedVisitor<SendablesFactory> Visit(Moderator moderator) => _moderatorReceivedToSendablesVisitor;
+    public ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> Visit(Moderator moderator) => _moderatorReceivedToSendablesVisitor;
 
-    public IReceivedVisitor<SendablesFactory> Visit(Civilian civilian) => _civilianReceivedToSendablesVisitor;
+    public ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> Visit(Civilian civilian) => _civilianReceivedToSendablesVisitor;
   }
 }

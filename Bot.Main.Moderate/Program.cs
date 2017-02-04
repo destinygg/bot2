@@ -39,7 +39,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<ReceivedFromModeratorToSnapshotVisitor, ReceivedFromModeratorToSnapshotVisitor>();
       container.RegisterSingleton<ReceivedFromCivilianToSnapshotVisitor, ReceivedFromCivilianToSnapshotVisitor>();
 
-      container.RegisterSingleton<IUserVisitor<IReceivedVisitor<SendablesFactory>>, UserToReceivedSendablesVisitor>();
+      container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, UserToReceivedSendablesVisitor>();
       container.RegisterSingleton<CivilianReceivedToSendablesVisitor, CivilianReceivedToSendablesVisitor>();
       container.RegisterSingleton<ModeratorReceivedToSendablesVisitor, ModeratorReceivedToSendablesVisitor>();
 

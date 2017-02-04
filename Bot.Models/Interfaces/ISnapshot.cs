@@ -14,5 +14,7 @@ namespace Bot.Models.Interfaces {
     /// The rest of the Received transmissions; doesn't include Latest
     /// </summary>
     IReadOnlyList<IReceived<IUser, ITransmittable>> Context { get; }
+
+    IReadOnlyList<ISendable<ITransmittable>> Accept(ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> visitor);
   }
 }

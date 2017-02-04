@@ -13,6 +13,7 @@ namespace Bot.Models {
 
     public IReceived<TUser, TTransmission> Latest { get; }
     public IReadOnlyList<IReceived<IUser, ITransmittable>> Context { get; }
-
+    public IReadOnlyList<ISendable<ITransmittable>> Accept(ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> visitor) =>
+      visitor.Visit(this);
   }
 }

@@ -5,7 +5,7 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.SendablesFactoryVisitor {
-  public class CivilianReceivedToSendablesVisitor : IReceivedVisitor<SendablesFactory> {
+  public class CivilianReceivedToSendablesVisitor : ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IBanGenerator _banGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
@@ -14,21 +14,19 @@ namespace Bot.Logic.SendablesFactoryVisitor {
       _commandGenerator = commandGenerator;
     }
 
-    public SendablesFactory Visit<TUser, TTransmission>(Received<TUser, TTransmission> received)
+    public IReadOnlyList<ISendable<ITransmittable>> Visit<TUser, TTransmission>(ISnapshot<TUser, TTransmission> received)
       where TUser : IUser
       where TTransmission : ITransmittable =>
       SpecialVisit(received as dynamic);
 
-    private SendablesFactory SpecialVisit(Received<Moderator, Message> message) => new SendablesFactory(snapshot => {
+    private IReadOnlyList<ISendable<ITransmittable>> SpecialVisit(ISnapshot<Civilian, PublicMessage> snapshot) {
       var bans = _banGenerator.Generate(snapshot);
       return bans.Any()
         ? bans
         : _commandGenerator.Generate(snapshot);
-    });
+    }
 
-    private SendablesFactory SpecialVisit<TUser, TTransmission>(Received<TUser, TTransmission> received)
-      where TUser : IUser
-      where TTransmission : ITransmittable =>
-      new SendablesFactory(_ => new List<ISendable<ITransmittable>>());
+    private IReadOnlyList<ISendable<ITransmittable>> SpecialVisit(ISnapshot<IUser, ITransmittable> snapshot) =>
+      new List<ISendable<ITransmittable>>();
   }
 }

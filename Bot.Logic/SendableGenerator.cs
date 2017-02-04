@@ -7,18 +7,17 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class SendableGenerator : ISendableGenerator {
     private readonly ILogger _logger;
-    private readonly IUserVisitor<IReceivedVisitor<SendablesFactory>> _userVisitor;
+    private readonly IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> _userVisitor;
 
-    public SendableGenerator(ILogger logger, IUserVisitor<IReceivedVisitor<SendablesFactory>> userVisitor) {
+    public SendableGenerator(ILogger logger, IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> userVisitor) {
       _logger = logger;
       _userVisitor = userVisitor;
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
       _logger.LogVerbose(snapshot.Latest.ToString());
-      var receivedVisitor = snapshot.Latest.Sender.Accept(_userVisitor);
-      var sendablesFactory = snapshot.Latest.Accept(receivedVisitor);
-      return sendablesFactory.Create(snapshot);
+      var snapshotVisitor = snapshot.Latest.Sender.Accept(_userVisitor);
+      return snapshot.Accept(snapshotVisitor);
     }
 
   }
