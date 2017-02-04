@@ -5,7 +5,7 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Logic.SendablesFactoryVisitor {
+namespace Bot.Logic.SnapshotVisitor {
   public class CivilianReceivedToSendablesVisitor : FromUserToSendablesVisitor<Civilian> {
     private readonly IBanGenerator _banGenerator;
     private readonly ICommandGenerator _commandGenerator;

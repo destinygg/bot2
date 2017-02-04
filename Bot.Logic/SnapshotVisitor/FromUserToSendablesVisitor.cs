@@ -4,7 +4,7 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 using Microsoft.CSharp.RuntimeBinder;
 
-namespace Bot.Logic.SendablesFactoryVisitor {
+namespace Bot.Logic.SnapshotVisitor {
   public abstract class FromUserToSendablesVisitor<TUser> : ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>
     where TUser : IUser {
     private readonly ILogger _logger;

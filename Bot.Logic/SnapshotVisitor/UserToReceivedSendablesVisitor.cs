@@ -2,7 +2,7 @@
 using Bot.Models;
 using Bot.Models.Interfaces;
 
-namespace Bot.Logic.SendablesFactoryVisitor {
+namespace Bot.Logic.SnapshotVisitor {
   public class UserToReceivedSendablesVisitor : IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> {
     private readonly ModeratorReceivedToSendablesVisitor _moderatorReceivedToSendablesVisitor;
     private readonly CivilianReceivedToSendablesVisitor _civilianReceivedToSendablesVisitor;
