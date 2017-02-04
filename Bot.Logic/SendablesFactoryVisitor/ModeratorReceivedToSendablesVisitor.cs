@@ -3,26 +3,25 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SendablesFactoryVisitor {
-  public class ModeratorReceivedToSendablesVisitor : ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> {
+  public class ModeratorReceivedToSendablesVisitor : FromUserToSendablesVisitor<Moderator> {
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
 
-    public ModeratorReceivedToSendablesVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator) {
+    public ModeratorReceivedToSendablesVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
       _modCommandGenerator = modCommandGenerator;
       _commandGenerator = commandGenerator;
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Visit<TUser, TTransmission>(ISnapshot<TUser, TTransmission> received)
-      where TUser : IUser
-      where TTransmission : ITransmittable =>
-      SpecialVisit(received as dynamic);
+    protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Moderator, PublicMessage> snapshot) =>
+       ModAndCivilianCommands(snapshot);
 
-    private IReadOnlyList<ISendable<ITransmittable>> SpecialVisit(ISnapshot<Moderator, Message> snapshot) =>
-       _modCommandGenerator.Generate(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList();
+    protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Moderator, PrivateMessage> snapshot) =>
+       ModAndCivilianCommands(snapshot);
 
-    private IReadOnlyList<ISendable<ITransmittable>> SpecialVisit(ISnapshot<IUser, ITransmittable> snapshot) =>
-      new List<ISendable<ITransmittable>>();
+    private List<ISendable<ITransmittable>> ModAndCivilianCommands(ISnapshot<Moderator, Message> snapshot) =>
+      _modCommandGenerator.Generate(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList();
   }
 }

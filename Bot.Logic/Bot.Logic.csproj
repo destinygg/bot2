@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SendablesFactoryVisitor\CivilianReceivedToSendablesVisitor.cs" />
+    <Compile Include="SendablesFactoryVisitor\FromUserToSendablesVisitor.cs" />
     <Compile Include="SnapshotFactoryVisitor\ReceivedFromModeratorToSnapshotVisitor.cs" />
     <Compile Include="Interfaces\IBanGenerator.cs" />
     <Compile Include="Interfaces\ICommandGenerator.cs" />
