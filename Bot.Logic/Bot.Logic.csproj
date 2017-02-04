@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CivilianReceivedToSendablesVisitor.cs" />
+    <Compile Include="ReceivedFromModeratorToSnapshotVisitor.cs" />
     <Compile Include="Interfaces\IBanGenerator.cs" />
     <Compile Include="Interfaces\ICommandGenerator.cs" />
     <Compile Include="Interfaces\IGenerator.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="NukeLogic.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="ParsedNuke.cs" />
+    <Compile Include="ReceivedFromCivilianToSnapshotVisitor.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="SendablesFactory.cs" />
     <Compile Include="SnapshotFactory.cs" />
     <Compile Include="UserToReceivedSendablesVisitor.cs" />
+    <Compile Include="UserToSnapshotVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
