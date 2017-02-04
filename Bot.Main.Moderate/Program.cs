@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
+using Bot.Logic.SendablesFactoryVisitor;
+using Bot.Logic.SnapshotFactoryVisitor;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;

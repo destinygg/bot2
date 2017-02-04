@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bot.Logic.Interfaces;
+using Bot.Logic.SendablesFactoryVisitor;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 

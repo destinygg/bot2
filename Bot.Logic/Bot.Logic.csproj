@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CivilianReceivedToSendablesVisitor.cs" />
-    <Compile Include="ReceivedFromModeratorToSnapshotVisitor.cs" />
+    <Compile Include="SendablesFactoryVisitor\CivilianReceivedToSendablesVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\ReceivedFromModeratorToSnapshotVisitor.cs" />
     <Compile Include="Interfaces\IBanGenerator.cs" />
     <Compile Include="Interfaces\ICommandGenerator.cs" />
     <Compile Include="Interfaces\IGenerator.cs" />
@@ -56,20 +56,20 @@
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />
-    <Compile Include="ModeratorReceivedToSendablesVisitor.cs" />
+    <Compile Include="SendablesFactoryVisitor\ModeratorReceivedToSendablesVisitor.cs" />
     <Compile Include="NukeLogic.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="ParsedNuke.cs" />
-    <Compile Include="ReceivedFromCivilianToSnapshotVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\ReceivedFromCivilianToSnapshotVisitor.cs" />
     <Compile Include="SendableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanGenerator.cs" />
     <Compile Include="CommandGenerator.cs" />
     <Compile Include="ModCommandGenerator.cs" />
-    <Compile Include="SendablesFactory.cs" />
-    <Compile Include="SnapshotFactory.cs" />
-    <Compile Include="UserToReceivedSendablesVisitor.cs" />
-    <Compile Include="UserToSnapshotVisitor.cs" />
+    <Compile Include="SendablesFactoryVisitor\SendablesFactory.cs" />
+    <Compile Include="SnapshotFactoryVisitor\SnapshotFactory.cs" />
+    <Compile Include="SendablesFactoryVisitor\UserToReceivedSendablesVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\UserToSnapshotVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">

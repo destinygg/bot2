@@ -1,7 +1,7 @@
 ﻿using Bot.Models;
 using Bot.Models.Interfaces;
 
-namespace Bot.Logic {
+namespace Bot.Logic.SnapshotFactoryVisitor {
   public class ReceivedFromCivilianToSnapshotVisitor : IReceivedVisitor<SnapshotFactory> {
     public SnapshotFactory Visit<TUser, TTransmission>(Received<TUser, TTransmission> received)
       where TUser : IUser

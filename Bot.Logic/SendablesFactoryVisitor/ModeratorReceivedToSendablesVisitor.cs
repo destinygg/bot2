@@ -4,7 +4,7 @@ using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 
-namespace Bot.Logic {
+namespace Bot.Logic.SendablesFactoryVisitor {
   public class ModeratorReceivedToSendablesVisitor : IReceivedVisitor<SendablesFactory> {
     private readonly IModCommandGenerator _modCommandGenerator;
     private readonly ICommandGenerator _commandGenerator;
