@@ -1,14 +1,12 @@
 ﻿using Bot.Models;
-using Bot.Models.Interfaces;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SnapshotFactoryVisitor {
-  public class ReceivedFromCivilianToSnapshotVisitor : IReceivedVisitor<SnapshotFactory> {
-    public SnapshotFactory Visit<TUser, TTransmission>(Received<TUser, TTransmission> received)
-      where TUser : IUser
-      where TTransmission : ITransmittable =>
-      _DynamicVisit(received as dynamic);
+  public class ReceivedFromCivilianToSnapshotVisitor : UserVisitor<Civilian> {
 
-    private SnapshotFactory _DynamicVisit(Received<Civilian, PublicMessage> received) =>
-      new SnapshotFactory(snapshot => new Snapshot<Civilian, PublicMessage>(received, snapshot));
+    public ReceivedFromCivilianToSnapshotVisitor(ILogger logger, ITimeService timeService) : base(logger, timeService) { }
+
+    protected override SnapshotFactory DynamicVisit(Received<Civilian, PublicMessage> received) =>
+      NewSnapshotFactory(snapshot => new Snapshot<Civilian, PublicMessage>(received, snapshot));
   }
 }

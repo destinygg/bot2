@@ -70,6 +70,7 @@
     <Compile Include="SnapshotFactoryVisitor\SnapshotFactory.cs" />
     <Compile Include="SendablesFactoryVisitor\UserToReceivedSendablesVisitor.cs" />
     <Compile Include="SnapshotFactoryVisitor\UserToSnapshotVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\UserVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
