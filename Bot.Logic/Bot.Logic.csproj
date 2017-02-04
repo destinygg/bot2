@@ -68,7 +68,7 @@
     <Compile Include="CommandGenerator.cs" />
     <Compile Include="ModCommandGenerator.cs" />
     <Compile Include="SnapshotFactoryVisitor\SnapshotFactory.cs" />
-    <Compile Include="SnapshotFactoryVisitor\UserToSnapshotVisitor.cs" />
+    <Compile Include="SnapshotFactoryVisitor\UserVisitor.cs" />
     <Compile Include="SnapshotFactoryVisitor\BaseReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\UserVisitor.cs" />
   </ItemGroup>
