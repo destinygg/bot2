@@ -5,7 +5,7 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 using Microsoft.CSharp.RuntimeBinder;
 
-namespace Bot.Logic.SnapshotFactoryVisitor {
+namespace Bot.Logic.ReceivedVisitor {
   public abstract class BaseReceivedVisitor<TUser> : IReceivedVisitor<SnapshotFactory>
     where TUser : IUser {
     private readonly ILogger _logger;

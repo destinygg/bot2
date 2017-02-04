@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
-using Bot.Logic.SnapshotFactoryVisitor;
+using Bot.Logic.ReceivedVisitor;
 using Bot.Logic.SnapshotVisitor;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
@@ -10,7 +10,6 @@ using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using SimpleInjector;
-using UserVisitor = Bot.Logic.SnapshotFactoryVisitor.UserVisitor;
 
 namespace Bot.Main.Moderate {
   class Program {
@@ -36,7 +35,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
       container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
-      container.RegisterSingleton<IUserVisitor<IReceivedVisitor<SnapshotFactory>>, UserVisitor>();
+      container.RegisterSingleton<IUserVisitor<IReceivedVisitor<SnapshotFactory>>, Logic.ReceivedVisitor.UserVisitor>();
       container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
       container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
 

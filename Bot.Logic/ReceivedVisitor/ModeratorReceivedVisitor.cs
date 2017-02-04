@@ -1,7 +1,7 @@
 ﻿using Bot.Models;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Logic.SnapshotFactoryVisitor {
+namespace Bot.Logic.ReceivedVisitor {
   public class ModeratorReceivedVisitor : BaseReceivedVisitor<Moderator> {
 
     public ModeratorReceivedVisitor(ILogger logger, ITimeService timeService) : base(logger, timeService) { }

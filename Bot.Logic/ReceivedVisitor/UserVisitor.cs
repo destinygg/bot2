@@ -1,7 +1,7 @@
 ﻿using Bot.Models;
 using Bot.Models.Interfaces;
 
-namespace Bot.Logic.SnapshotFactoryVisitor {
+namespace Bot.Logic.ReceivedVisitor {
   public class UserVisitor : IUserVisitor<IReceivedVisitor<SnapshotFactory>> {
     private readonly ModeratorReceivedVisitor _moderatorReceivedVisitor;
     private readonly CivilianReceivedVisitor _civilianReceivedVisitor;
