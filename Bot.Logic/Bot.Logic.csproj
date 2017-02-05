@@ -67,7 +67,7 @@
     <Compile Include="BanGenerator.cs" />
     <Compile Include="CommandGenerator.cs" />
     <Compile Include="ModCommandGenerator.cs" />
-    <Compile Include="ReceivedVisitor\SnapshotFactory.cs" />
+    <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
     <Compile Include="ReceivedVisitor\UserVisitor.cs" />
     <Compile Include="ReceivedVisitor\BaseReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\UserVisitor.cs" />
