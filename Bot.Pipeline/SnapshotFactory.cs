@@ -2,19 +2,19 @@
 using System.Linq;
 using Bot.Logic.ReceivedVisitor;
 using Bot.Models.Interfaces;
-using Bot.Pipeline.Interfaces;
 using Bot.Tools;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
-  public class ReceivedToSnapshot : IReceivedToSnapshot {
+  public class SnapshotFactory : IFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> {
     private readonly IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> _userVisitor;
     private readonly List<IReceived<IUser, ITransmittable>> _context = new List<IReceived<IUser, ITransmittable>>(); // Todo: Optimization: Use a circular buffer
 
-    public ReceivedToSnapshot(IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> userVisitor) {
+    public SnapshotFactory(IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> userVisitor) {
       _userVisitor = userVisitor;
     }
 
-    public ISnapshot<IUser, ITransmittable> GetSnapshot(IReceived<IUser, ITransmittable> first) {
+    public ISnapshot<IUser, ITransmittable> Create(IReceived<IUser, ITransmittable> first) {
       try {
         var receivedVisitor = first.Sender.Accept(_userVisitor);
         var snapshotFactory = first.Accept(receivedVisitor);

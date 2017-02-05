@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
   public class Pipeline : IPipeline {
     private readonly BufferBlock<IReceived<IUser, ITransmittable>> _bufferBlock = new BufferBlock<IReceived<IUser, ITransmittable>>();
-    public Pipeline(IReceivedToSnapshot receivedToSnapshot, ISnapshotToSendable snapshotToSendable, ISender sender) {
-      var receivedToSnapshotBlock = new TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>(r => receivedToSnapshot.GetSnapshot(r));
+    public Pipeline(IFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> snapshotFactory, ISnapshotToSendable snapshotToSendable, ISender sender) {
+      var receivedToSnapshotBlock = new TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>(r => snapshotFactory.Create(r));
       var snapshotToSendableBlock = new TransformBlock<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>(c => snapshotToSendable.GetSendables(c), new ExecutionDataflowBlockOptions {
         MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
         EnsureOrdered = false,

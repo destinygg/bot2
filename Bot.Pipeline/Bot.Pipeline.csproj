@@ -47,13 +47,12 @@
     <Compile Include="ConsolePersister.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Interfaces\IPipeline.cs" />
-    <Compile Include="Interfaces\IReceivedToSnapshot.cs" />
     <Compile Include="Interfaces\ISampleReceived.cs" />
     <Compile Include="Interfaces\ISender.cs" />
     <Compile Include="Interfaces\ISnapshotToSendable.cs" />
     <Compile Include="SnapshotToSendable.cs" />
     <Compile Include="InfiniteSampleReceived.cs" />
-    <Compile Include="ReceivedToSnapshot.cs" />
+    <Compile Include="SnapshotFactory.cs" />
     <Compile Include="SampleReceived.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pipeline.cs" />
