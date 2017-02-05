@@ -30,7 +30,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<ISender, ConsoleSender>();
       container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
-      container.RegisterSingleton<ILogger, ConsoleLogger>();
+      container.RegisterSingleton<ILogger, Logger>();
       container.RegisterSingleton<ILogFormatter, LogFormatter>();
       container.RegisterSingleton<ILogPersister, ConsolePersister>();
 
