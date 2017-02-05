@@ -4,7 +4,7 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
-  public class SendablesFactory : IFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class SendablesFactory : IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly ISendableGenerator _sendableGenerator;
 
     public SendablesFactory(ISendableGenerator sendableGenerator) {
@@ -12,5 +12,6 @@ namespace Bot.Pipeline {
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, ITransmittable> snapshot) => _sendableGenerator.Generate(snapshot);
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>>();
   }
 }

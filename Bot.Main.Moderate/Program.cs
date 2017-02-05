@@ -25,8 +25,8 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<IBanGenerator, BanGenerator>();
       container.RegisterSingleton<ISendableGenerator, SendableGenerator>();
 
-      container.RegisterSingleton<IFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
-      container.RegisterSingleton<IFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendablesFactory>();
+      container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
+      container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendablesFactory>();
       container.RegisterSingleton<ISender, ConsoleSender>();
       container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
@@ -46,7 +46,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
       container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
 
-      container.RegisterDecorator(typeof(IFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
+      container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
 
       container.Verify();
 

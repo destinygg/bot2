@@ -2,13 +2,14 @@
 using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
-  public class FactoryTryCatchDecorator<T, TOutput> : IFactory<T, TOutput> {
-    private readonly IFactory<T, TOutput> _factory;
+  public class FactoryTryCatchDecorator<T, TOutput> : IErrorableFactory<T, TOutput> {
+    private readonly IErrorableFactory<T, TOutput> _factory;
     private readonly ILogger _logger;
 
-    public FactoryTryCatchDecorator(IFactory<T, TOutput> factory, ILogger logger) {
+    public FactoryTryCatchDecorator(IErrorableFactory<T, TOutput> factory, ILogger logger) {
       _factory = factory;
       _logger = logger;
+      _logger.LogInformation($"{nameof(FactoryTryCatchDecorator<object, object>)} now decorates {_factory.GetType()}");
     }
 
     public TOutput Create(T input) {
@@ -16,9 +17,10 @@ namespace Bot.Pipeline {
         return _factory.Create(input);
       } catch (Exception e) {
         _logger.LogError(e, $"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}");
-        throw;
+        return _factory.OnErrorCreate;
       }
     }
 
+    public TOutput OnErrorCreate => _factory.OnErrorCreate;
   }
 }
