@@ -49,7 +49,6 @@
     <Compile Include="Interfaces\IPipeline.cs" />
     <Compile Include="Interfaces\ISampleReceived.cs" />
     <Compile Include="Interfaces\ISender.cs" />
-    <Compile Include="Interfaces\ISnapshotToSendable.cs" />
     <Compile Include="SnapshotToSendable.cs" />
     <Compile Include="InfiniteSampleReceived.cs" />
     <Compile Include="SnapshotFactory.cs" />

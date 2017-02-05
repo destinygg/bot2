@@ -26,7 +26,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<ISendableGenerator, SendableGenerator>();
 
       container.RegisterSingleton<IFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
-      container.RegisterSingleton<ISnapshotToSendable, SnapshotToSendable>();
+      container.RegisterSingleton<IFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendablesFactory>();
       container.RegisterSingleton<ISender, ConsoleSender>();
       container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
