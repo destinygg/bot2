@@ -7,10 +7,10 @@ using Bot.Tools;
 
 namespace Bot.Pipeline {
   public class ReceivedToSnapshot : IReceivedToSnapshot {
-    private readonly IUserVisitor<IReceivedVisitor<SnapshotFactory>> _userVisitor;
+    private readonly IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> _userVisitor;
     private readonly List<IReceived<IUser, ITransmittable>> _context = new List<IReceived<IUser, ITransmittable>>(); // Todo: Optimization: Use a circular buffer
 
-    public ReceivedToSnapshot(IUserVisitor<IReceivedVisitor<SnapshotFactory>> userVisitor) {
+    public ReceivedToSnapshot(IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> userVisitor) {
       _userVisitor = userVisitor;
     }
 

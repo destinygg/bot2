@@ -6,7 +6,7 @@ namespace Bot.Logic.ReceivedVisitor {
 
     public ModeratorReceivedVisitor(ILogger logger, ITimeService timeService) : base(logger, timeService) { }
 
-    protected override SnapshotFactory DynamicVisit(Received<Moderator, PublicMessage> received) =>
+    protected override DelegatedSnapshotFactory DynamicVisit(Received<Moderator, PublicMessage> received) =>
       NewSnapshotFactory(snapshot => new Snapshot<Moderator, PublicMessage>(received, snapshot));
   }
 }
