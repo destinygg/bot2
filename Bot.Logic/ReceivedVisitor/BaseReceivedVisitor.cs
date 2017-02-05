@@ -23,7 +23,7 @@ namespace Bot.Logic.ReceivedVisitor {
         return DynamicVisit(received as dynamic);
       } catch (RuntimeBinderException e) {
         _logger.LogError(e, $"{nameof(BaseReceivedVisitor<IUser>)} did not handle this type: {received.GetType()}");
-        return new SnapshotFactory(s => new Snapshot<IUser, ITransmittable>(new PublicMessageFromMod("Placeholder for an error", _timeService.UtcNow), new List<IReceived<IUser, ITransmittable>>()));
+        return new SnapshotFactory(s => new Snapshot<IUser, ITransmittable>(new ReceivedError("Placeholder for an error", _timeService.UtcNow), new List<IReceived<IUser, ITransmittable>>()));
       }
     }
 

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Civilian.cs" />
+    <Compile Include="ErrorMessage.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IReceived.cs" />
     <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
     <Compile Include="Received.cs" />
+    <Compile Include="ReceivedError.cs" />
     <Compile Include="ReceivedPublicMessage.cs" />
     <Compile Include="Snapshot.cs" />
     <Compile Include="Message.cs" />
