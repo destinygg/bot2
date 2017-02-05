@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bot.Pipeline;
+using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Bot.Tools.Tests {
 
@@ -37,7 +38,7 @@ namespace Bot.Tools.Tests {
 
     [TestMethod]
     public void PrettyDeltaTime_HasPrettyOutput() {
-      var logger = new ConsoleLogger();
+      var logger = new Mock<ILogger>().Object;
       var testList = new List<TimeSpan> {
         new TimeSpan(days:50,hours:23,minutes:59,seconds:59),
 

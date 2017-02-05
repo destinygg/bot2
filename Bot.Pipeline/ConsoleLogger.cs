@@ -1,23 +1,21 @@
-﻿using System;
-using Bot.Pipeline.Interfaces;
-using Bot.Tools.Interfaces;
+﻿using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
   public class ConsoleLogger : ILogger {
-    public void LogWarning(string warning) {
-      Console.WriteLine(warning);
+    private readonly ILogFormatter _logFormatter;
+    private readonly ILogPersister _logPersister;
+
+    public ConsoleLogger(ILogFormatter logFormatter, ILogPersister logPersister) {
+      _logFormatter = logFormatter;
+      _logPersister = logPersister;
     }
 
-    public void LogError(string error) {
-      Console.WriteLine(error);
-    }
+    public void LogWarning(string warning) => _logPersister.Persist(_logFormatter.FormatWarning(warning));
 
-    public void LogInformation(string information) {
-      Console.WriteLine(information);
-    }
+    public void LogError(string error) => _logPersister.Persist(_logFormatter.FormatError(error));
 
-    public void LogVerbose(string verbose) {
-      Console.WriteLine(verbose);
-    }
+    public void LogInformation(string information) => _logPersister.Persist(_logFormatter.FormatInformation(information));
+
+    public void LogVerbose(string verbose) => _logPersister.Persist(_logFormatter.FormatVerbose(verbose));
   }
 }
