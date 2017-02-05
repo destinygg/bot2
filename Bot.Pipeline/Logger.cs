@@ -1,4 +1,5 @@
-﻿using Bot.Tools.Interfaces;
+﻿using System;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
   public class Logger : ILogger {
@@ -12,6 +13,7 @@ namespace Bot.Pipeline {
 
     public void LogWarning(string warning) => _logPersister.Persist(_logFormatter.FormatWarning(warning));
     public void LogError(string error) => _logPersister.Persist(_logFormatter.FormatError(error));
+    public void LogError(Exception e, string error) => _logPersister.Persist(_logFormatter.FormatError(e, error));
     public void LogInformation(string information) => _logPersister.Persist(_logFormatter.FormatInformation(information));
     public void LogVerbose(string verbose) => _logPersister.Persist(_logFormatter.FormatVerbose(verbose));
   }
