@@ -46,6 +46,8 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
       container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
 
+      container.RegisterDecorator(typeof(IFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
+
       container.Verify();
 
       var data = container.GetInstance<ISampleReceived>();
