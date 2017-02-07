@@ -7,7 +7,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void ReadWriteLatestStreamOnTime() {
-      var testWrite = DateTime.Now;
+      var testWrite = DateTime.FromBinary(RandomInt());
 
       using (var context = new BotDbContext()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
@@ -26,7 +26,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void ReadWriteLatestStreamOffTime() {
-      var testWrite = DateTime.Now;
+      var testWrite = DateTime.FromBinary(RandomInt());
 
       using (var context = new BotDbContext()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
@@ -45,7 +45,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void ReadWriteDeathCount() {
-      var testWrite = new Random().Next();
+      var testWrite = RandomInt();
 
       using (var context = new BotDbContext()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);

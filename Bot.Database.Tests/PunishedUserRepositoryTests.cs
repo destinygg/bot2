@@ -10,11 +10,11 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void PunishedUserWriteAndGetAllWithIncludes() {
       // Arrange
-      var nick = "User1";
-      var term = "Term 1";
-      var type = 1;
-      var duration = 1970;
-      var count = 12;
+      var nick = RandomString();
+      var term = RandomString();
+      var type = RandomInt();
+      var duration = RandomInt();
+      var count = RandomInt();
 
       // Act
       using (var context = new BotDbContext()) {
