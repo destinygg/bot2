@@ -23,14 +23,14 @@ namespace Bot.Database.Tests {
       var testWrite = DateTime.Now;
 
       using (var context = new BotDbContext()) {
-        var stateIntegerApi = new StateIntegerApi(context.StateIntegers);
+        var stateIntegerApi = new StateIntegerRepository(context.StateIntegers);
         stateIntegerApi.LatestStreamOnTime = testWrite;
         context.SaveChanges();
       }
 
       DateTime testRead;
       using (var context = new BotDbContext()) {
-        var stateIntegerApi = new StateIntegerApi(context.StateIntegers);
+        var stateIntegerApi = new StateIntegerRepository(context.StateIntegers);
         testRead = stateIntegerApi.LatestStreamOnTime = testWrite;
       }
 
@@ -42,14 +42,14 @@ namespace Bot.Database.Tests {
       var testWrite = DateTime.Now;
 
       using (var context = new BotDbContext()) {
-        var stateIntegerApi = new StateIntegerApi(context.StateIntegers);
+        var stateIntegerApi = new StateIntegerRepository(context.StateIntegers);
         stateIntegerApi.LatestStreamOffTime = testWrite;
         context.SaveChanges();
       }
 
       DateTime testRead;
       using (var context = new BotDbContext()) {
-        var stateIntegerApi = new StateIntegerApi(context.StateIntegers);
+        var stateIntegerApi = new StateIntegerRepository(context.StateIntegers);
         testRead = stateIntegerApi.LatestStreamOffTime = testWrite;
       }
 
@@ -61,14 +61,14 @@ namespace Bot.Database.Tests {
       var testWrite = new Random().Next();
 
       using (var context = new BotDbContext()) {
-        var stateIntegerApi = new StateIntegerApi(context.StateIntegers);
+        var stateIntegerApi = new StateIntegerRepository(context.StateIntegers);
         stateIntegerApi.DeathCount = testWrite;
         context.SaveChanges();
       }
 
       long testRead;
       using (var context = new BotDbContext()) {
-        var stateIntegerApi = new StateIntegerApi(context.StateIntegers);
+        var stateIntegerApi = new StateIntegerRepository(context.StateIntegers);
         testRead = stateIntegerApi.DeathCount = testWrite;
       }
 

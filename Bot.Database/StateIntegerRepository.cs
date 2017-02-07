@@ -5,8 +5,8 @@ using Bot.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Database {
-  public class StateIntegerApi : BaseRepository<StateInteger>, IStateIntegerApi {
-    public StateIntegerApi(DbSet<StateInteger> entities) : base(entities) { }
+  public class StateIntegerRepository : BaseRepository<StateInteger>, IStateIntegerRepository {
+    public StateIntegerRepository(DbSet<StateInteger> entities) : base(entities) { }
 
     public DateTime LatestStreamOnTime {
       get { return _Read(nameof(LatestStreamOnTime)).FromUnixTime(); }
