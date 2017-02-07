@@ -3,20 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
   [TestClass]
-  public class StateIntegerRepositoryTests {
-
-
-    [TestInitialize]
-    public void Initialize() {
-      var manager = new DatabaseManager();
-      manager.EnsureCreated();
-    }
-
-    [TestCleanup]
-    public void Cleanup() {
-      var manager = new DatabaseManager();
-      manager.EnsureDeleted();
-    }
+  public class StateIntegerRepositoryTests : BaseRepositoryTests {
 
     [TestMethod]
     public void ReadWriteLatestStreamOnTime() {

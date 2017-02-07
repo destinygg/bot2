@@ -5,18 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
   [TestClass]
-  public class UserRepositoryTests {
-    [TestInitialize]
-    public void Initialize() {
-      var manager = new DatabaseManager();
-      manager.EnsureCreated();
-    }
-
-    [TestCleanup]
-    public void Cleanup() {
-      var manager = new DatabaseManager();
-      manager.EnsureDeleted();
-    }
+  public class UserRepositoryTests : BaseRepositoryTests {
 
     [TestMethod]
     public void ReadWriteUser() {
