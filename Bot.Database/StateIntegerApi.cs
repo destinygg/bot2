@@ -28,6 +28,5 @@ namespace Bot.Database {
 
     private void _Update(string key, long value) =>
       Update(new StateInteger(key, value));
-
   }
 }
