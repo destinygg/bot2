@@ -6,10 +6,11 @@ using Bot.Database.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Database {
-  public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class {
+  public abstract class BaseRepository<TEntity> : IRepository<TEntity>
+    where TEntity : class {
     protected readonly DbSet<TEntity> Entities;
 
-    public Repository(DbSet<TEntity> entities) {
+    protected BaseRepository(DbSet<TEntity> entities) {
       Entities = entities;
     }
 
@@ -39,6 +40,5 @@ namespace Bot.Database {
 
     public void Remove(IEnumerable<TEntity> entities) =>
       Entities.RemoveRange(entities);
-
   }
 }

@@ -5,7 +5,7 @@ using Bot.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Database {
-  public class StateIntegerApi : Repository<StateInteger>, IStateIntegerApi {
+  public class StateIntegerApi : BaseRepository<StateInteger>, IStateIntegerApi {
     public StateIntegerApi(DbSet<StateInteger> entities) : base(entities) { }
 
     public DateTime LatestStreamOnTime {
