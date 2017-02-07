@@ -6,6 +6,7 @@ namespace Bot.Database.Tests {
     [TestInitialize]
     public void Initialize() {
       var manager = new DatabaseManager();
+      manager.EnsureDeleted();
       manager.EnsureCreated();
     }
 
