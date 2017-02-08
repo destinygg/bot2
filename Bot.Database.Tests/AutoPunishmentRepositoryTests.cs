@@ -11,7 +11,7 @@ namespace Bot.Database.Tests {
     public void ReadWriteAutoPunishment() {
       // Arrange
       var term = RandomString();
-      var type = RandomInt();
+      var type = RandomAutoPunishmentType();
       var duration = RandomInt();
 
       // Act

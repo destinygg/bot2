@@ -8,7 +8,6 @@ namespace Bot.Database {
     #region DbSet
     public DbSet<StateInteger> StateIntegers { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<AutoPunishmentType> AutoPunishmentTypes { get; set; }
     public DbSet<AutoPunishment> AutoPunishments { get; set; }
     public DbSet<PunishedUser> PunishedUsers { get; set; }
     #endregion

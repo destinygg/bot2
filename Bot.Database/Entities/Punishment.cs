@@ -5,7 +5,7 @@ namespace Bot.Database.Entities {
   public class AutoPunishment {
     public int Id { get; set; }
     public string Term { get; set; }
-    public int Type { get; set; }
+    public AutoPunishmentType Type { get; set; }
     public long Duration { get; set; }
     public virtual ICollection<PunishedUser> PunishedUsers { get; set; }
   }
@@ -26,9 +26,11 @@ namespace Bot.Database.Entities {
     public int Count { get; set; }
   }
 
-  public class AutoPunishmentType {
-    public int Id { get; set; }
-    public string Name { get; set; }
+  public enum AutoPunishmentType {
+    BannedRegexm,
+    MutedRegex,
+    BannedString,
+    MutedString,
   }
 
 }

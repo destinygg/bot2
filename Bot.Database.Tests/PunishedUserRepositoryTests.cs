@@ -12,7 +12,7 @@ namespace Bot.Database.Tests {
       // Arrange
       var nick = RandomString();
       var term = RandomString();
-      var type = RandomInt();
+      var type = RandomAutoPunishmentType();
       var duration = RandomInt();
       var count = RandomInt();
 
