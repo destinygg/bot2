@@ -45,7 +45,6 @@
     <Compile Include="ReceivedVisitor\ModeratorReceivedVisitor.cs" />
     <Compile Include="Interfaces\IBanGenerator.cs" />
     <Compile Include="Interfaces\ICommandGenerator.cs" />
-    <Compile Include="Interfaces\IGenerator.cs" />
     <Compile Include="Interfaces\IModCommandGenerator.cs" />
     <Compile Include="Interfaces\IModCommandLogic.cs" />
     <Compile Include="Interfaces\IModCommandParser.cs" />

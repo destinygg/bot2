@@ -19,23 +19,19 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<Moderator, IMessage> snapshot) {
       var context = snapshot.Context;
-      var message = snapshot.Latest as ReceivedMessage<Moderator, IMessage>;
-      if (message != null) {
-        if (message.IsMatch(_modCommandRegex.Sing))
-          return _modCommandLogic.Sing().Wrap().ToList();
-        if (message.StartsWith("!long"))
-          return _modCommandLogic.Long(context).Wrap().ToList();
-        if (message.IsMatch(_modCommandRegex.Nuke)) {
-          return _modCommandLogic.Nuke(context, _receivedFactory.ParsedNuke(message));
-        }
-        if (message.IsMatch(_modCommandRegex.RegexNuke)) {
-          return _modCommandLogic.Nuke(context, _receivedFactory.ParsedNuke(message));
-        }
-        if (message.IsMatch(_modCommandRegex.Aegis))
-          return _modCommandLogic.Aegis(context);
-      }
+      var message = snapshot.Latest;
+      if (message.IsMatch(_modCommandRegex.Sing))
+        return _modCommandLogic.Sing().Wrap().ToList();
+      if (message.StartsWith("!long"))
+        return _modCommandLogic.Long(context).Wrap().ToList();
+      if (message.IsMatch(_modCommandRegex.Nuke))
+        return _modCommandLogic.Nuke(context, _receivedFactory.ParsedNuke(message));
+      if (message.IsMatch(_modCommandRegex.RegexNuke))
+        return _modCommandLogic.Nuke(context, _receivedFactory.ParsedNuke(message));
+      if (message.IsMatch(_modCommandRegex.Aegis))
+        return _modCommandLogic.Aegis(context);
       return new List<ISendable<ITransmittable>>();
     }
 

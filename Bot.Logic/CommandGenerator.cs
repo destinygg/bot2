@@ -12,13 +12,11 @@ namespace Bot.Logic {
       _timeService = timeService;
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, IMessage> snapshot) {
       var outbox = new List<ISendable<PublicMessage>>();
-      var message = snapshot.Latest as IReceived<IUser, IMessage>;
-      if (message != null) {
-        if (message.StartsWith("!time")) {
-          outbox.Add(new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time"));
-        }
+      var message = snapshot.Latest;
+      if (message.StartsWith("!time")) {
+        outbox.Add(new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time"));
       }
       return outbox;
     }
