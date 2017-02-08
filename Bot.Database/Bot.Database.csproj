@@ -216,6 +216,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
+    <Compile Include="Interfaces\IPunishedUserRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="PunishedUserRepository.cs" />
     <Compile Include="BotDbContext.cs" />
     <Compile Include="BotDbContextManager.cs" />
@@ -228,6 +232,7 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="StateIntegerRepository.cs" />
     <Compile Include="AutoPunishmentRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
