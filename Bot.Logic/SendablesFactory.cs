@@ -3,7 +3,7 @@ using Bot.Logic.Interfaces;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Pipeline {
+namespace Bot.Logic {
   public class SendablesFactory : IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly ISendableGenerator _sendableGenerator;
 

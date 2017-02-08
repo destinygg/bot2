@@ -51,7 +51,6 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Interfaces\IPipeline.cs" />
     <Compile Include="Interfaces\ISampleReceived.cs" />
-    <Compile Include="SendablesFactory.cs" />
     <Compile Include="InfiniteSampleReceived.cs" />
     <Compile Include="SnapshotFactory.cs" />
     <Compile Include="SampleReceived.cs" />
