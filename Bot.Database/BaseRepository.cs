@@ -17,7 +17,7 @@ namespace Bot.Database {
     public IEnumerable<TEntity> GetAll() =>
       Entities.ToList();
 
-    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate) =>
+    public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate) =>
       Entities.Where(predicate);
 
     public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) =>
@@ -26,19 +26,19 @@ namespace Bot.Database {
     public void Add(TEntity entity) =>
       Entities.Add(entity);
 
-    public void Add(IEnumerable<TEntity> entities) =>
+    public void AddRange(IEnumerable<TEntity> entities) =>
       Entities.AddRange(entities);
 
     public void Update(TEntity entity) =>
       Entities.Update(entity);
 
-    public void Update(IEnumerable<TEntity> entities) =>
+    public void UpdateRange(IEnumerable<TEntity> entities) =>
       Entities.UpdateRange(entities);
 
     public void Remove(TEntity entity) =>
       Entities.Remove(entity);
 
-    public void Remove(IEnumerable<TEntity> entities) =>
+    public void RemoveRange(IEnumerable<TEntity> entities) =>
       Entities.RemoveRange(entities);
   }
 }
