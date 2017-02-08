@@ -53,7 +53,6 @@
     <Compile Include="Interfaces\INukeLogic.cs" />
     <Compile Include="Interfaces\IReceivedFactory.cs" />
     <Compile Include="Interfaces\IParsedNuke.cs" />
-    <Compile Include="Interfaces\ISendableGenerator.cs" />
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Bot.Logic.Interfaces;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class SendableGenerator : ISendableGenerator {
+  public class SendableGenerator : SendablesFactory<IUser, ITransmittable> {
     private readonly ILogger _logger;
     private readonly IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> _userVisitor;
 
@@ -13,7 +12,7 @@ namespace Bot.Logic {
       _userVisitor = userVisitor;
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, ITransmittable> snapshot) {
+    public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, ITransmittable> snapshot) {
       _logger.LogVerbose(snapshot.Latest.ToString());
       var snapshotVisitor = snapshot.Latest.Sender.Accept(_userVisitor);
       return snapshot.Accept(snapshotVisitor);

@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
-using Bot.Logic.Interfaces;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class SendablesFactory : IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> {
-    private readonly ISendableGenerator _sendableGenerator;
+  public abstract class SendablesFactory<TUser, TTransmission> : IErrorableFactory<ISnapshot<TUser, TTransmission>, IReadOnlyList<ISendable<ITransmittable>>>
+    where TUser : IUser
+    where TTransmission : ITransmittable {
 
-    public SendablesFactory(ISendableGenerator sendableGenerator) {
-      _sendableGenerator = sendableGenerator;
-    }
-
-    public IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, ITransmittable> snapshot) => _sendableGenerator.Generate(snapshot);
     public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>>();
+    public abstract IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<TUser, TTransmission> input);
   }
 }
