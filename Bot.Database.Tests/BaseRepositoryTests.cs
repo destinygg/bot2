@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -6,15 +7,14 @@ namespace Bot.Database.Tests {
   public abstract class BaseRepositoryTests {
     private static Random _random;
 
-    public int Seed { get; private set; }
-
     [TestInitialize]
     public void Initialize() {
       var manager = new DatabaseManager();
       manager.EnsureDeleted();
       manager.EnsureCreated();
-      Seed = (int) DateTime.UtcNow.TimeOfDay.TotalMilliseconds;
-      _random = new Random(Seed);
+      var seed = Guid.NewGuid().GetHashCode();
+      _random = new Random(seed);
+      Trace.WriteLine($"Seed is: {seed}");
     }
 
     [TestCleanup]
