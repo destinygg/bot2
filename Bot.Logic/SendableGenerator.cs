@@ -3,7 +3,7 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class SendableGenerator : SendablesFactory<IUser, ITransmittable> {
+  public class SendableGenerator : BaseSendablesFactory<IUser, ITransmittable> {
     private readonly ILogger _logger;
     private readonly IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> _userVisitor;
 

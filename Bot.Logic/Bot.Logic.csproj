@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SendablesFactory.cs" />
+    <Compile Include="BaseSendablesFactory.cs" />
     <Compile Include="SnapshotVisitor\CivilianSnapshotVisitor.cs" />
     <Compile Include="SnapshotVisitor\BaseSnapshotVisitor.cs" />
     <Compile Include="ReceivedVisitor\ModeratorReceivedVisitor.cs" />
