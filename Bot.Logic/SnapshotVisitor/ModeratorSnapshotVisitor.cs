@@ -7,11 +7,11 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
   public class ModeratorSnapshotVisitor : BaseSnapshotVisitor<Moderator> {
-    private readonly IModCommandGenerator _modCommandGenerator;
+    private readonly BaseSendablesFactory<Moderator, IMessage> _modSendablesFactory;
     private readonly ICommandGenerator _commandGenerator;
 
-    public ModeratorSnapshotVisitor(IModCommandGenerator modCommandGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
-      _modCommandGenerator = modCommandGenerator;
+    public ModeratorSnapshotVisitor(BaseSendablesFactory<Moderator, IMessage> modSendablesFactory, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
+      _modSendablesFactory = modSendablesFactory;
       _commandGenerator = commandGenerator;
     }
 
@@ -22,6 +22,6 @@ namespace Bot.Logic.SnapshotVisitor {
        ModAndCivilianCommands(snapshot);
 
     private List<ISendable<ITransmittable>> ModAndCivilianCommands(ISnapshot<Moderator, Message> snapshot) =>
-      _modCommandGenerator.Generate(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList();
+      _modSendablesFactory.Create(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList();
   }
 }

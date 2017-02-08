@@ -4,6 +4,7 @@ using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Logic.ReceivedVisitor;
 using Bot.Logic.SnapshotVisitor;
+using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
@@ -20,7 +21,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
       container.RegisterSingleton<IModCommandParser, ModCommandParser>();
 
-      container.RegisterSingleton<IModCommandGenerator, ModCommandGenerator>();
+      container.RegisterSingleton<BaseSendablesFactory<Moderator, IMessage>, ModCommandsFactory>();
       container.RegisterSingleton<ICommandGenerator, CommandGenerator>();
       container.RegisterSingleton<IBanGenerator, BanGenerator>();
 

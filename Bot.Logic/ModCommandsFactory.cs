@@ -6,20 +6,20 @@ using Bot.Models.Interfaces;
 using Bot.Tools;
 
 namespace Bot.Logic {
-  public class ModCommandGenerator : IModCommandGenerator {
+  public class ModCommandsFactory : BaseSendablesFactory<Moderator, IMessage> {
     private readonly IModCommandLogic _modCommandLogic;
     private readonly IModCommandParser _modCommandParser;
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
 
-    public ModCommandGenerator(IModCommandLogic modCommandLogic, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
+    public ModCommandsFactory(IModCommandLogic modCommandLogic, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
       _modCommandLogic = modCommandLogic;
       _modCommandParser = modCommandParser;
       _modCommandRegex = modCommandRegex;
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<Moderator, IMessage> snapshot) {
+    public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<Moderator, IMessage> snapshot) {
       var context = snapshot.Context;
       var message = snapshot.Latest;
       if (message.IsMatch(_modCommandRegex.Sing))
