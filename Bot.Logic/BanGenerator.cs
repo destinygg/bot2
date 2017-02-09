@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class BanGenerator : IBanGenerator {
+  public class BanGenerator : BaseSendablesFactory<Civilian, PublicMessage> {
 
-    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<Civilian, PublicMessage> snapshot) {
+    public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<Civilian, PublicMessage> snapshot) {
       var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest;
       if (message.Transmission.Text.Contains("banplox")) {
