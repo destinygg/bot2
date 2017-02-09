@@ -20,7 +20,7 @@ namespace Bot.Database {
     public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate) =>
       Entities.Where(predicate);
 
-    public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) =>
+    public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) =>
       Entities.SingleOrDefault(predicate);
 
     public void Add(TEntity entity) =>
