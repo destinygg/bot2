@@ -7,10 +7,10 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
   public class ModeratorSnapshotVisitor : BaseSnapshotVisitor<Moderator> {
-    private readonly BaseSendablesFactory<Moderator, IMessage> _modSendablesFactory;
+    private readonly IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _modSendablesFactory;
     private readonly ICommandGenerator _commandGenerator;
 
-    public ModeratorSnapshotVisitor(BaseSendablesFactory<Moderator, IMessage> modSendablesFactory, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
+    public ModeratorSnapshotVisitor(IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> modSendablesFactory, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
       _modSendablesFactory = modSendablesFactory;
       _commandGenerator = commandGenerator;
     }

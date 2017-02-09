@@ -21,7 +21,7 @@ namespace Bot.Main.Moderate {
       container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
       container.RegisterSingleton<IModCommandParser, ModCommandParser>();
 
-      container.RegisterSingleton<BaseSendablesFactory<Moderator, IMessage>, ModCommandsFactory>();
+      container.RegisterSingleton<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandsFactory>();
       container.RegisterSingleton<ICommandGenerator, CommandGenerator>();
       container.RegisterSingleton<IBanGenerator, BanGenerator>();
 
