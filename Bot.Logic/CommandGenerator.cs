@@ -5,14 +5,14 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class CommandGenerator : ICommandGenerator {
+  public class CommandGenerator : BaseSendablesFactory<IUser, IMessage> {
     private readonly ITimeService _timeService;
 
     public CommandGenerator(ITimeService timeService) {
       _timeService = timeService;
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Generate(ISnapshot<IUser, IMessage> snapshot) {
+    public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, IMessage> snapshot) {
       var outbox = new List<ISendable<PublicMessage>>();
       var message = snapshot.Latest;
       if (message.StartsWith("!time")) {

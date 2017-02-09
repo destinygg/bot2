@@ -8,9 +8,9 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic.SnapshotVisitor {
   public class ModeratorSnapshotVisitor : BaseSnapshotVisitor<Moderator> {
     private readonly IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _modSendablesFactory;
-    private readonly ICommandGenerator _commandGenerator;
+    private readonly IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _commandGenerator;
 
-    public ModeratorSnapshotVisitor(IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> modSendablesFactory, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
+    public ModeratorSnapshotVisitor(IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> modSendablesFactory, IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
       _modSendablesFactory = modSendablesFactory;
       _commandGenerator = commandGenerator;
     }
@@ -22,6 +22,6 @@ namespace Bot.Logic.SnapshotVisitor {
        ModAndCivilianCommands(snapshot);
 
     private List<ISendable<ITransmittable>> ModAndCivilianCommands(ISnapshot<Moderator, Message> snapshot) =>
-      _modSendablesFactory.Create(snapshot).Concat(_commandGenerator.Generate(snapshot)).ToList();
+      _modSendablesFactory.Create(snapshot).Concat(_commandGenerator.Create(snapshot)).ToList();
   }
 }

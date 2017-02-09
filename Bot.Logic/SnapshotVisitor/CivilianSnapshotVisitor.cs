@@ -8,9 +8,9 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic.SnapshotVisitor {
   public class CivilianSnapshotVisitor : BaseSnapshotVisitor<Civilian> {
     private readonly IBanGenerator _banGenerator;
-    private readonly ICommandGenerator _commandGenerator;
+    private readonly IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _commandGenerator;
 
-    public CivilianSnapshotVisitor(IBanGenerator banGenerator, ICommandGenerator commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
+    public CivilianSnapshotVisitor(IBanGenerator banGenerator, IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
       _banGenerator = banGenerator;
       _commandGenerator = commandGenerator;
     }
@@ -19,7 +19,7 @@ namespace Bot.Logic.SnapshotVisitor {
       var bans = _banGenerator.Generate(snapshot);
       return bans.Any()
         ? bans
-        : _commandGenerator.Generate(snapshot);
+        : _commandGenerator.Create(snapshot);
     }
 
     protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Civilian, PrivateMessage> snapshot) =>
