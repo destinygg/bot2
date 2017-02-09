@@ -1,59 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using Bot.Logic;
-using Bot.Logic.Interfaces;
-using Bot.Logic.ReceivedVisitor;
-using Bot.Logic.SnapshotVisitor;
-using Bot.Models;
-using Bot.Models.Interfaces;
-using Bot.Pipeline;
-using Bot.Pipeline.Interfaces;
-using Bot.Tools;
-using Bot.Tools.Interfaces;
-using SimpleInjector;
 
 namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
-      var container = new Container();
-      container.RegisterSingleton<INukeLogic, NukeLogic>();
-      container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
-      container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
-      container.RegisterSingleton<IModCommandParser, ModCommandParser>();
+      var containerManager = new ContainerManager();
+      var data = containerManager.SampleReceived;
+      var pipeline = containerManager.Pipeline;
 
-      container.RegisterSingleton<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>();
-      container.RegisterSingleton<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>();
-      container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>();
-
-      container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
-      container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
-      container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
-      container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
-
-      container.RegisterSingleton<ILogger, Logger>();
-      container.RegisterSingleton<ILogFormatter, LogFormatter>();
-      container.RegisterSingleton<ILogPersister, ConsolePersister>();
-
-      container.RegisterSingleton<ITimeService, TimeService>();
-      container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      container.RegisterSingleton<ISampleReceived, SampleReceived>();
-
-      container.RegisterSingleton<IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>>, Logic.ReceivedVisitor.UserVisitor>();
-      container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
-      container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
-
-      container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, Logic.SnapshotVisitor.UserVisitor>();
-      container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
-      container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
-
-      container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
-      container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
-      //container.RegisterDecorator<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, CommandHandlerTryCatchDecorator<IEnumerable<ISendable<ITransmittable>>>>(Lifestyle.Singleton);
-
-      container.Verify();
-
-      var data = container.GetInstance<ISampleReceived>();
-      var pipeline = container.GetInstance<IPipeline>();
       pipeline.Run(data);
 
       Console.ReadLine();
