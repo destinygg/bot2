@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DelegatedFactory.cs" />
+    <Compile Include="FactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IErrorableFactory.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\ILogFormatter.cs" />

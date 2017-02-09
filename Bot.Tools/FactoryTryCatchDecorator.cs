@@ -1,7 +1,7 @@
 ﻿using System;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Pipeline {
+namespace Bot.Tools {
   public class FactoryTryCatchDecorator<T, TOutput> : IErrorableFactory<T, TOutput> {
     private readonly IErrorableFactory<T, TOutput> _factory;
     private readonly ILogger _logger;
