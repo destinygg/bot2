@@ -3,11 +3,11 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class SendableGenerator : BaseSendablesFactory<IUser, ITransmittable> {
+  public class SendableFactory : BaseSendableFactory<IUser, ITransmittable> {
     private readonly ILogger _logger;
     private readonly IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> _userVisitor;
 
-    public SendableGenerator(ILogger logger, IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> userVisitor) {
+    public SendableFactory(ILogger logger, IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> userVisitor) {
       _logger = logger;
       _userVisitor = userVisitor;
     }

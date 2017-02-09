@@ -3,7 +3,7 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public abstract class BaseSendablesFactory<TUser, TTransmission> : IErrorableFactory<ISnapshot<TUser, TTransmission>, IReadOnlyList<ISendable<ITransmittable>>>
+  public abstract class BaseSendableFactory<TUser, TTransmission> : IErrorableFactory<ISnapshot<TUser, TTransmission>, IReadOnlyList<ISendable<ITransmittable>>>
     where TUser : IUser
     where TTransmission : ITransmittable {
 

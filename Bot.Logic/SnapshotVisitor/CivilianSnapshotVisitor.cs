@@ -6,19 +6,19 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
   public class CivilianSnapshotVisitor : BaseSnapshotVisitor<Civilian> {
-    private readonly IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _banGenerator;
-    private readonly IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _commandGenerator;
+    private readonly IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _banFactory;
+    private readonly IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _commandFactory;
 
-    public CivilianSnapshotVisitor(IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> banGenerator, IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> commandGenerator, ILogger logger, ITimeService timeService) : base(logger) {
-      _banGenerator = banGenerator;
-      _commandGenerator = commandGenerator;
+    public CivilianSnapshotVisitor(IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> banFactory, IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> commandFactory, ILogger logger, ITimeService timeService) : base(logger) {
+      _banFactory = banFactory;
+      _commandFactory = commandFactory;
     }
 
     protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Civilian, PublicMessage> snapshot) {
-      var bans = _banGenerator.Create(snapshot);
+      var bans = _banFactory.Create(snapshot);
       return bans.Any()
         ? bans
-        : _commandGenerator.Create(snapshot);
+        : _commandFactory.Create(snapshot);
     }
 
     protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Civilian, PrivateMessage> snapshot) =>

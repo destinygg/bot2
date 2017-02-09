@@ -6,13 +6,13 @@ using Bot.Models.Interfaces;
 using Bot.Tools;
 
 namespace Bot.Logic {
-  public class ModCommandsFactory : BaseSendablesFactory<Moderator, IMessage> {
+  public class ModCommandFactory : BaseSendableFactory<Moderator, IMessage> {
     private readonly IModCommandLogic _modCommandLogic;
     private readonly IModCommandParser _modCommandParser;
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
 
-    public ModCommandsFactory(IModCommandLogic modCommandLogic, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
+    public ModCommandFactory(IModCommandLogic modCommandLogic, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
       _modCommandLogic = modCommandLogic;
       _modCommandParser = modCommandParser;
       _modCommandRegex = modCommandRegex;

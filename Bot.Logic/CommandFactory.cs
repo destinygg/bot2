@@ -4,10 +4,10 @@ using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class CommandGenerator : BaseSendablesFactory<IUser, IMessage> {
+  public class CommandFactory : BaseSendableFactory<IUser, IMessage> {
     private readonly ITimeService _timeService;
 
-    public CommandGenerator(ITimeService timeService) {
+    public CommandFactory(ITimeService timeService) {
       _timeService = timeService;
     }
 

@@ -3,7 +3,7 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic {
-  public class BanGenerator : BaseSendablesFactory<Civilian, PublicMessage> {
+  public class BanFactory : BaseSendableFactory<Civilian, PublicMessage> {
 
     public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<Civilian, PublicMessage> snapshot) {
       var outbox = new List<ISendable<ITransmittable>>();
@@ -15,7 +15,7 @@ namespace Bot.Logic {
     }
 
     //IReadOnlyCollection?
-    //public IReadOnlyList<ISendable> Generate(ISnapshot snapshot) =>
+    //public IReadOnlyList<ISendable> Create(ISnapshot snapshot) =>
     //  Herpderp(snapshot).ToList();
 
     //private IEnumerable<ISendable> Herpderp(ISnapshot snapshot) {
