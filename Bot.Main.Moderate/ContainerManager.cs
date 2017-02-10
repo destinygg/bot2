@@ -2,6 +2,7 @@
 using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Logic.ReceivedVisitor;
+using Bot.Logic.SendableVisitor;
 using Bot.Logic.SnapshotVisitor;
 using Bot.Models;
 using Bot.Models.Interfaces;
@@ -47,6 +48,8 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, Logic.SnapshotVisitor.UserVisitor>();
       _container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
       _container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
+
+      _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
       _container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
       _container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
