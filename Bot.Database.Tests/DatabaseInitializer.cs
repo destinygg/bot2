@@ -1,8 +1,8 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
 
-namespace Bot.Database {
-  public class DatabaseManager {
+namespace Bot.Database.Tests {
+  public class DatabaseInitializer {
 
     public void EnsureCreated() {
       var manager = new BotDbContextManager();
