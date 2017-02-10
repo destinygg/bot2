@@ -10,5 +10,6 @@ namespace Bot.Models {
 
     public Pardon Transmission { get; }
     public IUser Target => Transmission.Target;
+    public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

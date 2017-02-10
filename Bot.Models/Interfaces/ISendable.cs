@@ -2,5 +2,6 @@
   public interface ISendable<out T>
     where T : ITransmittable {
     T Transmission { get; }
+    TResult Accept<TResult>(ISendableVisitor<TResult> visitor);
   }
 }

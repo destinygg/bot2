@@ -11,5 +11,6 @@ namespace Bot.Models {
 
     public PublicMessage Transmission { get; }
     public string Text => Transmission.Text;
+    public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

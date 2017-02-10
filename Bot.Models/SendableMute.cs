@@ -17,5 +17,6 @@ namespace Bot.Models {
     public IUser Target => Transmission.Target;
     public TimeSpan Duration => Transmission.Duration;
     public string Reason => Transmission.Reason;
+    public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }
