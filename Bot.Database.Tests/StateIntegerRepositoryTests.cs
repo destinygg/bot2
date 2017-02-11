@@ -14,11 +14,16 @@ namespace Bot.Database.Tests {
         stateIntegerRepository.LatestStreamOnTime = testWrite;
         context.SaveChanges();
       }
+      //BotDbContextManager.Save(db => {
+      //  //var stateIntegerRepository = new StateIntegerRepository(db.StateIntegers);
+      //  //stateIntegerRepository.LatestStreamOnTime = testWrite;
+      //  db.StateIntegers.Add(new Entities.StateInteger() { Key = " flej", Value = 1 });
+      //});
 
       DateTime testRead;
       using (var context = new BotDbContext()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
-        testRead = stateIntegerRepository.LatestStreamOnTime = testWrite;
+        testRead = stateIntegerRepository.LatestStreamOnTime = testWrite; // wtf lol
       }
 
       Assert.AreEqual(testWrite, testRead);
