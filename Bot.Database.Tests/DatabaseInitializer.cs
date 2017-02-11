@@ -3,11 +3,20 @@ using Bot.Database.Interfaces;
 
 namespace Bot.Database.Tests {
   public class DatabaseInitializer {
+    private readonly BotDbContextManager _contextManager;
+
+    public DatabaseInitializer(BotDbContextManager contextManager) {
+      _contextManager = contextManager;
+    }
 
     public void EnsureCreated() {
-      var manager = new BotDbContextManager();
-      manager.Save(context => {
+      _contextManager.Save(context => {
         context.Database.EnsureCreated();
+      });
+    }
+
+    public void AddMasterData() {
+      _contextManager.Save(context => {
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.DeathCount), 0));
@@ -15,8 +24,7 @@ namespace Bot.Database.Tests {
     }
 
     public void EnsureDeleted() {
-      var manager = new BotDbContextManager();
-      manager.Save(context => {
+      _contextManager.Save(context => {
         context.Database.EnsureDeleted();
       });
     }
