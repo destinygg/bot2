@@ -129,6 +129,10 @@
       <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
       <Name>Bot.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Tests\Bot.Tests.csproj">
+      <Project>{29C9D95A-BA8D-4E5E-B88A-FC22C607A73F}</Project>
+      <Name>Bot.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

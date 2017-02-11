@@ -2,17 +2,23 @@
 using System.Diagnostics;
 using System.Linq;
 using Bot.Database.Entities;
+using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
   public abstract class BaseRepositoryTests {
     private Random _random;
+    private readonly DatabaseInitializer _databaseInitializer;
+
+    protected BaseRepositoryTests() {
+      var containerManager = new ContainerManager();
+      _databaseInitializer = containerManager.DatabaseInitializer;
+    }
 
     [TestInitialize]
     public void Initialize() {
-      var manager = new DatabaseManager();
-      manager.EnsureDeleted();
-      manager.EnsureCreated();
+      _databaseInitializer.EnsureDeleted();
+      _databaseInitializer.EnsureCreated();
       var seed = Guid.NewGuid().GetHashCode();
       _random = new Random(seed);
       Trace.WriteLine($"Seed is: {seed}");
@@ -20,8 +26,7 @@ namespace Bot.Database.Tests {
 
     [TestCleanup]
     public void Cleanup() {
-      var manager = new DatabaseManager();
-      manager.EnsureDeleted();
+      _databaseInitializer.EnsureCreated();
     }
 
     protected string RandomString(int length = 10) {
