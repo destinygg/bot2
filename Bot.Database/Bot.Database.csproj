@@ -216,6 +216,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
     <Compile Include="Interfaces\IPunishedUserRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />

@@ -1,7 +1,7 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
 
-namespace Bot.Database.Tests {
+namespace Bot.Database {
   public class DatabaseInitializer {
     private readonly BotDbContextManager _contextManager;
 
