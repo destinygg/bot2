@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +45,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
+      <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
+      <Name>Bot.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
+      <Project>{1b710b73-3ff1-4944-909b-538927c0041b}</Project>
+      <Name>Bot.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
+      <Project>{0fe69118-f69a-48f0-9b51-58fe52d0b826}</Project>
+      <Name>Bot.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline\Bot.Pipeline.csproj">
+      <Project>{d5f1d9bf-2dda-40f6-b30c-86c8b6d23e87}</Project>
+      <Name>Bot.Pipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
+      <Project>{8f5439eb-10c4-4b67-8f1c-9e2a00d03000}</Project>
+      <Name>Bot.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
