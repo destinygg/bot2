@@ -19,6 +19,7 @@ namespace Bot.Database.Tests {
     public void Initialize() {
       _databaseInitializer.EnsureDeleted();
       _databaseInitializer.EnsureCreated();
+      _databaseInitializer.AddMasterData();
       var seed = Guid.NewGuid().GetHashCode();
       _random = new Random(seed);
       Trace.WriteLine($"Seed is: {seed}");
