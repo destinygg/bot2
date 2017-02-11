@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -58,6 +62,9 @@
       <Project>{1D2A245A-8AE1-4EB9-9EF5-E0766A69DC59}</Project>
       <Name>Bot.Main.Moderate</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
