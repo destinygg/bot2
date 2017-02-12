@@ -14,14 +14,14 @@ namespace Bot.Logic.SnapshotVisitor {
       _commandFactory = commandFactory;
     }
 
-    protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Civilian, PublicMessage> snapshot) {
+    protected override IReadOnlyList<ISendable<ITransmittable>> _DynamicVisit(ISnapshot<Civilian, PublicMessage> snapshot) {
       var bans = _banFactory.Create(snapshot);
       return bans.Any()
         ? bans
         : _commandFactory.Create(snapshot);
     }
 
-    protected override IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(ISnapshot<Civilian, PrivateMessage> snapshot) =>
+    protected override IReadOnlyList<ISendable<ITransmittable>> _DynamicVisit(ISnapshot<Civilian, PrivateMessage> snapshot) =>
       new List<ISendable<ITransmittable>>();
   }
 }

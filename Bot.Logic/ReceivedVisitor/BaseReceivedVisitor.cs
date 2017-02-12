@@ -18,16 +18,18 @@ namespace Bot.Logic.ReceivedVisitor {
 
     public DelegatedSnapshotFactory Visit<TVisitedUser, TTransmission>(Received<TVisitedUser, TTransmission> received) // todo: TVisitedUser should be the same as TUser
       where TVisitedUser : IUser
-      where TTransmission : ITransmittable {
+      where TTransmission : ITransmittable => DynamicVisit(received as dynamic);
+
+    public DelegatedSnapshotFactory DynamicVisit(dynamic received) {
       try {
-        return DynamicVisit(received as dynamic);
+        return _DynamicVisit(received);
       } catch (RuntimeBinderException e) {
         _logger.LogError(e, $"{nameof(BaseReceivedVisitor<IUser>)} did not handle this type: {received.GetType()}");
-        return new DelegatedSnapshotFactory(s => new Snapshot<IUser, ITransmittable>(new ReceivedError("Placeholder for an error", _timeService.UtcNow), new List<IReceived<IUser, ITransmittable>>()));
+        return new DelegatedSnapshotFactory(_ => new Snapshot<IUser, ITransmittable>(new ReceivedError("Placeholder for an error", _timeService.UtcNow), new List<IReceived<IUser, ITransmittable>>()));
       }
     }
 
-    protected abstract DelegatedSnapshotFactory DynamicVisit(Received<TUser, PublicMessage> received);
+    protected abstract DelegatedSnapshotFactory _DynamicVisit(Received<TUser, PublicMessage> received);
 
     protected DelegatedSnapshotFactory NewSnapshotFactory(Func<IReadOnlyList<IReceived<IUser, ITransmittable>>, ISnapshot<IUser, ITransmittable>> create) => new DelegatedSnapshotFactory(create);
   }

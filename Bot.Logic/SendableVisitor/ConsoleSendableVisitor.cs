@@ -12,9 +12,12 @@ namespace Bot.Logic.SendableVisitor {
       _logger = logger;
     }
 
-    public string Visit<TTransmission>(ISendable<TTransmission> sendable) where TTransmission : ITransmittable {
+    public string Visit<TTransmission>(ISendable<TTransmission> sendable)
+      where TTransmission : ITransmittable => DynamicVisit(sendable as dynamic);
+
+    public string DynamicVisit(dynamic sendable) {
       try {
-        return _DynamicVisit(sendable as dynamic);
+        return _DynamicVisit(sendable);
       } catch (RuntimeBinderException e) {
         _logger.LogError(e, $"{nameof(SnapshotVisitor.BaseSnapshotVisitor<IUser>)} did not handle this type: {sendable.GetType()}");
         return "";
