@@ -14,6 +14,12 @@ namespace Bot.Database {
       });
     }
 
+    public void EnsureDeleted() {
+      _databaseService.Command(context => {
+        context.Database.EnsureDeleted();
+      });
+    }
+
     public void AddMasterData() {
       _databaseService.Command(context => {
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
@@ -22,10 +28,10 @@ namespace Bot.Database {
       });
     }
 
-    public void EnsureDeleted() {
-      _databaseService.Command(context => {
-        context.Database.EnsureDeleted();
-      });
+    public void RecreateWithMasterData() {
+      EnsureDeleted();
+      EnsureCreated();
+      AddMasterData();
     }
 
   }

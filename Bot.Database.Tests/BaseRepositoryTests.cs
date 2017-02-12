@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using Bot.Database.Entities;
-using Bot.Tests;
+﻿using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
@@ -16,14 +12,12 @@ namespace Bot.Database.Tests {
 
     [TestInitialize]
     public void Initialize() {
-      _databaseInitializer.EnsureDeleted();
-      _databaseInitializer.EnsureCreated();
-      _databaseInitializer.AddMasterData();
+      _databaseInitializer.RecreateWithMasterData();
     }
 
     [TestCleanup]
     public void Cleanup() {
-      _databaseInitializer.EnsureCreated();
+      _databaseInitializer.EnsureDeleted();
     }
 
   }

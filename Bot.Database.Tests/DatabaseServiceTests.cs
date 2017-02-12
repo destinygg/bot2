@@ -1,5 +1,4 @@
-﻿using System;
-using Bot.Database.Entities;
+﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
 using Bot.Tests;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +12,7 @@ namespace Bot.Database.Tests {
       var cm = new ContainerManager();
       var databaseService = cm.Container.GetInstance<IDatabaseService<IBotDbContext>>();
       var databaseInitializer = cm.Container.GetInstance<DatabaseInitializer>();
-      databaseInitializer.EnsureDeleted();
-      databaseInitializer.EnsureCreated();
+      databaseInitializer.RecreateWithMasterData();
       var punishedUser = new PunishedUser {
         Count = 1,
         AutoPunishmentId = 1,
