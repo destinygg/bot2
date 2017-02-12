@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Database {
   public class BotDbContextManager {
-    private readonly DatabaseService<IBotDbContext> _databaseService;
+    private readonly IDatabaseService<IBotDbContext> _databaseService;
 
-    public BotDbContextManager() {
-      var delegatedProvider = new DelegatedProvider<BotDbContext>(() => new BotDbContext());
-      _databaseService = new DatabaseService<IBotDbContext>(delegatedProvider);
+    public BotDbContextManager(IDatabaseService<IBotDbContext> databaseService) {
+      _databaseService = databaseService;
     }
 
     public void Save(Action<IBotDbContext> dbCommand) {

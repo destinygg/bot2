@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bot.Database;
+using Bot.Database.Interfaces;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Logic.ReceivedVisitor;
@@ -18,8 +19,8 @@ namespace Bot.Tests {
     public ContainerManager() {
       Container = new Container();
 
-      Container.Register<DatabaseInitializer>();
-      Container.Register<BotDbContextManager>();
+      Container.RegisterSingleton<IDatabaseService<IBotDbContext>, DatabaseService<IBotDbContext>>();
+      Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => new BotDbContext()));
 
       Container.RegisterSingleton<INukeLogic, NukeLogic>();
       Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
