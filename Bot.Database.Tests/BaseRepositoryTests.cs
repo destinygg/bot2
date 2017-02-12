@@ -12,7 +12,7 @@ namespace Bot.Database.Tests {
 
     protected BaseRepositoryTests() {
       var containerManager = new ContainerManager();
-      _databaseInitializer = containerManager.DatabaseInitializer;
+      _databaseInitializer = containerManager.Container.GetInstance<DatabaseInitializer>();
     }
 
     [TestInitialize]

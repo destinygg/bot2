@@ -15,55 +15,52 @@ using SimpleInjector;
 
 namespace Bot.Tests {
   public class ContainerManager {
-    private readonly Container _container;
-
     public ContainerManager() {
-      _container = new Container();
+      Container = new Container();
 
-      _container.Register<DatabaseInitializer>();
-      _container.Register<BotDbContextManager>();
+      Container.Register<DatabaseInitializer>();
+      Container.Register<BotDbContextManager>();
 
-      _container.RegisterSingleton<INukeLogic, NukeLogic>();
-      _container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
-      _container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
-      _container.RegisterSingleton<IModCommandParser, ModCommandParser>();
+      Container.RegisterSingleton<INukeLogic, NukeLogic>();
+      Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
+      Container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
+      Container.RegisterSingleton<IModCommandParser, ModCommandParser>();
 
-      _container.RegisterSingleton<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>();
-      _container.RegisterSingleton<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>();
-      _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>();
+      Container.RegisterSingleton<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>();
+      Container.RegisterSingleton<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>();
+      Container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>();
 
-      _container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
-      _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
-      _container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
-      _container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
+      Container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
+      Container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
+      Container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
+      Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
-      _container.RegisterSingleton<ILogger, Logger>();
-      _container.RegisterSingleton<ILogFormatter, LogFormatter>();
-      _container.RegisterSingleton<ILogPersister, ConsolePersister>();
+      Container.RegisterSingleton<ILogger, Logger>();
+      Container.RegisterSingleton<ILogFormatter, LogFormatter>();
+      Container.RegisterSingleton<ILogPersister, ConsolePersister>();
 
-      _container.RegisterSingleton<ITimeService, TimeService>();
-      _container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      _container.RegisterSingleton<ISampleReceived, SampleReceived>();
+      Container.RegisterSingleton<ITimeService, TimeService>();
+      Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
+      Container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
-      _container.RegisterSingleton<IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>>, Logic.ReceivedVisitor.UserVisitor>();
-      _container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
-      _container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
+      Container.RegisterSingleton<IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>>, Logic.ReceivedVisitor.UserVisitor>();
+      Container.RegisterSingleton<ModeratorReceivedVisitor, ModeratorReceivedVisitor>();
+      Container.RegisterSingleton<CivilianReceivedVisitor, CivilianReceivedVisitor>();
 
-      _container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, Logic.SnapshotVisitor.UserVisitor>();
-      _container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
-      _container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
+      Container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, Logic.SnapshotVisitor.UserVisitor>();
+      Container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
+      Container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
 
-      _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
+      Container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
-      _container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
-      _container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
+      Container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
+      Container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
       //container.RegisterDecorator<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, CommandHandlerTryCatchDecorator<IEnumerable<ISendable<ITransmittable>>>>(Lifestyle.Singleton);
 
-      _container.Verify();
+      Container.Verify();
     }
 
-    public DatabaseInitializer DatabaseInitializer => _container.GetInstance<DatabaseInitializer>();
-    public BotDbContextManager BotDbContextManager => _container.GetInstance<BotDbContextManager>();
+    public Container Container { get; }
 
   }
 }
