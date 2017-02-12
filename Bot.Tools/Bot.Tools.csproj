@@ -41,12 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DelegatedFactory.cs" />
+    <Compile Include="DelegatedProvider.cs" />
     <Compile Include="FactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IErrorableFactory.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\ILogFormatter.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ILogPersister.cs" />
+    <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="Interfaces\ITimeService.cs" />
     <Compile Include="LogFormatter.cs" />
     <Compile Include="ObjectExtensionMethods.cs" />
