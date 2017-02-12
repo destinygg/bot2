@@ -13,14 +13,20 @@ using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using SimpleInjector;
+using SimpleInjector.Extensions.ExecutionContextScoping;
 
 namespace Bot.Tests {
   public class ContainerManager {
     public ContainerManager() {
       Container = new Container();
 
+      Container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+
+      Container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
       Container.RegisterSingleton<IDatabaseService<IBotDbContext>, DatabaseService<IBotDbContext>>();
-      Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => new BotDbContext()));
+      Container.RegisterSingleton<IScopeCreator>(() => new DelegatedScopeCreator(Container.BeginExecutionContextScope));
+      Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => Container.GetInstance<IBotDbContext>()));
+      Container.RegisterDecorator(typeof(IDatabaseService<>), typeof(ScopedDatabaseServiceDecorator<>), Lifestyle.Singleton);
 
       Container.RegisterSingleton<INukeLogic, NukeLogic>();
       Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
