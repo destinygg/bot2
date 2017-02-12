@@ -228,7 +228,6 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="PunishedUserRepository.cs" />
     <Compile Include="BotDbContext.cs" />
-    <Compile Include="BotDbContextManager.cs" />
     <Compile Include="Entities\Punishment.cs" />
     <Compile Include="Entities\StateInteger.cs" />
     <Compile Include="Interfaces\IRepository.cs" />

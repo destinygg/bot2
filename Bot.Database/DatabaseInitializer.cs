@@ -3,20 +3,19 @@ using Bot.Database.Interfaces;
 
 namespace Bot.Database {
   public class DatabaseInitializer {
-    private readonly BotDbContextManager _contextManager;
-
-    public DatabaseInitializer(BotDbContextManager contextManager) {
-      _contextManager = contextManager;
+    private readonly IDatabaseService<IBotDbContext> _databaseService;
+    public DatabaseInitializer(IDatabaseService<IBotDbContext> databaseService) {
+      _databaseService = databaseService;
     }
 
     public void EnsureCreated() {
-      _contextManager.Save(context => {
+      _databaseService.Command(context => {
         context.Database.EnsureCreated();
       });
     }
 
     public void AddMasterData() {
-      _contextManager.Save(context => {
+      _databaseService.Command(context => {
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.DeathCount), 0));
@@ -24,7 +23,7 @@ namespace Bot.Database {
     }
 
     public void EnsureDeleted() {
-      _contextManager.Save(context => {
+      _databaseService.Command(context => {
         context.Database.EnsureDeleted();
       });
     }
