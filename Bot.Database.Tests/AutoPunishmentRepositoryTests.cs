@@ -10,9 +10,9 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void ReadWriteAutoPunishment() {
       // Arrange
-      var term = RandomString();
-      var type = RandomAutoPunishmentType();
-      var duration = RandomInt();
+      var term = TestHelper.RandomString();
+      var type = TestHelper.RandomAutoPunishmentType();
+      var duration = TestHelper.RandomInt();
 
       // Act
       using (var context = new BotDbContext()) {

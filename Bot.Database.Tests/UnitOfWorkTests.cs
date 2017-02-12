@@ -8,11 +8,11 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void UpdatePunishedUser() {
       // Arrange
-      var nick = RandomString();
-      var term = RandomString();
-      var type = RandomAutoPunishmentType();
-      var duration = RandomInt();
-      var oldCount = RandomInt();
+      var nick = TestHelper.RandomString();
+      var term = TestHelper.RandomString();
+      var type = TestHelper.RandomAutoPunishmentType();
+      var duration = TestHelper.RandomInt();
+      var oldCount = TestHelper.RandomInt();
       var newCount = oldCount + 1;
 
       var punishedUser = new PunishedUser {
