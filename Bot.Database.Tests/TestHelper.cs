@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Bot.Database.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
   internal static class TestHelper {
@@ -25,5 +26,14 @@ namespace Bot.Database.Tests {
         .Select(s => s[Random().Next(s.Length)]).ToArray());
     }
 
+    public static TException AssertCatch<TException>(Action action)
+      where TException : Exception {
+      try {
+        action();
+        throw new AssertFailedException($"Expected exception of type {typeof(TException)} was not thrown");
+      } catch (TException exception) {
+        return exception;
+      }
+    }
   }
 }
