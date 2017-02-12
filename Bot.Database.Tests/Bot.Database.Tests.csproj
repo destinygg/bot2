@@ -129,6 +129,7 @@
     <Compile Include="UnitOfWorkTests.cs" />
     <Compile Include="DatabaseInitializerTest.cs" />
     <Compile Include="DatabaseServiceTests.cs" />
+    <Compile Include="ScopedDatabaseServiceDecoratorTests.cs" />
     <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
