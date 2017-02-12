@@ -217,8 +217,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseInitializer.cs" />
+    <Compile Include="DatabaseService.cs" />
+    <Compile Include="Interfaces\IDatabaseService.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
+    <Compile Include="Interfaces\IDatabaseServiceExtensions.cs" />
     <Compile Include="Interfaces\IPunishedUserRepository.cs" />
+    <Compile Include="Interfaces\ISavable.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="PunishedUserRepository.cs" />
