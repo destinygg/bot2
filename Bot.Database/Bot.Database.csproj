@@ -218,6 +218,7 @@
   <ItemGroup>
     <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="DatabaseService.cs" />
+    <Compile Include="Interfaces\IBotDbContext.cs" />
     <Compile Include="Interfaces\IDatabaseService.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
     <Compile Include="Interfaces\IDatabaseServiceExtensions.cs" />

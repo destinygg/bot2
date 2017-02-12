@@ -2,9 +2,9 @@
 
 namespace Bot.Database {
   public class UnitOfWork : IUnitOfWork {
-    private readonly BotDbContext _context;
+    private readonly IBotDbContext _context;
 
-    public UnitOfWork(BotDbContext context) {
+    public UnitOfWork(IBotDbContext context) {
       _context = context;
       StateIntegers = new StateIntegerRepository(_context.StateIntegers);
       AutoPunishments = new AutoPunishmentRepository(_context.AutoPunishments);

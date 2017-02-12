@@ -1,9 +1,10 @@
 ﻿using Bot.Database.Entities;
+using Bot.Database.Interfaces;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Database {
-  public class BotDbContext : DbContext {
+  public class BotDbContext : DbContext, IBotDbContext {
 
     #region DbSet
     public DbSet<StateInteger> StateIntegers { get; set; }
