@@ -7,19 +7,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bot.Database.Tests {
   [TestClass]
   public class DatabaseServiceTests {
+    private IDatabaseService<IBotDbContext> _databaseService;
+
+    [TestInitialize]
+    public void Initialize() {
+      var containerManager = new ContainerManager();
+      var databaseInitializer = containerManager.Container.GetInstance<DatabaseInitializer>();
+      databaseInitializer.RecreateWithMasterData();
+      _databaseService = containerManager.Container.GetInstance<IDatabaseService<IBotDbContext>>();
+    }
+
     [TestMethod]
     public void DatabaseServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
-      var cm = new ContainerManager();
-      var databaseService = cm.Container.GetInstance<IDatabaseService<IBotDbContext>>();
-      var databaseInitializer = cm.Container.GetInstance<DatabaseInitializer>();
-      databaseInitializer.RecreateWithMasterData();
       var punishedUser = new PunishedUser {
         Count = 1,
         AutoPunishmentId = 1,
         UserId = 1,
       };
 
-      var exception = TestHelper.AssertCatch<DbUpdateException>(() => databaseService.Command(db => db.PunishedUsers.Add(punishedUser)));
+      var exception = TestHelper.AssertCatch<DbUpdateException>(() => _databaseService.Command(db => db.PunishedUsers.Add(punishedUser)));
 
       Assert.AreEqual("SQLite Error 19: 'FOREIGN KEY constraint failed'.", exception.InnerException.Message);
     }
