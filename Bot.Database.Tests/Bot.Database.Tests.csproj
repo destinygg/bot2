@@ -126,6 +126,7 @@
     <Compile Include="StateIntegerRepositoryTests.cs" />
     <Compile Include="AutoPunishmentRepositoryTests.cs" />
     <Compile Include="UnitOfWorkTests.cs" />
+    <Compile Include="DatabaseInitializerTest.cs" />
     <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
