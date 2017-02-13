@@ -15,14 +15,14 @@ namespace Bot.Logic.SnapshotVisitor {
 
     public IReadOnlyList<ISendable<ITransmittable>> Visit<TVisitedUser, TTransmission>(ISnapshot<TVisitedUser, TTransmission> received) // todo: TVisitedUser should be the same as TUser
       where TVisitedUser : IUser
-      where TTransmission : ITransmittable => DynamicVisit(received as dynamic);
+      where TTransmission : ITransmittable => DynamicVisit(received as dynamic) ?? new List<ISendable<ITransmittable>>();
 
     public IReadOnlyList<ISendable<ITransmittable>> DynamicVisit(dynamic received) {
       try {
         return _DynamicVisit(received);
       } catch (RuntimeBinderException e) {
         _logger.LogError(e, $"{nameof(BaseSnapshotVisitor<IUser>)} did not handle this type: {received.GetType()}");
-        return new List<ISendable<ITransmittable>>();
+        return null;
       }
     }
 

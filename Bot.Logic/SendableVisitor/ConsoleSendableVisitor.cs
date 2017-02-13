@@ -13,14 +13,14 @@ namespace Bot.Logic.SendableVisitor {
     }
 
     public string Visit<TTransmission>(ISendable<TTransmission> sendable)
-      where TTransmission : ITransmittable => DynamicVisit(sendable as dynamic);
+      where TTransmission : ITransmittable => DynamicVisit(sendable as dynamic) ?? "";
 
     public string DynamicVisit(dynamic sendable) {
       try {
         return _DynamicVisit(sendable);
       } catch (RuntimeBinderException e) {
         _logger.LogError(e, $"{nameof(SnapshotVisitor.BaseSnapshotVisitor<IUser>)} did not handle this type: {sendable.GetType()}");
-        return "";
+        return null;
       }
     }
 
