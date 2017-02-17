@@ -16,7 +16,7 @@ namespace Bot.Tools {
       try {
         return _factory.Create(input);
       } catch (Exception e) {
-        _logger.LogError(e, $"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}");
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}", e);
         return _factory.OnErrorCreate;
       }
     }

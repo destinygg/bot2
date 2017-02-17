@@ -21,7 +21,7 @@ namespace Bot.Logic.SnapshotVisitor {
       try {
         return _DynamicVisit(received);
       } catch (RuntimeBinderException e) {
-        _logger.LogError(e, $"{nameof(BaseSnapshotVisitor<IUser>)} did not handle this type: {received.GetType()}");
+        _logger.LogError($"{nameof(BaseSnapshotVisitor<IUser>)} did not handle this type: {received.GetType()}", e);
         return null;
       }
     }

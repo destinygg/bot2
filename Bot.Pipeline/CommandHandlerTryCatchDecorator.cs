@@ -17,7 +17,7 @@ namespace Bot.Pipeline {
       try {
         _decoratedHandler.Handle(command);
       } catch (Exception e) {
-        _logger.LogError(e, $"Error occured in {nameof(CommandHandlerTryCatchDecorator<object>)} when handling {_decoratedHandler.GetType()}");
+        _logger.LogError($"Error occured in {nameof(CommandHandlerTryCatchDecorator<object>)} when handling {_decoratedHandler.GetType()}", e);
       }
     }
 

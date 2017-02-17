@@ -24,7 +24,7 @@ namespace Bot.Logic.ReceivedVisitor {
       try {
         return _DynamicVisit(received);
       } catch (RuntimeBinderException e) {
-        _logger.LogError(e, $"{nameof(BaseReceivedVisitor<IUser>)} did not handle this type: {received.GetType()}");
+        _logger.LogError($"{nameof(BaseReceivedVisitor<IUser>)} did not handle this type: {received.GetType()}", e);
         return null;
       }
     }

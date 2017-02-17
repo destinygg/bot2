@@ -13,7 +13,7 @@ namespace Bot.Logic {
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, ITransmittable> snapshot) {
-      _logger.LogVerbose(snapshot.Latest.ToString());
+      _logger.LogDebug(snapshot.Latest.ToString());
       var snapshotVisitor = snapshot.Latest.Sender.Accept(_userVisitor);
       return snapshot.Accept(snapshotVisitor);
     }
