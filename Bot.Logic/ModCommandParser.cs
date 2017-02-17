@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Bot.Logic.Interfaces;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Logic {
   public class ModCommandParser : IModCommandParser {

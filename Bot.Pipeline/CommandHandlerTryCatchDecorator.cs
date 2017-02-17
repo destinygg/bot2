@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Pipeline {
   public class CommandHandlerTryCatchDecorator<TCommand> : ICommandHandler<TCommand> {

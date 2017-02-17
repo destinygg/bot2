@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Text;
-using Bot.Tools.Interfaces;
 
-namespace Bot.Tools {
+namespace Bot.Tools.Logging {
   public class LogFormatter : ILogFormatter {
     public string FormatWarning(string warning) => warning;
     public string FormatError(string error) {

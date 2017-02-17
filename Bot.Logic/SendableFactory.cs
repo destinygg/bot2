@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Logic {
   public class SendableFactory : BaseSendableFactory<IUser, ITransmittable> {

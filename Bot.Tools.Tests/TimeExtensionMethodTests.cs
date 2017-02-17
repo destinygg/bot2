@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

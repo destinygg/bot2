@@ -10,6 +10,7 @@ using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 using SimpleInjector;
 
 namespace Bot.Main.Moderate {

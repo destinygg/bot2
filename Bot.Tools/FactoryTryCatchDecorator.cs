@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Tools {
   public class FactoryTryCatchDecorator<T, TOutput> : IErrorableFactory<T, TOutput> {

@@ -3,6 +3,7 @@ using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Logic.SnapshotVisitor {
   public class CivilianSnapshotVisitor : BaseSnapshotVisitor<Civilian> {

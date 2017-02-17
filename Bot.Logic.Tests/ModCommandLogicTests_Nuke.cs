@@ -4,6 +4,7 @@ using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Tools {
+namespace Bot.Tools.Logging {
   public class LogEntry {
     public LoggingEventType Severity { get; }
     public string Message { get; }

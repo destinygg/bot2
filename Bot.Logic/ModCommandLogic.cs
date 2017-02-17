@@ -4,6 +4,7 @@ using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
