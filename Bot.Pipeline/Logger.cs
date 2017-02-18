@@ -1,21 +1,21 @@
 ﻿using System;
-using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
+using log4net;
 
 namespace Bot.Pipeline {
   public class Logger : ILogger {
-    private readonly ILogFormatter _logFormatter;
-    private readonly ILogPersister _logPersister;
+    private readonly ILog _logger;
 
-    public Logger(ILogFormatter logFormatter, ILogPersister logPersister) {
-      _logFormatter = logFormatter;
-      _logPersister = logPersister;
+    public Logger() {
+      _logger = LogManager.GetLogger(nameof(Logger));
     }
 
-    public void LogWarning(string warning) => _logPersister.Persist(_logFormatter.FormatWarning(warning));
-    public void LogError(string error) => _logPersister.Persist(_logFormatter.FormatError(error));
-    public void LogError(Exception e, string error) => _logPersister.Persist(_logFormatter.FormatError(e, error));
-    public void LogInformation(string information) => _logPersister.Persist(_logFormatter.FormatInformation(information));
-    public void LogVerbose(string verbose) => _logPersister.Persist(_logFormatter.FormatVerbose(verbose));
+    public void LogDebug(string debug) => _logger.Debug(debug);
+    public void LogInformation(string information) => _logger.Info(information);
+    public void LogWarning(string warning) => _logger.Warn(warning);
+    public void LogError(string error) => _logger.Error(error);
+    public void LogError(string error, Exception exception) => _logger.Error(error, exception);
+    public void LogFatal(string fatal) => _logger.Fatal(fatal);
+    public void LogFatal(string fatal, Exception exception) => _logger.Fatal(fatal, exception);
   }
 }
