@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsolePersister.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
     <Compile Include="Logger.cs" />

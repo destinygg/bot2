@@ -44,8 +44,6 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
       Container.RegisterSingleton<ILogger, Logger>();
-      Container.RegisterSingleton<ILogFormatter, LogFormatter>();
-      Container.RegisterSingleton<ILogPersister, ConsolePersister>();
 
       Container.RegisterSingleton<ITimeService, TimeService>();
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
