@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Log4NetLogger.cs" />
     <Compile Include="Interfaces\IPipeline.cs" />
     <Compile Include="Interfaces\ISampleReceived.cs" />
     <Compile Include="InfiniteSampleReceived.cs" />

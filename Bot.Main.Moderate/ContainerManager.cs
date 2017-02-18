@@ -34,7 +34,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
       _container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
-      _container.RegisterSingleton<ILogger, Logger>();
+      _container.RegisterSingleton<ILogger, Log4NetLogger>();
 
       _container.RegisterSingleton<ITimeService, TimeService>();
       _container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();

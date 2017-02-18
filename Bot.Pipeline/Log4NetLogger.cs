@@ -3,11 +3,11 @@ using Bot.Tools.Logging;
 using log4net;
 
 namespace Bot.Pipeline {
-  public class Logger : ILogger {
+  public class Log4NetLogger : ILogger {
     private readonly ILog _logger;
 
-    public Logger() {
-      _logger = LogManager.GetLogger(nameof(Logger));
+    public Log4NetLogger() {
+      _logger = LogManager.GetLogger(nameof(Log4NetLogger));
     }
 
     public void LogDebug(string debug) => _logger.Debug(debug);

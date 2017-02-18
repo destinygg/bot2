@@ -43,7 +43,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
       Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
-      Container.RegisterSingleton<ILogger, Logger>();
+      Container.RegisterSingleton<ILogger, Log4NetLogger>();
 
       Container.RegisterSingleton<ITimeService, TimeService>();
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
