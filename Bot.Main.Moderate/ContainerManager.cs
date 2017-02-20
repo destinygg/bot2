@@ -34,7 +34,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
       _container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
-      _container.RegisterSingleton<ILogger, Log4NetLogger>();
+      _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
 
       _container.RegisterSingleton<ITimeService, TimeService>();
       _container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
