@@ -65,7 +65,7 @@
     <Compile Include="CommandFactory.cs" />
     <Compile Include="ModCommandFactory.cs" />
     <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
-    <Compile Include="ReceivedVisitor\UserVisitor.cs" />
+    <Compile Include="ReceivedVisitor\ReceivedVisitor.cs" />
     <Compile Include="ReceivedVisitor\BaseReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\UserVisitor.cs" />
   </ItemGroup>

@@ -2,11 +2,11 @@
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.ReceivedVisitor {
-  public class UserVisitor : IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> {
+  public class ReceivedVisitor : IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> {
     private readonly ModeratorReceivedVisitor _moderatorReceivedVisitor;
     private readonly CivilianReceivedVisitor _civilianReceivedVisitor;
 
-    public UserVisitor(ModeratorReceivedVisitor moderatorReceivedVisitor, CivilianReceivedVisitor civilianReceivedVisitor) {
+    public ReceivedVisitor(ModeratorReceivedVisitor moderatorReceivedVisitor, CivilianReceivedVisitor civilianReceivedVisitor) {
       _moderatorReceivedVisitor = moderatorReceivedVisitor;
       _civilianReceivedVisitor = civilianReceivedVisitor;
     }
