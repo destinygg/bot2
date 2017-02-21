@@ -13,7 +13,6 @@ namespace Bot.Models {
     public DateTime Timestamp { get; }
     public TUser Sender { get; }
     public abstract TTransmission Transmission { get; }
-    public TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) =>
-      visitor.Visit(this);
+    public abstract TResult Accept<TResult>(IReceivedVisitor<TResult> visitor);
   }
 }

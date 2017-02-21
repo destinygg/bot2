@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Models {
@@ -11,5 +12,6 @@ namespace Bot.Models {
     public PublicMessageFromMod(string text, DateTime timestamp)
       : base(new Moderator(timestamp.ToShortTimeString()), text, timestamp) { }
 
+    public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

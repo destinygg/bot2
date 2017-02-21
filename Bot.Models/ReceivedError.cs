@@ -1,4 +1,5 @@
 ﻿using System;
+using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Models {
@@ -12,5 +13,6 @@ namespace Bot.Models {
     }
 
     public override ErrorMessage Transmission { get; }
+    public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

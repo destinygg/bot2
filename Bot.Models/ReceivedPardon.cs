@@ -9,5 +9,6 @@ namespace Bot.Models {
 
     public override Pardon Transmission { get; }
     public IUser Target => Transmission.Target;
+    public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }
