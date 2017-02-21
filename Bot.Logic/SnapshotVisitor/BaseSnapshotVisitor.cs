@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bot.Models;
 using Bot.Models.Interfaces;
-using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.CSharp.RuntimeBinder;
 
