@@ -2,17 +2,21 @@
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.ReceivedVisitor {
-  public class ReceivedVisitor : IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> {
-    private readonly ModeratorReceivedVisitor _moderatorReceivedVisitor;
-    private readonly CivilianReceivedVisitor _civilianReceivedVisitor;
-
-    public ReceivedVisitor(ModeratorReceivedVisitor moderatorReceivedVisitor, CivilianReceivedVisitor civilianReceivedVisitor) {
-      _moderatorReceivedVisitor = moderatorReceivedVisitor;
-      _civilianReceivedVisitor = civilianReceivedVisitor;
+  public class ReceivedVisitor : IReceivedVisitor<DelegatedSnapshotFactory> {
+    public DelegatedSnapshotFactory Visit(IReceived<Civilian, PublicMessage> t) {
+      throw new System.NotImplementedException();
     }
 
-    public IReceivedVisitor<DelegatedSnapshotFactory> Visit(Moderator moderator) => _moderatorReceivedVisitor;
+    public DelegatedSnapshotFactory Visit(IReceived<Moderator, PublicMessage> t) {
+      throw new System.NotImplementedException();
+    }
 
-    public IReceivedVisitor<DelegatedSnapshotFactory> Visit(Civilian civilian) => _civilianReceivedVisitor;
+    public DelegatedSnapshotFactory Visit(IReceived<Moderator, ErrorMessage> t) {
+      throw new System.NotImplementedException();
+    }
+
+    public DelegatedSnapshotFactory Visit(IReceived<Moderator, Pardon> t) {
+      throw new System.NotImplementedException();
+    }
   }
 }

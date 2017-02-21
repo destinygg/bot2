@@ -44,7 +44,6 @@
     <Compile Include="SendableVisitor\ConsoleSendableVisitor.cs" />
     <Compile Include="SnapshotVisitor\CivilianSnapshotVisitor.cs" />
     <Compile Include="SnapshotVisitor\BaseSnapshotVisitor.cs" />
-    <Compile Include="ReceivedVisitor\ModeratorReceivedVisitor.cs" />
     <Compile Include="Interfaces\IModCommandLogic.cs" />
     <Compile Include="Interfaces\IModCommandParser.cs" />
     <Compile Include="Interfaces\IModCommandRegex.cs" />
@@ -58,7 +57,6 @@
     <Compile Include="NukeLogic.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="ParsedNuke.cs" />
-    <Compile Include="ReceivedVisitor\CivilianReceivedVisitor.cs" />
     <Compile Include="SendableFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanFactory.cs" />
@@ -66,7 +64,6 @@
     <Compile Include="ModCommandFactory.cs" />
     <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
     <Compile Include="ReceivedVisitor\ReceivedVisitor.cs" />
-    <Compile Include="ReceivedVisitor\BaseReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\UserVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
