@@ -4,6 +4,7 @@ using Bot.Logic.ReceivedVisitor;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
+using Bot.Models.Snapshot;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 

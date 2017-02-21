@@ -1,5 +1,6 @@
 ﻿using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Snapshot;
 
 namespace Bot.Logic.ReceivedVisitor {
   public class ReceivedVisitor : IReceivedVisitor<DelegatedSnapshotFactory> {

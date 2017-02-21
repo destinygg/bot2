@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bot.Models.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Snapshot {
   public class Snapshot<TUser, TTransmission> : ISnapshot<TUser, TTransmission>
     where TTransmission : ITransmittable
     where TUser : IUser {
