@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Tools;
 
 namespace Bot.Logic.Tests {
-  /// <remarks>
-  /// "Context" here differs from ISnapshot in that ISnapshot's context skips the first message.
-  /// </remarks>>
   public class ContextBuilder {
     private readonly DateTime _rootTime = TimeService.UnixEpoch;
     private DateTime _time;

@@ -14,7 +14,7 @@ namespace Bot.Logic.Tests {
   public class ModCommandLogicTests_Nuke {
     private IReceivedFactory _factory;
     private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
-      var logger = new Mock<ILogger>().Object;
+      ILogger logger = null;
       var timeServiceMock = new Mock<ITimeService>();
       timeServiceMock.Setup(ts => ts.UtcNow).Returns(contextBuilder.GetTimestampOfZerothReceived);
       var timeService = timeServiceMock.Object;
