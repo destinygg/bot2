@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Received;
 using Bot.Tools;
 
 namespace Bot.Logic.Tests {

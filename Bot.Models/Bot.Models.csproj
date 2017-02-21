@@ -61,15 +61,15 @@
     <Compile Include="PublicMessage.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
-    <Compile Include="Received.cs" />
-    <Compile Include="ReceivedError.cs" />
-    <Compile Include="ReceivedPublicMessage.cs" />
+    <Compile Include="Received\Received.cs" />
+    <Compile Include="Received\ReceivedError.cs" />
+    <Compile Include="Received\ReceivedPublicMessage.cs" />
     <Compile Include="Snapshot.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="ReceivedMessage.cs" />
-    <Compile Include="PublicMessageFromMod.cs" />
-    <Compile Include="PublicMessageFromCivilian.cs" />
-    <Compile Include="ReceivedPardon.cs" />
+    <Compile Include="Received\ReceivedMessage.cs" />
+    <Compile Include="Received\PublicMessageFromMod.cs" />
+    <Compile Include="Received\PublicMessageFromCivilian.cs" />
+    <Compile Include="Received\ReceivedPardon.cs" />
     <Compile Include="SendablePublicMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendableMute.cs" />
@@ -101,6 +101,7 @@
   <ItemGroup>
     <Content Include="Hierarchy.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

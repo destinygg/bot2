@@ -2,7 +2,7 @@
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Received {
   public class ReceivedError : ReceivedMessage<Moderator, ErrorMessage> {
     public ReceivedError(string text, ITimeService timeService) : base(new Moderator("Internal Bot System"), timeService) {
       Transmission = new ErrorMessage(text);

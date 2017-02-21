@@ -1,7 +1,7 @@
 ﻿using System;
 using Bot.Models.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Received {
   public abstract class Received<TUser, TTransmission> : IReceived<TUser, TTransmission>
     where TUser : IUser
     where TTransmission : ITransmittable {

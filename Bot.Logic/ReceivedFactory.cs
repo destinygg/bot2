@@ -2,6 +2,7 @@
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Received;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Received {
   public abstract class ReceivedPublicMessage<TUser> : ReceivedMessage<TUser, PublicMessage>
     where TUser : IUser {
     protected ReceivedPublicMessage(TUser sender, string text, ITimeService timeService) : base(sender, timeService) {

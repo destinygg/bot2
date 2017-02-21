@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Received {
   [DebuggerDisplay("{Sender}: {Text}")]
   public class PublicMessageFromMod : ReceivedPublicMessage<Moderator> {
     public PublicMessageFromMod(string text, ITimeService timeService)

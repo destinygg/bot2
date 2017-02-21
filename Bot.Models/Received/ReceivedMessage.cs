@@ -2,7 +2,7 @@
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Received {
   public abstract class ReceivedMessage<TUser, TTransmission> : Received<TUser, TTransmission>
     where TUser : IUser
     where TTransmission : IMessage {

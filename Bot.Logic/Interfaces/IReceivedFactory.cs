@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Received;
 
 namespace Bot.Logic.Interfaces {
   public interface IReceivedFactory {

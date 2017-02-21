@@ -1,7 +1,7 @@
 ﻿using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Received {
   public class ReceivedPardon : Received<Moderator, Pardon> {
     public ReceivedPardon(Moderator sender, Civilian target, ITimeService timeService) : base(timeService.UtcNow, sender) {
       Transmission = new Pardon(target);

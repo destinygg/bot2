@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Received;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools.Interfaces;
 
