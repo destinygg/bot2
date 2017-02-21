@@ -64,7 +64,7 @@
     <Compile Include="ModCommandFactory.cs" />
     <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
     <Compile Include="ReceivedVisitor\ReceivedVisitor.cs" />
-    <Compile Include="SnapshotVisitor\UserVisitor.cs" />
+    <Compile Include="SnapshotVisitor\SnapshotVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">

@@ -3,11 +3,11 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
-  public class UserVisitor : IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> {
+  public class SnapshotVisitor : IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> {
     private readonly ModeratorSnapshotVisitor _moderatorSnapshotVisitor;
     private readonly CivilianSnapshotVisitor _civilianSnapshotVisitor;
 
-    public UserVisitor(ModeratorSnapshotVisitor moderatorSnapshotVisitor, CivilianSnapshotVisitor civilianSnapshotVisitor) {
+    public SnapshotVisitor(ModeratorSnapshotVisitor moderatorSnapshotVisitor, CivilianSnapshotVisitor civilianSnapshotVisitor) {
       _moderatorSnapshotVisitor = moderatorSnapshotVisitor;
       _civilianSnapshotVisitor = civilianSnapshotVisitor;
     }
