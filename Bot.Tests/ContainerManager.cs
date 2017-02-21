@@ -40,7 +40,7 @@ namespace Bot.Tests {
 
       Container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
       Container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
-      Container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, ConsoleSender>();
+      Container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, Log4NetSender>();
       Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);

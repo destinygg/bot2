@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Log4NetSender.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
     <Compile Include="Log4NetLogger.cs" />

@@ -37,7 +37,7 @@ namespace Bot.Pipeline {
         }
         if (t.DeclaringType != null) {
           // This is a nested type, build the nesting type first
-          value = GetCSharpRepresentation(t.DeclaringType, trimArgCount, availableArguments) + "+" + value;
+          value = GetCSharpRepresentation(t.DeclaringType, trimArgCount, availableArguments) + "+" + value;                                                  
         }
         // Build the type arguments (if any)
         var argString = "";
