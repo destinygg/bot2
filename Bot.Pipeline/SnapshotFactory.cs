@@ -8,19 +8,18 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
   public class SnapshotFactory : IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> {
-    private readonly IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> _userVisitor;
+    private readonly IReceivedVisitor<DelegatedSnapshotFactory> _receivedVisitor;
     private readonly ITimeService _timeService;
     private readonly List<IReceived<IUser, ITransmittable>> _context = new List<IReceived<IUser, ITransmittable>>(); // Todo: Optimization: Use a circular buffer
 
-    public SnapshotFactory(IUserVisitor<IReceivedVisitor<DelegatedSnapshotFactory>> userVisitor, ITimeService timeService) {
-      _userVisitor = userVisitor;
+    public SnapshotFactory(IReceivedVisitor<DelegatedSnapshotFactory> receivedVisitor, ITimeService timeService) {
+      _receivedVisitor = receivedVisitor;
       _timeService = timeService;
     }
 
     public ISnapshot<IUser, ITransmittable> Create(IReceived<IUser, ITransmittable> first) {
       try {
-        var receivedVisitor = first.Sender.Accept(_userVisitor);
-        var snapshotFactory = first.Accept(receivedVisitor);
+        var snapshotFactory = first.Accept(_receivedVisitor);
         return snapshotFactory.Create(_context.ToList()); // The .ToList() creates a new instance; important!
       } finally {
         _context.Insert(0, first);
