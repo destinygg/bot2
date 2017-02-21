@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="ContextFactory.cs" />
     <Compile Include="ModCommandLogicTests_Nuke.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModCommandLogicTests_Aegis.cs" />
   </ItemGroup>
