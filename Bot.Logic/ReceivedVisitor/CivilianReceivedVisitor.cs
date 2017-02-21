@@ -5,9 +5,11 @@ using Bot.Tools.Logging;
 namespace Bot.Logic.ReceivedVisitor {
   public class CivilianReceivedVisitor : BaseReceivedVisitor<Civilian> {
 
-    public CivilianReceivedVisitor(ILogger logger, ITimeService timeService) : base(logger, timeService) { }
+    public CivilianReceivedVisitor() { }
 
-    protected override DelegatedSnapshotFactory _DynamicVisit(Received<Civilian, PublicMessage> received) =>
-      NewSnapshotFactory(snapshot => new Snapshot<Civilian, PublicMessage>(received, snapshot));
+    public override DelegatedSnapshotFactory Visit<TVisitedUser, TTransmission>(Received<TVisitedUser, TTransmission> received) {
+      throw new System.NotImplementedException();
+    }
+
   }
 }

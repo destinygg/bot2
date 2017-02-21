@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Civilian.cs" />
     <Compile Include="ErrorMessage.cs" />
-    <Compile Include="Interfaces\IDynamicVisitor.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IReceived.cs" />
     <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
