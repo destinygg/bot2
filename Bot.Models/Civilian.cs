@@ -8,6 +8,5 @@ namespace Bot.Models {
 
     }
 
-    public override T Accept<T>(IUserVisitor<T> visitor) => visitor.Visit(this);
   }
 }

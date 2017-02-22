@@ -55,7 +55,6 @@
     <Compile Include="Interfaces\ITargetable.cs" />
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
-    <Compile Include="Interfaces\IUserVisitor.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="PrivateMessage.cs" />
     <Compile Include="PublicMessage.cs" />

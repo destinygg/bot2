@@ -5,6 +5,5 @@ namespace Bot.Models.Interfaces {
     string Nick { get; }
     IEnumerable<string> Flair { get; }
     bool IsMod { get; }
-    T Accept<T>(IUserVisitor<T> visitor);
   }
 }
