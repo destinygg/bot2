@@ -2,18 +2,18 @@
 using Bot.Models.Interfaces;
 
 namespace Bot.Models.Snapshot {
-  public class Snapshot<TUser, TTransmission> : ISnapshot<TUser, TTransmission>
+  public abstract class Snapshot<TUser, TTransmission> : ISnapshot<TUser, TTransmission>
     where TTransmission : ITransmittable
     where TUser : IUser {
 
-    public Snapshot(IReceived<TUser, TTransmission> latest, IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
+    protected Snapshot(IReceived<TUser, TTransmission> latest, IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       Latest = latest;
       Context = context;
     }
 
     public IReceived<TUser, TTransmission> Latest { get; }
     public IReadOnlyList<IReceived<IUser, ITransmittable>> Context { get; }
-    public IReadOnlyList<ISendable<ITransmittable>> Accept(ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> visitor) =>
-      visitor.Visit(this);
+
+    public abstract IReadOnlyList<ISendable<ITransmittable>> Accept(ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> visitor);
   }
 }

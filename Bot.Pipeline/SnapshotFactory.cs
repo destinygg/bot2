@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.ReceivedVisitor;
-using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Models.Snapshot;
@@ -31,6 +30,6 @@ namespace Bot.Pipeline {
       }
     }
 
-    public ISnapshot<IUser, ITransmittable> OnErrorCreate => new Snapshot<Moderator, ErrorMessage>(new ReceivedError("Snapshot Error placeholder", _timeService), new List<IReceived<IUser, ITransmittable>>());
+    public ISnapshot<IUser, ITransmittable> OnErrorCreate => new ErrorSnapshot(new ReceivedError("Snapshot Error placeholder", _timeService), new List<IReceived<IUser, ITransmittable>>());
   }
 }
