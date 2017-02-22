@@ -61,10 +61,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ContextBuilder.cs" />
-    <Compile Include="ModCommandLogicTests_Nuke.cs" />
     <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ModCommandLogicTests_Aegis.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
