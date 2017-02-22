@@ -12,24 +12,12 @@ namespace Bot.Logic.SendableVisitor {
       _logger = logger;
     }
 
-    public string Visit<TTransmission>(ISendable<TTransmission> sendable)
-      where TTransmission : ITransmittable => DynamicVisit(sendable as dynamic) ?? "";
+    public string Visit(ISendable<PublicMessage> publicMessage) => $"PublicMessage -> {publicMessage.Transmission.Text}";
 
-    public string DynamicVisit(dynamic sendable) {
-      try {
-        return _DynamicVisit(sendable);
-      } catch (RuntimeBinderException e) {
-        _logger.LogError($"{nameof(ConsoleSendableVisitor)} did not handle this type: {sendable.GetType()}", e);
-        return null;
-      }
-    }
+    public string Visit(ISendable<ErrorMessage> error) => $"Error: -> {error.Transmission.Text}";
 
-    private string _DynamicVisit(ISendable<PublicMessage> publicMessage) => $"PublicMessage -> {publicMessage.Transmission.Text}";
+    public string Visit(ISendable<Pardon> pardon) => $"Pardon -> {pardon.Transmission.Target}";
 
-    private string _DynamicVisit(ISendable<PrivateMessage> privateMessage) => $"PrivateMessage -> {privateMessage.Transmission.Text}";
-
-    private string _DynamicVisit(ISendable<Mute> mute) => $"Mute -> {mute.Transmission.Target} for {mute.Transmission.Duration.ToPretty(_logger)} Reason: {mute.Transmission.Reason}";
-
-    private string _DynamicVisit(ISendable<Pardon> pardon) => $"Pardon -> {pardon.Transmission.Target}";
+    public string Visit(ISendable<Mute> mute) => $"Mute -> {mute.Transmission.Target} for {mute.Transmission.Duration.ToPretty(_logger)} Reason: {mute.Transmission.Reason}";
   }
 }
