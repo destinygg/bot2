@@ -3,17 +3,23 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.SnapshotVisitor {
-  public class SnapshotVisitor : IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> {
-    private readonly ModeratorSnapshotVisitor _moderatorSnapshotVisitor;
-    private readonly CivilianSnapshotVisitor _civilianSnapshotVisitor;
+  public class SnapshotVisitor : ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> {
 
-    public SnapshotVisitor(ModeratorSnapshotVisitor moderatorSnapshotVisitor, CivilianSnapshotVisitor civilianSnapshotVisitor) {
-      _moderatorSnapshotVisitor = moderatorSnapshotVisitor;
-      _civilianSnapshotVisitor = civilianSnapshotVisitor;
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Civilian, PublicMessage> t) {
+      throw new System.NotImplementedException();
     }
 
-    public ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> Visit(Moderator moderator) => _moderatorSnapshotVisitor;
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, PublicMessage> t) {
+      throw new System.NotImplementedException();
+    }
 
-    public ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> Visit(Civilian civilian) => _civilianSnapshotVisitor;
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, ErrorMessage> t) {
+      throw new System.NotImplementedException();
+    }
+
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, Pardon> t) {
+      throw new System.NotImplementedException();
+    }
+
   }
 }

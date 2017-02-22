@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using Bot.Models.Interfaces;
-using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 
 namespace Bot.Logic {
   public class SendableFactory : BaseSendableFactory<IUser, ITransmittable> {
     private readonly ILogger _logger;
-    private readonly IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> _userVisitor;
+    private readonly ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> _snapshotVisitor;
 
-    public SendableFactory(ILogger logger, IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>> userVisitor) {
+    public SendableFactory(ILogger logger, ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>> snapshotVisitor) {
       _logger = logger;
-      _userVisitor = userVisitor;
+      _snapshotVisitor = snapshotVisitor;
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, ITransmittable> snapshot) {
       _logger.LogDebug(snapshot.Latest.ToString());
-      var snapshotVisitor = snapshot.Latest.Sender.Accept(_userVisitor);
-      return snapshot.Accept(snapshotVisitor);
+      return snapshot.Accept(_snapshotVisitor);
     }
 
   }

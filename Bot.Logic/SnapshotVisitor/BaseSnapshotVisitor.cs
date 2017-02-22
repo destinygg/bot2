@@ -31,5 +31,21 @@ namespace Bot.Logic.SnapshotVisitor {
 
     private IReadOnlyList<ISendable<ITransmittable>> _DynamicVisit(ISnapshot<IUser, ITransmittable> snapshot) =>
       new List<ISendable<ITransmittable>>();
+
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Civilian, PublicMessage> t) {
+      throw new System.NotImplementedException();
+    }
+
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, PublicMessage> t) {
+      throw new System.NotImplementedException();
+    }
+
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, ErrorMessage> t) {
+      throw new System.NotImplementedException();
+    }
+
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, Pardon> t) {
+      throw new System.NotImplementedException();
+    }
   }
 }

@@ -42,7 +42,7 @@ namespace Bot.Main.Moderate {
 
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, Logic.ReceivedVisitor.ReceivedVisitor>();
 
-      _container.RegisterSingleton<IUserVisitor<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>>, Logic.SnapshotVisitor.SnapshotVisitor>();
+      _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, Logic.SnapshotVisitor.SnapshotVisitor>();
       _container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
       _container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
 

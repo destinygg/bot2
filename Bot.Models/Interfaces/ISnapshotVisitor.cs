@@ -1,7 +1,11 @@
-﻿namespace Bot.Models.Interfaces {
-  public interface ISnapshotVisitor<out TResult> {
-    TResult Visit<TUser, TTransmission>(ISnapshot<TUser, TTransmission> received)
-      where TUser : IUser
-      where TTransmission : ITransmittable;
+﻿using Bot.Tools.Interfaces;
+
+namespace Bot.Models.Interfaces {
+  public interface ISnapshotVisitor<out TResult>
+    : IVisitor<ISnapshot<Civilian, PublicMessage>, TResult>
+    , IVisitor<ISnapshot<Moderator, PublicMessage>, TResult>
+    , IVisitor<ISnapshot<Moderator, ErrorMessage>, TResult>
+    , IVisitor<ISnapshot<Moderator, Pardon>, TResult> {
+
   }
 }
