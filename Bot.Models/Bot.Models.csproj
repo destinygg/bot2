@@ -76,10 +76,10 @@
     <Compile Include="Received\PublicMessageFromMod.cs" />
     <Compile Include="Received\PublicMessageFromCivilian.cs" />
     <Compile Include="Received\ReceivedPardon.cs" />
-    <Compile Include="SendablePublicMessage.cs" />
+    <Compile Include="Sendable\SendablePublicMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendableMute.cs" />
-    <Compile Include="SendablePardon.cs" />
+    <Compile Include="Sendable\SendableMute.cs" />
+    <Compile Include="Sendable\SendablePardon.cs" />
     <Compile Include="Pardon.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Websockets\BanReceiver.cs" />

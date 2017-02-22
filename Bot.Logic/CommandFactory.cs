@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {

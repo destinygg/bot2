@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Bot.Models.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Sendable {
   [DebuggerDisplay("Pardoned {Target})")]
   public class SendablePardon : ISendable<Pardon> {
     public SendablePardon(IUser target) {

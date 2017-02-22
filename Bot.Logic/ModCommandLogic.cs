@@ -3,6 +3,7 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 

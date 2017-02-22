@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Bot.Models;
+using Bot.Models.Sendable;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Bot.Models.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Sendable {
   [DebuggerDisplay("Muted {Target} for {Duration.TotalMinutes}m for: {Reason}")]
   public class SendableMute : ISendable<Mute> {
     public SendableMute(Civilian target, TimeSpan duration) {

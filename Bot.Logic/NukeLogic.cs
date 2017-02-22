@@ -4,6 +4,7 @@ using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
+using Bot.Models.Sendable;
 
 namespace Bot.Logic {
   public class NukeLogic : INukeLogic {

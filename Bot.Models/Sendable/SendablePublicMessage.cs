@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Bot.Models.Interfaces;
 
-namespace Bot.Models {
+namespace Bot.Models.Sendable {
   [DebuggerDisplay("Sending: {Text}")]
   public class SendablePublicMessage : ISendable<PublicMessage> {
 

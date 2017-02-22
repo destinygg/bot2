@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Sendable;
 
 namespace Bot.Logic {
   public class BanFactory : BaseSendableFactory<Civilian, PublicMessage> {
