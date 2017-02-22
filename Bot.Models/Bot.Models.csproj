@@ -64,6 +64,12 @@
     <Compile Include="Received\Received.cs" />
     <Compile Include="Received\ReceivedError.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
+    <Compile Include="Snapshot\ErrorSnapshot.cs" />
+    <Compile Include="Snapshot\MessageSnapshot.cs" />
+    <Compile Include="Snapshot\PardonSnapshot.cs" />
+    <Compile Include="Snapshot\PublicMessageFromCivilianSnapshot.cs" />
+    <Compile Include="Snapshot\PublicMessageFromModSnapshot.cs" />
+    <Compile Include="Snapshot\PublicMessageSnapshot.cs" />
     <Compile Include="Snapshot\Snapshot.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Received\ReceivedMessage.cs" />
