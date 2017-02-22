@@ -19,7 +19,7 @@ namespace Bot.Logic.SendableVisitor {
       try {
         return _DynamicVisit(sendable);
       } catch (RuntimeBinderException e) {
-        _logger.LogError($"{nameof(SnapshotVisitor.BaseSnapshotVisitor<IUser>)} did not handle this type: {sendable.GetType()}", e);
+        _logger.LogError($"{nameof(ConsoleSendableVisitor)} did not handle this type: {sendable.GetType()}", e);
         return null;
       }
     }

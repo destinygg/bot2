@@ -52,8 +52,6 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, Logic.ReceivedVisitor.ReceivedVisitor>();
 
       Container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, Logic.SnapshotVisitor.SnapshotVisitor>();
-      Container.RegisterSingleton<CivilianSnapshotVisitor, CivilianSnapshotVisitor>();
-      Container.RegisterSingleton<ModeratorSnapshotVisitor, ModeratorSnapshotVisitor>();
 
       Container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
