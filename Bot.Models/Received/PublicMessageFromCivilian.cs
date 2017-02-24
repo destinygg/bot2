@@ -12,6 +12,9 @@ namespace Bot.Models.Received {
     public PublicMessageFromCivilian(string text, DateTime timestamp)
       : base(new Civilian(timestamp.ToShortTimeString()), text, timestamp) { }
 
+    public PublicMessageFromCivilian(string nick, string text, DateTime timestamp)
+      : base(new Civilian(nick), text, timestamp) { }
+
     public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }

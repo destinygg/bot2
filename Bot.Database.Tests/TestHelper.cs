@@ -5,7 +5,7 @@ using Bot.Database.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
-  internal static class TestHelper {
+  public static class TestHelper {
 
     public static int RandomInt() => Random().Next();
 

@@ -12,6 +12,9 @@ namespace Bot.Models.Received {
     public PublicMessageFromMod(string text, DateTime timestamp)
       : base(new Moderator(timestamp.ToShortTimeString()), text, timestamp) { }
 
+    public PublicMessageFromMod(string nick, string text, DateTime timestamp)
+      : base(new Moderator(nick), text, timestamp) { }
+
     public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
   }
 }
