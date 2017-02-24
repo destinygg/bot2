@@ -1,66 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
-using Bot.Tools;
 
 namespace Bot.Logic.Tests {
-  public class ContextBuilder {
-    private readonly DateTime _rootTime = TimeService.UnixEpoch;
-    private DateTime _time;
 
+  public interface IContextInserter {
+    IContextTimeSetter ModMessage(string message);
+    IContextTimeSetter ModMessage(); // interfaces with optional parameters can be inconsistently implemented
+    IContextTimeSetter TargetedMessage(string message);
+    IContextTimeSetter TargetedMessage();
+    IContextTimeSetter PublicMessage(string message);
+    IContextTimeSetter PublicMessage();
+  }
+
+  public interface IContextTimeSetter {
+    IContextInserter InsertAt(string timestamp);
+    IReadOnlyList<IReceived<IUser, ITransmittable>> Build();
+  }
+
+  public class ContextBuilder : IContextTimeSetter, IContextInserter {
+    private DateTime _cachedTime;
+    private string _cachedNick;
+    private readonly HashSet<string> _nicks = new HashSet<string>();
     private readonly IList<IReceived<IUser, ITransmittable>> _nontargets = new List<IReceived<IUser, ITransmittable>>();
     private readonly IList<IReceived<IUser, ITransmittable>> _targets = new List<IReceived<IUser, ITransmittable>>();
+    private IReadOnlyList<string> _ActualTargeted => _targets.Select(r => r.Sender.Nick).ToList();
 
-    private IReadOnlyList<IUser> _NonTargetUsers => _nontargets.Select(r => r.Sender).ToList();
-    private IReadOnlyList<IUser> _TargetUsers => _targets.Select(r => r.Sender).ToList();
-
-    public ContextBuilder() {
-      _time = _rootTime;
-    }
-
-    public TimeSpan Gap { get; } = TimeSpan.FromMinutes(1);
-
-    public IReadOnlyList<IReceived<IUser, ITransmittable>> GetContext => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList(); // Is 1 indexed
-
-    public bool IsValid(IReadOnlyList<IUser> targets)
-      => targets.OrderBy(u => u.Nick).SequenceEqual(_TargetUsers.OrderBy(u => u.Nick)) && !_NonTargetUsers.Intersect(targets).Any();
-
-    public ContextBuilder TargetedMessage(string message, TimeSpan? timestamp = null)
-      => _AddReceived(timestamp, t => _targets.Add(new PublicMessageFromCivilian(message, t)));
-
-    public ContextBuilder PublicMessage(string message, TimeSpan? timestamp = null)
-      => _AddReceived(timestamp, t => _nontargets.Add(new PublicMessageFromCivilian(message, t)));
-
-    public ContextBuilder ModMessage(string message, TimeSpan? timestamp = null)
-      => _AddReceived(timestamp, t => _nontargets.Add(new PublicMessageFromMod(message, t)));
-
-    private ContextBuilder _AddReceived(TimeSpan? timestamp, Action<DateTime> addReceived) {
-      _time = timestamp == null ? _time.Add(Gap) : _rootTime.Add((TimeSpan) timestamp);
-      addReceived.Invoke(_time);
+    #region IContextTransmissionBuilder
+    public IContextTimeSetter ModMessage(string message) {
+      _nontargets.Add(new PublicMessageFromMod(_cachedNick, message, _cachedTime));
       return this;
     }
 
-    public ContextBuilder TargetedMessage(string message, string timestamp)
-      => TargetedMessage(message, _ParseExact(timestamp));
-
-    public ContextBuilder PublicMessage(string message, string timestamp)
-      => PublicMessage(message, _ParseExact(timestamp));
-
-    public ContextBuilder ModMessage(string message, string timestamp)
-      => ModMessage(message, _ParseExact(timestamp));
-
-    private TimeSpan _ParseExact(string timestamp) =>
-      TimeSpan.ParseExact(timestamp, "g", CultureInfo.CurrentCulture);
-
-    private DateTime _zerothReceivedTimestamp;
-    public ContextBuilder SetTimestampOfZerothReceived(TimeSpan timestamp) {
-      _zerothReceivedTimestamp = _rootTime.Add(timestamp);
+    public IContextTimeSetter TargetedMessage(string message) {
+      _targets.Add(new PublicMessageFromCivilian(_cachedNick, message, _cachedTime));
       return this;
     }
 
-    public DateTime GetTimestampOfZerothReceived => _zerothReceivedTimestamp == DateTime.MinValue ? GetContext.Last().Timestamp : _zerothReceivedTimestamp;
+    public IContextTimeSetter PublicMessage(string message) {
+      _nontargets.Add(new PublicMessageFromCivilian(_cachedNick, message, _cachedTime));
+      return this;
+    }
+
+    public IContextTimeSetter ModMessage() => ModMessage("");
+    public IContextTimeSetter TargetedMessage() => TargetedMessage("");
+    public IContextTimeSetter PublicMessage() => PublicMessage("");
+    #endregion
+
+    #region IContextTimeBuilder
+    public IContextInserter InsertAt(string timestamp) {
+      _cachedTime = TimeParser.Parse(timestamp);
+      _cachedNick = timestamp;
+      if (_nicks.Contains(_cachedNick)) {
+        throw new Exception("Nicks/timestamps must be unique. If you want messages with the same timestamp, zero pad them.");
+      }
+      _nicks.Add(_cachedNick);
+      return this;
+    }
+
+    public IReadOnlyList<IReceived<IUser, ITransmittable>> Build() =>
+      _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList();
+    #endregion
+
+    public void VerifyTargeted(IEnumerable<IUser> expectedTargets) {
+      var sortedExpected = expectedTargets.Select(x => x.Nick).OrderBy(u => u).ToList();
+      var sortedActual = _ActualTargeted.OrderBy(u => u).ToList();
+      if (!sortedExpected.SequenceEqual(sortedActual)) {
+        Console.WriteLine("Expected targets:" + string.Join(", ", sortedExpected));
+        Console.WriteLine("Actual targets:" + string.Join(", ", sortedActual));
+        throw new Exception("Expected targets are not equal to actual targets.");
+      }
+    }
+
   }
 }

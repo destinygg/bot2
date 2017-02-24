@@ -63,8 +63,14 @@
     <Compile Include="ContextBuilder.cs" />
     <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ContextBuilderTests.cs" />
+    <Compile Include="TimeParser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Tests\Bot.Database.Tests.csproj">
+      <Project>{B0CD878A-DABB-46D7-BDFB-6356DF0CA3DF}</Project>
+      <Name>Bot.Database.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
       <Project>{1B710B73-3FF1-4944-909B-538927C0041B}</Project>
       <Name>Bot.Logic</Name>
