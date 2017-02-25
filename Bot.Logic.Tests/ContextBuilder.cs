@@ -6,14 +6,16 @@ using Bot.Models.Received;
 
 namespace Bot.Logic.Tests {
 
-  public interface IContextInserter {
-    IContextTimeSetter ModMessage(string message);
-    IContextTimeSetter ModMessage(); // interfaces with optional parameters can be inconsistently implemented
-    IContextTimeSetter TargetedMessage(string message);
-    IContextTimeSetter TargetedMessage();
-    IContextTimeSetter PublicMessage(string message);
-    IContextTimeSetter PublicMessage();
+  public interface ITransmissionBuilder<out T> {
+    T ModMessage(string message);
+    T ModMessage(); // interfaces with optional parameters can be inconsistently implemented
+    T TargetedMessage(string message);
+    T TargetedMessage();
+    T PublicMessage(string message);
+    T PublicMessage();
   }
+
+  public interface IContextInserter : ITransmissionBuilder<IContextTimeSetter> { }
 
   public interface IContextTimeSetter {
     IContextInserter InsertAt(string timestamp);
