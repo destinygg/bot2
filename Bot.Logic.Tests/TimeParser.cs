@@ -20,7 +20,7 @@ namespace Bot.Logic.Tests {
 
     private static DateTime? _TryParseExact(string timestamp, string format) {
       DateTime outTime;
-      return DateTime.TryParseExact(timestamp, format, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out outTime)
+      return DateTime.TryParseExact(timestamp, format, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.NoCurrentDateDefault, out outTime)
         ? (DateTime?) outTime
         : null;
     }
