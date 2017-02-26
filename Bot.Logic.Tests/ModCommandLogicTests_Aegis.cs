@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using Bot.Logic.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using SimpleInjector;
 
 namespace Bot.Logic.Tests {
   [TestClass]
@@ -13,22 +15,24 @@ namespace Bot.Logic.Tests {
     private ModCommandLogic _GetLogic(DateTime time) {
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(time);
-      return ModCommandLogic(timeService);
+      return _GetLogic(timeService);
     }
 
     private ModCommandLogic _GetLogic(string time) {
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(TimeParser.Parse(time));
-      return ModCommandLogic(timeService);
+      return _GetLogic(timeService);
     }
 
-    private ModCommandLogic ModCommandLogic(ITimeService timeService) {
-      ILogger logger = null;
-      var regex = new ModCommandRegex();
-      var parser = new ModCommandParser(regex, logger);
-      var factory = new ReceivedFactory(timeService, parser, regex, logger);
-      var nukeLogic = new NukeLogic(regex, factory);
-      return new ModCommandLogic(logger, nukeLogic);
+    private ModCommandLogic _GetLogic(ITimeService timeService) {
+      var container = new Container();
+      container.RegisterSingleton(timeService);
+      container.RegisterSingleton(Substitute.For<ILogger>());
+      container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
+      container.RegisterSingleton<IModCommandParser, ModCommandParser>();
+      container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
+      container.RegisterSingleton<INukeLogic, NukeLogic>();
+      return container.GetInstance<ModCommandLogic>();
     }
 
     [TestMethod]

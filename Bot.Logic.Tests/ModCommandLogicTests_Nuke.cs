@@ -6,30 +6,33 @@ using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using SimpleInjector;
 
 namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Nuke {
-    private IReceivedFactory _factory;
-    private ModCommandLogic _GetLogic(DateTime time) {
+
+    private Container _GetContainer(DateTime time) {
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(time);
-      return ModCommandLogic(timeService);
+      return _GetContainer(timeService);
     }
 
-    private ModCommandLogic _GetLogic(string time) {
+    private Container _GetContainer(string time) {
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(TimeParser.Parse(time));
-      return ModCommandLogic(timeService);
+      return _GetContainer(timeService);
     }
 
-    private ModCommandLogic ModCommandLogic(ITimeService timeService) {
-      ILogger logger = null;
-      var regex = new ModCommandRegex();
-      var parser = new ModCommandParser(regex, logger);
-      _factory = new ReceivedFactory(timeService, parser, regex, logger);
-      var nukeLogic = new NukeLogic(regex, _factory);
-      return new ModCommandLogic(logger, nukeLogic);
+    private Container _GetContainer(ITimeService timeService) {
+      var container = new Container();
+      container.RegisterSingleton(timeService);
+      container.RegisterSingleton(Substitute.For<ILogger>());
+      container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
+      container.RegisterSingleton<IModCommandParser, ModCommandParser>();
+      container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
+      container.RegisterSingleton<INukeLogic, NukeLogic>();
+      return container;
     }
 
     [TestMethod]
@@ -42,9 +45,11 @@ namespace Bot.Logic.Tests {
         .TargetedMessage("message")
         .TargetedMessage("message the quick brown fox jumped over the lazy dog")
         .PublicMessage("Innocent as well").Build();
-      var logic = _GetLogic(contextBuilder.NextTimestamp);
+      var container = _GetContainer(contextBuilder.NextTimestamp);
+      var logic = container.GetInstance<ModCommandLogic>();
+      var factory = container.GetInstance<IReceivedFactory>();
 
-      var nuke = logic.Nuke(context, _factory.ParsedNuke("!nuke10m message"));
+      var nuke = logic.Nuke(context, factory.ParsedNuke("!nuke10m message"));
 
       var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target);
       contextBuilder.VerifyTargeted(nukedUsers);
@@ -57,9 +62,11 @@ namespace Bot.Logic.Tests {
         .InsertAt("0:59:59.9999999").PublicMessage("message") //Out of nuke range
         .InsertAt("1:00:00.0000000").TargetedMessage("message").Build();//Inside nuke range
       var time = " 1:05:00.0000000";
-      var logic = _GetLogic(time);
+      var container = _GetContainer(time);
+      var logic = container.GetInstance<ModCommandLogic>();
+      var factory = container.GetInstance<IReceivedFactory>();
 
-      var nuke = logic.Nuke(context, _factory.ParsedNuke("!nuke10m message"));
+      var nuke = logic.Nuke(context, factory.ParsedNuke("!nuke10m message"));
 
       var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target);
       contextBuilder.VerifyTargeted(nukedUsers);
