@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Bot.Models;
 using Bot.Models.Sendable;
-using Bot.Pipeline.Interfaces;
-using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,10 +9,21 @@ using Moq;
 namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Aegis {
-    private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
-      ILogger logger = null;
+
+    private ModCommandLogic _GetLogic(DateTime time) {
       var timeServiceMock = new Mock<ITimeService>();
-      timeServiceMock.Setup(ts => ts.UtcNow).Returns(contextBuilder.GetTimestampOfZerothReceived);
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(time);
+      return ModCommandLogic(timeServiceMock);
+    }
+
+    private ModCommandLogic _GetLogic(string time) {
+      var timeServiceMock = new Mock<ITimeService>();
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(TimeParser.Parse(time));
+      return ModCommandLogic(timeServiceMock);
+    }
+
+    private ModCommandLogic ModCommandLogic(Mock<ITimeService> timeServiceMock) {
+      ILogger logger = null;
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
@@ -26,56 +34,44 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void SimpleAegis() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
         .PublicMessage("derp")
         .TargetedMessage("MESSAGE")
         .TargetedMessage("message")
         .TargetedMessage("message the quick brown fox jumped over the lazy dog")
         .PublicMessage("Innocent as well")
-        .ModMessage("!nuke MESSage")
-        .GetContext;
+        .ModMessage("!nuke MESSage").Build();
+      var logic = _GetLogic(contextBuilder.NextTimestamp);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var aegis = logic.Aegis(context);
 
-      //Assert
-      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target);
+      contextBuilder.VerifyTargeted(aegisedUsers);
     }
 
     [TestMethod]
     public void OutOfRangeAegis() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
-      var nukeTime = TimeSpan.FromMinutes(10);
-      var outOfAegisRange = nukeTime - Settings.NukeBlastRadius - TimeSpan.FromTicks(1);
-      var insideAegisRange = nukeTime - Settings.NukeBlastRadius;
-
       var context = contextBuilder
-        .PublicMessage("message", outOfAegisRange) //Out of aegis range
-        .TargetedMessage("message", insideAegisRange)
-        .ModMessage("!nuke MESSage", nukeTime)
-        .GetContext;
+        .InsertAt("0:59:59.9999999").PublicMessage("message")
+        .InsertAt("1:00           ").TargetedMessage("message")
+        .InsertAt("1:05           ").ModMessage("!nuke MESSage").Build();
+      var time = " 1:05";
+      var logic = _GetLogic(time);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var aegis = logic.Aegis(context);
 
-      //Assert
-      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target);
+      contextBuilder.VerifyTargeted(aegisedUsers);
     }
 
     [TestMethod]
     public void DoubleNukeAegis() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
         .PublicMessage("innocent")
         .TargetedMessage("xyz")
         .TargetedMessage("abc")
@@ -84,85 +80,68 @@ namespace Bot.Logic.Tests {
         .ModMessage("!nuke abc")
         .PublicMessage("derp")
         .TargetedMessage("xyz")
-        .TargetedMessage("abc")
-        .GetContext;
+        .TargetedMessage("abc").Build();
+      var logic = _GetLogic(contextBuilder.NextTimestamp);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var aegis = logic.Aegis(context);
 
-      //Assert
-      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target);
+      contextBuilder.VerifyTargeted(aegisedUsers);
     }
 
     [TestMethod]
     public void RegexNukeAegisExtremeRange() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .PublicMessage("abc", TimeSpan.FromTicks(-1))
-        .PublicMessage("abc", TimeSpan.Zero)
-        .ModMessage("!nukeregex30m abc", Settings.NukeBlastRadius)
-        .TargetedMessage("abc", Settings.NukeBlastRadius.Multiply(2))
-        .SetTimestampOfZerothReceived(Settings.NukeBlastRadius.Multiply(2) + TimeSpan.FromMinutes(30))
-        .GetContext;
+        .InsertAt("0:59:59.9999999").PublicMessage("abc")
+        .InsertAt("1:00           ").PublicMessage("abc")
+        .InsertAt("1:05           ").ModMessage("!nukeregex30m abc")
+        .InsertAt("1:10           ").TargetedMessage("abc").Build();
+      var time = " 1:40";
+      var logic = _GetLogic(time);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var aegis = logic.Aegis(context);
 
-      //Assert
-      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target); //oftykpe punishment?
+      contextBuilder.VerifyTargeted(aegisedUsers);
     }
 
     [TestMethod]
     public void RegexNukeAegisOutOfRange() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .PublicMessage("abc", TimeSpan.FromTicks(-1))
-        .PublicMessage("abc", TimeSpan.Zero)
-        .ModMessage("!nukeregex30m abc", Settings.NukeBlastRadius)
-        .PublicMessage("abc", Settings.NukeBlastRadius.Multiply(2))
-        .SetTimestampOfZerothReceived(Settings.NukeBlastRadius.Multiply(2) + TimeSpan.FromMinutes(30) + TimeSpan.FromTicks(1))
-        .GetContext;
+        .InsertAt("0:59:59.9999999").PublicMessage("abc")
+        .InsertAt("1:00           ").PublicMessage("abc")
+        .InsertAt("1:05           ").ModMessage("!nukeregex30m abc")
+        .InsertAt("1:10           ").PublicMessage("abc").Build();
+      var time = " 1:40:00.0000001";
+      var logic = _GetLogic(time);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var aegis = logic.Aegis(context);
 
-      //Assert
-      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target); //oftykpe punishment?
+      contextBuilder.VerifyTargeted(aegisedUsers);
     }
 
     [TestMethod]
     public void DoubleNukeRegexNukeAegis() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
         .PublicMessage("innocent")
         .TargetedMessage("xyz")
         .TargetedMessage("abc")
         .PublicMessage("herp")
         .ModMessage("!nuke xyz")
         .ModMessage("!nukeregex abc")
-        .PublicMessage("derp")
-        .GetContext;
+        .PublicMessage("derp").Build();
+      var time = contextBuilder.NextTimestamp;
+      var logic = _GetLogic(time);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var aegis = logic.Aegis(context);
 
-      //Assert
-      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(aegisedUsers));
+      var aegisedUsers = aegis.OfType<SendablePardon>().Select(umb => umb.Target); //oftykpe punishment?
+      contextBuilder.VerifyTargeted(aegisedUsers);
     }
 
   }

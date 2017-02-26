@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Bot.Logic.Interfaces;
-using Bot.Models;
 using Bot.Models.Sendable;
-using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,10 +11,20 @@ namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Nuke {
     private IReceivedFactory _factory;
-    private ModCommandLogic _GetLogic(ContextBuilder contextBuilder) {
-      ILogger logger = null;
+    private ModCommandLogic _GetLogic(DateTime time) {
       var timeServiceMock = new Mock<ITimeService>();
-      timeServiceMock.Setup(ts => ts.UtcNow).Returns(contextBuilder.GetTimestampOfZerothReceived);
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(time);
+      return ModCommandLogic(timeServiceMock);
+    }
+
+    private ModCommandLogic _GetLogic(string time) {
+      var timeServiceMock = new Mock<ITimeService>();
+      timeServiceMock.Setup(ts => ts.UtcNow).Returns(TimeParser.Parse(time));
+      return ModCommandLogic(timeServiceMock);
+    }
+
+    private ModCommandLogic ModCommandLogic(Mock<ITimeService> timeServiceMock) {
+      ILogger logger = null;
       var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
@@ -27,46 +35,35 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void SimpleNuke() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
         .PublicMessage("derp")
         .TargetedMessage("MESSAGE")
         .TargetedMessage("message")
         .TargetedMessage("message the quick brown fox jumped over the lazy dog")
-        .PublicMessage("Innocent as well")
-        .GetContext;
+        .PublicMessage("Innocent as well").Build();
+      var logic = _GetLogic(contextBuilder.NextTimestamp);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var nuke = logic.Nuke(context, _factory.ParsedNuke("!nuke10m message"));
 
-      //Assert
-      var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(nukedUsers));
+      var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target);
+      contextBuilder.VerifyTargeted(nukedUsers);
     }
 
     [TestMethod]
     public void OutOfRangeNuke() {
-      //Arrange
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .PublicMessage("message", TimeSpan.Zero - TimeSpan.FromTicks(1)) //Out of nuke range
-        .TargetedMessage("message", TimeSpan.Zero) //Inside nuke range
-        .TargetedMessage("message", Settings.NukeBlastRadius)
-        .PublicMessage("innocent", Settings.NukeBlastRadius + TimeSpan.FromMinutes(1))
-        .SetTimestampOfZerothReceived(Settings.NukeBlastRadius)
-        .GetContext;
+        .InsertAt("0:59:59.9999999").PublicMessage("message") //Out of nuke range
+        .InsertAt("1:00:00.0000000").TargetedMessage("message").Build();//Inside nuke range
+      var time = " 1:05:00.0000000";
+      var logic = _GetLogic(time);
 
-      var logic = _GetLogic(contextBuilder);
-
-      //Act
       var nuke = logic.Nuke(context, _factory.ParsedNuke("!nuke10m message"));
 
-      //Assert
-      var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target).ToList();
-      Assert.IsTrue(contextBuilder.IsValid(nukedUsers));
+      var nukedUsers = nuke.OfType<SendableMute>().Select(umb => umb.Target);
+      contextBuilder.VerifyTargeted(nukedUsers);
     }
 
   }
