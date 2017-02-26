@@ -14,7 +14,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("0.0000001").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromTicks(1));
+      Assert.AreEqual(timestamp, DateTimeZero.AddTicks(1));
     }
 
     [TestMethod]
@@ -22,7 +22,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("00.0000001").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromTicks(1));
+      Assert.AreEqual(timestamp, DateTimeZero.AddTicks(1));
     }
 
     [TestMethod]
@@ -30,7 +30,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("01.0000001").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromSeconds(1) + TimeSpan.FromTicks(1));
+      Assert.AreEqual(timestamp, DateTimeZero.AddSeconds(1).AddTicks(1));
     }
 
     [TestMethod]
@@ -38,7 +38,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("00:00:01").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromSeconds(1));
+      Assert.AreEqual(timestamp, DateTimeZero.AddSeconds(1));
     }
 
     [TestMethod]
@@ -46,7 +46,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("4").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromMinutes(4));
+      Assert.AreEqual(timestamp, DateTimeZero.AddMinutes(4));
     }
 
     [TestMethod]
@@ -54,7 +54,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("34").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromMinutes(34));
+      Assert.AreEqual(timestamp, DateTimeZero.AddMinutes(34));
     }
 
     [TestMethod]
@@ -62,7 +62,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("2:34").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(34));
+      Assert.AreEqual(timestamp, DateTimeZero.AddHours(2).AddMinutes(34));
     }
 
     [TestMethod]
@@ -70,7 +70,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt(" 2:34").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(34));
+      Assert.AreEqual(timestamp, DateTimeZero.AddHours(2).AddMinutes(34));
     }
 
     [TestMethod]
@@ -78,7 +78,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("12:34").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromHours(12) + TimeSpan.FromMinutes(34));
+      Assert.AreEqual(timestamp, DateTimeZero.AddHours(12).AddMinutes(34));
     }
 
     [TestMethod]
@@ -86,7 +86,7 @@ namespace Bot.Logic.Tests {
       var context = new ContextBuilder().InsertAt("00:00:00.0000001").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
-      Assert.AreEqual(timestamp, DateTime.MinValue + TimeSpan.FromTicks(1));
+      Assert.AreEqual(timestamp, DateTimeZero.AddTicks(1));
     }
 
     [TestMethod]
@@ -168,9 +168,9 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromTicks(1), context[0].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromTicks(2), context[1].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromTicks(3), context[2].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddTicks(1), context[0].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddTicks(2), context[1].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddTicks(3), context[2].Timestamp);
     }
 
     [TestMethod]
@@ -183,9 +183,9 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(1) + TimeSpan.FromMinutes(1), context[1].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(1), context[2].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(1), context[3].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(1).AddMinutes(1), context[1].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(2).AddMinutes(1), context[2].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(3).AddMinutes(1), context[3].Timestamp);
     }
 
     [TestMethod]
@@ -199,9 +199,9 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), context[2].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(30), context[3].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(30), context[4].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(1).AddMinutes(30), context[2].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(2).AddMinutes(30), context[3].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(3).AddMinutes(30), context[4].Timestamp);
     }
 
     [TestMethod]
@@ -215,9 +215,9 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), context[2].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(30), context[3].Timestamp);
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(30), context[4].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(1).AddMinutes(30), context[2].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(2).AddMinutes(30), context[3].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(3).AddMinutes(30), context[4].Timestamp);
     }
 
     [TestMethod]
@@ -231,7 +231,7 @@ namespace Bot.Logic.Tests {
 
       var nextTimestamp = contextBuilder.NextTimestamp;
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4), nextTimestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(4), nextTimestamp);
     }
 
     [TestMethod]
@@ -246,7 +246,7 @@ namespace Bot.Logic.Tests {
 
       var nextTimestamp = contextBuilder.NextTimestamp;
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4) + TimeSpan.FromMinutes(1), nextTimestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(4).AddMinutes(1), nextTimestamp);
     }
 
     [TestMethod]
@@ -262,7 +262,7 @@ namespace Bot.Logic.Tests {
 
       var nextTimestamp = contextBuilder.NextTimestamp;
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4) + TimeSpan.FromMinutes(30), nextTimestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(4).AddMinutes(30), nextTimestamp);
     }
 
     [TestMethod]
@@ -278,7 +278,7 @@ namespace Bot.Logic.Tests {
 
       var nextTimestamp = contextBuilder.NextTimestamp;
 
-      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4) + TimeSpan.FromMinutes(30), nextTimestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(4).AddMinutes(30), nextTimestamp);
     }
 
   }
