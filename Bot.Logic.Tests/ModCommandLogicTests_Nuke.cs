@@ -5,27 +5,26 @@ using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
 
 namespace Bot.Logic.Tests {
   [TestClass]
   public class ModCommandLogicTests_Nuke {
     private IReceivedFactory _factory;
     private ModCommandLogic _GetLogic(DateTime time) {
-      var timeServiceMock = new Mock<ITimeService>();
-      timeServiceMock.Setup(ts => ts.UtcNow).Returns(time);
-      return ModCommandLogic(timeServiceMock);
+      var timeService = Substitute.For<ITimeService>();
+      timeService.UtcNow.Returns(time);
+      return ModCommandLogic(timeService);
     }
 
     private ModCommandLogic _GetLogic(string time) {
-      var timeServiceMock = new Mock<ITimeService>();
-      timeServiceMock.Setup(ts => ts.UtcNow).Returns(TimeParser.Parse(time));
-      return ModCommandLogic(timeServiceMock);
+      var timeService = Substitute.For<ITimeService>();
+      timeService.UtcNow.Returns(TimeParser.Parse(time));
+      return ModCommandLogic(timeService);
     }
 
-    private ModCommandLogic ModCommandLogic(Mock<ITimeService> timeServiceMock) {
+    private ModCommandLogic ModCommandLogic(ITimeService timeService) {
       ILogger logger = null;
-      var timeService = timeServiceMock.Object;
       var regex = new ModCommandRegex();
       var parser = new ModCommandParser(regex, logger);
       _factory = new ReceivedFactory(timeService, parser, regex, logger);
