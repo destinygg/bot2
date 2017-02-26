@@ -20,6 +20,7 @@ namespace Bot.Logic.Tests {
 
   public interface IContextAppender : ITransmissionBuilder<IContextAppender> {
     IReadOnlyList<IReceived<IUser, ITransmittable>> Build();
+    DateTime NextTimestamp { get; }
   }
 
   public interface IContextTimeSetter {
@@ -78,33 +79,33 @@ namespace Bot.Logic.Tests {
     #endregion
 
     #region IContextAppender
-    private IReceived<IUser, ITransmittable> _ReceivedFactory(Func<string, DateTime, IReceived<IUser, ITransmittable>> factory) {
-      _appendedCount++;
-      var timestamp = _cachedTime + _cachedInterval.Multiply(_appendedCount);
-      return factory($"Appended #{_appendedCount}", timestamp);
-    }
+    private IReceived<IUser, ITransmittable> _ReceivedFactory(Func<string, IReceived<IUser, ITransmittable>> factory) => factory($"Appended #{_appendedCount}");
 
     IContextAppender ITransmissionBuilder<IContextAppender>.ModMessage(string message) {
-      var received = _ReceivedFactory((nick, timestamp) => new PublicMessageFromMod(nick, message, timestamp));
+      var received = _ReceivedFactory(nick => new PublicMessageFromMod(nick, message, NextTimestamp));
       _nontargets.Add(received);
+      _appendedCount++;
       return this;
     }
 
     IContextAppender ITransmissionBuilder<IContextAppender>.TargetedMessage(string message) {
-      var received = _ReceivedFactory((nick, timestamp) => new PublicMessageFromCivilian(nick, message, timestamp));
+      var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp));
       _nontargets.Add(received);
+      _appendedCount++;
       return this;
     }
 
     IContextAppender ITransmissionBuilder<IContextAppender>.PublicMessage(string message) {
-      var received = _ReceivedFactory((nick, timestamp) => new PublicMessageFromCivilian(nick, message, timestamp));
+      var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp));
       _nontargets.Add(received);
+      _appendedCount++;
       return this;
     }
 
     IContextAppender ITransmissionBuilder<IContextAppender>.TargetedMessage() => (this as ITransmissionBuilder<IContextAppender>).TargetedMessage("");
     IContextAppender ITransmissionBuilder<IContextAppender>.ModMessage() => (this as ITransmissionBuilder<IContextAppender>).ModMessage("");
     IContextAppender ITransmissionBuilder<IContextAppender>.PublicMessage() => (this as ITransmissionBuilder<IContextAppender>).PublicMessage("");
+    public DateTime NextTimestamp => _cachedTime + _cachedInterval.Multiply(_appendedCount + 1);
     #endregion
 
     public IReadOnlyList<IReceived<IUser, ITransmittable>> Build() => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList();

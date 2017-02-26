@@ -220,5 +220,66 @@ namespace Bot.Logic.Tests {
       Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(30), context[4].Timestamp);
     }
 
+    [TestMethod]
+    public void NextTimestamp_With3MessagesSpacedBy1Hour_Yields4Hours() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      var nextTimestamp = contextBuilder.NextTimestamp;
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4), nextTimestamp);
+    }
+
+    [TestMethod]
+    public void NextTimestamp_With3MessagesSpacedBy1HourButInsertAt1Minute_Yields4Hours1Minute() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .InsertAt("1").ModMessage()
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      var nextTimestamp = contextBuilder.NextTimestamp;
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4) + TimeSpan.FromMinutes(1), nextTimestamp);
+    }
+
+    [TestMethod]
+    public void NextTimestamp_With3MessagesSpacedBy1HourButInsertAt30MinutesAnd1Minute_Yields4Hours30Minutes() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .InsertAt("30").ModMessage()
+        .InsertAt(" 1").ModMessage()
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      var nextTimestamp = contextBuilder.NextTimestamp;
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4) + TimeSpan.FromMinutes(30), nextTimestamp);
+    }
+
+    [TestMethod]
+    public void NextTimestamp_With3MessagesSpacedBy1HourButInsertAt1MinuteAnd30Minutes_Yields4Hours30Minutes() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .InsertAt(" 1").ModMessage()
+        .InsertAt("30").ModMessage()
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      var nextTimestamp = contextBuilder.NextTimestamp;
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(4) + TimeSpan.FromMinutes(30), nextTimestamp);
+    }
+
   }
 }
