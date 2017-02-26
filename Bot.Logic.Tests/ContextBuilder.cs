@@ -79,7 +79,7 @@ namespace Bot.Logic.Tests {
     #endregion
 
     #region IContextAppender
-    private IReceived<IUser, ITransmittable> _ReceivedFactory(Func<string, IReceived<IUser, ITransmittable>> factory) => factory($"Appended #{_appendedCount}");
+    private IReceived<IUser, ITransmittable> _ReceivedFactory(Func<string, IReceived<IUser, ITransmittable>> factory) => factory($"#{_appendedCount + 1}");
 
     IContextAppender ITransmissionBuilder<IContextAppender>.ModMessage(string message) {
       var received = _ReceivedFactory(nick => new PublicMessageFromMod(nick, message, NextTimestamp));
@@ -90,7 +90,7 @@ namespace Bot.Logic.Tests {
 
     IContextAppender ITransmissionBuilder<IContextAppender>.TargetedMessage(string message) {
       var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp));
-      _nontargets.Add(received);
+      _targets.Add(received);
       _appendedCount++;
       return this;
     }

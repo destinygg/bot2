@@ -160,17 +160,80 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void SubsequentlySpacedBy_1TickWith3Messages_AreAt123Ticks() {
+    public void VerifyTargetedViaAppender_WithOneTarget_DoesNotThrowException() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage().Build();
+
+      contextBuilder.VerifyTargeted(new List<string> { "#2" }.Select(i => new Civilian(i)));
+    }
+
+    [TestMethod]
+    public void VerifyTargetedViaAppender_WithTwoTargets_DoesNotThrowException() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .TargetedMessage().Build();
+
+      contextBuilder.VerifyTargeted(new List<string> { "#2", "#3" }.Select(i => new Civilian(i)));
+    }
+
+    [TestMethod]
+    public void VerifyTargetedViaAppender_WithTwoTargetsSwapped_DoesNotThrowException() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .TargetedMessage().Build();
+
+      contextBuilder.VerifyTargeted(new List<string> { "#3", "#2" }.Select(i => new Civilian(i)));
+    }
+
+    [TestMethod]
+    public void VerifyTargetedViaAppender_WithTwoTargetsButOneMissing_ThrowsException() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .TargetedMessage().Build();
+
+      var exception = TestHelper.AssertCatch<Exception>(
+        () => contextBuilder.VerifyTargeted(new List<string> { "#2" }.Select(i => new Civilian(i))));
+      Assert.AreEqual("Expected targets are not equal to actual targets.", exception.Message);
+    }
+
+    [TestMethod]
+    public void VerifyTargetedViaAppender_WithTwoTargetsButOneTooMany_ThrowsException() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .TargetedMessage().Build();
+
+      var exception = TestHelper.AssertCatch<Exception>(
+        () => contextBuilder.VerifyTargeted(new List<string> { "#1", "#2", "#3" }.Select(i => new Civilian(i))));
+      Assert.AreEqual("Expected targets are not equal to actual targets.", exception.Message);
+    }
+
+    [TestMethod]
+    public void SubsequentlySpacedBy_1HourWith3Messages_AreAt123Hours() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()
         .ModMessage().Build();
 
-      Assert.AreEqual(DateTimeZero.AddTicks(1), context[0].Timestamp);
-      Assert.AreEqual(DateTimeZero.AddTicks(2), context[1].Timestamp);
-      Assert.AreEqual(DateTimeZero.AddTicks(3), context[2].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(1), context[0].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(2), context[1].Timestamp);
+      Assert.AreEqual(DateTimeZero.AddHours(3), context[2].Timestamp);
     }
 
     [TestMethod]
