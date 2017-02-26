@@ -45,7 +45,7 @@ namespace Bot.Logic.Tests {
         .TargetedMessage("message")
         .TargetedMessage("message the quick brown fox jumped over the lazy dog")
         .PublicMessage("Innocent as well").Build();
-      var container = _GetContainer(contextBuilder.NextTimestamp);
+      var container = _GetContainer(contextBuilder.NextTimestamp());
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
 

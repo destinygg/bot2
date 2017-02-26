@@ -46,7 +46,7 @@ namespace Bot.Logic.Tests {
         .TargetedMessage("message the quick brown fox jumped over the lazy dog")
         .PublicMessage("Innocent as well")
         .ModMessage("!nuke MESSage").Build();
-      var logic = _GetLogic(contextBuilder.NextTimestamp);
+      var logic = _GetLogic(contextBuilder.NextTimestamp());
 
       var aegis = logic.Aegis(context);
 
@@ -84,7 +84,7 @@ namespace Bot.Logic.Tests {
         .PublicMessage("derp")
         .TargetedMessage("xyz")
         .TargetedMessage("abc").Build();
-      var logic = _GetLogic(contextBuilder.NextTimestamp);
+      var logic = _GetLogic(contextBuilder.NextTimestamp());
 
       var aegis = logic.Aegis(context);
 
@@ -138,7 +138,7 @@ namespace Bot.Logic.Tests {
         .ModMessage("!nuke xyz")
         .ModMessage("!nukeregex abc")
         .PublicMessage("derp").Build();
-      var time = contextBuilder.NextTimestamp;
+      var time = contextBuilder.NextTimestamp();
       var logic = _GetLogic(time);
 
       var aegis = logic.Aegis(context);

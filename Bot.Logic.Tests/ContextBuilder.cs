@@ -20,7 +20,7 @@ namespace Bot.Logic.Tests {
 
   public interface IContextAppender : ITransmissionBuilder<IContextAppender> {
     IReadOnlyList<IReceived<IUser, ITransmittable>> Build();
-    DateTime NextTimestamp { get; }
+    DateTime NextTimestamp();
   }
 
   public interface IContextTimeSetter {
@@ -82,21 +82,21 @@ namespace Bot.Logic.Tests {
     private IReceived<IUser, ITransmittable> _ReceivedFactory(Func<string, IReceived<IUser, ITransmittable>> factory) => factory($"#{_appendedCount + 1}");
 
     IContextAppender ITransmissionBuilder<IContextAppender>.ModMessage(string message) {
-      var received = _ReceivedFactory(nick => new PublicMessageFromMod(nick, message, NextTimestamp));
+      var received = _ReceivedFactory(nick => new PublicMessageFromMod(nick, message, NextTimestamp()));
       _nontargets.Add(received);
       _appendedCount++;
       return this;
     }
 
     IContextAppender ITransmissionBuilder<IContextAppender>.TargetedMessage(string message) {
-      var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp));
+      var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp()));
       _targets.Add(received);
       _appendedCount++;
       return this;
     }
 
     IContextAppender ITransmissionBuilder<IContextAppender>.PublicMessage(string message) {
-      var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp));
+      var received = _ReceivedFactory(nick => new PublicMessageFromCivilian(nick, message, NextTimestamp()));
       _nontargets.Add(received);
       _appendedCount++;
       return this;
@@ -105,7 +105,12 @@ namespace Bot.Logic.Tests {
     IContextAppender ITransmissionBuilder<IContextAppender>.TargetedMessage() => (this as ITransmissionBuilder<IContextAppender>).TargetedMessage("");
     IContextAppender ITransmissionBuilder<IContextAppender>.ModMessage() => (this as ITransmissionBuilder<IContextAppender>).ModMessage("");
     IContextAppender ITransmissionBuilder<IContextAppender>.PublicMessage() => (this as ITransmissionBuilder<IContextAppender>).PublicMessage("");
-    public DateTime NextTimestamp => _cachedTime + _cachedInterval.Multiply(_appendedCount + 1);
+    public DateTime NextTimestamp() {
+      if (_cachedInterval <= TimeSpan.Zero)
+        throw new ArgumentOutOfRangeException("_cachedInterval", "Interval is less than or equal to zero.");
+      return _cachedTime + _cachedInterval.Multiply(_appendedCount + 1);
+    }
+
     #endregion
 
     public IReadOnlyList<IReceived<IUser, ITransmittable>> Build() => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList();

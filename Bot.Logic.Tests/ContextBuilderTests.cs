@@ -292,7 +292,7 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      var nextTimestamp = contextBuilder.NextTimestamp;
+      var nextTimestamp = contextBuilder.NextTimestamp();
 
       Assert.AreEqual(DateTimeZero.AddHours(4), nextTimestamp);
     }
@@ -307,7 +307,7 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      var nextTimestamp = contextBuilder.NextTimestamp;
+      var nextTimestamp = contextBuilder.NextTimestamp();
 
       Assert.AreEqual(DateTimeZero.AddHours(4).AddMinutes(1), nextTimestamp);
     }
@@ -323,7 +323,7 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      var nextTimestamp = contextBuilder.NextTimestamp;
+      var nextTimestamp = contextBuilder.NextTimestamp();
 
       Assert.AreEqual(DateTimeZero.AddHours(4).AddMinutes(30), nextTimestamp);
     }
@@ -339,9 +339,18 @@ namespace Bot.Logic.Tests {
         .TargetedMessage()
         .ModMessage().Build();
 
-      var nextTimestamp = contextBuilder.NextTimestamp;
+      var nextTimestamp = contextBuilder.NextTimestamp();
 
       Assert.AreEqual(DateTimeZero.AddHours(4).AddMinutes(30), nextTimestamp);
+    }
+
+    [TestMethod]
+    public void NextTimestamp_With3MesesagesSpacedBy1HourButInsertAt1MinuteAnd30Minutes_Yields4Hours30Minutes() {
+      var contextBuilder = new ContextBuilder();
+
+      var exception = TestHelper.AssertCatch<ArgumentOutOfRangeException>(() => contextBuilder.NextTimestamp());
+
+      Assert.IsTrue(exception.Message.Contains("Interval is less than or equal to zero."));
     }
 
   }
