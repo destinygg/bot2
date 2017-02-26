@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bot.Database.Tests;
 using Bot.Models;
-using Bot.Models.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Logic.Tests {
@@ -158,6 +157,67 @@ namespace Bot.Logic.Tests {
       var exception = TestHelper.AssertCatch<Exception>(
         () => contextBuilder.VerifyTargeted(new List<string> { "1", "2", "3" }.Select(i => new Civilian(i))));
       Assert.AreEqual("Expected targets are not equal to actual targets.", exception.Message);
+    }
+
+    [TestMethod]
+    public void SubsequentlySpacedBy_1TickWith3Messages_AreAt123Ticks() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromTicks(1), context[0].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromTicks(2), context[1].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromTicks(3), context[2].Timestamp);
+    }
+
+    [TestMethod]
+    public void SubsequentlySpacedBy_1HourWith3MessagesButOffsetByInsertAt1Minute_AreAt123HoursPlus1Minute() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .InsertAt("1").ModMessage()
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(1) + TimeSpan.FromMinutes(1), context[1].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(1), context[2].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(1), context[3].Timestamp);
+    }
+
+    [TestMethod]
+    public void SubsequentlySpacedBy_1HourWith3MessagesButOffsetByInsertAt30MinutesAnd1Minute_AreAt123HoursPlus30Minutes() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .InsertAt("30").ModMessage()
+        .InsertAt(" 1").ModMessage()
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), context[2].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(30), context[3].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(30), context[4].Timestamp);
+    }
+
+    [TestMethod]
+    public void SubsequentlySpacedBy_1HourWith3MessagesButOffsetByInsertAt1MinuteAnd30Minutes_AreAt123HoursPlus30Minutes() {
+      var contextBuilder = new ContextBuilder();
+      var context = contextBuilder
+        .InsertAt(" 1").ModMessage()
+        .InsertAt("30").ModMessage()
+        .SubsequentlySpacedBy(TimeSpan.FromHours(1))
+        .PublicMessage()
+        .TargetedMessage()
+        .ModMessage().Build();
+
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(1) + TimeSpan.FromMinutes(30), context[2].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(2) + TimeSpan.FromMinutes(30), context[3].Timestamp);
+      Assert.AreEqual(DateTime.MinValue + TimeSpan.FromHours(3) + TimeSpan.FromMinutes(30), context[4].Timestamp);
     }
 
   }
