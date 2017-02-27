@@ -18,10 +18,12 @@ using SimpleInjector.Extensions.ExecutionContextScoping;
 
 namespace Bot.Tests {
   public class TestContainerManager {
-    public TestContainerManager() {
+    public TestContainerManager(Action<Container> additionalRegistrations = null) {
       Container = new Container();
 
       Container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+
+      additionalRegistrations?.Invoke(Container);
 
       Container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
       Container.RegisterSingleton<IDatabaseService<IBotDbContext>, DatabaseService<IBotDbContext>>();
@@ -45,7 +47,7 @@ namespace Bot.Tests {
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
 
-      Container.RegisterSingleton<ITimeService, TimeService>();
+      Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
       Container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
