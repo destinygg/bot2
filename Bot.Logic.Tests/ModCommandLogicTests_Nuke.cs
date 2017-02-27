@@ -2,6 +2,7 @@
 using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models.Sendable;
+using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,14 +26,12 @@ namespace Bot.Logic.Tests {
     }
 
     private Container _GetContainer(ITimeService timeService) {
-      var container = new Container();
-      container.RegisterSingleton(timeService);
-      container.RegisterSingleton(Substitute.For<ILogger>());
-      container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
-      container.RegisterSingleton<IModCommandParser, ModCommandParser>();
-      container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      container.RegisterSingleton<INukeLogic, NukeLogic>();
-      return container;
+      var containerManager = new TestContainerManager(
+        container => {
+          var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, container);
+          container.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
+        });
+      return containerManager.Container;
     }
 
     [TestMethod]

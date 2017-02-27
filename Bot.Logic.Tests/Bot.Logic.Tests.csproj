@@ -86,12 +86,17 @@
       <Project>{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}</Project>
       <Name>Bot.Pipeline</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Tests\Bot.Tests.csproj">
+      <Project>{29C9D95A-BA8D-4E5E-B88A-FC22C607A73F}</Project>
+      <Name>Bot.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
