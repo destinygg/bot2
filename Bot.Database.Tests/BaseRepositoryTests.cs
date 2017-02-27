@@ -6,7 +6,7 @@ namespace Bot.Database.Tests {
     private readonly DatabaseInitializer _databaseInitializer;
 
     protected BaseRepositoryTests() {
-      var containerManager = new ContainerManager();
+      var containerManager = new TestContainerManager();
       _databaseInitializer = containerManager.Container.GetInstance<DatabaseInitializer>();
     }
 

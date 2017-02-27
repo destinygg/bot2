@@ -7,7 +7,7 @@ namespace Bot.Database.Tests {
   public class DatabaseInitializerTest {
     [TestMethod]
     public void EnsureCreated_Always_CreatesFile() {
-      var cm = new ContainerManager();
+      var cm = new TestContainerManager();
       var databaseInitializer = cm.Container.GetInstance<DatabaseInitializer>();
       var path = "Bot.db";
       if (File.Exists(path))
@@ -21,7 +21,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void EnsureDeleted_Always_DeletesFile() {
-      var cm = new ContainerManager();
+      var cm = new TestContainerManager();
       var databaseInitializer = cm.Container.GetInstance<DatabaseInitializer>();
       var path = "Bot.db";
       if (!File.Exists(path))

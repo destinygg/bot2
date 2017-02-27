@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bot.Database;
 using Bot.Database.Interfaces;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Logic.ReceivedVisitor;
 using Bot.Logic.SendableVisitor;
-using Bot.Logic.SnapshotVisitor;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
@@ -17,8 +17,8 @@ using SimpleInjector;
 using SimpleInjector.Extensions.ExecutionContextScoping;
 
 namespace Bot.Tests {
-  public class ContainerManager {
-    public ContainerManager() {
+  public class TestContainerManager {
+    public TestContainerManager() {
       Container = new Container();
 
       Container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();

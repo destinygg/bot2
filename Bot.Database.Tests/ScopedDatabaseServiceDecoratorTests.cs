@@ -11,7 +11,7 @@ namespace Bot.Database.Tests {
 
     [TestInitialize]
     public void Initialize() {
-      var containerManager = new ContainerManager();
+      var containerManager = new TestContainerManager();
       var databaseInitializer = containerManager.Container.GetInstance<DatabaseInitializer>();
       databaseInitializer.RecreateWithMasterData();
       _container = containerManager.Container;
