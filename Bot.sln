@@ -14,9 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Pipeline", "Bot.Pipeline\Bot.Pipeline.csproj", "{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF0A94B1-3750-4AC8-A12A-395B1B4E4EB0}"
-	ProjectSection(SolutionItems) = preProject
-		sqlite.testsettings = sqlite.testsettings
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Tools.Tests", "Bot.Tools.Tests\Bot.Tools.Tests.csproj", "{8C557A39-AA92-439D-B8E9-387606E204B6}"
 EndProject
