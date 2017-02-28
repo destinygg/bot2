@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IErrorableFactory.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IVisitor.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="Interfaces\ITimeService.cs" />
