@@ -4,7 +4,6 @@ using Bot.Logic.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
-using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using SimpleInjector;

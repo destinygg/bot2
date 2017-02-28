@@ -10,9 +10,11 @@ using Bot.Tools.Logging;
 namespace Bot.Logic {
   public class ParsedNuke : IParsedNuke {
     private readonly ITimeService _timeService;
+    private readonly ISettings _settings;
 
-    public ParsedNuke(IReceived<Moderator, IMessage> message, ITimeService timeService, IModCommandRegex modCommandRegex, IModCommandParser parser, ILogger logger) {
+    public ParsedNuke(IReceived<Moderator, IMessage> message, ITimeService timeService, IModCommandRegex modCommandRegex, IModCommandParser parser, ILogger logger, ISettings settings) {
       _timeService = timeService;
+      _settings = settings;
       Timestamp = message.Timestamp;
       Sender = message.Sender;
 
@@ -35,7 +37,7 @@ namespace Bot.Logic {
     private Predicate<string> _StringNuke(string nukedString) => possibleVictimText =>
       possibleVictimText.IgnoreCaseContains(nukedString) ||
       possibleVictimText.RemoveWhitespace().IgnoreCaseContains(nukedString) ||
-      possibleVictimText.SimilarTo(nukedString) >= Settings.NukeMinimumStringSimilarity;
+      possibleVictimText.SimilarTo(nukedString) >= _settings.NukeMinimumStringSimilarity;
 
     public bool WillPunish(IReceived<Civilian, PublicMessage> message) =>
       _matchesNukedTerm(message.Transmission.Text) &&
@@ -45,7 +47,7 @@ namespace Bot.Logic {
     private readonly Predicate<string> _matchesNukedTerm;
 
     private bool _WithinRange(IReceived<Civilian, PublicMessage> message) =>
-      message.Timestamp.IsWithin(Timestamp, Settings.NukeBlastRadius);
+      message.Timestamp.IsWithin(Timestamp, _settings.NukeBlastRadius);
 
     private bool _IsExpired(IReceived<Civilian, PublicMessage> message) {
       var punishmentTimestamp = message.Timestamp <= Timestamp ? Timestamp : message.Timestamp;

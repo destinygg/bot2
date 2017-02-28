@@ -6,6 +6,7 @@ using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Logic.ReceivedVisitor;
 using Bot.Logic.SendableVisitor;
+using Bot.Logic.SnapshotVisitor;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
@@ -46,20 +47,18 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
-
+      Container.RegisterSingleton<ISettings, Settings>();
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
+
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
       Container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
-      Container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, Logic.ReceivedVisitor.ReceivedVisitor>();
-
-      Container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, Logic.SnapshotVisitor.SnapshotVisitor>();
-
+      Container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
+      Container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
       Container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
       Container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
-      //container.RegisterDecorator<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, CommandHandlerTryCatchDecorator<IEnumerable<ISendable<ITransmittable>>>>(Lifestyle.Singleton);
 
       Container.Verify();
     }
