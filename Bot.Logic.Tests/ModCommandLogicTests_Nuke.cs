@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Bot.Logic.Interfaces;
+using Bot.Logic.Tests.Helper;
 using Bot.Models.Sendable;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

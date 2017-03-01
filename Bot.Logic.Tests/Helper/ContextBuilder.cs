@@ -6,7 +6,7 @@ using Bot.Models.Received;
 using Bot.Tests;
 using Bot.Tools;
 
-namespace Bot.Logic.Tests {
+namespace Bot.Logic.Tests.Helper {
 
   public interface ITransmissionBuilder<out T> {
     T ModMessage(string message);

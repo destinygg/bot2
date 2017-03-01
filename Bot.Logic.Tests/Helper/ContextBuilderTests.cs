@@ -5,7 +5,7 @@ using Bot.Models;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Logic.Tests {
+namespace Bot.Logic.Tests.Helper {
   [TestClass]
   public class ContextBuilderTests {
 

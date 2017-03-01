@@ -5,7 +5,7 @@ using Bot.Tools.Interfaces;
 using NSubstitute;
 using SimpleInjector;
 
-namespace Bot.Logic.Tests {
+namespace Bot.Logic.Tests.Helper {
   public static class NukeHelper {
     private static ISettings BuildSettings(TimeSpan nukeBlastRadius) {
       var settings = Substitute.For<ISettings>();

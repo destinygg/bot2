@@ -1,6 +1,6 @@
 using System;
 
-namespace Bot.Logic.Tests {
+namespace Bot.Logic.Tests.Helper {
   public static class DateTimeZero {
     public static DateTime AddTicks(int ticks) => DateTime.MinValue + TimeSpan.FromTicks(ticks);
     public static DateTime AddSeconds(int seconds) => DateTime.MinValue + TimeSpan.FromSeconds(seconds);

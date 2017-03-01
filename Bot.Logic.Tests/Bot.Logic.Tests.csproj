@@ -60,14 +60,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ContextBuilder.cs" />
-    <Compile Include="DateTimeZero.cs" />
+    <Compile Include="Helper\ContextBuilder.cs" />
+    <Compile Include="Helper\DateTimeZero.cs" />
     <Compile Include="ModCommandLogicTests_Aegis.cs" />
     <Compile Include="ModCommandLogicTests_Nuke.cs" />
     <Compile Include="ModCommandRegexTest.cs" />
-    <Compile Include="NukeHelper.cs" />
+    <Compile Include="Helper\NukeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ContextBuilderTests.cs" />
+    <Compile Include="Helper\ContextBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
@@ -91,6 +91,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
