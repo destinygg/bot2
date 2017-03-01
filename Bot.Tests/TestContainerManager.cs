@@ -47,7 +47,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
-      Container.RegisterSingleton<ISettings, Settings>();
+      Container.RegisterConditional<ISettings, Settings>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
