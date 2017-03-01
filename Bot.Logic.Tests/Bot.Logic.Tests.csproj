@@ -67,7 +67,6 @@
     <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContextBuilderTests.cs" />
-    <Compile Include="TimeParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Tests\Bot.Database.Tests.csproj">

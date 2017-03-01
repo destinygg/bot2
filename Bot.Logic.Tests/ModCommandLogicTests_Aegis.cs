@@ -19,7 +19,7 @@ namespace Bot.Logic.Tests {
 
     private ModCommandLogic _GetLogic(string time) {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(TimeParser.Parse(time));
+      timeService.UtcNow.Returns(TestHelper.Parse(time));
       return _GetLogic(timeService);
     }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using Bot.Database.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Database.Tests {
+namespace Bot.Tests {
   public static class TestHelper {
 
     public static int RandomInt() => Random().Next();
@@ -35,5 +35,7 @@ namespace Bot.Database.Tests {
         return exception;
       }
     }
+
+    public static DateTime Parse(string timestamp) => DateTime.MinValue + TimeSpan.Parse(timestamp);
   }
 }

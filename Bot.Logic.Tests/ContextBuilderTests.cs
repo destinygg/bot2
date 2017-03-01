@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bot.Database.Tests;
 using Bot.Models;
+using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Logic.Tests {
@@ -10,16 +10,16 @@ namespace Bot.Logic.Tests {
   public class ContextBuilderTests {
 
     [TestMethod]
-    public void MessagesAt0_0000001_AreAlways_At1Tick() {
-      var context = new ContextBuilder().InsertAt("0.0000001").PublicMessage().Build();
+    public void MessagesAt0_00_00_0000001_AreAlways_At1Tick() {
+      var context = new ContextBuilder().InsertAt("0:00:00.0000001").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
       Assert.AreEqual(timestamp, DateTimeZero.AddTicks(1));
     }
 
     [TestMethod]
-    public void MessagesAt00_0000001_AreAlways_At1Tick() {
-      var context = new ContextBuilder().InsertAt("00.0000001").PublicMessage().Build();
+    public void MessagesAt_0_00_00_0000001__AreAlways_At1Tick() {
+      var context = new ContextBuilder().InsertAt(" 0:00:00.0000001 ").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
       Assert.AreEqual(timestamp, DateTimeZero.AddTicks(1));
@@ -27,7 +27,7 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void MessagesAt01_0000001_AreAlways_At1SecondAnd1Tick() {
-      var context = new ContextBuilder().InsertAt("01.0000001").PublicMessage().Build();
+      var context = new ContextBuilder().InsertAt("0:00:01.0000001").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
       Assert.AreEqual(timestamp, DateTimeZero.AddSeconds(1).AddTicks(1));
@@ -43,7 +43,7 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void MessagesAt4_AreAlways_At4Minutes() {
-      var context = new ContextBuilder().InsertAt("4").PublicMessage().Build();
+      var context = new ContextBuilder().InsertAt("0:04").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
       Assert.AreEqual(timestamp, DateTimeZero.AddMinutes(4));
@@ -51,7 +51,7 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void MessagesAt34_AreAlways_At00_34() {
-      var context = new ContextBuilder().InsertAt("34").PublicMessage().Build();
+      var context = new ContextBuilder().InsertAt("0:34").PublicMessage().Build();
 
       var timestamp = context.Single().Timestamp;
       Assert.AreEqual(timestamp, DateTimeZero.AddMinutes(34));
@@ -240,7 +240,7 @@ namespace Bot.Logic.Tests {
     public void SubsequentlySpacedBy_1HourWith3MessagesButOffsetByInsertAt1Minute_AreAt123HoursPlus1Minute() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .InsertAt("1").ModMessage()
+        .InsertAt("0:01").ModMessage()
         .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()
@@ -255,8 +255,8 @@ namespace Bot.Logic.Tests {
     public void SubsequentlySpacedBy_1HourWith3MessagesButOffsetByInsertAt30MinutesAnd1Minute_AreAt123HoursPlus30Minutes() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .InsertAt("30").ModMessage()
-        .InsertAt(" 1").ModMessage()
+        .InsertAt("0:30").ModMessage()
+        .InsertAt("0:01").ModMessage()
         .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()
@@ -271,8 +271,8 @@ namespace Bot.Logic.Tests {
     public void SubsequentlySpacedBy_1HourWith3MessagesButOffsetByInsertAt1MinuteAnd30Minutes_AreAt123HoursPlus30Minutes() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .InsertAt(" 1").ModMessage()
-        .InsertAt("30").ModMessage()
+        .InsertAt("0:01").ModMessage()
+        .InsertAt("0:30").ModMessage()
         .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()
@@ -301,7 +301,7 @@ namespace Bot.Logic.Tests {
     public void NextTimestamp_With3MessagesSpacedBy1HourButInsertAt1Minute_Yields4Hours1Minute() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .InsertAt("1").ModMessage()
+        .InsertAt("0:01").ModMessage()
         .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()
@@ -316,8 +316,8 @@ namespace Bot.Logic.Tests {
     public void NextTimestamp_With3MessagesSpacedBy1HourButInsertAt30MinutesAnd1Minute_Yields4Hours30Minutes() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .InsertAt("30").ModMessage()
-        .InsertAt(" 1").ModMessage()
+        .InsertAt("0:30").ModMessage()
+        .InsertAt("0:01").ModMessage()
         .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()
@@ -332,8 +332,8 @@ namespace Bot.Logic.Tests {
     public void NextTimestamp_With3MessagesSpacedBy1HourButInsertAt1MinuteAnd30Minutes_Yields4Hours30Minutes() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
-        .InsertAt(" 1").ModMessage()
-        .InsertAt("30").ModMessage()
+        .InsertAt("0:01").ModMessage()
+        .InsertAt("0:30").ModMessage()
         .SubsequentlySpacedBy(TimeSpan.FromHours(1))
         .PublicMessage()
         .TargetedMessage()

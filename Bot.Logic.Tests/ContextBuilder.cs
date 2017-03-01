@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
+using Bot.Tests;
 using Bot.Tools;
 
 namespace Bot.Logic.Tests {
@@ -41,7 +42,7 @@ namespace Bot.Logic.Tests {
 
     #region IContextTimeSetter
     public IContextInserter InsertAt(string timestamp) {
-      _cachedTime = TimeParser.Parse(timestamp);
+      _cachedTime = TestHelper.Parse(timestamp);
       _cachedNick = timestamp;
       if (_nicks.Contains(_cachedNick)) {
         throw new Exception("Nicks/timestamps must be unique. If you want messages with the same timestamp, zero pad them.");
