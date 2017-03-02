@@ -32,6 +32,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => Container.GetInstance<IBotDbContext>()));
       Container.RegisterDecorator(typeof(IDatabaseService<>), typeof(ScopedDatabaseServiceDecorator<>), Lifestyle.Singleton);
 
+      Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>>, AegisLogic>();
       Container.RegisterSingleton<INukeLogic, NukeLogic>();
       Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
       Container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();

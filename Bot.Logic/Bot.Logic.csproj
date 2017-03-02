@@ -35,6 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
+    <Compile Include="AegisLogic.cs" />
+    <Compile Include="NukeAegisBase.cs" />
     <Compile Include="SendableVisitor\ConsoleSendableVisitor.cs" />
     <Compile Include="Interfaces\IModCommandLogic.cs" />
     <Compile Include="Interfaces\IModCommandParser.cs" />

@@ -11,10 +11,15 @@ namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
     private readonly ILogger _logger;
     private readonly INukeLogic _nukeLogic;
+    private readonly IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> _aegisLogic;
 
-    public ModCommandLogic(ILogger logger, INukeLogic nukeLogic) {
+    public ModCommandLogic(
+      INukeLogic nukeLogic,
+      IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> aegisLogic,
+      ILogger logger) {
       _logger = logger;
       _nukeLogic = nukeLogic;
+      _aegisLogic = aegisLogic;
     }
 
     public ISendable<PublicMessage> Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
@@ -44,7 +49,6 @@ namespace Bot.Logic {
       => _nukeLogic.Nuke(nuke, context);
 
 
-    public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context)
-      => _nukeLogic.Aegis(context);
+    public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) => _aegisLogic.Create(context);
   }
 }
