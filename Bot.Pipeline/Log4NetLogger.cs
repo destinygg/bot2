@@ -29,6 +29,7 @@ namespace Bot.Pipeline {
       return t.Name;
     }
 
+    // http://stackoverflow.com/a/2579755/
     private string GetCSharpRepresentation(Type t, bool trimArgCount, List<Type> availableArguments) {
       if (t.IsGenericType) {
         var value = t.Name;

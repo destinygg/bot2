@@ -8,6 +8,11 @@ using Bot.Tools;
 
 namespace Bot.Logic.Tests.Helper {
 
+  // Everything is in one class so state doesn't have to be passed around.
+  // The code is relatively simple, but the design is not.
+  // A state diagram is available at "ContextBuilder State Diagram.png"
+  // If the design changes, update "ContextBuilder State Diagram.xml" using https://draw.io/
+
   public interface ITransmissionBuilder<out T> {
     T ModMessage(string message);
     T ModMessage(); // interfaces with optional parameters can be inconsistently implemented
