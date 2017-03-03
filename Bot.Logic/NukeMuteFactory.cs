@@ -7,7 +7,7 @@ using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class NukeLogic : NukeAegisBase, IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> {
+  public class NukeMuteFactory : NukeAegisBase, IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> {
 
 
     public IReadOnlyList<ISendable<Mute>> Create(IParsedNuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>

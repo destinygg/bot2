@@ -35,7 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
-    <Compile Include="AegisLogic.cs" />
+    <Compile Include="AegisPardonFactory.cs" />
     <Compile Include="NukeAegisBase.cs" />
     <Compile Include="SendableVisitor\ConsoleSendableVisitor.cs" />
     <Compile Include="Interfaces\IModCommandLogic.cs" />
@@ -46,7 +46,7 @@
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />
-    <Compile Include="NukeLogic.cs" />
+    <Compile Include="NukeMuteFactory.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="ParsedNuke.cs" />
     <Compile Include="SendableFactory.cs" />

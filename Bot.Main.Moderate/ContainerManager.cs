@@ -20,8 +20,8 @@ namespace Bot.Main.Moderate {
     public ContainerManager() {
       _container = new Container();
 
-      _container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>>, AegisLogic>();
-      _container.RegisterSingleton<IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>>, NukeLogic>();
+      _container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>>, AegisPardonFactory>();
+      _container.RegisterSingleton<IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>>, NukeMuteFactory>();
       _container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
       _container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
       _container.RegisterSingleton<IModCommandParser, ModCommandParser>();

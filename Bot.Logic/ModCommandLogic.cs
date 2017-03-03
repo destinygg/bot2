@@ -10,16 +10,16 @@ using Bot.Tools.Logging;
 namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
     private readonly ILogger _logger;
-    private readonly IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> _nukeLogic;
-    private readonly IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> _aegisLogic;
+    private readonly IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> _nukeMuteFactory;
+    private readonly IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> _aegisPardonFactory;
 
     public ModCommandLogic(
-      IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> nukeLogic,
-      IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> aegisLogic,
+      IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> nukeMuteFactory,
+      IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> aegisPardonFactory,
       ILogger logger) {
       _logger = logger;
-      _nukeLogic = nukeLogic;
-      _aegisLogic = aegisLogic;
+      _nukeMuteFactory = nukeMuteFactory;
+      _aegisPardonFactory = aegisPardonFactory;
     }
 
     public ISendable<PublicMessage> Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
@@ -45,9 +45,8 @@ namespace Bot.Logic {
 
     public ISendable<PublicMessage> Sing() => new SendablePublicMessage("/me sings a song");
 
-    public IReadOnlyList<ISendable<Mute>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke)
-      => _nukeLogic.Create(nuke, context);
+    public IReadOnlyList<ISendable<Mute>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke) => _nukeMuteFactory.Create(nuke, context);
 
-    public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) => _aegisLogic.Create(context);
+    public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) => _aegisPardonFactory.Create(context);
   }
 }

@@ -8,11 +8,11 @@ using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class AegisLogic : NukeAegisBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> {
+  public class AegisPardonFactory : NukeAegisBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
 
-    public AegisLogic(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
+    public AegisPardonFactory(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
       _modCommandRegex = modCommandRegex;
       _receivedFactory = receivedFactory;
     }
