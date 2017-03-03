@@ -57,6 +57,7 @@
     <Compile Include="Received\Received.cs" />
     <Compile Include="Received\ReceivedError.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
+    <Compile Include="Sendable\SendableError.cs" />
     <Compile Include="Snapshot\ErrorSnapshot.cs" />
     <Compile Include="Snapshot\MessageSnapshot.cs" />
     <Compile Include="Snapshot\PardonSnapshot.cs" />
