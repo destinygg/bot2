@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
+using Bot.Tools;
 
 namespace Bot.Logic {
   public class BanFactory : BaseSendableFactory<Civilian, PublicMessage> {
@@ -14,6 +16,8 @@ namespace Bot.Logic {
       }
       return outbox;
     }
+
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the ban factory.").Wrap().ToList();
 
     //IReadOnlyCollection?
     //public IReadOnlyList<ISendable> Create(ISnapshot snapshot) =>

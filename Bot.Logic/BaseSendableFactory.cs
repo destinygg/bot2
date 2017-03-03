@@ -8,6 +8,6 @@ namespace Bot.Logic {
     where TTransmission : ITransmittable {
 
     public abstract IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<TUser, TTransmission> input);
-    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>>();
+    public abstract IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate { get; }
   }
 }

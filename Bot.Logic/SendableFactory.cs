@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bot.Models.Interfaces;
+using Bot.Models.Sendable;
+using Bot.Tools;
 using Bot.Tools.Logging;
 
 namespace Bot.Logic {
@@ -17,5 +20,6 @@ namespace Bot.Logic {
       return snapshot.Accept(_snapshotVisitor);
     }
 
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the sendable factory.").Wrap().ToList();
   }
 }

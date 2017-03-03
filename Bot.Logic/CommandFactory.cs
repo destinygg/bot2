@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
@@ -20,5 +22,7 @@ namespace Bot.Logic {
       }
       return outbox;
     }
+
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the command factory.").Wrap().ToList();
   }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Sendable;
 using Bot.Tools;
 
 namespace Bot.Logic {
@@ -35,5 +36,6 @@ namespace Bot.Logic {
       return new List<ISendable<ITransmittable>>();
     }
 
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the mod command factory.").Wrap().ToList();
   }
 }
