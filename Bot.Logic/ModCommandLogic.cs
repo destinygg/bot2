@@ -10,11 +10,11 @@ using Bot.Tools.Logging;
 namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
     private readonly ILogger _logger;
-    private readonly INukeLogic _nukeLogic;
+    private readonly IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> _nukeLogic;
     private readonly IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> _aegisLogic;
 
     public ModCommandLogic(
-      INukeLogic nukeLogic,
+      IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>> nukeLogic,
       IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> aegisLogic,
       ILogger logger) {
       _logger = logger;
@@ -46,7 +46,7 @@ namespace Bot.Logic {
     public ISendable<PublicMessage> Sing() => new SendablePublicMessage("/me sings a song");
 
     public IReadOnlyList<ISendable<Mute>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke)
-      => _nukeLogic.Nuke(nuke, context);
+      => _nukeLogic.Create(nuke, context);
 
     public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) => _aegisLogic.Create(context);
   }
