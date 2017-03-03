@@ -8,7 +8,7 @@ using Bot.Models.Sendable;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class AegisPardonFactory : NukeAegisBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>> {
+  public class AegisPardonFactory : NukeAegisBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
 
@@ -17,7 +17,7 @@ namespace Bot.Logic {
       _receivedFactory = receivedFactory;
     }
 
-    public IReadOnlyList<ISendable<Pardon>> Create(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
+    public IReadOnlyList<ISendable<ITransmittable>> Create(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       var modMessages = context.OfType<IReceived<Moderator, IMessage>>().ToList();
       var nukes = _GetStringNukes(modMessages).Concat<IParsedNuke>(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => GetCurrentVictims(n, context));
@@ -27,7 +27,7 @@ namespace Bot.Logic {
       return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
-    public IReadOnlyList<ISendable<Pardon>> OnErrorCreate => new List<ISendable<Pardon>>();
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>> { new SendableError("An error occured in the aegis forgiveness factory.") };
 
     private IEnumerable<ParsedNuke> _GetStringNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))

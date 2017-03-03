@@ -7,6 +7,6 @@ namespace Bot.Logic.Interfaces {
     ISendable<PublicMessage> Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
     ISendable<PublicMessage> Sing();
     IReadOnlyList<ISendable<ITransmittable>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke);
-    IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
+    IReadOnlyList<ISendable<ITransmittable>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
   }
 }
