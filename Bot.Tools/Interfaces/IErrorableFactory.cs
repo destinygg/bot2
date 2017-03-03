@@ -7,4 +7,8 @@
     /// </summary>
     TResult OnErrorCreate { get; }
   }
+
+  public interface IErrorableFactory<in T, in T2, out TResult> : IFactory<T, T2, TResult> {
+    TResult OnErrorCreate { get; }
+  }
 }

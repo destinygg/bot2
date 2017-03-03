@@ -48,7 +48,6 @@ namespace Bot.Logic {
     public IReadOnlyList<ISendable<Mute>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, IParsedNuke nuke)
       => _nukeLogic.Nuke(nuke, context);
 
-
     public IReadOnlyList<ISendable<Pardon>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) => _aegisLogic.Create(context);
   }
 }
