@@ -21,7 +21,7 @@ namespace Bot.Main.Moderate {
       _container = new Container();
 
       _container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Pardon>>>, AegisPardonFactory>();
-      _container.RegisterSingleton<IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<Mute>>>, NukeMuteFactory>();
+      _container.RegisterSingleton<IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();
       _container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
       _container.RegisterSingleton<IModCommandRegex, ModCommandRegex>();
       _container.RegisterSingleton<IModCommandParser, ModCommandParser>();
