@@ -3,6 +3,7 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
@@ -12,6 +13,6 @@ namespace Bot.Logic {
       GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 
-    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>> { new SendableError("An error occured in the nuclear missile factory.") };
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(NukeMuteFactory)}.").Wrap().ToList();
   }
 }

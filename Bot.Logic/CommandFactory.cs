@@ -23,6 +23,6 @@ namespace Bot.Logic {
       return outbox;
     }
 
-    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the command factory.").Wrap().ToList();
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(CommandFactory)}.").Wrap().ToList();
   }
 }

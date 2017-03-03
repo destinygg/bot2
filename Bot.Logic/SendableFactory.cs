@@ -20,6 +20,6 @@ namespace Bot.Logic {
       return snapshot.Accept(_snapshotVisitor);
     }
 
-    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the sendable factory.").Wrap().ToList();
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(SendableFactory)}.").Wrap().ToList();
   }
 }

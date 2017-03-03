@@ -36,6 +36,6 @@ namespace Bot.Logic {
       return new List<ISendable<ITransmittable>>();
     }
 
-    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the mod command factory.").Wrap().ToList();
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in the {nameof(ModCommandFactory)}.").Wrap().ToList();
   }
 }

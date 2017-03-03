@@ -17,7 +17,7 @@ namespace Bot.Logic {
       return outbox;
     }
 
-    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError("An error occured in the ban factory.").Wrap().ToList();
+    public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(BanFactory)}.").Wrap().ToList();
 
     //IReadOnlyCollection?
     //public IReadOnlyList<ISendable> Create(ISnapshot snapshot) =>

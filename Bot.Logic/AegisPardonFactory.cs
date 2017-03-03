@@ -5,6 +5,7 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Models.Sendable;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
@@ -27,7 +28,7 @@ namespace Bot.Logic {
       return victims.Except(alreadyPardoned).Select(v => new SendablePardon(v)).ToList();
     }
 
-    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>> { new SendableError("An error occured in the aegis forgiveness factory.") };
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(AegisPardonFactory)}.").Wrap().ToList();
 
     private IEnumerable<ParsedNuke> _GetStringNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))

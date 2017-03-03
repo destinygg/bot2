@@ -32,6 +32,6 @@ namespace Bot.Pipeline {
       }
     }
 
-    public ISnapshot<IUser, ITransmittable> OnErrorCreate => new ErrorSnapshot(new ReceivedError("Snapshot Error placeholder", _timeService), new List<IReceived<IUser, ITransmittable>>());
+    public ISnapshot<IUser, ITransmittable> OnErrorCreate => new ErrorSnapshot(new ReceivedError($"An error occured in {nameof(SnapshotFactory)}", _timeService), new List<IReceived<IUser, ITransmittable>>());
   }
 }
