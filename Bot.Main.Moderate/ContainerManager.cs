@@ -47,6 +47,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
       _container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
+      _container.RegisterDecorator(typeof(IErrorableFactory<,,>), typeof(FactoryTryCatchDecorator<,,>), Lifestyle.Singleton);
       _container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
 
       _container.Verify();

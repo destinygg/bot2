@@ -59,6 +59,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
       Container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
+      Container.RegisterDecorator(typeof(IErrorableFactory<,,>), typeof(FactoryTryCatchDecorator<,,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandHandlerTryCatchDecorator<>), Lifestyle.Singleton);
 
       Container.Verify();
