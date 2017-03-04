@@ -25,14 +25,14 @@ namespace Bot.Logic.Tests.Helper {
   public interface IContextInserter : ITransmissionBuilder<IContextTimeSetter> { }
 
   public interface IContextAppender : ITransmissionBuilder<IContextAppender> {
-    IReadOnlyList<IReceived<IUser, ITransmittable>> Build();
+    List<IReceived<IUser, ITransmittable>> Build();
     DateTime NextTimestamp();
   }
 
   public interface IContextTimeSetter {
     IContextInserter InsertAt(string timestamp);
     IContextAppender SubsequentlySpacedBy(TimeSpan timespan);
-    IReadOnlyList<IReceived<IUser, ITransmittable>> Build();
+    List<IReceived<IUser, ITransmittable>> Build();
   }
 
   public class ContextBuilder : IContextTimeSetter, IContextInserter, IContextAppender {
@@ -119,7 +119,7 @@ namespace Bot.Logic.Tests.Helper {
 
     #endregion
 
-    public IReadOnlyList<IReceived<IUser, ITransmittable>> Build() => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList();
+    public List<IReceived<IUser, ITransmittable>> Build() => _targets.Concat(_nontargets).OrderBy(r => r.Timestamp).ToList();
 
     public void VerifyTargeted(IEnumerable<IUser> expectedTargets) {
       var sortedExpected = expectedTargets.Select(x => x.Nick).OrderBy(u => u).ToList();
