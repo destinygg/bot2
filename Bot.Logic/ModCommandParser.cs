@@ -2,17 +2,13 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Bot.Logic.Interfaces;
-using Bot.Tools.Interfaces;
-using Bot.Tools.Logging;
 
 namespace Bot.Logic {
   public class ModCommandParser : IModCommandParser {
     private readonly IModCommandRegex _modCommandRegex;
-    private readonly ILogger _logger;
 
-    public ModCommandParser(IModCommandRegex modCommandRegex, ILogger logger) {
+    public ModCommandParser(IModCommandRegex modCommandRegex) {
       _modCommandRegex = modCommandRegex;
-      _logger = logger;
     }
 
     public string Stalk(string input) => _firstGroup(_modCommandRegex.Stalk, input);
@@ -83,8 +79,7 @@ namespace Bot.Logic {
         if (ip && stringInt == "") return TimeSpan.Zero;
         return TimeSpan.FromMinutes(i);
       }
-      _logger.LogError($"Somehow an invalid time passed the regex. StringInt:{stringInt}, s:{unit}, ip:{ip}");
-      return TimeSpan.FromMinutes(10);
+      throw new ArgumentException($"An invalid time passed the regex. StringInt:{stringInt}, unit:{unit}, ip:{ip}");
     }
 
   }
