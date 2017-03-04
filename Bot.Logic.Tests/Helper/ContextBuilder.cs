@@ -33,6 +33,8 @@ namespace Bot.Logic.Tests.Helper {
     IContextInserter InsertAt(string timestamp);
     IContextAppender SubsequentlySpacedBy(TimeSpan timespan);
     List<IReceived<IUser, ITransmittable>> Build();
+    IContextTimeSetter RadiusIs(string nukeBlastRadius);
+    IContextTimeSetter BuildAt(string buildAt);
   }
 
   public class ContextBuilder : IContextTimeSetter, IContextInserter, IContextAppender {
@@ -59,6 +61,20 @@ namespace Bot.Logic.Tests.Helper {
     public IContextAppender SubsequentlySpacedBy(TimeSpan timespan) {
       _cachedTime = Build().LastOrDefault()?.Timestamp ?? DateTime.MinValue;
       _cachedInterval = timespan;
+      return this;
+    }
+
+    private TimeSpan? _nukeBlastRadius;
+    public TimeSpan NukeBlastRadius => (TimeSpan) _nukeBlastRadius;
+    public IContextTimeSetter RadiusIs(string nukeBlastRadius) {
+      _nukeBlastRadius = TimeSpan.Parse(nukeBlastRadius);
+      return this;
+    }
+
+    private DateTime? _builtAt;
+    public DateTime BuiltAt => (DateTime) _builtAt;
+    public IContextTimeSetter BuildAt(string buildAt) {
+      _builtAt = TestHelper.Parse(buildAt);
       return this;
     }
     #endregion
