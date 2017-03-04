@@ -32,6 +32,5 @@ namespace Bot.Logic {
     public ReceivedPardon ReceivedPardon(Moderator sender, Civilian target) => new ReceivedPardon(sender, target, _timeService);
 
     public ParsedNuke ParsedNuke(IReceived<Moderator, IMessage> message) => new ParsedNuke(message, _timeService, _modCommandRegex, _modCommandParser, _logger, _settings);
-    public ParsedNuke ParsedNuke(string command) => new ParsedNuke(ModPublicReceivedMessage(command), _timeService, _modCommandRegex, _modCommandParser, _logger, _settings);
   }
 }
