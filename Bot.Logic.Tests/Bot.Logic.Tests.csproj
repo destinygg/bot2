@@ -60,7 +60,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helper\ContextAppenderBuilder.cs" />
+    <Compile Include="Helper\ContextInserterBuilderTests.cs" />
     <Compile Include="Helper\ContextBuilder.cs" />
+    <Compile Include="Helper\ContextInserterBuilder.cs" />
     <Compile Include="Helper\DateTimeZero.cs" />
     <Compile Include="Helper\IReceivedFactoryExtensionMethods.cs" />
     <Compile Include="ModCommandLogicTests_Aegis.cs" />
@@ -68,7 +71,7 @@
     <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Helper\NukeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helper\ContextBuilderTests.cs" />
+    <Compile Include="Helper\ContextAppenderBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
