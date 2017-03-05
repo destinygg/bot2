@@ -95,5 +95,24 @@ namespace Bot.Logic.Tests.Helper {
       Assert.IsTrue(exception.Message.Contains("Interval is less than or equal to zero."));
     }
 
+    [TestMethod]
+    public void NextTimestamp_WithNegativeInterval_ThrowsException() {
+      var contextBuilder = new ContextAppenderBuilder(-TimeSpan.FromTicks(1));
+
+      var exception = TestHelper.AssertCatch<ArgumentOutOfRangeException>(() => contextBuilder.NextTimestamp());
+
+      Assert.IsTrue(exception.Message.Contains("Interval is less than or equal to zero."));
+    }
+
+    [TestMethod]
+    public void RadiusIs_1_00_Yields1Hour() {
+      var appender = new ContextAppenderBuilder(TimeSpan.FromHours(1))
+        .RadiusIs("1:00");
+
+      var radius = appender.NukeBlastRadius;
+
+      Assert.AreEqual(TimeSpan.FromHours(1), radius);
+    }
+
   }
 }
