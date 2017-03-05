@@ -1,9 +1,9 @@
 ﻿using System;
 
 namespace Bot.Logic {
-  public class ParsedNuke {
+  public class Nuke {
 
-    public ParsedNuke(DateTime timestamp, TimeSpan duration, Predicate<string> matchesNukedTerm) {
+    public Nuke(DateTime timestamp, TimeSpan duration, Predicate<string> matchesNukedTerm) {
       Timestamp = timestamp;
       Duration = duration;
       MatchesNukedTerm = matchesNukedTerm;

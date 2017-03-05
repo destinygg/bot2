@@ -2,6 +2,6 @@
 
 namespace Bot.Logic.Tests.Helper {
   public static class IReceivedFactoryExtensionMethods {
-    public static ParsedNuke ParsedNuke(this IReceivedFactory factory, string message) => factory.ParsedNuke(factory.ModPublicReceivedMessage(message));
+    public static Nuke Nuke(this IReceivedFactory factory, string message) => factory.Nuke(factory.ModPublicReceivedMessage(message));
   }
 }

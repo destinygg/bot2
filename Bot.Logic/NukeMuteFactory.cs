@@ -6,11 +6,11 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class NukeMuteFactory : NukeAegisBase, IErrorableFactory<ParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class NukeMuteFactory : NukeAegisBase, IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
 
     public NukeMuteFactory(ISettings settings, ITimeService timeService) : base(settings, timeService) { }
 
-    public IReadOnlyList<ISendable<ITransmittable>> Create(ParsedNuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>
+    public IReadOnlyList<ISendable<ITransmittable>> Create(Nuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) =>
       GetCurrentVictims(nuke, context)
       .Select(u => new SendableMute(u, nuke.Duration)).ToList();
 

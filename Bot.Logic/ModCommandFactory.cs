@@ -28,9 +28,9 @@ namespace Bot.Logic {
       if (message.StartsWith("!long"))
         return _modCommandLogic.Long(context).Wrap().ToList();
       if (message.IsMatch(_modCommandRegex.Nuke))
-        return _modCommandLogic.Nuke(context, _receivedFactory.ParsedNuke(message));
+        return _modCommandLogic.Nuke(context, _receivedFactory.Nuke(message));
       if (message.IsMatch(_modCommandRegex.RegexNuke))
-        return _modCommandLogic.Nuke(context, _receivedFactory.ParsedNuke(message));
+        return _modCommandLogic.Nuke(context, _receivedFactory.Nuke(message));
       if (message.IsMatch(_modCommandRegex.Aegis))
         return _modCommandLogic.Aegis(context);
       return new List<ISendable<ITransmittable>>();

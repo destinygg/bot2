@@ -30,12 +30,12 @@ namespace Bot.Logic {
 
     public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(AegisPardonFactory)}.").Wrap().ToList();
 
-    private IEnumerable<ParsedNuke> _GetStringNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
+    private IEnumerable<Nuke> _GetStringNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))
-      .Select(rm => _receivedFactory.ParsedNuke(rm));
+      .Select(rm => _receivedFactory.Nuke(rm));
 
-    private IEnumerable<ParsedNuke> _GetRegexNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
+    private IEnumerable<Nuke> _GetRegexNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.RegexNuke))
-      .Select(rm => _receivedFactory.ParsedNuke(rm));
+      .Select(rm => _receivedFactory.Nuke(rm));
   }
 }

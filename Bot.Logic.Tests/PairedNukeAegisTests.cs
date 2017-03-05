@@ -23,7 +23,7 @@ namespace Bot.Logic.Tests {
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
 
-      var nukeResults = logic.Nuke(_messagesWithDifferentCasing.Build(), factory.ParsedNuke("!nuke10m message"));
+      var nukeResults = logic.Nuke(_messagesWithDifferentCasing.Build(), factory.Nuke("!nuke10m message"));
 
       var nukedUsers = nukeResults.OfType<SendableMute>().Select(umb => umb.Target);
       _messagesWithDifferentCasing.VerifyTargeted(nukedUsers);
@@ -55,7 +55,7 @@ namespace Bot.Logic.Tests {
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
 
-      var nukeResults = logic.Nuke(_messagesInAndOutOfRadius.Build(), factory.ParsedNuke("!nuke10m message"));
+      var nukeResults = logic.Nuke(_messagesInAndOutOfRadius.Build(), factory.Nuke("!nuke10m message"));
 
       var nukedUsers = nukeResults.OfType<SendableMute>().Select(umb => umb.Target);
       _messagesInAndOutOfRadius.VerifyTargeted(nukedUsers);
@@ -89,7 +89,7 @@ namespace Bot.Logic.Tests {
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
 
-      var nukeResults = logic.Nuke(_messagesContainingAndSimilarToNukedWord.Build(), factory.ParsedNuke("!nuke10m message"));
+      var nukeResults = logic.Nuke(_messagesContainingAndSimilarToNukedWord.Build(), factory.Nuke("!nuke10m message"));
 
       var nukedUsers = nukeResults.OfType<SendableMute>().Select(umb => umb.Target);
       _messagesContainingAndSimilarToNukedWord.VerifyTargeted(nukedUsers);

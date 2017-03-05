@@ -6,7 +6,7 @@ namespace Bot.Logic.Interfaces {
   public interface IModCommandLogic {
     ISendable<PublicMessage> Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
     ISendable<PublicMessage> Sing();
-    IReadOnlyList<ISendable<ITransmittable>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, ParsedNuke nuke);
+    IReadOnlyList<ISendable<ITransmittable>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, Nuke nuke);
     IReadOnlyList<ISendable<ITransmittable>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
   }
 }
