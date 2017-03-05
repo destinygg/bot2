@@ -13,14 +13,14 @@ namespace Bot.Logic {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IReceivedFactory _receivedFactory;
 
-    public AegisPardonFactory(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory) {
+    public AegisPardonFactory(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory, ISettings settings, ITimeService timeService) : base(settings, timeService) {
       _modCommandRegex = modCommandRegex;
       _receivedFactory = receivedFactory;
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Create(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
       var modMessages = context.OfType<IReceived<Moderator, IMessage>>().ToList();
-      var nukes = _GetStringNukes(modMessages).Concat<IParsedNuke>(_GetRegexNukes(modMessages));
+      var nukes = _GetStringNukes(modMessages).Concat(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => GetCurrentVictims(n, context));
 
       //TODO consider checking if these are actual victims?

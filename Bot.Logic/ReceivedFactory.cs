@@ -3,24 +3,16 @@ using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
-using Bot.Tools;
 using Bot.Tools.Interfaces;
-using Bot.Tools.Logging;
 
 namespace Bot.Logic {
   public class ReceivedFactory : IReceivedFactory {
     private readonly ITimeService _timeService;
-    private readonly IModCommandParser _modCommandParser;
-    private readonly IModCommandRegex _modCommandRegex;
-    private readonly ILogger _logger;
-    private readonly ISettings _settings;
+    private readonly IFactory<IReceived<Moderator, IMessage>, ParsedNuke> _nukeFactory;
 
-    public ReceivedFactory(ITimeService timeService, IModCommandParser modCommandParser, IModCommandRegex modCommandRegex, ILogger logger, ISettings settings) {
+    public ReceivedFactory(ITimeService timeService, IFactory<IReceived<Moderator, IMessage>, ParsedNuke> nukeFactory) {
       _timeService = timeService;
-      _modCommandParser = modCommandParser;
-      _modCommandRegex = modCommandRegex;
-      _logger = logger;
-      _settings = settings;
+      _nukeFactory = nukeFactory;
     }
 
     public PublicMessageFromMod ModPublicReceivedMessage(string text) => new PublicMessageFromMod(text, _timeService);
@@ -31,6 +23,6 @@ namespace Bot.Logic {
 
     public ReceivedPardon ReceivedPardon(Moderator sender, Civilian target) => new ReceivedPardon(sender, target, _timeService);
 
-    public ParsedNuke ParsedNuke(IReceived<Moderator, IMessage> message) => new ParsedNuke(message, _timeService, _modCommandRegex, _modCommandParser, _logger, _settings);
+    public ParsedNuke ParsedNuke(IReceived<Moderator, IMessage> message) => _nukeFactory.Create(message);
   }
 }

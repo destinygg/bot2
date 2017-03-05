@@ -37,12 +37,12 @@
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
     <Compile Include="NukeAegisBase.cs" />
+    <Compile Include="NukeFactory.cs" />
     <Compile Include="SendableVisitor\ConsoleSendableVisitor.cs" />
     <Compile Include="Interfaces\IModCommandLogic.cs" />
     <Compile Include="Interfaces\IModCommandParser.cs" />
     <Compile Include="Interfaces\IModCommandRegex.cs" />
     <Compile Include="Interfaces\IReceivedFactory.cs" />
-    <Compile Include="Interfaces\IParsedNuke.cs" />
     <Compile Include="ModCommandLogic.cs" />
     <Compile Include="ModCommandParser.cs" />
     <Compile Include="ModCommandRegex.cs" />

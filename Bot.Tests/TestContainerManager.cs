@@ -33,7 +33,8 @@ namespace Bot.Tests {
       Container.RegisterDecorator(typeof(IDatabaseService<>), typeof(ScopedDatabaseServiceDecorator<>), Lifestyle.Singleton);
 
       Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
-      Container.RegisterSingleton<IErrorableFactory<IParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();
+      Container.RegisterSingleton<IErrorableFactory<ParsedNuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();
+      Container.RegisterSingleton<IFactory<IReceived<Moderator, IMessage>, ParsedNuke>, NukeFactory>();
       Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
       Container.RegisterConditional<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterSingleton<IModCommandParser, ModCommandParser>();
