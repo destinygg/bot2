@@ -36,6 +36,16 @@ namespace Bot.Tests {
       }
     }
 
+    public static TException AssertCatch<TException>(Func<object> func)
+     where TException : Exception {
+      try {
+        func();
+        throw new AssertFailedException($"Expected exception of type {typeof(TException)} was not thrown");
+      } catch (TException exception) {
+        return exception;
+      }
+    }
+
     public static DateTime Parse(string timestamp) => DateTime.MinValue + TimeSpan.Parse(timestamp);
   }
 }
