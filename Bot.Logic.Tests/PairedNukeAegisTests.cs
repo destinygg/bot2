@@ -10,13 +10,12 @@ namespace Bot.Logic.Tests {
   [TestClass]
   public class PairedNukeAegisTests {
 
-    private readonly ContextBuilder _messagesWithDifferentCasing = (ContextBuilder) new ContextBuilder()
-      .RadiusIs("1:00:00")
-      .SubsequentlySpacedBy(TimeSpan.FromMinutes(1))
+    private readonly ITerminalAppender _messagesWithDifferentCasing = new ContextAppenderBuilder(TimeSpan.FromMinutes(1))
       .PublicMessage("1")
       .TargetedMessage("MESSAGE")
       .TargetedMessage("message")
-      .PublicMessage("4");
+      .PublicMessage("4")
+      .RadiusIs("1:00:00");
 
     [TestMethod]
     public void Nuke_MessagesWithDifferentCasing_IsCaseInsensitive() {
@@ -44,15 +43,15 @@ namespace Bot.Logic.Tests {
       _messagesWithDifferentCasing.VerifyTargeted(aegisedUsers);
     }
 
-    private readonly ContextBuilder _messagesInAndOutOfRadius = (ContextBuilder) new ContextBuilder()
+    private readonly ITerminalInserter _messagesInAndOutOfRadius = new ContextInserterBuilder()
       .InsertAt("0:59:59.9999999  ").PublicMessage("message") //Out of nuke range
       .InsertAt("1:00:00.0000000").TargetedMessage("message")
-      .BuildAt(" 1:05:00.0000000")
+      .CreateAt(" 1:05:00.0000000")
       .RadiusIs("0:05");
 
     [TestMethod]
     public void Nuke_MessagesInAndOutOfRadius_TargetsOnlyInRadius() {
-      var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.BuiltAt, _messagesInAndOutOfRadius.NukeBlastRadius);
+      var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.CreatedAt, _messagesInAndOutOfRadius.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
 
@@ -64,7 +63,7 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void Aegis_MessagesInAndOutOfRadius_TargetsOnlyInRadius() {
-      var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.BuiltAt, _messagesInAndOutOfRadius.NukeBlastRadius);
+      var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.CreatedAt, _messagesInAndOutOfRadius.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
       var nuke = factory.ModPublicReceivedMessage("!nuke10m message");
@@ -76,14 +75,13 @@ namespace Bot.Logic.Tests {
       _messagesInAndOutOfRadius.VerifyTargeted(aegisedUsers);
     }
 
-    private readonly ContextBuilder _messagesContainingAndSimilarToNukedWord = (ContextBuilder) new ContextBuilder()
-      .RadiusIs("1:00:00")
-      .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
+    private readonly ITerminalAppender _messagesContainingAndSimilarToNukedWord = new ContextAppenderBuilder(TimeSpan.FromTicks(1))
       .PublicMessage("1")
       .TargetedMessage("MESSAGE")
       .TargetedMessage("message")
       .TargetedMessage("the quick brown message jumped over the lazy dog")
-      .PublicMessage("2");
+      .PublicMessage("2")
+      .RadiusIs("1:00:00");
 
     [TestMethod]
     public void Nuke_MessagesContainingAndSimilarToNukedWord_TargetsAppropriate() {

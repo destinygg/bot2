@@ -3,8 +3,7 @@ using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Tools;
 
-namespace Bot.Logic.Tests.Helper
-{
+namespace Bot.Logic.Tests.Helper {
   public class ContextAppenderBuilder : ContextBuilder, IContextAppender {
     private int _appendedCount;
     private TimeSpan _cachedInterval;
