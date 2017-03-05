@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Logic.Tests {
   [TestClass]
-  public class ModCommandLogicTests_Nuke {
+  public class PairedNukeAegisTests {
 
     private readonly ContextBuilder _messagesWithDifferentCasing = (ContextBuilder) new ContextBuilder()
       .RadiusIs("1:00:00")

@@ -64,7 +64,7 @@
     <Compile Include="Helper\DateTimeZero.cs" />
     <Compile Include="Helper\IReceivedFactoryExtensionMethods.cs" />
     <Compile Include="ModCommandLogicTests_Aegis.cs" />
-    <Compile Include="ModCommandLogicTests_Nuke.cs" />
+    <Compile Include="PairedNukeAegisTests.cs" />
     <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Helper\NukeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
