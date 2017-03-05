@@ -9,26 +9,6 @@ namespace Bot.Logic.Tests {
   public class ModCommandLogicTests_Aegis {
 
     [TestMethod]
-    public void SimpleAegis() {
-      var contextBuilder = new ContextBuilder();
-      var context = contextBuilder
-        .SubsequentlySpacedBy(TimeSpan.FromTicks(1))
-        .PublicMessage("derp")
-        .TargetedMessage("MESSAGE")
-        .TargetedMessage("message")
-        .TargetedMessage("message the quick brown fox jumped over the lazy dog")
-        .PublicMessage("Innocent as well")
-        .ModMessage("!nuke MESSage").Build();
-      var nukeBlastRadius = TimeSpan.FromMinutes(100);
-      var container = NukeHelper.GetContainer(contextBuilder.NextTimestamp(), nukeBlastRadius);
-
-      var aegisResults = container.GetInstance<ModCommandLogic>().Aegis(context);
-
-      var aegisedUsers = aegisResults.OfType<SendablePardon>().Select(umb => umb.Target);
-      contextBuilder.VerifyTargeted(aegisedUsers);
-    }
-
-    [TestMethod]
     public void OutOfRangeAegis() {
       var contextBuilder = new ContextBuilder();
       var context = contextBuilder
