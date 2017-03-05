@@ -180,5 +180,33 @@ namespace Bot.Logic.Tests.Helper {
       Assert.AreEqual("Expected targets are not equal to actual targets.", exception.Message);
     }
 
+    [TestMethod]
+    public void RadiusIs_1_00_Yields1Hour() {
+      var inserter = new ContextInserterBuilder()
+        .InsertAt("0").ModMessage()
+        .CreateAt("0")
+        .RadiusIs("1:00");
+
+      Assert.AreEqual(TimeSpan.FromHours(1), inserter.NukeBlastRadius);
+    }
+
+    [TestMethod]
+    public void CreatedAt_1_00_IsCreatedAt1hour() {
+      var inserter = new ContextInserterBuilder()
+        .InsertAt("0").ModMessage()
+        .CreateAt("1:00");
+
+      Assert.AreEqual(DateTimeZero.AddHours(1), inserter.CreatedAt);
+    }
+
+    [TestMethod]
+    public void NukeBlastRadius_IsUnassigned_ThrowsNullException() {
+      var inserter = new ContextInserterBuilder();
+
+      var exception = TestHelper.AssertCatch<InvalidOperationException>(() => inserter.NukeBlastRadius);
+
+      Assert.AreEqual("Nullable object must have a value.", exception.Message);
+    }
+
   }
 }

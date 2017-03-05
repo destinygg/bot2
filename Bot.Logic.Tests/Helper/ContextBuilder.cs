@@ -44,7 +44,7 @@ namespace Bot.Logic.Tests.Helper {
     IRadiusAndTerminalInserter CreateAt(string timestamp);
   }
 
-  public interface IRadiusAndTerminalInserter : ITerminalBuilder {
+  public interface IRadiusAndTerminalInserter : ITerminalInserter {
     ITerminalInserter RadiusIs(string nukeBlastRadius);
   }
 
