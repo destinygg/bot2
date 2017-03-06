@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Moderator.cs" />
+    <Compile Include="Nuke.cs" />
     <Compile Include="PrivateMessage.cs" />
     <Compile Include="PublicMessage.cs" />
     <Compile Include="Punishment.cs" />

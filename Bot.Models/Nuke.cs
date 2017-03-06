@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Logic {
+namespace Bot.Models {
   public class Nuke {
 
     public Nuke(DateTime timestamp, TimeSpan duration, Predicate<string> matchesNukedTerm) {

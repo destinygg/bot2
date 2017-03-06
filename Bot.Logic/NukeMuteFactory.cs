@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Tools;
