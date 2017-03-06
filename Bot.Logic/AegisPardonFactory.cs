@@ -11,11 +11,11 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class AegisPardonFactory : NukeAegisBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IModCommandRegex _modCommandRegex;
-    private readonly IReceivedFactory _receivedFactory;
+    private readonly IFactory<IReceived<Moderator, IMessage>, Nuke> _nukeFactory;
 
-    public AegisPardonFactory(IModCommandRegex modCommandRegex, IReceivedFactory receivedFactory, ISettings settings, ITimeService timeService) : base(settings, timeService) {
+    public AegisPardonFactory(IModCommandRegex modCommandRegex, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory, ISettings settings, ITimeService timeService) : base(settings, timeService) {
       _modCommandRegex = modCommandRegex;
-      _receivedFactory = receivedFactory;
+      _nukeFactory = nukeFactory;
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Create(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
@@ -32,10 +32,10 @@ namespace Bot.Logic {
 
     private IEnumerable<Nuke> _GetStringNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.Nuke))
-      .Select(rm => _receivedFactory.Nuke(rm));
+      .Select(rm => _nukeFactory.Create(rm));
 
     private IEnumerable<Nuke> _GetRegexNukes(IEnumerable<IReceived<Moderator, IMessage>> modMessages) => modMessages
       .Where(m => m.IsMatch(_modCommandRegex.RegexNuke))
-      .Select(rm => _receivedFactory.Nuke(rm));
+      .Select(rm => _nukeFactory.Create(rm));
   }
 }

@@ -2,8 +2,11 @@
 using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Logic.Tests.Helper;
+using Bot.Models;
+using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Tools;
+using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Logic.Tests {
@@ -22,8 +25,9 @@ namespace Bot.Logic.Tests {
       var container = NukeHelper.GetContainer(_messagesWithDifferentCasing.NextTimestamp(), _messagesWithDifferentCasing.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
+      var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
 
-      var nukeResults = logic.Nuke(_messagesWithDifferentCasing.Build(), factory.Nuke("!nuke10m message"));
+      var nukeResults = logic.Nuke(_messagesWithDifferentCasing.Build(), nukeFactory.Create(factory.ModPublicReceivedMessage("!nuke10m message")));
 
       var nukedUsers = nukeResults.OfType<SendableMute>().Select(umb => umb.Target);
       _messagesWithDifferentCasing.VerifyTargeted(nukedUsers);
@@ -54,8 +58,9 @@ namespace Bot.Logic.Tests {
       var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.CreatedAt, _messagesInAndOutOfRadius.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
+      var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
 
-      var nukeResults = logic.Nuke(_messagesInAndOutOfRadius.Build(), factory.Nuke("!nuke10m message"));
+      var nukeResults = logic.Nuke(_messagesInAndOutOfRadius.Build(), nukeFactory.Create(factory.ModPublicReceivedMessage("!nuke10m message")));
 
       var nukedUsers = nukeResults.OfType<SendableMute>().Select(umb => umb.Target);
       _messagesInAndOutOfRadius.VerifyTargeted(nukedUsers);
@@ -88,8 +93,9 @@ namespace Bot.Logic.Tests {
       var container = NukeHelper.GetContainer(_messagesContainingAndSimilarToNukedWord.NextTimestamp(), _messagesContainingAndSimilarToNukedWord.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
       var factory = container.GetInstance<IReceivedFactory>();
+      var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
 
-      var nukeResults = logic.Nuke(_messagesContainingAndSimilarToNukedWord.Build(), factory.Nuke("!nuke10m message"));
+      var nukeResults = logic.Nuke(_messagesContainingAndSimilarToNukedWord.Build(), nukeFactory.Create(factory.ModPublicReceivedMessage("!nuke10m message")));
 
       var nukedUsers = nukeResults.OfType<SendableMute>().Select(umb => umb.Target);
       _messagesContainingAndSimilarToNukedWord.VerifyTargeted(nukedUsers);

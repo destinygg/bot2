@@ -65,7 +65,6 @@
     <Compile Include="Helper\ContextBuilder.cs" />
     <Compile Include="Helper\ContextInserterBuilder.cs" />
     <Compile Include="Helper\DateTimeZero.cs" />
-    <Compile Include="Helper\IReceivedFactoryExtensionMethods.cs" />
     <Compile Include="ModCommandLogicTests_Aegis.cs" />
     <Compile Include="PairedNukeAegisTests.cs" />
     <Compile Include="ModCommandRegexTest.cs" />

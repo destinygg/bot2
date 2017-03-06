@@ -1,18 +1,15 @@
 ﻿using System;
 using Bot.Logic.Interfaces;
 using Bot.Models;
-using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class ReceivedFactory : IReceivedFactory {
     private readonly ITimeService _timeService;
-    private readonly IFactory<IReceived<Moderator, IMessage>, Nuke> _nukeFactory;
 
-    public ReceivedFactory(ITimeService timeService, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory) {
+    public ReceivedFactory(ITimeService timeService) {
       _timeService = timeService;
-      _nukeFactory = nukeFactory;
     }
 
     public PublicMessageFromMod ModPublicReceivedMessage(string text) => new PublicMessageFromMod(text, _timeService);
@@ -23,6 +20,5 @@ namespace Bot.Logic {
 
     public ReceivedPardon ReceivedPardon(Moderator sender, Civilian target) => new ReceivedPardon(sender, target, _timeService);
 
-    public Nuke Nuke(IReceived<Moderator, IMessage> message) => _nukeFactory.Create(message);
   }
 }
