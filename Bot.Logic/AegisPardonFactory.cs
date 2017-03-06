@@ -9,7 +9,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class AegisPardonFactory : NukeAegisBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class AegisPardonFactory : NukeAegisSendableFactoryBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IFactory<IReceived<Moderator, IMessage>, Nuke> _nukeFactory;
 

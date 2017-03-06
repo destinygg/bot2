@@ -36,7 +36,7 @@
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
-    <Compile Include="NukeAegisBase.cs" />
+    <Compile Include="NukeAegisSendableFactoryBase.cs" />
     <Compile Include="NukeFactory.cs" />
     <Compile Include="SendableVisitor\ConsoleSendableVisitor.cs" />
     <Compile Include="Interfaces\IModCommandLogic.cs" />

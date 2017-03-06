@@ -6,7 +6,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class NukeMuteFactory : NukeAegisBase, IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class NukeMuteFactory : NukeAegisSendableFactoryBase, IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
 
     public NukeMuteFactory(ISettings settings, ITimeService timeService) : base(settings, timeService) { }
 

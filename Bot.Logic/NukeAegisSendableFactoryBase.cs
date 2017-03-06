@@ -6,11 +6,11 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public abstract class NukeAegisBase {
+  public abstract class NukeAegisSendableFactoryBase {
     private readonly ISettings _settings;
     private readonly ITimeService _timeService;
 
-    protected NukeAegisBase(ISettings settings, ITimeService timeService) {
+    protected NukeAegisSendableFactoryBase(ISettings settings, ITimeService timeService) {
       _settings = settings;
       _timeService = timeService;
     }
