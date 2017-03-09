@@ -184,6 +184,7 @@
     <Compile Include="BaseRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PunishedUserRepositoryTests.cs" />
+    <Compile Include="RepositoryInitializer.cs" />
     <Compile Include="StateIntegerRepositoryTests.cs" />
     <Compile Include="UnitOfWorkTests.cs" />
     <Compile Include="UserRepositoryTests.cs" />

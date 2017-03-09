@@ -1,24 +1,23 @@
-﻿using Bot.Database.Tests;
-using Bot.Tests;
+﻿using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
   public abstract class BaseRepositoryTests {
-    private readonly DatabaseInitializer _databaseInitializer;
+    private readonly RepositoryInitializer _repositoryInitializer;
 
     protected BaseRepositoryTests() {
       var containerManager = new TestContainerManager();
-      _databaseInitializer = containerManager.Container.GetInstance<DatabaseInitializer>();
+      _repositoryInitializer = containerManager.Container.GetInstance<RepositoryInitializer>();
     }
 
     [TestInitialize]
     public void Initialize() {
-      _databaseInitializer.Recreate();
+      _repositoryInitializer.RecreateWithMasterData();
     }
 
     [TestCleanup]
     public void Cleanup() {
-      _databaseInitializer.EnsureDeleted();
+      _repositoryInitializer.EnsureDeleted();
     }
 
   }
