@@ -28,7 +28,7 @@ namespace Bot.Repository.Tests {
       };
       using (var unitOfWork = new UnitOfWork(new BotDbContext())) {
         unitOfWork.PunishedUsers.Add(punishedUser);
-        unitOfWork.Complete();
+        unitOfWork.SaveChanges();
       }
 
       // Act
@@ -36,7 +36,7 @@ namespace Bot.Repository.Tests {
         var puEntity = unitOfWork.PunishedUsers.SingleOrDefault(x => x.User.Nick == nick);
         puEntity.Count = newCount;
         unitOfWork.PunishedUsers.Update(puEntity);
-        unitOfWork.Complete();
+        unitOfWork.SaveChanges();
       }
 
       PunishedUser dbPunishedUser;

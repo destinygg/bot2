@@ -1,5 +1,4 @@
-﻿using Bot.Database;
-using Bot.Database.Interfaces;
+﻿using Bot.Database.Interfaces;
 using Bot.Repository.Interfaces;
 
 namespace Bot.Repository {
@@ -18,11 +17,9 @@ namespace Bot.Repository {
     public IAutoPunishmentRepository AutoPunishments { get; }
     public IUserRepository Users { get; }
     public IPunishedUserRepository PunishedUsers { get; }
-    public int Complete() => _context.SaveChanges();
 
-    public void Dispose() {
-      _context.Dispose();
-    }
+    public void Dispose() => _context.Dispose();
 
+    public int SaveChanges() => _context.SaveChanges();
   }
 }
