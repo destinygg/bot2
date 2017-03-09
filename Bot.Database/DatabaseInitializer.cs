@@ -1,5 +1,4 @@
-﻿using Bot.Database.Entities;
-using Bot.Database.Interfaces;
+﻿using Bot.Database.Interfaces;
 
 namespace Bot.Database {
   public class DatabaseInitializer {
@@ -20,18 +19,9 @@ namespace Bot.Database {
       });
     }
 
-    public void AddMasterData() {
-      _databaseService.Command(context => {
-        context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
-        context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
-        context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.DeathCount), 0));
-      });
-    }
-
-    public void RecreateWithMasterData() {
+    public void Recreate() {
       EnsureDeleted();
       EnsureCreated();
-      AddMasterData();
     }
 
   }

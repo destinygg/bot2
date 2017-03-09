@@ -13,7 +13,7 @@ namespace Bot.Database.Tests {
     public void Initialize() {
       var containerManager = new TestContainerManager();
       var databaseInitializer = containerManager.Container.GetInstance<DatabaseInitializer>();
-      databaseInitializer.RecreateWithMasterData();
+      databaseInitializer.Recreate();
       _databaseService = containerManager.Container.GetInstance<IDatabaseService<IBotDbContext>>();
     }
 

@@ -13,7 +13,7 @@ namespace Bot.Repository.Tests {
 
     [TestInitialize]
     public void Initialize() {
-      _databaseInitializer.RecreateWithMasterData();
+      _databaseInitializer.Recreate();
     }
 
     [TestCleanup]
