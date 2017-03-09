@@ -1,4 +1,4 @@
-﻿using Bot.Database;
+﻿using Bot.Database.Tests;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

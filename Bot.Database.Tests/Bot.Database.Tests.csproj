@@ -114,6 +114,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseInitializerTest.cs" />
     <Compile Include="DatabaseServiceTests.cs" />

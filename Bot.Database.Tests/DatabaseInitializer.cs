@@ -1,6 +1,6 @@
 ﻿using Bot.Database.Interfaces;
 
-namespace Bot.Database {
+namespace Bot.Database.Tests {
   public class DatabaseInitializer {
     private readonly IDatabaseService<IBotDbContext> _databaseService;
     public DatabaseInitializer(IDatabaseService<IBotDbContext> databaseService) {

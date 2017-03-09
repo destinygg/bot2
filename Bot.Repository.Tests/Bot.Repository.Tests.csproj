@@ -189,6 +189,10 @@
     <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Tests\Bot.Database.Tests.csproj">
+      <Project>{B0CD878A-DABB-46D7-BDFB-6356DF0CA3DF}</Project>
+      <Name>Bot.Database.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
       <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
       <Name>Bot.Database</Name>
