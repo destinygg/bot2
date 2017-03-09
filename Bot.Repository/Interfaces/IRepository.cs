@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Bot.Database.Interfaces {
+namespace Bot.Repository.Interfaces {
   public interface IRepository<TEntity> where TEntity : class {
     IEnumerable<TEntity> GetAll();
     IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);

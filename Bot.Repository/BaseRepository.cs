@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Bot.Database.Interfaces;
+using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bot.Database {
+namespace Bot.Repository {
   public abstract class BaseRepository<TEntity> : IRepository<TEntity>
     where TEntity : class {
     protected readonly DbSet<TEntity> Entities;

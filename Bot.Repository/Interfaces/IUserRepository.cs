@@ -1,7 +1,7 @@
 ﻿using Bot.Database.Entities;
 
-namespace Bot.Database.Interfaces {
+namespace Bot.Repository.Interfaces {
   public interface IUserRepository : IRepository<User> {
-    
+
   }
 }

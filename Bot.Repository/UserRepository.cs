@@ -1,8 +1,8 @@
 ﻿using Bot.Database.Entities;
-using Bot.Database.Interfaces;
+using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bot.Database {
+namespace Bot.Repository {
   public class UserRepository : BaseRepository<User>, IUserRepository {
     public UserRepository(DbSet<User> entities) : base(entities) { }
 

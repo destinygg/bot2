@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Bot.Database.Entities;
-using Bot.Database.Interfaces;
+using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bot.Database {
+namespace Bot.Repository {
   public class PunishedUserRepository : BaseRepository<PunishedUser>, IPunishedUserRepository {
     public PunishedUserRepository(DbSet<PunishedUser> entities) : base(entities) { }
 

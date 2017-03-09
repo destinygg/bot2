@@ -1,8 +1,9 @@
 ﻿using System;
+using Bot.Database;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Database.Tests {
+namespace Bot.Repository.Tests {
   [TestClass]
   public class StateIntegerRepositoryTests : BaseRepositoryTests {
 

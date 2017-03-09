@@ -1,8 +1,9 @@
-﻿using Bot.Database.Entities;
+﻿using Bot.Database;
+using Bot.Database.Entities;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Database.Tests {
+namespace Bot.Repository.Tests {
   [TestClass]
   public class UnitOfWorkTests : BaseRepositoryTests {
 

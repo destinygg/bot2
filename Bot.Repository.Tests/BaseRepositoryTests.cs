@@ -1,7 +1,8 @@
-﻿using Bot.Tests;
+﻿using Bot.Database;
+using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Database.Tests {
+namespace Bot.Repository.Tests {
   public abstract class BaseRepositoryTests {
     private readonly DatabaseInitializer _databaseInitializer;
 

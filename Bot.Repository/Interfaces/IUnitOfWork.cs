@@ -1,6 +1,7 @@
 ﻿using System;
+using Bot.Database.Interfaces;
 
-namespace Bot.Database.Interfaces {
+namespace Bot.Repository.Interfaces {
   public interface IUnitOfWork : IDisposable {
     IStateIntegerRepository StateIntegers { get; }
     IAutoPunishmentRepository AutoPunishments { get; }

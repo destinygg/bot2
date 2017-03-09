@@ -1,10 +1,10 @@
 ﻿using System;
 using Bot.Database.Entities;
-using Bot.Database.Interfaces;
+using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bot.Database {
+namespace Bot.Repository {
   public class StateIntegerRepository : BaseRepository<StateInteger>, IStateIntegerRepository {
     public StateIntegerRepository(DbSet<StateInteger> entities) : base(entities) { }
 

@@ -1,6 +1,8 @@
-﻿using Bot.Database.Interfaces;
+﻿using Bot.Database;
+using Bot.Database.Interfaces;
+using Bot.Repository.Interfaces;
 
-namespace Bot.Database {
+namespace Bot.Repository {
   public class UnitOfWork : IUnitOfWork {
     private readonly IBotDbContext _context;
 

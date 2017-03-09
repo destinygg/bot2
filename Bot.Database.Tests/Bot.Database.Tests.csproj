@@ -114,16 +114,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseRepositoryTests.cs" />
-    <Compile Include="PunishedUserRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateIntegerRepositoryTests.cs" />
-    <Compile Include="AutoPunishmentRepositoryTests.cs" />
-    <Compile Include="UnitOfWorkTests.cs" />
     <Compile Include="DatabaseInitializerTest.cs" />
     <Compile Include="DatabaseServiceTests.cs" />
     <Compile Include="ScopedDatabaseServiceDecoratorTests.cs" />
-    <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
