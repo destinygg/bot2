@@ -1,69 +1,69 @@
 ﻿using System;
 using Bot.Database;
 using Bot.Tests;
+using Bot.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
   [TestClass]
-  public class StateIntegerRepositoryTests : BaseRepositoryTests {
+  public class StateIntegerRepositoryTests {
 
     [TestMethod]
     public void ReadWriteLatestStreamOnTime() {
-      var testWrite = DateTime.FromBinary(TestHelper.RandomInt());
+      var container = RepositoryHelper.GetContainer(nameof(ReadWriteLatestStreamOnTime));
 
-      using (var context = new BotDbContext()) {
+      // todo fix
+      var testWrite = ((long) TestHelper.RandomInt()).FromUnixTime();
+      using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
         stateIntegerRepository.LatestStreamOnTime = testWrite;
         context.SaveChanges();
       }
-      //BotDbContextManager.Save(db => {
-      //  //var stateIntegerRepository = new StateIntegerRepository(db.StateIntegers);
-      //  //stateIntegerRepository.LatestStreamOnTime = testWrite;
-      //  db.StateIntegers.Add(new Entities.StateInteger() { Key = " flej", Value = 1 });
-      //});
 
       DateTime testRead;
-      using (var context = new BotDbContext()) {
+      using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
-        testRead = stateIntegerRepository.LatestStreamOnTime = testWrite; // wtf lol
+        testRead = stateIntegerRepository.LatestStreamOnTime;
       }
 
-      Assert.AreEqual(testWrite, testRead);
+      Assert.AreEqual(testWrite.Ticks, testRead.Ticks);
     }
 
     [TestMethod]
     public void ReadWriteLatestStreamOffTime() {
-      var testWrite = DateTime.FromBinary(TestHelper.RandomInt());
+      var container = RepositoryHelper.GetContainer(nameof(ReadWriteLatestStreamOffTime));
 
-      using (var context = new BotDbContext()) {
+      var testWrite = DateTime.FromBinary(TestHelper.RandomInt());
+      using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
         stateIntegerRepository.LatestStreamOffTime = testWrite;
         context.SaveChanges();
       }
 
       DateTime testRead;
-      using (var context = new BotDbContext()) {
+      using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
-        testRead = stateIntegerRepository.LatestStreamOffTime = testWrite;
+        testRead = stateIntegerRepository.LatestStreamOffTime;
       }
 
-      Assert.AreEqual(testWrite, testRead);
+      Assert.AreEqual(testWrite.Ticks, testRead.Ticks);
     }
 
     [TestMethod]
     public void ReadWriteDeathCount() {
-      var testWrite = TestHelper.RandomInt();
+      var container = RepositoryHelper.GetContainer(nameof(ReadWriteDeathCount));
 
-      using (var context = new BotDbContext()) {
+      var testWrite = TestHelper.RandomInt();
+      using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
         stateIntegerRepository.DeathCount = testWrite;
         context.SaveChanges();
       }
 
       long testRead;
-      using (var context = new BotDbContext()) {
+      using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
-        testRead = stateIntegerRepository.DeathCount = testWrite;
+        testRead = stateIntegerRepository.DeathCount;
       }
 
       Assert.AreEqual(testWrite, testRead);

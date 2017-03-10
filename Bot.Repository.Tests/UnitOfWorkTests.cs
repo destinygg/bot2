@@ -5,19 +5,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
   [TestClass]
-  public class UnitOfWorkTests : BaseRepositoryTests {
+  public class UnitOfWorkTests {
 
     [TestMethod]
     public void UpdatePunishedUser() {
-      // Arrange
+      var container = RepositoryHelper.GetContainer(nameof(UpdatePunishedUser));
+
       var nick = TestHelper.RandomString();
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();
       var duration = TestHelper.RandomInt();
       var oldCount = TestHelper.RandomInt();
-      var newCount = oldCount + 1;
-
-      var punishedUser = new PunishedUser {
+      var punishedUserWrite = new PunishedUser {
         User = new User { Nick = nick },
         AutoPunishment = new AutoPunishment {
           Term = term,
@@ -26,30 +25,29 @@ namespace Bot.Repository.Tests {
         },
         Count = oldCount,
       };
-      using (var unitOfWork = new UnitOfWork(new BotDbContext())) {
-        unitOfWork.PunishedUsers.Add(punishedUser);
+      using (var unitOfWork = new UnitOfWork(container.GetInstance<BotDbContext>())) {
+        unitOfWork.PunishedUsers.Add(punishedUserWrite);
         unitOfWork.SaveChanges();
       }
 
-      // Act
-      using (var unitOfWork = new UnitOfWork(new BotDbContext())) {
-        var puEntity = unitOfWork.PunishedUsers.SingleOrDefault(x => x.User.Nick == nick);
-        puEntity.Count = newCount;
-        unitOfWork.PunishedUsers.Update(puEntity);
+      var newCount = oldCount + 1;
+      using (var unitOfWork = new UnitOfWork(container.GetInstance<BotDbContext>())) {
+        var punishedUserUpdate = unitOfWork.PunishedUsers.SingleOrDefault(pu => pu.User.Nick == nick);
+        punishedUserUpdate.Count = newCount;
+        unitOfWork.PunishedUsers.Update(punishedUserUpdate);
         unitOfWork.SaveChanges();
       }
 
-      PunishedUser dbPunishedUser;
-      using (var unitOfWork = new UnitOfWork(new BotDbContext())) {
-        dbPunishedUser = unitOfWork.PunishedUsers.SingleOrDefault(pu => pu.User.Nick == nick);
+      PunishedUser punishedUserRead;
+      using (var unitOfWork = new UnitOfWork(container.GetInstance<BotDbContext>())) {
+        punishedUserRead = unitOfWork.PunishedUsers.SingleOrDefault(pu => pu.User.Nick == nick);
       }
 
-      // Assert
-      Assert.AreEqual(dbPunishedUser.User.Nick, nick);
-      Assert.AreEqual(dbPunishedUser.AutoPunishment.Term, term);
-      Assert.AreEqual(dbPunishedUser.AutoPunishment.Type, type);
-      Assert.AreEqual(dbPunishedUser.AutoPunishment.Duration, duration);
-      Assert.AreEqual(dbPunishedUser.Count, newCount);
+      Assert.AreEqual(punishedUserRead.User.Nick, nick);
+      Assert.AreEqual(punishedUserRead.AutoPunishment.Term, term);
+      Assert.AreEqual(punishedUserRead.AutoPunishment.Type, type);
+      Assert.AreEqual(punishedUserRead.AutoPunishment.Duration, duration);
+      Assert.AreEqual(punishedUserRead.Count, newCount);
     }
 
   }

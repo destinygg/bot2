@@ -7,17 +7,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
   [TestClass]
-  public class AutoPunishmentRepositoryTests : BaseRepositoryTests {
+  public class AutoPunishmentRepositoryTests {
 
     [TestMethod]
     public void ReadWriteAutoPunishment() {
-      // Arrange
+      var container = RepositoryHelper.GetContainer(nameof(ReadWriteAutoPunishment));
+
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();
       var duration = TestHelper.RandomInt();
-
-      // Act
-      using (var context = new BotDbContext()) {
+      using (var context = container.GetInstance<BotDbContext>()) {
         var autoPunishmentRepository = new AutoPunishmentRepository(context.AutoPunishments);
         autoPunishmentRepository.Add(new AutoPunishment {
           Term = term,
@@ -28,16 +27,15 @@ namespace Bot.Repository.Tests {
       }
 
       IEnumerable<AutoPunishment> testRead;
-      using (var context = new BotDbContext()) {
+      using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
         testRead = userRepository.GetAll();
       }
       var dbAutoPunishment = testRead.First();
 
-      // Assert
-      Assert.AreEqual(dbAutoPunishment.Duration, duration);
       Assert.AreEqual(dbAutoPunishment.Term, term);
       Assert.AreEqual(dbAutoPunishment.Type, type);
+      Assert.AreEqual(dbAutoPunishment.Duration, duration);
     }
 
   }

@@ -7,45 +7,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
   [TestClass]
-  public class PunishedUserRepositoryTests : BaseRepositoryTests {
+  public class PunishedUserRepositoryTests {
 
     [TestMethod]
     public void PunishedUserWriteAndGetAllWithIncludes() {
-      // Arrange
+      var container = RepositoryHelper.GetContainer(nameof(PunishedUserWriteAndGetAllWithIncludes));
+
       var nick = TestHelper.RandomString();
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();
       var duration = TestHelper.RandomInt();
       var count = TestHelper.RandomInt();
-
-      // Act
-      using (var context = new BotDbContext()) {
+      var punishedUserWrite = new PunishedUser {
+        User = new User { Nick = nick },
+        AutoPunishment = new AutoPunishment {
+          Term = term,
+          Type = type,
+          Duration = duration,
+        },
+        Count = count,
+      };
+      using (var context = container.GetInstance<BotDbContext>()) {
         var autoPunishmentRepository = new PunishedUserRepository(context.PunishedUsers);
-        autoPunishmentRepository.Add(new PunishedUser {
-          User = new User { Nick = nick },
-          AutoPunishment = new AutoPunishment {
-            Term = term,
-            Type = type,
-            Duration = duration,
-          },
-          Count = count,
-        });
+        autoPunishmentRepository.Add(punishedUserWrite);
         context.SaveChanges();
       }
 
       IEnumerable<PunishedUser> testRead;
-      using (var context = new BotDbContext()) {
+      using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new PunishedUserRepository(context.PunishedUsers);
         testRead = userRepository.GetAllWithIncludes();
       }
-      var dbPunishedUser = testRead.Single();
 
-      // Assert
-      Assert.AreEqual(dbPunishedUser.User.Nick, nick);
-      Assert.AreEqual(dbPunishedUser.AutoPunishment.Term, term);
-      Assert.AreEqual(dbPunishedUser.AutoPunishment.Type, type);
-      Assert.AreEqual(dbPunishedUser.AutoPunishment.Duration, duration);
-      Assert.AreEqual(dbPunishedUser.Count, count);
+      var testReadSingle = testRead.Single();
+      Assert.AreEqual(testReadSingle.User.Nick, nick);
+      Assert.AreEqual(testReadSingle.AutoPunishment.Term, term);
+      Assert.AreEqual(testReadSingle.AutoPunishment.Type, type);
+      Assert.AreEqual(testReadSingle.AutoPunishment.Duration, duration);
+      Assert.AreEqual(testReadSingle.Count, count);
     }
 
   }
