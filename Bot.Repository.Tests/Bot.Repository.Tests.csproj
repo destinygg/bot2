@@ -185,7 +185,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AutoPunishmentRepositoryTests.cs" />
-    <Compile Include="BaseRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PunishedUserRepositoryTests.cs" />
     <Compile Include="RepositoryHelper.cs" />

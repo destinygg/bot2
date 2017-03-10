@@ -1,10 +1,16 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
+using Bot.Tools;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Database {
   public class BotDbContext : DbContext, IBotDbContext {
+    private readonly string _sqlitePath;
+
+    public BotDbContext(ISettings settings) {
+      _sqlitePath = settings.SqlitePath;
+    }
 
     #region DbSet
     public DbSet<StateInteger> StateIntegers { get; set; }
@@ -33,7 +39,7 @@ namespace Bot.Database {
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-      var sqliteConn = new SqliteConnection(@"DataSource = Bot.db");
+      var sqliteConn = new SqliteConnection($"DataSource = {_sqlitePath}");
       optionsBuilder.UseSqlite(sqliteConn);
     }
 
