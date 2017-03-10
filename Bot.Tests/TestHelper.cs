@@ -2,12 +2,14 @@
 using System.Diagnostics;
 using System.Linq;
 using Bot.Database.Entities;
+using Bot.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Tests {
   public static class TestHelper {
 
     public static int RandomInt() => Random().Next();
+    public static DateTime RandomDateTime() => TimeService.UnixEpoch.AddSeconds(Random().Next());
 
     public static AutoPunishmentType RandomAutoPunishmentType() {
       var values = Enum.GetValues(typeof(AutoPunishmentType));

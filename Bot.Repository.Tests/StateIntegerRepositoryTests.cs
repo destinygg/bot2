@@ -1,7 +1,6 @@
 ﻿using System;
 using Bot.Database;
 using Bot.Tests;
-using Bot.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
@@ -12,8 +11,7 @@ namespace Bot.Repository.Tests {
     public void ReadWriteLatestStreamOnTime() {
       var container = RepositoryHelper.GetContainer(nameof(ReadWriteLatestStreamOnTime));
 
-      // todo fix
-      var testWrite = ((long) TestHelper.RandomInt()).FromUnixTime();
+      var testWrite = TestHelper.RandomDateTime();
       using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
         stateIntegerRepository.LatestStreamOnTime = testWrite;
@@ -33,7 +31,7 @@ namespace Bot.Repository.Tests {
     public void ReadWriteLatestStreamOffTime() {
       var container = RepositoryHelper.GetContainer(nameof(ReadWriteLatestStreamOffTime));
 
-      var testWrite = DateTime.FromBinary(TestHelper.RandomInt());
+      var testWrite = TestHelper.RandomDateTime();
       using (var context = container.GetInstance<BotDbContext>()) {
         var stateIntegerRepository = new StateIntegerRepository(context.StateIntegers);
         stateIntegerRepository.LatestStreamOffTime = testWrite;
