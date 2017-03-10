@@ -1,4 +1,5 @@
-﻿using Bot.Tests;
+﻿using System.Runtime.CompilerServices;
+using Bot.Tests;
 using Bot.Tools;
 using NSubstitute;
 using SimpleInjector;
@@ -6,7 +7,7 @@ using SimpleInjector;
 namespace Bot.Repository.Tests {
   internal static class RepositoryHelper {
 
-    public static Container GetContainer(string sqliteName) {
+    public static Container GetContainer([CallerMemberName] string sqliteName = null) {
 
       var settings = Substitute.For<ISettings>();
       settings.SqlitePath.Returns($"{sqliteName}.sqlite");

@@ -9,7 +9,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteLatestStreamOnTime() {
-      var container = RepositoryHelper.GetContainer(nameof(ReadWriteLatestStreamOnTime));
+      var container = RepositoryHelper.GetContainer();
 
       var testWrite = TestHelper.RandomDateTime();
       using (var context = container.GetInstance<BotDbContext>()) {
@@ -29,7 +29,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteLatestStreamOffTime() {
-      var container = RepositoryHelper.GetContainer(nameof(ReadWriteLatestStreamOffTime));
+      var container = RepositoryHelper.GetContainer();
 
       var testWrite = TestHelper.RandomDateTime();
       using (var context = container.GetInstance<BotDbContext>()) {
@@ -49,7 +49,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteDeathCount() {
-      var container = RepositoryHelper.GetContainer(nameof(ReadWriteDeathCount));
+      var container = RepositoryHelper.GetContainer();
 
       var testWrite = TestHelper.RandomInt();
       using (var context = container.GetInstance<BotDbContext>()) {
