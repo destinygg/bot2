@@ -9,7 +9,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void UpdatePunishedUser() {
-      var container = RepositoryHelper.GetContainer();
+      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
 
       var nick = TestHelper.RandomString();
       var term = TestHelper.RandomString();

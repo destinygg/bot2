@@ -11,7 +11,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteUser() {
-      var container = RepositoryHelper.GetContainer();
+      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
 
       var userName = TestHelper.RandomString();
       using (var context = container.GetInstance<BotDbContext>()) {

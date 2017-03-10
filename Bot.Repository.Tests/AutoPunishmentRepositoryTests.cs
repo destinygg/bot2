@@ -11,7 +11,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteAutoPunishment() {
-      var container = RepositoryHelper.GetContainer();
+      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
 
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();

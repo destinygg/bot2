@@ -7,7 +7,7 @@ using SimpleInjector;
 namespace Bot.Repository.Tests {
   internal static class RepositoryHelper {
 
-    public static Container GetContainer([CallerMemberName] string sqliteName = null) {
+    public static Container GetContainerWithInitializedAndIsolatedRepository([CallerMemberName] string sqliteName = null) {
 
       var settings = Substitute.For<ISettings>();
       settings.SqlitePath.Returns($"{sqliteName}.sqlite");

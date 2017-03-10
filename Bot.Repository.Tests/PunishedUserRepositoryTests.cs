@@ -11,7 +11,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void PunishedUserWriteAndGetAllWithIncludes() {
-      var container = RepositoryHelper.GetContainer();
+      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
 
       var nick = TestHelper.RandomString();
       var term = TestHelper.RandomString();
