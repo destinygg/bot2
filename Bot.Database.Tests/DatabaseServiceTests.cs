@@ -10,7 +10,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void DatabaseServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
-      var databaseService = DatabaseHelper.GetContainerWithInitializedAndIsolatedDatabase().GetInstance<IDatabaseService<IBotDbContext>>();
+      var databaseService = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IDatabaseService<IBotDbContext>>();
 
       var punishedUser = new PunishedUser {
         Count = 1,

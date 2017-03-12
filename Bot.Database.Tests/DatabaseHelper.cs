@@ -8,7 +8,7 @@ using SimpleInjector;
 namespace Bot.Database.Tests {
   internal static class DatabaseHelper {
 
-    public static Container GetContainerWithInitializedAndIsolatedDatabase([CallerMemberName] string sqlitePath = null) {
+    public static Container GetContainerWithRecreatedAndIsolatedDatabase([CallerMemberName] string sqlitePath = null) {
 
       var settings = Substitute.For<ISettings>();
       settings.SqlitePath.Returns(sqlitePath);
