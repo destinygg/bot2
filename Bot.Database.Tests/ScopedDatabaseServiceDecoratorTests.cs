@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Database.Interfaces;
+using Bot.Database.Tests.Helper;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;

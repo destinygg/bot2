@@ -5,7 +5,7 @@ using Bot.Tools;
 using NSubstitute;
 using SimpleInjector;
 
-namespace Bot.Database.Tests {
+namespace Bot.Database.Tests.Helper {
   internal static class DatabaseHelper {
 
     public static Container GetContainerWithRecreatedAndIsolatedDatabase([CallerMemberName] string sqlitePath = null) {

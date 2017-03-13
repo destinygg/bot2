@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Bot.Database.Tests.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {

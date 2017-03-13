@@ -1,5 +1,6 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
+using Bot.Database.Tests.Helper;
 using Bot.Tests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

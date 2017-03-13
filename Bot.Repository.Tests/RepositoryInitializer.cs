@@ -1,6 +1,6 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
-using Bot.Database.Tests;
+using Bot.Database.Tests.Helper;
 using Bot.Repository.Interfaces;
 
 namespace Bot.Repository.Tests {
