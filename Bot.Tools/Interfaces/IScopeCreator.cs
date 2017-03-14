@@ -1,6 +1,6 @@
 using System;
 
-namespace Bot.Database.Interfaces {
+namespace Bot.Tools.Interfaces {
   public interface IScopeCreator {
     IDisposable CreateScope();
   }

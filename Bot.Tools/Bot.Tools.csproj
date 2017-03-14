@@ -36,9 +36,11 @@
   <ItemGroup>
     <Compile Include="DelegatedFactory.cs" />
     <Compile Include="DelegatedProvider.cs" />
+    <Compile Include="DelegatedScopeCreator.cs" />
     <Compile Include="FactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IErrorableFactory.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
+    <Compile Include="Interfaces\IScopeCreator.cs" />
     <Compile Include="Interfaces\IVisitor.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="Logging\ILogger.cs" />

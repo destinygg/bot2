@@ -204,12 +204,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseService.cs" />
-    <Compile Include="DelegatedScopeCreator.cs" />
     <Compile Include="Interfaces\IBotDbContext.cs" />
     <Compile Include="Interfaces\IDatabaseService.cs" />
     <Compile Include="Interfaces\IDatabaseServiceExtensions.cs" />
     <Compile Include="Interfaces\ISavable.cs" />
-    <Compile Include="Interfaces\IScopeCreator.cs" />
     <Compile Include="BotDbContext.cs" />
     <Compile Include="Entities\Punishment.cs" />
     <Compile Include="Entities\StateInteger.cs" />

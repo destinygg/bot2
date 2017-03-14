@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Database.Interfaces;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Database {
   /// <summary>

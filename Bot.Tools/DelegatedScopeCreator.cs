@@ -1,7 +1,7 @@
 using System;
-using Bot.Database.Interfaces;
+using Bot.Tools.Interfaces;
 
-namespace Bot.Database {
+namespace Bot.Tools {
   public class DelegatedScopeCreator : IScopeCreator {
 
     private readonly Func<IDisposable> _createScope;
