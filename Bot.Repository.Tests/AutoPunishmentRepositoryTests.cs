@@ -18,7 +18,7 @@ namespace Bot.Repository.Tests {
       var duration = TestHelper.RandomInt();
       using (var context = container.GetInstance<BotDbContext>()) {
         var autoPunishmentRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        autoPunishmentRepository.Add(new AutoPunishment {
+        autoPunishmentRepository.Add(new AutoPunishmentEntity {
           Term = term,
           Type = type,
           Duration = duration,
@@ -26,7 +26,7 @@ namespace Bot.Repository.Tests {
         context.SaveChanges();
       }
 
-      IEnumerable<AutoPunishment> testRead;
+      IEnumerable<AutoPunishmentEntity> testRead;
       using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
         testRead = userRepository.GetAll();

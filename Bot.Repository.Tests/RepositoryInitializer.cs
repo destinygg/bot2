@@ -16,9 +16,9 @@ namespace Bot.Repository.Tests {
 
     private void AddMasterData() {
       _queryCommandService.Command(context => {
-        context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
-        context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
-        context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.DeathCount), 0));
+        context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
+        context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
+        context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.DeathCount), 0));
       });
     }
 

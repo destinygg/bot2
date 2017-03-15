@@ -13,19 +13,19 @@ namespace Bot.Repository.Tests {
       var unitOfWorkService = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository().GetInstance<IQueryCommandService<IUnitOfWork>>();
       var nick = TestHelper.RandomString();
       var oldCount = TestHelper.RandomInt();
-      var punishedUserWrite = new PunishedUser {
-        User = new User { Nick = nick },
-        AutoPunishment = new AutoPunishment(),
+      var punishedUserWrite = new PunishedUserEntity {
+        UserEntity = new UserEntity { Nick = nick },
+        AutoPunishmentEntity = new AutoPunishmentEntity(),
         Count = oldCount,
       };
       unitOfWorkService.Command(u => u.PunishedUsers.Add(punishedUserWrite));
-      var userToUpdate = unitOfWorkService.Query(u => u.PunishedUsers.SingleOrDefault(x => x.User.Nick == nick));
+      var userToUpdate = unitOfWorkService.Query(u => u.PunishedUsers.SingleOrDefault(x => x.UserEntity.Nick == nick));
       var newCount = oldCount + 1;
       userToUpdate.Count = newCount;
 
       unitOfWorkService.Command(u => u.PunishedUsers.Update(userToUpdate));
 
-      var updatedUser = unitOfWorkService.Query(u => u.PunishedUsers.SingleOrDefault(x => x.User.Nick == nick));
+      var updatedUser = unitOfWorkService.Query(u => u.PunishedUsers.SingleOrDefault(x => x.UserEntity.Nick == nick));
       Assert.AreEqual(updatedUser.Count, newCount);
     }
 

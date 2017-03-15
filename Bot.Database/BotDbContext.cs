@@ -13,25 +13,25 @@ namespace Bot.Database {
     }
 
     #region DbSet
-    public DbSet<StateInteger> StateIntegers { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<AutoPunishment> AutoPunishments { get; set; }
-    public DbSet<PunishedUser> PunishedUsers { get; set; }
+    public DbSet<StateIntegerEntity> StateIntegers { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
+    public DbSet<AutoPunishmentEntity> AutoPunishments { get; set; }
+    public DbSet<PunishedUserEntity> PunishedUsers { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
-      modelBuilder.Entity<StateInteger>().HasKey(si => si.Key);
-      modelBuilder.Entity<PunishedUser>()
+      modelBuilder.Entity<StateIntegerEntity>().HasKey(si => si.Key);
+      modelBuilder.Entity<PunishedUserEntity>()
         .HasKey(pu => new { pu.UserId, pu.AutoPunishmentId });
 
       //EFCore doesn't support many to many yet.
-      modelBuilder.Entity<PunishedUser>()
-          .HasOne(pt => pt.User)
+      modelBuilder.Entity<PunishedUserEntity>()
+          .HasOne(pt => pt.UserEntity)
           .WithMany(p => p.PunishedUsers)
           .HasForeignKey(pt => pt.UserId);
 
-      modelBuilder.Entity<PunishedUser>()
-          .HasOne(pt => pt.AutoPunishment)
+      modelBuilder.Entity<PunishedUserEntity>()
+          .HasOne(pt => pt.AutoPunishmentEntity)
           .WithMany(t => t.PunishedUsers)
           .HasForeignKey(pt => pt.AutoPunishmentId);
 

@@ -5,8 +5,8 @@ using Bot.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Repository {
-  public class StateIntegerRepository : BaseRepository<StateInteger>, IStateIntegerRepository {
-    public StateIntegerRepository(DbSet<StateInteger> entities) : base(entities) { }
+  public class StateIntegerRepository : BaseRepository<StateIntegerEntity>, IStateIntegerRepository {
+    public StateIntegerRepository(DbSet<StateIntegerEntity> entities) : base(entities) { }
 
     public DateTime LatestStreamOnTime {
       get { return _Read(nameof(LatestStreamOnTime)).FromUnixTime(); }
@@ -27,6 +27,6 @@ namespace Bot.Repository {
       SingleOrDefault(x => x.Key == key).Value;
 
     private void _Update(string key, long value) =>
-      Update(new StateInteger(key, value));
+      Update(new StateIntegerEntity(key, value));
   }
 }

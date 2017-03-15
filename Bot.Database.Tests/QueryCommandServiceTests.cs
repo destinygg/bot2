@@ -14,7 +14,7 @@ namespace Bot.Database.Tests {
     public void QueryCommandServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
       var contextService = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IQueryCommandService<IBotDbContext>>();
 
-      var punishedUser = new PunishedUser {
+      var punishedUser = new PunishedUserEntity {
         Count = 1,
         AutoPunishmentId = 1,
         UserId = 1,

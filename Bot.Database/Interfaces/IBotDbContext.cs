@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Bot.Database.Interfaces {
   public interface IBotDbContext : IDisposable, ISavable {
-    DbSet<AutoPunishment> AutoPunishments { get; set; }
-    DbSet<PunishedUser> PunishedUsers { get; set; }
-    DbSet<StateInteger> StateIntegers { get; set; }
-    DbSet<User> Users { get; set; }
+    DbSet<AutoPunishmentEntity> AutoPunishments { get; set; }
+    DbSet<PunishedUserEntity> PunishedUsers { get; set; }
+    DbSet<StateIntegerEntity> StateIntegers { get; set; }
+    DbSet<UserEntity> Users { get; set; }
     DatabaseFacade Database { get; }
   }
 }

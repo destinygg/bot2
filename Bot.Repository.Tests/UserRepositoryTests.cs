@@ -16,11 +16,11 @@ namespace Bot.Repository.Tests {
       var userName = TestHelper.RandomString();
       using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new UserRepository(context.Users);
-        userRepository.Add(new User { Nick = userName });
+        userRepository.Add(new UserEntity { Nick = userName });
         context.SaveChanges();
       }
 
-      IEnumerable<User> testRead;
+      IEnumerable<UserEntity> testRead;
       using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new UserRepository(context.Users);
         testRead = userRepository.GetAll();
