@@ -1,6 +1,7 @@
-﻿using Bot.Database;
-using Bot.Database.Entities;
+﻿using Bot.Database.Entities;
+using Bot.Repository.Interfaces;
 using Bot.Tests;
+using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
@@ -9,45 +10,23 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void UpdatePunishedUser() {
-      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
-
+      var unitOfWorkService = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository().GetInstance<IDatabaseService<IUnitOfWork>>();
       var nick = TestHelper.RandomString();
-      var term = TestHelper.RandomString();
-      var type = TestHelper.RandomAutoPunishmentType();
-      var duration = TestHelper.RandomInt();
       var oldCount = TestHelper.RandomInt();
       var punishedUserWrite = new PunishedUser {
         User = new User { Nick = nick },
-        AutoPunishment = new AutoPunishment {
-          Term = term,
-          Type = type,
-          Duration = duration,
-        },
+        AutoPunishment = new AutoPunishment(),
         Count = oldCount,
       };
-      using (var unitOfWork = new UnitOfWork(container.GetInstance<BotDbContext>())) {
-        unitOfWork.PunishedUsers.Add(punishedUserWrite);
-        unitOfWork.SaveChanges();
-      }
-
+      unitOfWorkService.Command(u => u.PunishedUsers.Add(punishedUserWrite));
+      var userToUpdate = unitOfWorkService.Query(u => u.PunishedUsers.SingleOrDefault(x => x.User.Nick == nick));
       var newCount = oldCount + 1;
-      using (var unitOfWork = new UnitOfWork(container.GetInstance<BotDbContext>())) {
-        var punishedUserUpdate = unitOfWork.PunishedUsers.SingleOrDefault(pu => pu.User.Nick == nick);
-        punishedUserUpdate.Count = newCount;
-        unitOfWork.PunishedUsers.Update(punishedUserUpdate);
-        unitOfWork.SaveChanges();
-      }
+      userToUpdate.Count = newCount;
 
-      PunishedUser punishedUserRead;
-      using (var unitOfWork = new UnitOfWork(container.GetInstance<BotDbContext>())) {
-        punishedUserRead = unitOfWork.PunishedUsers.SingleOrDefault(pu => pu.User.Nick == nick);
-      }
+      unitOfWorkService.Command(u => u.PunishedUsers.Update(userToUpdate));
 
-      Assert.AreEqual(punishedUserRead.User.Nick, nick);
-      Assert.AreEqual(punishedUserRead.AutoPunishment.Term, term);
-      Assert.AreEqual(punishedUserRead.AutoPunishment.Type, type);
-      Assert.AreEqual(punishedUserRead.AutoPunishment.Duration, duration);
-      Assert.AreEqual(punishedUserRead.Count, newCount);
+      var updatedUser = unitOfWorkService.Query(u => u.PunishedUsers.SingleOrDefault(x => x.User.Nick == nick));
+      Assert.AreEqual(updatedUser.Count, newCount);
     }
 
   }
