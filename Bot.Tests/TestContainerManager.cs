@@ -11,6 +11,8 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
+using Bot.Repository;
+using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
@@ -28,8 +30,13 @@ namespace Bot.Tests {
 
       Container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
       Container.RegisterSingleton<IDatabaseService<IBotDbContext>, DatabaseService<IBotDbContext>>();
-      Container.RegisterSingleton<IScopeCreator>(() => new DelegatedScopeCreator(Container.BeginExecutionContextScope));
       Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => Container.GetInstance<IBotDbContext>()));
+
+      Container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+      Container.RegisterSingleton<IDatabaseService<IUnitOfWork>, DatabaseService<IUnitOfWork>>();
+      Container.RegisterSingleton<IProvider<IUnitOfWork>>(() => new DelegatedProvider<IUnitOfWork>(() => Container.GetInstance<IUnitOfWork>()));
+
+      Container.RegisterSingleton<IScopeCreator>(() => new DelegatedScopeCreator(Container.BeginExecutionContextScope));
       Container.RegisterDecorator(typeof(IDatabaseService<>), typeof(ScopedDatabaseServiceDecorator<>), Lifestyle.Singleton);
 
       Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
