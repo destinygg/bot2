@@ -6,16 +6,16 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Repository.Tests {
   public class RepositoryInitializer {
-    private readonly IDatabaseService<IBotDbContext> _databaseService;
+    private readonly IQueryCommandService<IBotDbContext> _queryCommandService;
     private readonly DatabaseInitializer _databaseInitializer;
 
-    public RepositoryInitializer(IDatabaseService<IBotDbContext> databaseService) {
-      _databaseService = databaseService;
-      _databaseInitializer = new DatabaseInitializer(_databaseService);
+    public RepositoryInitializer(IQueryCommandService<IBotDbContext> queryCommandService) {
+      _queryCommandService = queryCommandService;
+      _databaseInitializer = new DatabaseInitializer(_queryCommandService);
     }
 
     private void AddMasterData() {
-      _databaseService.Command(context => {
+      _queryCommandService.Command(context => {
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
         context.StateIntegers.Add(new StateInteger(nameof(IStateIntegerRepository.DeathCount), 0));

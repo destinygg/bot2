@@ -12,7 +12,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void DatabaseServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
-      var databaseService = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IDatabaseService<IBotDbContext>>();
+      var contextService = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IQueryCommandService<IBotDbContext>>();
 
       var punishedUser = new PunishedUser {
         Count = 1,
@@ -20,7 +20,7 @@ namespace Bot.Database.Tests {
         UserId = 1,
       };
 
-      var exception = TestHelper.AssertCatch<DbUpdateException>(() => databaseService.Command(db => db.PunishedUsers.Add(punishedUser)));
+      var exception = TestHelper.AssertCatch<DbUpdateException>(() => contextService.Command(db => db.PunishedUsers.Add(punishedUser)));
 
       Assert.AreEqual("SQLite Error 19: 'FOREIGN KEY constraint failed'.", exception.InnerException.Message);
     }

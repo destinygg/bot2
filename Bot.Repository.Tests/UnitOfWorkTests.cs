@@ -10,7 +10,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void UpdatePunishedUser() {
-      var unitOfWorkService = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository().GetInstance<IDatabaseService<IUnitOfWork>>();
+      var unitOfWorkService = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository().GetInstance<IQueryCommandService<IUnitOfWork>>();
       var nick = TestHelper.RandomString();
       var oldCount = TestHelper.RandomInt();
       var punishedUserWrite = new PunishedUser {

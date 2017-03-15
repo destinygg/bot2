@@ -7,7 +7,7 @@ namespace Bot.Tools.Interfaces {
   /// and a write method called <see cref="Command(Func{TContext, int})"/>.
   /// </summary>
   /// <typeparam name="TContext">The type of database context.</typeparam>
-  public interface IDatabaseService<out TContext>
+  public interface IQueryCommandService<out TContext>
     where TContext : IDisposable, ISavable {
     /// <summary>
     /// Executes the given query and returns its result.
@@ -23,7 +23,7 @@ namespace Bot.Tools.Interfaces {
     /// </summary>
     /// <remarks>
     /// Instead of calling this method directly,
-    /// it is easier (and recommended) to call the extenion method <seealso cref="IDatabaseServiceExtensions.Command{TContext}(IDatabaseService{TContext}, Action{TContext}[])"/>.
+    /// it is easier (and recommended) to call the extenion method <seealso cref="IQueryCommandServiceExtensions.Command{TContext}(IQueryCommandService{TContext}, Action{TContext}[])"/>.
     /// </remarks>
     /// <param name="command">The command to execute, which saves changes and returns the number of objects written to the underlying database.</param>
     /// <returns>The number of objects written to the underlying database.</returns>

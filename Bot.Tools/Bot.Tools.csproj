@@ -34,13 +34,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseService.cs" />
+    <Compile Include="QueryCommandService.cs" />
     <Compile Include="DelegatedFactory.cs" />
     <Compile Include="DelegatedProvider.cs" />
     <Compile Include="DelegatedScopeCreator.cs" />
     <Compile Include="FactoryTryCatchDecorator.cs" />
-    <Compile Include="Interfaces\IDatabaseService.cs" />
-    <Compile Include="Interfaces\IDatabaseServiceExtensions.cs" />
+    <Compile Include="Interfaces\IQueryCommandService.cs" />
+    <Compile Include="Interfaces\IQueryCommandServiceExtensions.cs" />
     <Compile Include="Interfaces\IErrorableFactory.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\ISavable.cs" />

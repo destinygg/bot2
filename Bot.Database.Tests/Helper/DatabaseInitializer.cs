@@ -3,19 +3,19 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Database.Tests.Helper {
   public class DatabaseInitializer {
-    private readonly IDatabaseService<IBotDbContext> _databaseService;
-    public DatabaseInitializer(IDatabaseService<IBotDbContext> databaseService) {
-      _databaseService = databaseService;
+    private readonly IQueryCommandService<IBotDbContext> _queryCommandService;
+    public DatabaseInitializer(IQueryCommandService<IBotDbContext> queryCommandService) {
+      _queryCommandService = queryCommandService;
     }
 
     public void EnsureCreated() {
-      _databaseService.Command(context => {
+      _queryCommandService.Command(context => {
         context.Database.EnsureCreated();
       });
     }
 
     public void EnsureDeleted() {
-      _databaseService.Command(context => {
+      _queryCommandService.Command(context => {
         context.Database.EnsureDeleted();
       });
     }

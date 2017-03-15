@@ -29,15 +29,15 @@ namespace Bot.Tests {
       additionalRegistrations?.Invoke(Container);
 
       Container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
-      Container.RegisterSingleton<IDatabaseService<IBotDbContext>, DatabaseService<IBotDbContext>>();
+      Container.RegisterSingleton<IQueryCommandService<IBotDbContext>, QueryCommandService<IBotDbContext>>();
       Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => Container.GetInstance<IBotDbContext>()));
 
       Container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
-      Container.RegisterSingleton<IDatabaseService<IUnitOfWork>, DatabaseService<IUnitOfWork>>();
+      Container.RegisterSingleton<IQueryCommandService<IUnitOfWork>, QueryCommandService<IUnitOfWork>>();
       Container.RegisterSingleton<IProvider<IUnitOfWork>>(() => new DelegatedProvider<IUnitOfWork>(() => Container.GetInstance<IUnitOfWork>()));
 
       Container.RegisterSingleton<IScopeCreator>(() => new DelegatedScopeCreator(Container.BeginExecutionContextScope));
-      Container.RegisterDecorator(typeof(IDatabaseService<>), typeof(ScopedDatabaseServiceDecorator<>), Lifestyle.Singleton);
+      Container.RegisterDecorator(typeof(IQueryCommandService<>), typeof(ScopedQueryCommandServiceDecorator<>), Lifestyle.Singleton);
 
       Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
       Container.RegisterSingleton<IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();

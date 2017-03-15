@@ -5,19 +5,19 @@ namespace Bot.Tools {
   /// <summary>
   /// Defines the execution scope to be the duration of the query/command.
   /// </summary>
-  public class ScopedDatabaseServiceDecorator<TContext> : IDatabaseService<TContext>
+  public class ScopedQueryCommandServiceDecorator<TContext> : IQueryCommandService<TContext>
     where TContext : IDisposable, ISavable {
 
-    private readonly IDatabaseService<TContext> _decoratedDatabaseService;
+    private readonly IQueryCommandService<TContext> _decoratedQueryCommandService;
     private readonly IScopeCreator _lifetimeScoper;
 
-    public ScopedDatabaseServiceDecorator(IDatabaseService<TContext> decoratedDatabaseService, IScopeCreator lifetimeScoper) {
-      this._decoratedDatabaseService = decoratedDatabaseService;
+    public ScopedQueryCommandServiceDecorator(IQueryCommandService<TContext> decoratedQueryCommandService, IScopeCreator lifetimeScoper) {
+      this._decoratedQueryCommandService = decoratedQueryCommandService;
       this._lifetimeScoper = lifetimeScoper;
     }
 
-    TResult IDatabaseService<TContext>.Query<TResult>(Func<TContext, TResult> query) => _Execute(() => _decoratedDatabaseService.Query(query));
-    int IDatabaseService<TContext>.Command(Func<TContext, int> command) => _Execute(() => _decoratedDatabaseService.Command(command));
+    TResult IQueryCommandService<TContext>.Query<TResult>(Func<TContext, TResult> query) => _Execute(() => _decoratedQueryCommandService.Query(query));
+    int IQueryCommandService<TContext>.Command(Func<TContext, int> command) => _Execute(() => _decoratedQueryCommandService.Command(command));
 
     private T _Execute<T>(Func<T> body) {
       using (_lifetimeScoper.CreateScope()) {

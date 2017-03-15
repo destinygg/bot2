@@ -29,12 +29,12 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void CreatingBotDbContext_WithinExecutionContextScope_DoesNotThrowException() {
       // Should be automatically decorated with ScopedDatabaseServiceDecorator and therefore in an Execution scope.
-      _container.GetInstance<IDatabaseService<IBotDbContext>>();
+      _container.GetInstance<IQueryCommandService<IBotDbContext>>();
     }
 
     [TestMethod]
     public void CreatingBotDbContext_AfterExecutionContextScopeCreated_ThrowsException() {
-      _container.GetInstance<IDatabaseService<IBotDbContext>>();
+      _container.GetInstance<IQueryCommandService<IBotDbContext>>();
 
       var exception = TestHelper.AssertCatch<ActivationException>(() => _container.GetInstance<IBotDbContext>());
 
@@ -43,8 +43,8 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void AccessingDbContext_AfterScopeCreatedAndDisposed_ThrowsDisposedException() {
-      var databaseService = _container.GetInstance<IDatabaseService<IBotDbContext>>();
-      var botDbContext = databaseService.Query(db => db);
+      var contextService = _container.GetInstance<IQueryCommandService<IBotDbContext>>();
+      var botDbContext = contextService.Query(db => db);
 
       var exception = TestHelper.AssertCatch<ObjectDisposedException>(() => botDbContext.AutoPunishments.Find(0));
 
