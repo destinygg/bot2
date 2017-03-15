@@ -51,7 +51,7 @@
     <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="Interfaces\ITimeService.cs" />
     <Compile Include="ObjectExtensionMethods.cs" />
-    <Compile Include="ScopedDatabaseServiceDecorator.cs" />
+    <Compile Include="ScopedQueryCommandServiceDecorator.cs" />
     <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="TimeExtensionMethods.cs" />
     <Compile Include="Settings.cs" />

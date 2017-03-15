@@ -121,9 +121,9 @@
     <Compile Include="Helper\DatabaseInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseInitializerTest.cs" />
-    <Compile Include="DatabaseServiceTests.cs" />
+    <Compile Include="QueryCommandServiceTests.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
-    <Compile Include="ScopedDatabaseServiceDecoratorTests.cs" />
+    <Compile Include="ScopedQueryCommandServiceDecoratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">

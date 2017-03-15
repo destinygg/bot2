@@ -8,7 +8,7 @@ using SimpleInjector;
 
 namespace Bot.Database.Tests {
   [TestClass]
-  public class ScopedDatabaseServiceDecoratorTests {
+  public class ScopedQueryCommandServiceDecoratorTests {
     private Container _container;
 
     [TestInitialize]
@@ -28,7 +28,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void CreatingBotDbContext_WithinExecutionContextScope_DoesNotThrowException() {
-      // Should be automatically decorated with ScopedDatabaseServiceDecorator and therefore in an Execution scope.
+      // Should be automatically decorated with ScopedCommandQueryServiceDecorator and therefore in an Execution scope.
       _container.GetInstance<IQueryCommandService<IBotDbContext>>();
     }
 

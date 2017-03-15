@@ -8,10 +8,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Database.Tests {
   [TestClass]
-  public class DatabaseServiceTests {
+  public class QueryCommandServiceTests {
 
     [TestMethod]
-    public void DatabaseServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
+    public void QueryCommandServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
       var contextService = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IQueryCommandService<IBotDbContext>>();
 
       var punishedUser = new PunishedUser {
