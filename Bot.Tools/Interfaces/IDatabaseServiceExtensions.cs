@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace Bot.Database.Interfaces {
+namespace Bot.Tools.Interfaces {
   public static class IDatabaseServiceExtensions {
     /// <summary>
     /// Executes the given commands in sequence and returns total number of objects written to the underlying database.

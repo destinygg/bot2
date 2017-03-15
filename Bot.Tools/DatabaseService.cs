@@ -1,9 +1,7 @@
 using System;
-using Bot.Database.Interfaces;
-using Bot.Tools;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Database {
+namespace Bot.Tools {
   public class DatabaseService<TContext> : IDatabaseService<TContext>
     where TContext : IDisposable, ISavable {
 

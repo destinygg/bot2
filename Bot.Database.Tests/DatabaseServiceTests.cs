@@ -2,6 +2,7 @@
 using Bot.Database.Interfaces;
 using Bot.Database.Tests.Helper;
 using Bot.Tests;
+using Bot.Tools.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

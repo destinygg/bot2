@@ -1,4 +1,4 @@
-namespace Bot.Database.Interfaces {
+namespace Bot.Tools.Interfaces {
   public interface ISavable {
     int SaveChanges();
   }

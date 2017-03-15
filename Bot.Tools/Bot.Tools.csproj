@@ -34,12 +34,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseService.cs" />
     <Compile Include="DelegatedFactory.cs" />
     <Compile Include="DelegatedProvider.cs" />
     <Compile Include="DelegatedScopeCreator.cs" />
     <Compile Include="FactoryTryCatchDecorator.cs" />
+    <Compile Include="Interfaces\IDatabaseService.cs" />
+    <Compile Include="Interfaces\IDatabaseServiceExtensions.cs" />
     <Compile Include="Interfaces\IErrorableFactory.cs" />
     <Compile Include="Interfaces\IFactory.cs" />
+    <Compile Include="Interfaces\ISavable.cs" />
     <Compile Include="Interfaces\IScopeCreator.cs" />
     <Compile Include="Interfaces\IVisitor.cs" />
     <Compile Include="ISettings.cs" />
@@ -47,6 +51,7 @@
     <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="Interfaces\ITimeService.cs" />
     <Compile Include="ObjectExtensionMethods.cs" />
+    <Compile Include="ScopedDatabaseServiceDecorator.cs" />
     <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="TimeExtensionMethods.cs" />
     <Compile Include="Settings.cs" />

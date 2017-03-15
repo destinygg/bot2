@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bot.Database.Interfaces {
+namespace Bot.Tools.Interfaces {
   /// <summary>
   /// Provides access to the database <typeparamref name="TContext"/>
   /// through a read method called <see cref="Query{TResult}(Func{TContext,TResult})"/>

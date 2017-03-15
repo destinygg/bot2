@@ -1,8 +1,7 @@
 ﻿using System;
-using Bot.Database.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Database {
+namespace Bot.Tools {
   /// <summary>
   /// Defines the execution scope to be the duration of the query/command.
   /// </summary>

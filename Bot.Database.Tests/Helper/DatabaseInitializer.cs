@@ -1,4 +1,5 @@
 ﻿using Bot.Database.Interfaces;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Database.Tests.Helper {
   public class DatabaseInitializer {

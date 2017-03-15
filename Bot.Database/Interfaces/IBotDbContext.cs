@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Database.Entities;
+using Bot.Tools.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
