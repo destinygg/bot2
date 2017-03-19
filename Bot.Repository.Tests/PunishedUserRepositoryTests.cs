@@ -19,7 +19,7 @@ namespace Bot.Repository.Tests {
       var duration = TestHelper.RandomInt();
       var count = TestHelper.RandomInt();
       var punishedUserWrite = new PunishedUserEntity {
-        UserEntity = new UserEntity { Nick = nick },
+        Nick = nick,
         AutoPunishmentEntity = new AutoPunishmentEntity {
           Term = term,
           Type = type,
@@ -40,7 +40,7 @@ namespace Bot.Repository.Tests {
       }
 
       var testReadSingle = testRead.Single();
-      Assert.AreEqual(testReadSingle.UserEntity.Nick, nick);
+      Assert.AreEqual(testReadSingle.Nick, nick);
       Assert.AreEqual(testReadSingle.AutoPunishmentEntity.Term, term);
       Assert.AreEqual(testReadSingle.AutoPunishmentEntity.Type, type);
       Assert.AreEqual(testReadSingle.AutoPunishmentEntity.Duration, duration);

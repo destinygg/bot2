@@ -17,7 +17,7 @@ namespace Bot.Database.Tests {
       var punishedUser = new PunishedUserEntity {
         Count = 1,
         AutoPunishmentId = 1,
-        UserId = 1,
+        Nick = "",
       };
 
       var exception = TestHelper.AssertCatch<DbUpdateException>(() => contextService.Command(db => db.PunishedUsers.Add(punishedUser)));

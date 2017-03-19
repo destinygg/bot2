@@ -191,7 +191,6 @@
     <Compile Include="RepositoryInitializer.cs" />
     <Compile Include="StateIntegerRepositoryTests.cs" />
     <Compile Include="UnitOfWorkTests.cs" />
-    <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Tests\Bot.Database.Tests.csproj">
@@ -201,6 +200,10 @@
     <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
       <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
       <Name>Bot.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
+      <Project>{0fe69118-f69a-48f0-9b51-58fe52d0b826}</Project>
+      <Name>Bot.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Repository\Bot.Repository.csproj">
       <Project>{2DB78506-B364-469D-B162-00C9A5F430C4}</Project>

@@ -11,12 +11,10 @@ namespace Bot.Repository {
     public PunishedUserRepository(DbSet<PunishedUserEntity> entities) : base(entities) { }
 
     public override PunishedUserEntity SingleOrDefault(Expression<Func<PunishedUserEntity, bool>> predicate) => Entities
-      .Include(x => x.UserEntity)
       .Include(x => x.AutoPunishmentEntity)
       .SingleOrDefault(predicate);
 
     public IEnumerable<PunishedUserEntity> GetAllWithIncludes() => Entities
-      .Include(x => x.UserEntity)
       .Include(x => x.AutoPunishmentEntity)
       .ToList();
   }
