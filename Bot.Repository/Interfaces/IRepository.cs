@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Bot.Repository.Interfaces {
-  public interface IRepository<TEntity> where TEntity : class {
-    IEnumerable<TEntity> GetAll();
-    IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate);
-    TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+  public interface IRepository<TModel> where TModel : class {
+    IEnumerable<TModel> GetAll();
+    IEnumerable<TModel> Where(Expression<Func<TModel, bool>> predicate);
+    TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate);
 
-    void Add(TEntity entity);
-    void AddRange(IEnumerable<TEntity> entities);
+    void Add(TModel entity);
+    void AddRange(IEnumerable<TModel> entities);
 
-    void Update(TEntity entity);
-    void UpdateRange(IEnumerable<TEntity> entities);
+    void Update(TModel entity);
+    void UpdateRange(IEnumerable<TModel> entities);
 
-    void Remove(TEntity entity);
-    void RemoveRange(IEnumerable<TEntity> entities);
+    void Remove(TModel entity);
+    void RemoveRange(IEnumerable<TModel> entities);
 
   }
 }

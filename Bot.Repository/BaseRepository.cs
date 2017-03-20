@@ -6,39 +6,39 @@ using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Repository {
-  public abstract class BaseRepository<TEntity> : IRepository<TEntity>
-    where TEntity : class {
-    protected readonly DbSet<TEntity> Entities;
+  public abstract class BaseRepository<TModel> : IRepository<TModel>
+    where TModel : class {
+    protected readonly DbSet<TModel> Entities;
 
-    protected BaseRepository(DbSet<TEntity> entities) {
+    protected BaseRepository(DbSet<TModel> entities) {
       Entities = entities;
     }
 
-    public IEnumerable<TEntity> GetAll() =>
+    public IEnumerable<TModel> GetAll() =>
       Entities.ToList();
 
-    public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate) =>
+    public IEnumerable<TModel> Where(Expression<Func<TModel, bool>> predicate) =>
       Entities.Where(predicate);
 
-    public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) =>
+    public virtual TModel SingleOrDefault(Expression<Func<TModel, bool>> predicate) =>
       Entities.SingleOrDefault(predicate);
 
-    public void Add(TEntity entity) =>
+    public void Add(TModel entity) =>
       Entities.Add(entity);
 
-    public void AddRange(IEnumerable<TEntity> entities) =>
+    public void AddRange(IEnumerable<TModel> entities) =>
       Entities.AddRange(entities);
 
-    public void Update(TEntity entity) =>
+    public void Update(TModel entity) =>
       Entities.Update(entity);
 
-    public void UpdateRange(IEnumerable<TEntity> entities) =>
+    public void UpdateRange(IEnumerable<TModel> entities) =>
       Entities.UpdateRange(entities);
 
-    public void Remove(TEntity entity) =>
+    public void Remove(TModel entity) =>
       Entities.Remove(entity);
 
-    public void RemoveRange(IEnumerable<TEntity> entities) =>
+    public void RemoveRange(IEnumerable<TModel> entities) =>
       Entities.RemoveRange(entities);
   }
 }
