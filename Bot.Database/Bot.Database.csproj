@@ -205,8 +205,8 @@
   <ItemGroup>
     <Compile Include="Interfaces\IBotDbContext.cs" />
     <Compile Include="BotDbContext.cs" />
-    <Compile Include="Entities\Punishment.cs" />
-    <Compile Include="Entities\StateInteger.cs" />
+    <Compile Include="Entities\PunishmentEntity.cs" />
+    <Compile Include="Entities\StateIntegerEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
