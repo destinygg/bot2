@@ -185,6 +185,10 @@
       <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
       <Name>Bot.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
+      <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
+      <Name>Bot.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>

@@ -2,6 +2,7 @@
 using System.Linq;
 using Bot.Database;
 using Bot.Database.Entities;
+using Bot.Models;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,9 +19,9 @@ namespace Bot.Repository.Tests {
       var type = TestHelper.RandomAutoPunishmentType();
       var duration = TestHelper.RandomInt();
       var count = TestHelper.RandomInt();
-      var punishedUserWrite = new PunishedUserEntity {
+      var punishedUserWrite = new PunishedUser {
         Nick = nick,
-        AutoPunishmentEntity = new AutoPunishmentEntity {
+        AutoPunishment = new AutoPunishment {
           Term = term,
           Type = type,
           Duration = duration,

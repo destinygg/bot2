@@ -1,4 +1,5 @@
 ﻿using Bot.Database.Entities;
+using Bot.Models;
 using Bot.Repository.Interfaces;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
@@ -13,9 +14,9 @@ namespace Bot.Repository.Tests {
       var unitOfWorkService = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository().GetInstance<IQueryCommandService<IUnitOfWork>>();
       var nick = TestHelper.RandomString();
       var oldCount = TestHelper.RandomInt();
-      var punishedUserWrite = new PunishedUserEntity {
+      var punishedUserWrite = new PunishedUser {
         Nick = nick,
-        AutoPunishmentEntity = new AutoPunishmentEntity(),
+        AutoPunishment = new AutoPunishment(),
         Count = oldCount,
       };
       unitOfWorkService.Command(u => u.PunishedUsers.Add(punishedUserWrite));
