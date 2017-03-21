@@ -165,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoPunishmentRepository.cs" />
-    <Compile Include="BaseRepository.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
     <Compile Include="Interfaces\IPunishedUserRepository.cs" />
     <Compile Include="Interfaces\IStateIntegerRepository.cs" />
