@@ -166,11 +166,9 @@
   <ItemGroup>
     <Compile Include="AutoPunishmentRepository.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
-    <Compile Include="Interfaces\IPunishedUserRepository.cs" />
     <Compile Include="Interfaces\IStateIntegerRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PunishedUserRepository.cs" />
     <Compile Include="StateIntegerRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
