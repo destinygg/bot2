@@ -6,7 +6,7 @@ using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Repository {
-  public abstract class BaseRepository<TModel> : IRepository<TModel>
+  public abstract class BaseRepository<TModel>
     where TModel : class {
     protected readonly DbSet<TModel> Entities;
 
