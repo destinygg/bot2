@@ -7,14 +7,19 @@ using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Repository {
-  public class PunishedUserRepository : BaseRepository<PunishedUserEntity>, IPunishedUserRepository {
-    public PunishedUserRepository(DbSet<PunishedUserEntity> entities) : base(entities) { }
+  public class PunishedUserRepository : IPunishedUserRepository {
 
-    public override PunishedUserEntity SingleOrDefault(Expression<Func<PunishedUserEntity, bool>> predicate) => Entities
+    private readonly DbSet<PunishedUserEntity> _entities;
+
+    public PunishedUserRepository(DbSet<PunishedUserEntity> entities) {
+      _entities = entities;
+    }
+
+    public PunishedUserEntity SingleOrDefault(Expression<Func<PunishedUserEntity, bool>> predicate) => _entities
       .Include(x => x.AutoPunishmentEntity)
       .SingleOrDefault(predicate);
 
-    public IEnumerable<PunishedUserEntity> GetAllWithIncludes() => Entities
+    public IEnumerable<PunishedUserEntity> GetAllWithIncludes() => _entities
       .Include(x => x.AutoPunishmentEntity)
       .ToList();
   }

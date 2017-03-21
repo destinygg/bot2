@@ -3,8 +3,13 @@ using Bot.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Repository {
-  public class AutoPunishmentRepository : BaseRepository<AutoPunishmentEntity>, IAutoPunishmentRepository {
-    public AutoPunishmentRepository(DbSet<AutoPunishmentEntity> entities) : base(entities) { }
+  public class AutoPunishmentRepository : IAutoPunishmentRepository {
+
+    private readonly DbSet<AutoPunishmentEntity> _entities;
+
+    public AutoPunishmentRepository(DbSet<AutoPunishmentEntity> entities) {
+      _entities = entities;
+    }
 
   }
 }

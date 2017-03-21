@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Linq;
 using Bot.Database.Entities;
 using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bot.Repository {
-  public class StateIntegerRepository : BaseRepository<StateIntegerEntity>, IStateIntegerRepository {
-    public StateIntegerRepository(DbSet<StateIntegerEntity> entities) : base(entities) { }
+  public class StateIntegerRepository : IStateIntegerRepository {
+
+    private readonly DbSet<StateIntegerEntity> _entities;
+
+    public StateIntegerRepository(DbSet<StateIntegerEntity> entities) {
+      _entities = entities;
+    }
 
     public DateTime LatestStreamOnTime {
       get { return _Read(nameof(LatestStreamOnTime)).FromUnixTime(); }
@@ -24,9 +30,9 @@ namespace Bot.Repository {
     }
 
     private long _Read(string key) =>
-      SingleOrDefault(x => x.Key == key).Value;
+      _entities.SingleOrDefault(x => x.Key == key).Value;
 
     private void _Update(string key, long value) =>
-      Update(new StateIntegerEntity(key, value));
+      _entities.Update(new StateIntegerEntity(key, value));
   }
 }
