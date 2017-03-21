@@ -168,7 +168,6 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
     <Compile Include="Interfaces\IPunishedUserRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IStateIntegerRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
