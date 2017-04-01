@@ -14,10 +14,22 @@ namespace Bot.Repository {
       _entities = entities;
     }
 
-    public void Add(AutoPunishment autoPunishment) =>
-      _entities.Add(autoPunishment.ToEntity());
+    public void Add(AutoPunishment autoPunishment) {
+      var entity = new AutoPunishmentEntity();
+      autoPunishment.CopyTo(entity);
+      _entities.Add(entity);
+    }
+
+    public void Update(AutoPunishment autoPunishment) {
+      var entity = _single(autoPunishment.Id);
+      autoPunishment.CopyTo(entity);
+      _entities.Update(entity);
+    }
 
     public IEnumerable<AutoPunishment> GetAll() =>
       _entities.Include(x => x.PunishedUsers).ToList().Select(x => new AutoPunishment(x));
+
+    private AutoPunishmentEntity _single(int id) =>
+      _entities.Include(x => x.PunishedUsers).Single(x => x.Id == id);
   }
 }
