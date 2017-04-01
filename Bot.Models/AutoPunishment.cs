@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Database.Entities;
+using Bot.Tools;
 
 namespace Bot.Models {
   public class AutoPunishment {
@@ -19,13 +20,23 @@ namespace Bot.Models {
     public long Duration { get; }
     public ICollection<PunishedUser> PunishedUsers { get; }
 
-    public AutoPunishmentEntity ToEntity() => new AutoPunishmentEntity {
-      Id = Id,
-      Term = Term,
-      Type = Type,
-      Duration = Duration,
-      PunishedUsers = PunishedUsers.Select(u => u.ToEntity()).ToList(),
-    };
+    public void CopyTo(AutoPunishmentEntity entity) {
+      entity.Id = Id;
+      entity.Term = Term;
+      entity.Type = Type;
+      entity.Duration = Duration;
+      entity.PunishedUsers.Merge(
+        source: PunishedUsers.Select(x => x.ToEntity()),
+        predicate: (a, b) => a.Id == b.Id,
+        create: user => user,
+        delete: person => entity.PunishedUsers.Remove(person),
+        add: person => entity.PunishedUsers.Add(person),
+        update: (d, s) => {
+          d.Nick = s.Nick;
+          d.Count = s.Count;
+        }
+      );
+    }
 
   }
 }
