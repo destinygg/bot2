@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MergeExtensions.cs" />
     <Compile Include="QueryCommandService.cs" />
     <Compile Include="DelegatedFactory.cs" />
     <Compile Include="DelegatedProvider.cs" />
