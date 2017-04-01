@@ -20,21 +20,20 @@ namespace Bot.Repository.Tests {
       var duration = TestHelper.RandomInt();
       var nick = TestHelper.RandomString();
       var count = TestHelper.RandomInt();
-      var autoPunishmentEntity = new AutoPunishmentEntity();
-      var punishedUsersEntity = new List<PunishedUserEntity> {
-        new PunishedUserEntity { Nick = nick, Count = count, AutoPunishmentEntity = autoPunishmentEntity }
-      };
-      var autoPunishment = new AutoPunishment(new AutoPunishmentEntity {
+      var autoPunishmentEntity = new AutoPunishmentEntity {
         Id = id,
         Term = term,
         Type = type,
         Duration = duration,
-        PunishedUsers = punishedUsersEntity,
-      });
+      };
+      var punishedUsersEntity = new List<PunishedUserEntity> {
+        new PunishedUserEntity { Nick = nick, Count = count, AutoPunishmentEntity = autoPunishmentEntity }
+      };
+      autoPunishmentEntity.PunishedUsers = punishedUsersEntity;
 
       using (var context = container.GetInstance<BotDbContext>()) {
         var autoPunishmentRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        autoPunishmentRepository.Add(autoPunishment);
+        autoPunishmentRepository.Add(new AutoPunishment(autoPunishmentEntity));
         context.SaveChanges();
       }
 
@@ -43,7 +42,7 @@ namespace Bot.Repository.Tests {
         var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
         testRead = userRepository.GetAll();
       }
-      var dbAutoPunishment = testRead.First();
+      var dbAutoPunishment = testRead.Single();
 
       Assert.AreEqual(dbAutoPunishment.Id, id);
       Assert.AreEqual(dbAutoPunishment.Term, term);
