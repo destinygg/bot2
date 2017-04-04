@@ -3,16 +3,31 @@ using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
+using Bot.Repository.Interfaces;
 using Bot.Tools;
+using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class BanFactory : BaseSendableFactory<Civilian, PublicMessage> {
+    private readonly IQueryCommandService<IUnitOfWork> _repository;
+    private readonly ISettings _settings;
+
+    public BanFactory(IQueryCommandService<IUnitOfWork> repository, ISettings settings) {
+      _repository = repository;
+      _settings = settings;
+    }
 
     public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<Civilian, PublicMessage> snapshot) {
       var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest;
       if (message.Transmission.Text.Contains("banplox")) {
         outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Transmission.Text}"));
+      }
+
+      foreach (var autoPunishment in _repository.Query(db => db.AutoPunishments.GetAllMutedString())) {
+        if (message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity) {
+          outbox.Add(new SendableMute(message.Sender, autoPunishment.Duration));
+        }
       }
       return outbox;
     }

@@ -62,6 +62,10 @@
       <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
       <Name>Bot.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Repository\Bot.Repository.csproj">
+      <Project>{2db78506-b364-469d-b162-00c9a5f430c4}</Project>
+      <Name>Bot.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>
