@@ -23,7 +23,7 @@ namespace Bot.Database.Entities {
   }
 
   public enum AutoPunishmentType {
-    BannedRegexm,
+    BannedRegex,
     MutedRegex,
     BannedString,
     MutedString,
