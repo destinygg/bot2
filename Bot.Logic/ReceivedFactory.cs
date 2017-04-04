@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models;
+using Bot.Models.Interfaces;
 using Bot.Models.Received;
+using Bot.Models.Snapshot;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
@@ -19,6 +22,9 @@ namespace Bot.Logic {
     public PublicMessageFromCivilian PublicReceivedMessage(string text, DateTime timestamp) => new PublicMessageFromCivilian(text, timestamp);
 
     public ReceivedPardon ReceivedPardon(Moderator sender, Civilian target) => new ReceivedPardon(sender, target, _timeService);
-
+    public PublicMessageFromCivilianSnapshot PublicReceivedSnapshot(string text) =>
+      new PublicMessageFromCivilianSnapshot(PublicReceivedMessage(text), Enumerable.Empty<IReceived<IUser, ITransmittable>>().ToList());
+    public PublicMessageFromCivilianSnapshot PublicReceivedSnapshot(string text, DateTime timestamp) =>
+      new PublicMessageFromCivilianSnapshot(PublicReceivedMessage(text, timestamp), Enumerable.Empty<IReceived<IUser, ITransmittable>>().ToList());
   }
 }
