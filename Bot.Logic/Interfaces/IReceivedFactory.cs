@@ -1,6 +1,7 @@
 ﻿using System;
 using Bot.Models;
 using Bot.Models.Received;
+using Bot.Models.Snapshot;
 
 namespace Bot.Logic.Interfaces {
   public interface IReceivedFactory {
@@ -8,6 +9,8 @@ namespace Bot.Logic.Interfaces {
     PublicMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp);
     PublicMessageFromCivilian PublicReceivedMessage(string text);
     PublicMessageFromCivilian PublicReceivedMessage(string text, DateTime timestamp);
+    PublicMessageFromCivilianSnapshot PublicReceivedSnapshot(string text);
+    PublicMessageFromCivilianSnapshot PublicReceivedSnapshot(string text, DateTime timestamp);
     ReceivedPardon ReceivedPardon(Moderator sender, Civilian target);
   }
 }
