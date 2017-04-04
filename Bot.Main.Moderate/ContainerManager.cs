@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Bot.Database;
+using Bot.Database.Interfaces;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
 using Bot.Logic.ReceivedVisitor;
@@ -8,10 +10,13 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
+using Bot.Repository;
+using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using SimpleInjector;
+using SimpleInjector.Extensions.ExecutionContextScoping;
 
 namespace Bot.Main.Moderate {
   public class ContainerManager {
@@ -19,6 +24,16 @@ namespace Bot.Main.Moderate {
 
     public ContainerManager() {
       _container = new Container();
+
+      _container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+
+      _container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
+      _container.RegisterSingleton<IQueryCommandService<IBotDbContext>, QueryCommandService<IBotDbContext>>();
+      _container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => _container.GetInstance<IBotDbContext>()));
+
+      _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+      _container.RegisterSingleton<IQueryCommandService<IUnitOfWork>, QueryCommandService<IUnitOfWork>>();
+      _container.RegisterSingleton<IProvider<IUnitOfWork>>(() => new DelegatedProvider<IUnitOfWork>(() => _container.GetInstance<IUnitOfWork>()));
 
       _container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
       _container.RegisterSingleton<IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();

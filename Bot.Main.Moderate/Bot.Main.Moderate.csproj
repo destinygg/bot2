@@ -37,8 +37,13 @@
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" />
     <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Extensions.ExecutionContextScoping, Version=3.2.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Extensions.ExecutionContextScoping.3.2.7\lib\net45\SimpleInjector.Extensions.ExecutionContextScoping.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
+      <Project>{90e3e455-da71-4415-8ba6-05e05926274b}</Project>
+      <Name>Bot.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
       <Project>{1B710B73-3FF1-4944-909B-538927C0041B}</Project>
       <Name>Bot.Logic</Name>
@@ -69,6 +78,10 @@
     <ProjectReference Include="..\Bot.Pipeline\Bot.Pipeline.csproj">
       <Project>{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}</Project>
       <Name>Bot.Pipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Repository\Bot.Repository.csproj">
+      <Project>{2DB78506-B364-469D-B162-00C9A5F430C4}</Project>
+      <Name>Bot.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
