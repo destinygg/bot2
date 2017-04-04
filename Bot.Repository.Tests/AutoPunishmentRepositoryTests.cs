@@ -47,7 +47,7 @@ namespace Bot.Repository.Tests {
       Assert.AreEqual(dbAutoPunishment.Id, id);
       Assert.AreEqual(dbAutoPunishment.Term, term);
       Assert.AreEqual(dbAutoPunishment.Type, type);
-      Assert.AreEqual(dbAutoPunishment.Duration, duration);
+      Assert.AreEqual(dbAutoPunishment.Duration.TotalSeconds, duration);
       Assert.AreEqual(dbAutoPunishment.PunishedUsers.Single().Count, count);
       Assert.AreEqual(dbAutoPunishment.PunishedUsers.Single().Nick, nick);
     }
@@ -113,7 +113,7 @@ namespace Bot.Repository.Tests {
       Assert.AreEqual(dbAutoPunishment.Id, id);
       Assert.AreEqual(dbAutoPunishment.Term, term);
       Assert.AreEqual(dbAutoPunishment.Type, type);
-      Assert.AreEqual(dbAutoPunishment.Duration, duration);
+      Assert.AreEqual(dbAutoPunishment.Duration.TotalSeconds, duration);
       Assert.AreEqual(dbAutoPunishment.PunishedUsers.Single().Count, count);
       Assert.AreEqual(dbAutoPunishment.PunishedUsers.Single().Nick, nick);
     }
