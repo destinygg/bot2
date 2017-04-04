@@ -27,9 +27,6 @@ namespace Bot.Repository {
       _entities.Update(entity);
     }
 
-    public IEnumerable<AutoPunishment> GetAll() =>
-      _entities.Include(x => x.PunishedUsers).ToList().Select(x => new AutoPunishment(x));
-
     public IEnumerable<AutoPunishment> GetAllBannedRegex() =>
       _predicate(x => x.Type == AutoPunishmentType.BannedRegex);
 

@@ -37,10 +37,13 @@ namespace Bot.Repository.Tests {
         context.SaveChanges();
       }
 
-      IEnumerable<AutoPunishment> testRead;
+      var testRead = new List<AutoPunishment>();
       using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        testRead = userRepository.GetAll();
+        testRead.AddRange(userRepository.GetAllMutedString());
+        testRead.AddRange(userRepository.GetAllBannedString());
+        testRead.AddRange(userRepository.GetAllMutedRegex());
+        testRead.AddRange(userRepository.GetAllBannedRegex());
       }
       var dbAutoPunishment = testRead.Single();
 
@@ -103,10 +106,13 @@ namespace Bot.Repository.Tests {
         context.SaveChanges();
       }
 
-      IEnumerable<AutoPunishment> testRead;
+      var testRead = new List<AutoPunishment>();
       using (var context = container.GetInstance<BotDbContext>()) {
         var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        testRead = userRepository.GetAll();
+        testRead.AddRange(userRepository.GetAllMutedString());
+        testRead.AddRange(userRepository.GetAllBannedString());
+        testRead.AddRange(userRepository.GetAllMutedRegex());
+        testRead.AddRange(userRepository.GetAllBannedRegex());
       }
       var dbAutoPunishment = testRead.Single();
 
