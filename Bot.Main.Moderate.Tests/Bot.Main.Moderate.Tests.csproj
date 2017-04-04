@@ -58,14 +58,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Main.Moderate\Bot.Main.Moderate.csproj">
-      <Project>{1D2A245A-8AE1-4EB9-9EF5-E0766A69DC59}</Project>
-      <Name>Bot.Main.Moderate</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bot.Main.Moderate\Bot.Main.Moderate.csproj">
+      <Project>{496E249E-AB00-4224-AFB0-BDDDCAE92F09}</Project>
+      <Name>Bot.Main.Moderate</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
