@@ -9,5 +9,6 @@ namespace Bot.Tools {
     TimeSpan NukeBlastRadius { get; }
     double NukeMinimumStringSimilarity { get; }
     string SqlitePath { get; }
+    double MinimumPunishmentSimilarity { get; }
   }
 }
