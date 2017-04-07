@@ -3,11 +3,17 @@
 namespace Bot.Models {
   public class PunishedUser {
 
+    public PunishedUser(PunishedUserEntity entity) {
+      Id = entity.Id;
+      Nick = entity.Nick;
+      Count = entity.Count;
+      AutoPunishment = new AutoPunishment(entity.AutoPunishmentEntity);
+    }
+
     public PunishedUser(PunishedUserEntity entity, AutoPunishment autoPunishment) {
       Id = entity.Id;
       Nick = entity.Nick;
       Count = entity.Count;
-      AutoPunishment = autoPunishment;
       AutoPunishment = autoPunishment;
     }
 
