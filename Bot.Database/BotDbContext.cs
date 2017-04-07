@@ -30,6 +30,9 @@ namespace Bot.Database {
       modelBuilder.Entity<PunishedUserEntity>()
         .HasAlternateKey(pu => pu.Nick);
 
+      modelBuilder.Entity<AutoPunishmentEntity>()
+        .HasAlternateKey(pu => pu.Term);
+
       base.OnModelCreating(modelBuilder);
     }
 
