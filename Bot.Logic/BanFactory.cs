@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
@@ -26,7 +27,14 @@ namespace Bot.Logic {
 
       foreach (var autoPunishment in _repository.Query(db => db.AutoPunishments.GetAllMutedString())) {
         if (message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity) {
-          outbox.Add(new SendableMute(message.Sender, autoPunishment.Duration));
+          var punishedUser = autoPunishment.PunishedUsers.SingleOrDefault(x => x.Nick == message.Sender.Nick);
+
+          var duration = autoPunishment.Duration;
+          if (punishedUser != null)
+            duration = autoPunishment.Duration.Multiply(Math.Pow(2, punishedUser.Count));
+
+          _repository.Command(r => r.PunishedUsers.Increment(message.Sender.Nick, autoPunishment.Term));
+          outbox.Add(new SendableMute(message.Sender, duration));
         }
       }
       return outbox;

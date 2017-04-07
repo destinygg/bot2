@@ -179,7 +179,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -190,6 +192,7 @@
     <Compile Include="RepositoryInitializer.cs" />
     <Compile Include="StateIntegerRepositoryTests.cs" />
     <Compile Include="UnitOfWorkTests.cs" />
+    <Compile Include="PunishedUserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Tests\Bot.Database.Tests.csproj">
