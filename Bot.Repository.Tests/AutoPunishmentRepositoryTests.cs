@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Bot.Database;
 using Bot.Database.Entities;
 using Bot.Models;
+using Bot.Repository.Interfaces;
 using Bot.Tests;
+using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
@@ -13,7 +14,6 @@ namespace Bot.Repository.Tests {
     [TestMethod]
     public void ReadWriteAutoPunishment() {
       var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
-
       var id = TestHelper.RandomInt();
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();
@@ -30,21 +30,17 @@ namespace Bot.Repository.Tests {
         new PunishedUserEntity { Nick = nick, Count = count, AutoPunishmentEntity = autoPunishmentEntity }
       };
       autoPunishmentEntity.PunishedUsers = punishedUsersEntity;
+      var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
 
-      using (var context = container.GetInstance<BotDbContext>()) {
-        var autoPunishmentRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        autoPunishmentRepository.Add(new AutoPunishment(autoPunishmentEntity));
-        context.SaveChanges();
-      }
+      repository.Command(r => r.AutoPunishments.Add(new AutoPunishment(autoPunishmentEntity)));
 
       var testRead = new List<AutoPunishment>();
-      using (var context = container.GetInstance<BotDbContext>()) {
-        var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        testRead.AddRange(userRepository.GetAllMutedString());
-        testRead.AddRange(userRepository.GetAllBannedString());
-        testRead.AddRange(userRepository.GetAllMutedRegex());
-        testRead.AddRange(userRepository.GetAllBannedRegex());
-      }
+      repository.Command(r => {
+        testRead.AddRange(r.AutoPunishments.GetAllMutedString());
+        testRead.AddRange(r.AutoPunishments.GetAllBannedString());
+        testRead.AddRange(r.AutoPunishments.GetAllMutedRegex());
+        testRead.AddRange(r.AutoPunishments.GetAllBannedRegex());
+      });
       var dbAutoPunishment = testRead.Single();
 
       Assert.AreEqual(dbAutoPunishment.Id, id);
@@ -74,14 +70,9 @@ namespace Bot.Repository.Tests {
       var punishedUsersEntity = new List<PunishedUserEntity> {
         new PunishedUserEntity { Nick = nick, Count = count, AutoPunishmentEntity = autoPunishmentEntity }
       };
-      autoPunishmentEntity.PunishedUsers = punishedUsersEntity;
-      var autoPunishment = new AutoPunishment(autoPunishmentEntity);
+      var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
 
-      using (var context = container.GetInstance<BotDbContext>()) {
-        var autoPunishmentRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        autoPunishmentRepository.Add(autoPunishment);
-        context.SaveChanges();
-      }
+      repository.Command(r => r.AutoPunishments.Add(new AutoPunishment(autoPunishmentEntity)));
 
       autoPunishmentEntity.Id = TestHelper.RandomInt();
       autoPunishmentEntity.Term = TestHelper.RandomString();
@@ -100,20 +91,15 @@ namespace Bot.Repository.Tests {
       };
       autoPunishmentEntity.PunishedUsers = punishedUsersEntity;
 
-      using (var context = container.GetInstance<BotDbContext>()) {
-        var autoPunishmentRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        autoPunishmentRepository.Update(new AutoPunishment(autoPunishmentEntity));
-        context.SaveChanges();
-      }
+      repository.Command(r => r.AutoPunishments.Update(new AutoPunishment(autoPunishmentEntity)));
 
       var testRead = new List<AutoPunishment>();
-      using (var context = container.GetInstance<BotDbContext>()) {
-        var userRepository = new AutoPunishmentRepository(context.AutoPunishments);
-        testRead.AddRange(userRepository.GetAllMutedString());
-        testRead.AddRange(userRepository.GetAllBannedString());
-        testRead.AddRange(userRepository.GetAllMutedRegex());
-        testRead.AddRange(userRepository.GetAllBannedRegex());
-      }
+      repository.Command(r => {
+        testRead.AddRange(r.AutoPunishments.GetAllMutedString());
+        testRead.AddRange(r.AutoPunishments.GetAllBannedString());
+        testRead.AddRange(r.AutoPunishments.GetAllMutedRegex());
+        testRead.AddRange(r.AutoPunishments.GetAllBannedRegex());
+      });
       var dbAutoPunishment = testRead.Single();
 
       Assert.AreEqual(dbAutoPunishment.Id, id);
