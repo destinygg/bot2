@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Moderator.cs" />
+    <Compile Include="Ban.cs" />
     <Compile Include="Nuke.cs" />
     <Compile Include="PrivateMessage.cs" />
     <Compile Include="PublicMessage.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Received\ReceivedError.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
     <Compile Include="Sendable\SendableError.cs" />
+    <Compile Include="Sendable\SendableBan.cs" />
     <Compile Include="Snapshot\ErrorSnapshot.cs" />
     <Compile Include="Snapshot\MessageSnapshot.cs" />
     <Compile Include="Snapshot\PardonSnapshot.cs" />
