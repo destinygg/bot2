@@ -25,19 +25,24 @@ namespace Bot.Logic {
         outbox.Add(new SendablePublicMessage($"{message.Sender.Nick} banned for saying {message.Transmission.Text}"));
       }
 
-      foreach (var autoPunishment in _repository.Query(db => db.AutoPunishments.GetAllMutedString())) {
-        if (message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity) {
-          var punishedUser = autoPunishment.PunishedUsers.SingleOrDefault(x => x.Nick == message.Sender.Nick);
+      _repository
+        .Query(r => r.AutoPunishments.GetAllMutedString())
+        .Where(autoPunishment => message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity)
+        .Select(autoPunishment => CalculatePunishment(message.Sender, autoPunishment))
+        .Apply(punishments => outbox.AddRange(punishments));
 
-          var duration = autoPunishment.Duration;
-          if (punishedUser != null)
-            duration = autoPunishment.Duration.Multiply(Math.Pow(2, punishedUser.Count));
-
-          _repository.Command(r => r.PunishedUsers.Increment(message.Sender.Nick, autoPunishment.Term));
-          outbox.Add(new SendableMute(message.Sender, duration));
-        }
-      }
       return outbox;
+    }
+
+    private ISendable<Punishment> CalculatePunishment(Civilian sender, AutoPunishment autoPunishment) {
+      var punishedUser = autoPunishment.PunishedUsers.SingleOrDefault(u => u.Nick == sender.Nick);
+
+      var duration = autoPunishment.Duration;
+      if (punishedUser != null)
+        duration = autoPunishment.Duration.Multiply(Math.Pow(2, punishedUser.Count));
+
+      _repository.Command(r => r.PunishedUsers.Increment(sender.Nick, autoPunishment.Term));
+      return new SendableMute(sender, duration);
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(BanFactory)}.").Wrap().ToList();
