@@ -10,11 +10,13 @@ namespace Bot.Repository {
       StateIntegers = new StateIntegerRepository(_context.StateIntegers);
       AutoPunishments = new AutoPunishmentRepository(_context.AutoPunishments);
       PunishedUsers = new PunishedUserRepository(_context.PunishedUsers, _context.AutoPunishments);
+      Nukes = new NukeRepository();
     }
 
     public IStateIntegerRepository StateIntegers { get; }
     public IAutoPunishmentRepository AutoPunishments { get; }
     public IPunishedUserRepository PunishedUsers { get; }
+    public INukeRepository Nukes { get; }
 
     public void Dispose() => _context.Dispose();
 
