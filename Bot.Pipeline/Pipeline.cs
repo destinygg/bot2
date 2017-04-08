@@ -24,13 +24,13 @@ namespace Bot.Pipeline {
       sendableFactoryBlock.LinkTo(senderBlock);
     }
 
-    public async void Run(ISampleReceived sampleReceived) {
-      await SlowlyAddToBuffer(sampleReceived);
+    public async void Run(IEnumerable<IReceived<IUser, ITransmittable>> received) {
+      await SlowlyAddToBuffer(received);
     }
 
-    private async Task SlowlyAddToBuffer(ISampleReceived sampleReceived) {
-      foreach (var received in sampleReceived.Receiveds) {
-        await _bufferBlock.SendAsync(received);
+    private async Task SlowlyAddToBuffer(IEnumerable<IReceived<IUser, ITransmittable>> received) {
+      foreach (var r in received) {
+        await _bufferBlock.SendAsync(r);
         await Task.Delay(1000);
       }
     }

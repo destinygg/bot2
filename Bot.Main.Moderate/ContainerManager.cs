@@ -55,9 +55,6 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ISettings, Settings>();
       _container.RegisterSingleton<ITimeService, TimeService>();
 
-      _container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      _container.RegisterSingleton<ISampleReceived, SampleReceived>();
-
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
       _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
@@ -70,6 +67,5 @@ namespace Bot.Main.Moderate {
     }
 
     public IPipeline Pipeline => _container.GetInstance<Pipeline.Pipeline>();
-    public ISampleReceived SampleReceived => _container.GetInstance<ISampleReceived>();
   }
 }

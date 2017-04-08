@@ -47,10 +47,8 @@
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
     <Compile Include="Log4NetLogger.cs" />
     <Compile Include="Interfaces\IPipeline.cs" />
-    <Compile Include="Interfaces\ISampleReceived.cs" />
     <Compile Include="InfiniteSampleReceived.cs" />
     <Compile Include="SnapshotFactory.cs" />
-    <Compile Include="SampleReceived.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pipeline.cs" />
     <Compile Include="ConsoleSender.cs" />

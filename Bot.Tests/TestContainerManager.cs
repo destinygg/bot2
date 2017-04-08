@@ -60,7 +60,6 @@ namespace Bot.Tests {
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      Container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
       Container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       Container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
