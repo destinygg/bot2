@@ -107,6 +107,10 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
+      <Project>{2A5B9732-8A1F-44DB-AD56-8446D3402CAE}</Project>
+      <Name>Bot.Database.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
       <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
       <Name>Bot.Database</Name>

@@ -193,6 +193,10 @@
     <Compile Include="UnitOfWorkTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
+      <Project>{2A5B9732-8A1F-44DB-AD56-8446D3402CAE}</Project>
+      <Name>Bot.Database.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Database.Tests\Bot.Database.Tests.csproj">
       <Project>{B0CD878A-DABB-46D7-BDFB-6356DF0CA3DF}</Project>
       <Name>Bot.Database.Tests</Name>
