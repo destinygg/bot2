@@ -128,7 +128,7 @@
       <Name>Bot.Pipeline</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Repository\Bot.Repository.csproj">
-      <Project>{2db78506-b364-469d-b162-00c9a5f430c4}</Project>
+      <Project>{1259BE33-8195-4FB1-BB63-CE5FF95E39DC}</Project>
       <Name>Bot.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">

@@ -209,7 +209,7 @@
       <Name>Bot.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Repository\Bot.Repository.csproj">
-      <Project>{2DB78506-B364-469D-B162-00C9A5F430C4}</Project>
+      <Project>{1259BE33-8195-4FB1-BB63-CE5FF95E39DC}</Project>
       <Name>Bot.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Tests\Bot.Tests.csproj">
