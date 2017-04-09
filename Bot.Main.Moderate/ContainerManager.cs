@@ -16,7 +16,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using SimpleInjector;
-using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Lifestyles;
 
 namespace Bot.Main.Moderate {
   public class ContainerManager {
@@ -25,7 +25,7 @@ namespace Bot.Main.Moderate {
     public ContainerManager() {
       _container = new Container();
 
-      _container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+      _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
       _container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
       _container.RegisterSingleton<IQueryCommandService<IBotDbContext>, QueryCommandService<IBotDbContext>>();

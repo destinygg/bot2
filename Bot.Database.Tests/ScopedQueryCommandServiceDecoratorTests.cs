@@ -23,7 +23,7 @@ namespace Bot.Database.Tests {
     public void CreatingBotDbContext_BeforeExecutionContextScopeCreated_ThrowsException() {
       var exception = TestHelper.AssertCatch<ActivationException>(() => _container.GetInstance<IBotDbContext>());
 
-      Assert.AreEqual($"The {nameof(IBotDbContext)} is registered as 'Execution Context Scope' lifestyle, but the instance is requested outside the context of a Execution Context Scope.", exception.Message);
+      Assert.AreEqual($"The {nameof(BotDbContext)} is registered as 'Async Scoped' lifestyle, but the instance is requested outside the context of an active (Async Scoped) scope.", exception.Message);
     }
 
     [TestMethod]
@@ -38,7 +38,7 @@ namespace Bot.Database.Tests {
 
       var exception = TestHelper.AssertCatch<ActivationException>(() => _container.GetInstance<IBotDbContext>());
 
-      Assert.AreEqual($"The {nameof(IBotDbContext)} is registered as 'Execution Context Scope' lifestyle, but the instance is requested outside the context of a Execution Context Scope.", exception.Message);
+      Assert.AreEqual($"The {nameof(BotDbContext)} is registered as 'Async Scoped' lifestyle, but the instance is requested outside the context of an active (Async Scoped) scope.", exception.Message);
     }
 
     [TestMethod]
