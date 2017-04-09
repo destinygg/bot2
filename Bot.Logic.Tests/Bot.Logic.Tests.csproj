@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47FE6C11-F6BD-451D-963E-D7C82C5131AA}</ProjectGuid>
+    <ProjectGuid>{8E63308F-B35E-4F96-9F3E-8CC2505CA622}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bot.Logic.Tests</RootNamespace>
     <AssemblyName>Bot.Logic.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -53,24 +53,22 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="Helper\ContextAppenderBuilder.cs" />
-    <Compile Include="Helper\ContextInserterBuilderTests.cs" />
+    <Compile Include="Helper\ContextAppenderBuilderTests.cs" />
     <Compile Include="Helper\ContextBuilder.cs" />
     <Compile Include="Helper\ContextInserterBuilder.cs" />
+    <Compile Include="Helper\ContextInserterBuilderTests.cs" />
     <Compile Include="Helper\DateTimeZero.cs" />
-    <Compile Include="ModCommandLogicTests_Aegis.cs" />
-    <Compile Include="PairedNukeAegisTests.cs" />
-    <Compile Include="ModCommandRegexTest.cs" />
     <Compile Include="Helper\NukeHelper.cs" />
+    <Compile Include="ModCommandLogicTests_Aegis.cs" />
+    <Compile Include="ModCommandRegexTest.cs" />
+    <Compile Include="PairedNukeAegisTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helper\ContextAppenderBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
@@ -94,7 +92,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
