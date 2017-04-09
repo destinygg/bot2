@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoPunishment.cs" />
     <Compile Include="Civilian.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Nuke.cs" />
     <Compile Include="PrivateMessage.cs" />
     <Compile Include="PublicMessage.cs" />
+    <Compile Include="PunishedUser.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
     <Compile Include="Received\Received.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Sendable\SendableMute.cs" />
     <Compile Include="Sendable\SendablePardon.cs" />
     <Compile Include="Pardon.cs" />
+    <Compile Include="StateInteger.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Websockets\BanReceiver.cs" />
     <Compile Include="Websockets\BanSender.cs" />
@@ -94,6 +97,10 @@
     <Compile Include="Websockets\User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
+      <Project>{2A5B9732-8A1F-44DB-AD56-8446D3402CAE}</Project>
+      <Name>Bot.Database.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>
       <Name>Bot.Tools</Name>
