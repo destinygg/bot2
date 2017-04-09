@@ -16,7 +16,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using SimpleInjector;
-using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Lifestyles;
 
 namespace Bot.Main.Moderate {
   public class ContainerManager {
@@ -25,7 +25,7 @@ namespace Bot.Main.Moderate {
     public ContainerManager() {
       _container = new Container();
 
-      _container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+      _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
       _container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
       _container.RegisterSingleton<IQueryCommandService<IBotDbContext>, QueryCommandService<IBotDbContext>>();
@@ -55,9 +55,6 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ISettings, Settings>();
       _container.RegisterSingleton<ITimeService, TimeService>();
 
-      _container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      _container.RegisterSingleton<ISampleReceived, SampleReceived>();
-
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
       _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
@@ -70,6 +67,5 @@ namespace Bot.Main.Moderate {
     }
 
     public IPipeline Pipeline => _container.GetInstance<Pipeline.Pipeline>();
-    public ISampleReceived SampleReceived => _container.GetInstance<ISampleReceived>();
   }
 }

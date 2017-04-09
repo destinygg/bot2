@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using Bot.Logic.Interfaces;
+using Bot.Models.Interfaces;
+using Bot.Pipeline.Interfaces;
+using Bot.Tests;
 using log4net;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -10,12 +15,21 @@ namespace Bot.Main.Moderate {
       logger.Info("Welcome to Bot!");
       logger.Info("Initializing...");
 
-      var containerManager = new ContainerManager();
-      var data = containerManager.SampleReceived;
-      var pipeline = containerManager.Pipeline;
+      var containerManager = new TestContainerManager();
+      var factory = containerManager.Container.GetInstance<IReceivedFactory>();
+      var pipeline = containerManager.Container.GetInstance<IPipeline>();
 
       logger.Info("Initialization complete.");
       logger.Info("Running...\r\n\r\n");
+
+      var data = new List<IReceived<IUser, ITransmittable>> {
+        factory.ModPublicReceivedMessage("!long"),
+        factory.PublicReceivedMessage("hi"),
+        factory.PublicReceivedMessage("banplox"),
+        factory.PublicReceivedMessage("!time"),
+        factory.ModPublicReceivedMessage("!sing"),
+        factory.ModPublicReceivedMessage("!long"),
+      };
 
       pipeline.Run(data);
 

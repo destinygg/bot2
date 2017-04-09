@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Bot.Main.Moderate.Tests")]
+[assembly: AssemblyTitle("Bot.Database.Entities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Bot.Main.Moderate.Tests")]
+[assembly: AssemblyProduct("Bot.Database.Entities")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("017bad23-6d37-4b6b-8493-6d9324834caa")]
+[assembly: Guid("2a5b9732-8a1f-44db-ad56-8446d3402cae")]
 
 // Version information for an assembly consists of the following four values:
 //

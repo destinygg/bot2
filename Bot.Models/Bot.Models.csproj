@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Moderator.cs" />
+    <Compile Include="Ban.cs" />
     <Compile Include="Nuke.cs" />
     <Compile Include="PrivateMessage.cs" />
     <Compile Include="PublicMessage.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Received\ReceivedError.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
     <Compile Include="Sendable\SendableError.cs" />
+    <Compile Include="Sendable\SendableBan.cs" />
     <Compile Include="Snapshot\ErrorSnapshot.cs" />
     <Compile Include="Snapshot\MessageSnapshot.cs" />
     <Compile Include="Snapshot\PardonSnapshot.cs" />
@@ -97,9 +99,9 @@
     <Compile Include="Websockets\User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
-      <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
-      <Name>Bot.Database</Name>
+    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
+      <Project>{2A5B9732-8A1F-44DB-AD56-8446D3402CAE}</Project>
+      <Name>Bot.Database.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
       <Project>{8F5439EB-10C4-4B67-8F1C-9E2A00D03000}</Project>

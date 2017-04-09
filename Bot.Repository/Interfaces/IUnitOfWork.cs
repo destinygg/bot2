@@ -6,5 +6,6 @@ namespace Bot.Repository.Interfaces {
     IStateIntegerRepository StateIntegers { get; }
     IAutoPunishmentRepository AutoPunishments { get; }
     IPunishedUserRepository PunishedUsers { get; }
+    INukeRepository Nukes { get; }
   }
 }

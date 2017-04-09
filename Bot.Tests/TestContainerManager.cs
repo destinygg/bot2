@@ -17,14 +17,14 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using SimpleInjector;
-using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Lifestyles;
 
 namespace Bot.Tests {
   public class TestContainerManager {
     public TestContainerManager(Action<Container> additionalRegistrations = null) {
       Container = new Container();
 
-      Container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
+      Container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
       additionalRegistrations?.Invoke(Container);
 
@@ -36,7 +36,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IQueryCommandService<IUnitOfWork>, QueryCommandService<IUnitOfWork>>();
       Container.RegisterSingleton<IProvider<IUnitOfWork>>(() => new DelegatedProvider<IUnitOfWork>(() => Container.GetInstance<IUnitOfWork>()));
 
-      Container.RegisterSingleton<IScopeCreator>(() => new DelegatedScopeCreator(Container.BeginExecutionContextScope));
+      Container.RegisterSingleton<IScopeCreator>(() => new DelegatedScopeCreator(() => AsyncScopedLifestyle.BeginScope(Container)));
       Container.RegisterDecorator(typeof(IQueryCommandService<>), typeof(ScopedQueryCommandServiceDecorator<>), Lifestyle.Singleton);
 
       Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
@@ -60,7 +60,6 @@ namespace Bot.Tests {
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterSingleton<IReceivedFactory, ReceivedFactory>();
-      Container.RegisterSingleton<ISampleReceived, SampleReceived>();
 
       Container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       Container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
