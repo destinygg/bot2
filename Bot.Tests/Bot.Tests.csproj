@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReceivedFactory.cs" />
     <Compile Include="TestContainerManagerTests.cs" />
     <Compile Include="TestContainerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

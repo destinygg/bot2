@@ -24,7 +24,7 @@ namespace Bot.Logic.Tests {
     public void Nuke_MessagesWithDifferentCasing_IsCaseInsensitive() {
       var container = NukeHelper.GetContainer(_messagesWithDifferentCasing.NextTimestamp(), _messagesWithDifferentCasing.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
-      var factory = container.GetInstance<IReceivedFactory>();
+      var factory = container.GetInstance<ReceivedFactory>();
       var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
 
       var nukeResults = logic.Nuke(_messagesWithDifferentCasing.Build(), nukeFactory.Create(factory.ModPublicReceivedMessage("!nuke10m message")));
@@ -37,7 +37,7 @@ namespace Bot.Logic.Tests {
     public void Aegis_MessagesWithDifferentCasing_IsCaseInsensitive() {
       var container = NukeHelper.GetContainer(_messagesWithDifferentCasing.NextTimestamp(), _messagesWithDifferentCasing.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
-      var factory = container.GetInstance<IReceivedFactory>();
+      var factory = container.GetInstance<ReceivedFactory>();
       var nuke = factory.ModPublicReceivedMessage("!nuke10m message");
       var contextWithNuke = _messagesWithDifferentCasing.Build().Concat(nuke.Wrap()).ToList();
 
@@ -57,7 +57,7 @@ namespace Bot.Logic.Tests {
     public void Nuke_MessagesInAndOutOfRadius_TargetsOnlyInRadius() {
       var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.CreatedAt, _messagesInAndOutOfRadius.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
-      var factory = container.GetInstance<IReceivedFactory>();
+      var factory = container.GetInstance<ReceivedFactory>();
       var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
 
       var nukeResults = logic.Nuke(_messagesInAndOutOfRadius.Build(), nukeFactory.Create(factory.ModPublicReceivedMessage("!nuke10m message")));
@@ -70,7 +70,7 @@ namespace Bot.Logic.Tests {
     public void Aegis_MessagesInAndOutOfRadius_TargetsOnlyInRadius() {
       var container = NukeHelper.GetContainer(_messagesInAndOutOfRadius.CreatedAt, _messagesInAndOutOfRadius.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
-      var factory = container.GetInstance<IReceivedFactory>();
+      var factory = container.GetInstance<ReceivedFactory>();
       var nuke = factory.ModPublicReceivedMessage("!nuke10m message");
       var contextWithNuke = _messagesInAndOutOfRadius.Build().Concat(nuke.Wrap()).ToList();
 
@@ -92,7 +92,7 @@ namespace Bot.Logic.Tests {
     public void Nuke_MessagesContainingAndSimilarToNukedWord_TargetsAppropriate() {
       var container = NukeHelper.GetContainer(_messagesContainingAndSimilarToNukedWord.NextTimestamp(), _messagesContainingAndSimilarToNukedWord.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
-      var factory = container.GetInstance<IReceivedFactory>();
+      var factory = container.GetInstance<ReceivedFactory>();
       var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
 
       var nukeResults = logic.Nuke(_messagesContainingAndSimilarToNukedWord.Build(), nukeFactory.Create(factory.ModPublicReceivedMessage("!nuke10m message")));
@@ -105,7 +105,7 @@ namespace Bot.Logic.Tests {
     public void Aegis_MessagesContainingAndSimilarToNuked_TargetsAppropriate() {
       var container = NukeHelper.GetContainer(_messagesContainingAndSimilarToNukedWord.NextTimestamp(), _messagesContainingAndSimilarToNukedWord.NukeBlastRadius);
       var logic = container.GetInstance<ModCommandLogic>();
-      var factory = container.GetInstance<IReceivedFactory>();
+      var factory = container.GetInstance<ReceivedFactory>();
       var nuke = factory.ModPublicReceivedMessage("!nuke10m message");
       var contextWithNuke = _messagesContainingAndSimilarToNukedWord.Build().Concat(nuke.Wrap()).ToList();
 

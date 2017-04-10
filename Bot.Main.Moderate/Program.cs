@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bot.Logic.Interfaces;
+using Bot.Logic;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 using Bot.Tests;
@@ -16,7 +16,7 @@ namespace Bot.Main.Moderate {
       logger.Info("Initializing...");
 
       var containerManager = new TestContainerManager();
-      var factory = containerManager.Container.GetInstance<IReceivedFactory>();
+      var factory = containerManager.Container.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.Container.GetInstance<IPipeline>();
 
       logger.Info("Initialization complete.");

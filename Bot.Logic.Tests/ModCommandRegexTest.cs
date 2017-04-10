@@ -33,7 +33,7 @@ namespace Bot.Logic.Tests {
           var modCommandRegexRegistration = Lifestyle.Singleton.CreateRegistration(() => modCommandRegex, container);
           container.RegisterConditional(typeof(IModCommandRegex), modCommandRegexRegistration, pc => !pc.Handled);
         });
-      var receivedFactory = containerManager.Container.GetInstance<IReceivedFactory>();
+      var receivedFactory = containerManager.Container.GetInstance<ReceivedFactory>();
       var snapshotFactory = containerManager.Container.GetInstance<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>>();
       var sendableFactory = containerManager.Container.GetInstance<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>();
       var received = receivedFactory.ModPublicReceivedMessage("!nuke10m test");

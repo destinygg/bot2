@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
@@ -8,7 +7,7 @@ using Bot.Models.Snapshot;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class ReceivedFactory : IReceivedFactory {
+  public class ReceivedFactory {
     private readonly ITimeService _timeService;
 
     public ReceivedFactory(ITimeService timeService) {

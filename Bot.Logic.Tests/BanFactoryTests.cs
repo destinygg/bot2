@@ -36,7 +36,7 @@ namespace Bot.Logic.Tests {
       var bannedTerm = TestHelper.RandomString();
       var spokenTerm = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(bannedTerm);
-      var snapshot = container.GetInstance<IReceivedFactory>().PublicReceivedSnapshot(spokenTerm);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(spokenTerm);
       var banFactory = container.GetInstance<BanFactory>();
 
       var ban = banFactory.Create(snapshot);
@@ -48,7 +48,7 @@ namespace Bot.Logic.Tests {
     public void BanFactory_FirstOffense_10MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
-      var snapshot = container.GetInstance<IReceivedFactory>().PublicReceivedSnapshot(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
       var banFactory = container.GetInstance<BanFactory>();
 
       var output = banFactory.Create(snapshot);
@@ -61,7 +61,7 @@ namespace Bot.Logic.Tests {
     public void BanFactory_SecondOffense_20MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
-      var snapshot = container.GetInstance<IReceivedFactory>().PublicReceivedSnapshot(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
       var banFactory = container.GetInstance<BanFactory>();
 
       banFactory.Create(snapshot);
@@ -75,7 +75,7 @@ namespace Bot.Logic.Tests {
     public void BanFactory_ThirdOffense_40MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
-      var snapshot = container.GetInstance<IReceivedFactory>().PublicReceivedSnapshot(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
       var banFactory = container.GetInstance<BanFactory>();
 
       banFactory.Create(snapshot);
@@ -90,7 +90,7 @@ namespace Bot.Logic.Tests {
     public void BanFactory_FourthOffense_80MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
-      var snapshot = container.GetInstance<IReceivedFactory>().PublicReceivedSnapshot(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
       var banFactory = container.GetInstance<BanFactory>();
 
       banFactory.Create(snapshot);
