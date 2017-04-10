@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using Bot.Models.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Models.Received {
-  [DebuggerDisplay("{Sender}: {Text}")]
   public class PublicMessageFromCivilian : ReceivedPublicMessage<Civilian> {
+
     public PublicMessageFromCivilian(string text, ITimeService timeService)
       : base(new Civilian("SampleUser"), text, timeService) { }
 
@@ -16,5 +15,6 @@ namespace Bot.Models.Received {
       : base(new Civilian(nick), text, timestamp) { }
 
     public override TResult Accept<TResult>(IReceivedVisitor<TResult> visitor) => visitor.Visit(this);
+    public override string ToString() => $"{Sender}: {Text}";
   }
 }

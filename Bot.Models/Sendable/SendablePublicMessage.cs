@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using Bot.Models.Interfaces;
+﻿using Bot.Models.Interfaces;
 
 namespace Bot.Models.Sendable {
-  [DebuggerDisplay("Sending: {Text}")]
   public class SendablePublicMessage : ISendable<PublicMessage> {
 
     public SendablePublicMessage(string text) {
@@ -12,5 +10,6 @@ namespace Bot.Models.Sendable {
     public PublicMessage Transmission { get; }
     public string Text => Transmission.Text;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
+    public override string ToString() => $"Sending: {Text}";
   }
 }
