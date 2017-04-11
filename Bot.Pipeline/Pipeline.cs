@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
@@ -24,15 +23,8 @@ namespace Bot.Pipeline {
       sendableFactoryBlock.LinkTo(senderBlock);
     }
 
-    public async void Run(IEnumerable<IReceived<IUser, ITransmittable>> received) {
-      await SlowlyAddToBuffer(received);
-    }
-
-    private async Task SlowlyAddToBuffer(IEnumerable<IReceived<IUser, ITransmittable>> received) {
-      foreach (var r in received) {
-        await _bufferBlock.SendAsync(r);
-        await Task.Delay(1000);
-      }
+    public void Enqueue(IReceived<IUser, ITransmittable> received) {
+      _bufferBlock.SendAsync(received);
     }
 
   }

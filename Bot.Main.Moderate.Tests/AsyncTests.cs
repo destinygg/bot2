@@ -30,7 +30,7 @@ namespace Bot.Main.Moderate.Tests {
         factory.ModPublicReceivedMessage("!long"),
       };
 
-      pipeline.Run(data);
+      data.ForEach(x => pipeline.Enqueue(x));
 
       await Task.Delay(15000);
       var results = testableLogger.Outbox.Where(s => s == "#1" || s == "#2" || s == "#3").ToList();

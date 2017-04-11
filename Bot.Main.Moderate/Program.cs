@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bot.Logic;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
@@ -31,7 +32,10 @@ namespace Bot.Main.Moderate {
         factory.ModPublicReceivedMessage("!long"),
       };
 
-      pipeline.Run(data);
+      data.ForEach(x => {
+        Task.Delay(100).Wait();
+        pipeline.Enqueue(x);
+      });
 
       Console.ReadLine();
     }

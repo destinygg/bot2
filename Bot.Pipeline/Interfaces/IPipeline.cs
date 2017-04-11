@@ -3,6 +3,6 @@ using Bot.Models.Interfaces;
 
 namespace Bot.Pipeline.Interfaces {
   public interface IPipeline {
-    void Run(IEnumerable<IReceived<IUser, ITransmittable>> received);
+    void Enqueue(IReceived<IUser, ITransmittable> received);
   }
 }
