@@ -23,19 +23,19 @@ namespace Bot.Logic {
     }
 
     public ISendable<PublicMessage> Long(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
-      _logger.LogInformation($"Long running process beginning, context length: {context.Count()}");
+      _logger.LogInformation($"Long running process beginning, context length: {context.Count}");
       for (var i = 0; i < 1000000000; i++) {
         var temp = i;
       }
-      _logger.LogInformation("1");
+      _logger.LogInformation("#1");
       for (var i = 0; i < 1000000000; i++) {
         var temp = i;
       }
-      _logger.LogInformation("2");
+      _logger.LogInformation("#2");
       for (var i = 0; i < 1000000000; i++) {
         var temp = i;
       }
-      _logger.LogInformation("3");
+      _logger.LogInformation("#3");
       for (var i = 0; i < 1000000000; i++) {
         var temp = i;
       }
