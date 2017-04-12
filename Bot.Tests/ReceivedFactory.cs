@@ -18,6 +18,7 @@ namespace Bot.Logic {
     public PublicMessageFromMod ModPublicReceivedMessage(string text, DateTime timestamp) => new PublicMessageFromMod(text, timestamp);
 
     public PublicMessageFromCivilian PublicReceivedMessage(string text) => new PublicMessageFromCivilian(text, _timeService);
+    public PublicMessageFromCivilian PublicReceivedMessage(string nick, string text) => new PublicMessageFromCivilian(nick, text, _timeService);
     public PublicMessageFromCivilian PublicReceivedMessage(string text, DateTime timestamp) => new PublicMessageFromCivilian(text, timestamp);
 
     public ReceivedPardon ReceivedPardon(Moderator sender, Civilian target) => new ReceivedPardon(sender, target, _timeService);
