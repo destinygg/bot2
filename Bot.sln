@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Logic.Tests", "Bot.Logi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Main.Moderate", "Bot.Main.Moderate\Bot.Main.Moderate.csproj", "{496E249E-AB00-4224-AFB0-BDDDCAE92F09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bot.Pipeline.Tests", "Bot.Pipeline.Tests\Bot.Pipeline.Tests.csproj", "{98933F7B-7E96-4335-A8F1-8002C259487D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{496E249E-AB00-4224-AFB0-BDDDCAE92F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{496E249E-AB00-4224-AFB0-BDDDCAE92F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{496E249E-AB00-4224-AFB0-BDDDCAE92F09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98933F7B-7E96-4335-A8F1-8002C259487D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98933F7B-7E96-4335-A8F1-8002C259487D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98933F7B-7E96-4335-A8F1-8002C259487D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98933F7B-7E96-4335-A8F1-8002C259487D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
