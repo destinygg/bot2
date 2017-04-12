@@ -57,6 +57,7 @@
     <Compile Include="AsyncTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestableLogger.cs" />
+    <Compile Include="TestableSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
