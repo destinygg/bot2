@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 using Bot.Logic;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
-using Bot.Pipeline.Tests;
 using Bot.Tests;
 using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 
-namespace Bot.Main.Moderate.Tests {
+namespace Bot.Pipeline.Tests {
   [TestClass]
   public class AsyncTests {
 
