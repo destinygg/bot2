@@ -17,6 +17,11 @@ namespace Bot.Models {
     public IUser Target { get; }
     public TimeSpan Duration { get; }
     public string Reason { get; }
+    public abstract string PastTense { get; }
+    public override string ToString() {
+      var reasonString = string.IsNullOrEmpty(Reason) ? "" : $" for: {Reason}";
+      return $"{PastTense} {Target} for {Duration.TotalMinutes}m{reasonString}";
+    }
 
   }
 }
