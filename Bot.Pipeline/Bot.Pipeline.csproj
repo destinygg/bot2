@@ -42,7 +42,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestableLogger.cs" />
     <Compile Include="Log4NetSender.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />

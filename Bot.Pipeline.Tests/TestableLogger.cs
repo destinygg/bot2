@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Bot.Tools.Logging;
 
-namespace Bot.Pipeline {
+namespace Bot.Pipeline.Tests {
   public class TestableLogger : ILogger {
 
     public void LogDebug(string message) {
