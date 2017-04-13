@@ -1,7 +1,7 @@
 ﻿using Bot.Database.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Database.Tests.Helper {
+namespace Bot.Tests {
   public class DatabaseInitializer {
     private readonly IQueryCommandService<IBotDbContext> _queryCommandService;
     public DatabaseInitializer(IQueryCommandService<IBotDbContext> queryCommandService) {

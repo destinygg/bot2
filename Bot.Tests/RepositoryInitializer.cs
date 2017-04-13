@@ -1,10 +1,9 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
-using Bot.Database.Tests.Helper;
 using Bot.Repository.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Repository.Tests {
+namespace Bot.Tests {
   public class RepositoryInitializer {
     private readonly IQueryCommandService<IBotDbContext> _queryCommandService;
     private readonly DatabaseInitializer _databaseInitializer;
