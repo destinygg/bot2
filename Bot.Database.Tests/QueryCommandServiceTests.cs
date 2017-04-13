@@ -1,6 +1,5 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
-using Bot.Database.Tests.Helper;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,7 @@ namespace Bot.Database.Tests {
 
     [TestMethod]
     public void QueryCommandServiceAddingIncompleteEntity_Always_ThrowsForeignKeyException() {
-      var contextService = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IQueryCommandService<IBotDbContext>>();
+      var contextService = TestContainerManager.GetContainerWithRecreatedAndIsolatedDatabase().GetInstance<IQueryCommandService<IBotDbContext>>();
 
       var punishedUser = new PunishedUserEntity {
         Count = 1,

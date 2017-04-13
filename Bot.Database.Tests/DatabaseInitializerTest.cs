@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Bot.Database.Tests.Helper;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,7 +9,7 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void EnsureCreated_Always_CreatesFile() {
       var path = Path.Combine(Directory.GetCurrentDirectory(), Guid.NewGuid() + ".sqlite");
-      var databaseInitializer = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase(path).GetInstance<DatabaseInitializer>();
+      var databaseInitializer = TestContainerManager.GetContainerWithRecreatedAndIsolatedDatabase(path).GetInstance<DatabaseInitializer>();
       if (File.Exists(path))
         File.Delete(path);
       Assert.IsFalse(File.Exists(path));
@@ -23,7 +22,7 @@ namespace Bot.Database.Tests {
     [TestMethod]
     public void EnsureDeleted_Always_DeletesFile() {
       var path = Path.Combine(Directory.GetCurrentDirectory(), Guid.NewGuid() + ".sqlite");
-      var databaseInitializer = DatabaseHelper.GetContainerWithRecreatedAndIsolatedDatabase(path).GetInstance<DatabaseInitializer>();
+      var databaseInitializer = TestContainerManager.GetContainerWithRecreatedAndIsolatedDatabase(path).GetInstance<DatabaseInitializer>();
       if (!File.Exists(path))
         databaseInitializer.EnsureCreated();
       Assert.IsTrue(File.Exists(path));

@@ -90,5 +90,22 @@ namespace Bot.Tests {
       return containerManager.Container;
     }
 
+    public static Container GetContainerWithRecreatedAndIsolatedDatabase([CallerMemberName] string sqlitePath = null) {
+
+      var settings = Substitute.For<ISettings>();
+      settings.SqlitePath.Returns(sqlitePath);
+      Console.WriteLine("Database path is: " + sqlitePath);
+
+      var containerManager = new TestContainerManager(
+        container => {
+          var settingsServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => settings, container);
+          container.RegisterConditional(typeof(ISettings), settingsServiceRegistration, pc => !pc.Handled);
+        });
+
+      containerManager.Container.GetInstance<DatabaseInitializer>().Recreate();
+
+      return containerManager.Container;
+    }
+
   }
 }
