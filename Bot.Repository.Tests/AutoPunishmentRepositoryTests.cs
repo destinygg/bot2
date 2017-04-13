@@ -13,7 +13,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteAutoPunishment() {
-      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
       var id = TestHelper.RandomInt();
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();
@@ -53,7 +53,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void ReadWriteUpdateAutoPunishment() {
-      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
 
       var id = TestHelper.RandomInt();
       var term = TestHelper.RandomString();

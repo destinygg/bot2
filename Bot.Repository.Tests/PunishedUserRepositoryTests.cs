@@ -11,7 +11,7 @@ namespace Bot.Repository.Tests {
   public class PunishedUserRepositoryTests {
     [TestMethod]
     public void PunishedUserWithPriors_Increment_IncreasesCountBy1() {
-      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
       var id = TestHelper.RandomInt();
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();
@@ -39,7 +39,7 @@ namespace Bot.Repository.Tests {
 
     [TestMethod]
     public void PunishedUserWithNoPriors_Increment_CountIs1() {
-      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository();
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
       var id = TestHelper.RandomInt();
       var term = TestHelper.RandomString();
       var type = TestHelper.RandomAutoPunishmentType();

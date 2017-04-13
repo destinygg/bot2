@@ -5,7 +5,6 @@ using Bot.Database.Entities;
 using Bot.Models;
 using Bot.Models.Sendable;
 using Bot.Repository.Interfaces;
-using Bot.Repository.Tests;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +16,7 @@ namespace Bot.Logic.Tests {
   public class BanFactoryTests {
 
     private Container InitializeContainerAndRepository(string term, [CallerMemberName] string sqliteName = null) {
-      var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository(
+      var container = new TestContainerManager().InitializeAndIsolateRepository(
         settings => settings.MinimumPunishmentSimilarity.Returns(0.7d)
       );
       container.GetInstance<IQueryCommandService<IUnitOfWork>>().Command(db =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Bot.Database;
 using Bot.Database.Interfaces;
 using Bot.Logic;
@@ -16,6 +17,7 @@ using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
+using NSubstitute;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -71,6 +73,22 @@ namespace Bot.Tests {
     }
 
     public Container Container { get; }
+
+    public Container InitializeAndIsolateRepository(Action<ISettings> configureSettings = null, [CallerMemberName] string sqliteName = null) {
+
+      var settings = Substitute.For<ISettings>();
+      settings.SqlitePath.Returns($"{sqliteName}_{TestHelper.RandomInt()}_Bot.sqlite");
+      configureSettings?.Invoke(settings);
+      var containerManager = new TestContainerManager(
+        container => {
+          var settingsServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => settings, container);
+          container.RegisterConditional(typeof(ISettings), settingsServiceRegistration, pc => !pc.Handled);
+        });
+
+      containerManager.Container.GetInstance<RepositoryInitializer>().RecreateWithMasterData();
+
+      return containerManager.Container;
+    }
 
   }
 }
