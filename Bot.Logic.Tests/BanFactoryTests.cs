@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Bot.Database.Entities;
-using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Sendable;
 using Bot.Repository.Interfaces;
@@ -19,7 +18,6 @@ namespace Bot.Logic.Tests {
 
     private Container InitializeContainerAndRepository(string term, [CallerMemberName] string sqliteName = null) {
       var container = RepositoryHelper.GetContainerWithInitializedAndIsolatedRepository(
-        sqliteName,
         settings => settings.MinimumPunishmentSimilarity.Returns(0.7d)
       );
       container.GetInstance<IQueryCommandService<IUnitOfWork>>().Command(db =>

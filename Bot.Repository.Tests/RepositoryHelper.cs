@@ -8,10 +8,10 @@ using SimpleInjector;
 namespace Bot.Repository.Tests {
   public static class RepositoryHelper {
 
-    public static Container GetContainerWithInitializedAndIsolatedRepository([CallerMemberName] string sqliteName = null, Action<ISettings> configureSettings = null) {
+    public static Container GetContainerWithInitializedAndIsolatedRepository(Action<ISettings> configureSettings = null, [CallerMemberName] string sqliteName = null) {
 
       var settings = Substitute.For<ISettings>();
-      settings.SqlitePath.Returns($"{sqliteName}.sqlite");
+      settings.SqlitePath.Returns($"{sqliteName}_{TestHelper.RandomInt()}_Bot.sqlite");
       configureSettings?.Invoke(settings);
       var containerManager = new TestContainerManager(
         container => {
