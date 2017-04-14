@@ -27,11 +27,11 @@ namespace Bot.Pipeline.Tests {
       };
 
       data.ForEach(x => {
-        Task.Delay(50).Wait();
+        Task.Delay(1000).Wait();
         pipeline.Enqueue(x);
       });
 
-      Task.Delay(3000).Wait();
+      Task.Delay(1000).Wait();
       Assert.IsTrue(sender.Outbox.Cast<SendableMute>().First().Target.Nick == "User");
     }
 
