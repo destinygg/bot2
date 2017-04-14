@@ -32,6 +32,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => _container.GetInstance<IBotDbContext>()));
 
       _container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
+      _container.RegisterSingleton<INukeRepository, NukeRepository>();
       _container.RegisterSingleton<IQueryCommandService<IUnitOfWork>, QueryCommandService<IUnitOfWork>>();
       _container.RegisterSingleton<IProvider<IUnitOfWork>>(() => new DelegatedProvider<IUnitOfWork>(() => _container.GetInstance<IUnitOfWork>()));
 
