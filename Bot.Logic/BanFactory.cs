@@ -22,10 +22,14 @@ namespace Bot.Logic {
       var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest;
 
-      outbox.AddRange(ConstructPunishment(message, r => r.AutoPunishments.GetAllMutedString(), (x, y) => new SendableMute(x, y)));
-      outbox.AddRange(ConstructPunishment(message, r => r.AutoPunishments.GetAllMutedRegex(), (x, y) => new SendableMute(x, y)));
-      outbox.AddRange(ConstructPunishment(message, r => r.AutoPunishments.GetAllBannedString(), (x, y) => new SendableBan(x, y)));
-      outbox.AddRange(ConstructPunishment(message, r => r.AutoPunishments.GetAllBannedRegex(), (x, y) => new SendableBan(x, y)));
+      _repository.Query(r => r.Nukes.Nukes)
+        .Where(nuke => nuke.MatchesNukedTerm(message.Transmission.Text))
+        .Select(nuke => new SendableMute(message.Sender, nuke.Duration))
+        .Apply(outbox.AddRange);
+      ConstructPunishment(message, r => r.AutoPunishments.GetAllMutedString(), (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
+      ConstructPunishment(message, r => r.AutoPunishments.GetAllMutedRegex(), (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
+      ConstructPunishment(message, r => r.AutoPunishments.GetAllBannedString(), (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
+      ConstructPunishment(message, r => r.AutoPunishments.GetAllBannedRegex(), (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
 
       return outbox;
     }
