@@ -76,19 +76,15 @@ namespace Bot.Tests {
     public Container Container { get; }
 
     public Container InitializeAndIsolateRepository(Action<ISettings> configureSettings = null, [CallerMemberName] string sqliteName = null) {
-
       var settings = Substitute.For<ISettings>();
       settings.SqlitePath.Returns($"{sqliteName}_{TestHelper.RandomInt()}_Bot.sqlite");
       configureSettings?.Invoke(settings);
-      var containerManager = new TestContainerManager(
-        container => {
-          var settingsServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => settings, container);
-          container.RegisterConditional(typeof(ISettings), settingsServiceRegistration, pc => !pc.Handled);
-        });
+      var settingsServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => settings, Container);
+      Container.RegisterConditional(typeof(ISettings), settingsServiceRegistration, pc => !pc.Handled);
 
-      containerManager.Container.GetInstance<RepositoryInitializer>().RecreateWithMasterData();
+      Container.GetInstance<RepositoryInitializer>().RecreateWithMasterData();
 
-      return containerManager.Container;
+      return Container;
     }
 
     public static Container GetContainerWithRecreatedAndIsolatedDatabase([CallerMemberName] string sqlitePath = null) {
