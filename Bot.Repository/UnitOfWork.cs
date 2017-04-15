@@ -10,6 +10,7 @@ namespace Bot.Repository {
       StateIntegers = new StateIntegerRepository(_context.StateIntegers);
       AutoPunishments = new AutoPunishmentRepository(_context.AutoPunishments);
       PunishedUsers = new PunishedUserRepository(_context.PunishedUsers, _context.AutoPunishments);
+      CustomCommand = new CustomCommandRepository(_context.CustomCommands);
       Nukes = nukeRepository;
     }
 
@@ -17,6 +18,7 @@ namespace Bot.Repository {
     public IAutoPunishmentRepository AutoPunishments { get; }
     public IPunishedUserRepository PunishedUsers { get; }
     public INukeRepository Nukes { get; }
+    public ICustomCommandRepository CustomCommand { get; }
 
     public void Dispose() => _context.Dispose();
 

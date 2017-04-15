@@ -9,6 +9,7 @@ namespace Bot.Database.Interfaces {
     DbSet<AutoPunishmentEntity> AutoPunishments { get; set; }
     DbSet<PunishedUserEntity> PunishedUsers { get; set; }
     DbSet<StateIntegerEntity> StateIntegers { get; set; }
+    DbSet<CustomCommandEntity> CustomCommands { get; set; }
     DatabaseFacade Database { get; }
   }
 }
