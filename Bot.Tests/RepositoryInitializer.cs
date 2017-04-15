@@ -18,6 +18,7 @@ namespace Bot.Tests {
         context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.LatestStreamOnTime), 0));
         context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
         context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.DeathCount), 0));
+        context.CustomCommands.Add(new CustomCommandEntity("rules", @"github.com/destinygg/bot2"));
       });
     }
 

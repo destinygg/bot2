@@ -125,6 +125,7 @@
   <ItemGroup>
     <Compile Include="AutoPunishmentRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomCommandRepositoryTests.cs" />
     <Compile Include="StateIntegerRepositoryTests.cs" />
     <Compile Include="UnitOfWorkTests.cs" />
     <Compile Include="PunishedUserRepositoryTests.cs" />
