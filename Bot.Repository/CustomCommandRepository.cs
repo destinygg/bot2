@@ -17,5 +17,8 @@ namespace Bot.Repository {
     public IList<CustomCommand> GetAll => _entities.Select(c => new CustomCommand(c.Command, c.Response)).ToList();
 
     public void Add(string command, string response) => _entities.Add(new CustomCommandEntity(command, response));
+
+    public void Delete(string command) => _entities.Remove(_entities.Single(x => x.Command == command));
+
   }
 }
