@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="AutoPunishment.cs" />
     <Compile Include="Civilian.cs" />
+    <Compile Include="CustomCommand.cs" />
     <Compile Include="ErrorMessage.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IReceived.cs" />

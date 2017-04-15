@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PunishmentEntity.cs" />
+    <Compile Include="CustomCommandEntity.cs" />
     <Compile Include="StateIntegerEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
