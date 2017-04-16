@@ -24,7 +24,7 @@ namespace Bot.Logic {
       var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest;
 
-      _repository.Query(r => r.Nukes.Nukes)
+      _repository.Query(r => r.InMemory.Nukes)
         .Where(nuke => nuke.MatchesNukedTerm(message.Transmission.Text))
         .Select(nuke => new SendableMute(message.Sender, nuke.Duration))
         .Apply(outbox.AddRange);

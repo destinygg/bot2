@@ -7,6 +7,6 @@ namespace Bot.Repository.Interfaces {
     IAutoPunishmentRepository AutoPunishments { get; }
     IPunishedUserRepository PunishedUsers { get; }
     ICustomCommandRepository CustomCommand { get; }
-    INukeRepository Nukes { get; }
+    IInMemoryRepository InMemory { get; }
   }
 }

@@ -35,7 +35,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IProvider<IBotDbContext>>(() => new DelegatedProvider<IBotDbContext>(() => Container.GetInstance<IBotDbContext>()));
 
       Container.Register<IUnitOfWork, UnitOfWork>(Lifestyle.Scoped);
-      Container.RegisterSingleton<INukeRepository, NukeRepository>();
+      Container.RegisterSingleton<IInMemoryRepository, InMemoryRepository>();
       Container.RegisterSingleton<IQueryCommandService<IUnitOfWork>, QueryCommandService<IUnitOfWork>>();
       Container.RegisterSingleton<IProvider<IUnitOfWork>>(() => new DelegatedProvider<IUnitOfWork>(() => Container.GetInstance<IUnitOfWork>()));
 

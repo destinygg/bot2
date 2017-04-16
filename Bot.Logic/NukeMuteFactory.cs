@@ -16,7 +16,7 @@ namespace Bot.Logic {
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Create(Nuke nuke, IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
-      _repository.Command(r => r.Nukes.Add(nuke));
+      _repository.Command(r => r.InMemory.Add(nuke));
       return GetCurrentVictims(nuke, context).Select(u => new SendableMute(u, nuke.Duration)).ToList();
     }
 

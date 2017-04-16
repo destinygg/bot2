@@ -2,7 +2,7 @@
 using Bot.Models;
 
 namespace Bot.Repository.Interfaces {
-  public interface INukeRepository {
+  public interface IInMemoryRepository {
     ICollection<Nuke> Nukes { get; }
     void Add(Nuke nuke);
     void Remove(Nuke nuke);
