@@ -10,5 +10,6 @@ namespace Bot.Tools {
     double NukeMinimumStringSimilarity { get; }
     string SqlitePath { get; }
     double MinimumPunishmentSimilarity { get; }
+    TimeSpan CivilianCommandInterval { get; }
   }
 }

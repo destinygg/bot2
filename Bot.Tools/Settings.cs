@@ -10,5 +10,6 @@ namespace Bot.Tools {
     public string DestinyTimeZone => IsMono ? "US/Central" : "Central Standard Time"; // http://mono.1490590.n4.nabble.com/Cross-platform-time-zones-td1507630.html
     public string DebuggerTimeZone => IsMono ? "US/Central" : "Central Standard Time";
     public double MinimumPunishmentSimilarity => 0.7d;
+    public TimeSpan CivilianCommandInterval => TimeSpan.FromSeconds(10);
   }
 }
