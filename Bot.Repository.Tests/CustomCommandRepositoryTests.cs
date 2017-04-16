@@ -47,6 +47,36 @@ namespace Bot.Repository.Tests {
     }
 
     [TestMethod]
+    public void CustomCommandsRepository_UpdateMasterData_UpdatessMasterData() {
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
+      var masterDataCommand = "rules";
+      var response = TestHelper.RandomString();
+
+      var linesChanged = repository.Command(r => r.CustomCommand.Update(masterDataCommand, response));
+
+      var customCommands = repository.Query(r => r.CustomCommand.GetAll);
+      Assert.AreEqual(response, customCommands.Single(c => c.Command == masterDataCommand).Response);
+      Assert.AreEqual(1, linesChanged);
+    }
+
+    [TestMethod]
+    public void CustomCommandsRepository_UpdateNonexistantCommand_ThrowsException() {
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
+      var nonexistantCommand = TestHelper.RandomString();
+      var response = TestHelper.RandomString();
+      var customCommands = repository.Query(r => r.CustomCommand.GetAll);
+      Assert.IsNull(customCommands.SingleOrDefault(c => c.Command == nonexistantCommand));
+
+      var exception = TestHelper.AssertCatch<InvalidOperationException>(() => repository.Command(r => r.CustomCommand.Update(nonexistantCommand, response)));
+
+      Assert.AreEqual("Sequence contains no elements", exception.Message);
+      customCommands = repository.Query(r => r.CustomCommand.GetAll);
+      Assert.IsNull(customCommands.SingleOrDefault(c => c.Command == nonexistantCommand));
+    }
+
+    [TestMethod]
     public void CustomCommandsRepository_RemoveMasterData_RemovesMasterData() {
       var container = new TestContainerManager().InitializeAndIsolateRepository();
       var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();

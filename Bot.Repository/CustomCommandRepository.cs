@@ -18,6 +18,12 @@ namespace Bot.Repository {
 
     public void Add(string command, string response) => _entities.Add(new CustomCommandEntity(command, response));
 
+    public void Update(string command, string response) {
+      var commandToUpdate = _entities.Single(x => x.Command == command);
+      commandToUpdate.Response = response;
+      _entities.Update(commandToUpdate);
+    }
+
     public void Delete(string command) => _entities.Remove(_entities.Single(x => x.Command == command));
 
   }
