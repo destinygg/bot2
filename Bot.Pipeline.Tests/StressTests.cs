@@ -71,7 +71,7 @@ namespace Bot.Pipeline.Tests {
       Console.WriteLine($"Output Range : {outputStrings.Min()} - {outputStrings.Max()}");
       Assert.IsTrue(outputMilliseconds.Max() - outputMilliseconds.Min() < 20);
       Assert.IsTrue(enqueueStopwatch.ElapsedMilliseconds < 20);
-      Assert.IsTrue(outputStrings.Count > 15);
+      Assert.IsTrue(outputStrings.Count > 10);
     }
 
   }
