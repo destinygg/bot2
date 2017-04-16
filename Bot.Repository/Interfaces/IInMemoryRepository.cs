@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bot.Models;
 
 namespace Bot.Repository.Interfaces {
@@ -6,5 +7,7 @@ namespace Bot.Repository.Interfaces {
     ICollection<Nuke> Nukes { get; }
     void Add(Nuke nuke);
     void Remove(Nuke nuke);
+    DateTime LatestCivilianCommandTime { get; set; }
+
   }
 }
