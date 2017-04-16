@@ -56,6 +56,10 @@
     <Compile Include="SnapshotVisitor\SnapshotVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
+      <Project>{2A5B9732-8A1F-44DB-AD56-8446D3402CAE}</Project>
+      <Name>Bot.Database.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
       <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
       <Name>Bot.Models</Name>

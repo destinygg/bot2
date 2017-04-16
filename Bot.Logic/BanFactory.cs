@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Bot.Database.Entities;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
@@ -26,21 +28,24 @@ namespace Bot.Logic {
         .Where(nuke => nuke.MatchesNukedTerm(message.Transmission.Text))
         .Select(nuke => new SendableMute(message.Sender, nuke.Duration))
         .Apply(outbox.AddRange);
-      ConstructPunishment(message, r => r.AutoPunishments.GetAllMutedString(), (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
-      ConstructPunishment(message, r => r.AutoPunishments.GetAllMutedRegex(), (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
-      ConstructPunishment(message, r => r.AutoPunishments.GetAllBannedString(), (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
-      ConstructPunishment(message, r => r.AutoPunishments.GetAllBannedRegex(), (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
+      var autoPunishments = _repository.Query(r => r.AutoPunishments.GetAllWithUser);
+      Func<AutoPunishment, bool> stringFilter = autoPunishment => message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity;
+      Func<AutoPunishment, bool> regexFilter = autoPunishment => message.IsMatch(new Regex(autoPunishment.Term));
+      ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.MutedString), stringFilter, (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
+      ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.MutedRegex), regexFilter, (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
+      ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.BannedString), stringFilter, (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
+      ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.BannedRegex), regexFilter, (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
 
       return outbox;
     }
 
     private IEnumerable<ISendable<Punishment>> ConstructPunishment(
         IReceived<Civilian, PublicMessage> message,
-        Func<IUnitOfWork, IEnumerable<AutoPunishment>> query,
+        IEnumerable<AutoPunishment> autoPunishments,
+        Func<AutoPunishment, bool> filter,
         Func<Civilian, TimeSpan, ISendable<Punishment>> punishmentCtor
-      ) => _repository
-      .Query(query)
-      .Where(autoPunishment => message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity)
+      ) => autoPunishments
+      .Where(filter)
       .Select(autoPunishment => CalculatePunishment(message.Sender, autoPunishment, punishmentCtor));
 
     private ISendable<Punishment> CalculatePunishment(Civilian sender, AutoPunishment autoPunishment, Func<Civilian, TimeSpan, ISendable<Punishment>> punishmentCtor) {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bot.Database.Entities;
 using Bot.Models;
@@ -27,22 +26,10 @@ namespace Bot.Repository {
       _entities.Update(entity);
     }
 
-    public IEnumerable<AutoPunishment> GetAllBannedRegex() =>
-      _predicate(x => x.Type == AutoPunishmentType.BannedRegex);
-
-    public IEnumerable<AutoPunishment> GetAllBannedString() =>
-      _predicate(x => x.Type == AutoPunishmentType.BannedString);
-
-    public IEnumerable<AutoPunishment> GetAllMutedRegex() =>
-      _predicate(x => x.Type == AutoPunishmentType.MutedRegex);
-
-    public IEnumerable<AutoPunishment> GetAllMutedString() =>
-      _predicate(x => x.Type == AutoPunishmentType.MutedString);
-
-    private IEnumerable<AutoPunishment> _predicate(Func<AutoPunishmentEntity, bool> predicate) =>
-      _entities.Include(x => x.PunishedUsers).Where(predicate).ToList().Select(x => new AutoPunishment(x));
-
     private AutoPunishmentEntity _single(int id) =>
       _entities.Include(x => x.PunishedUsers).Single(x => x.Id == id);
+
+    public IList<AutoPunishment> GetAllWithUser =>
+      _entities.Include(e => e.PunishedUsers).ToList().Select(e => new AutoPunishment(e)).ToList();
   }
 }

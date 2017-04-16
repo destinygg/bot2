@@ -36,10 +36,7 @@ namespace Bot.Repository.Tests {
 
       var testRead = new List<AutoPunishment>();
       repository.Command(r => {
-        testRead.AddRange(r.AutoPunishments.GetAllMutedString());
-        testRead.AddRange(r.AutoPunishments.GetAllBannedString());
-        testRead.AddRange(r.AutoPunishments.GetAllMutedRegex());
-        testRead.AddRange(r.AutoPunishments.GetAllBannedRegex());
+        testRead.AddRange(r.AutoPunishments.GetAllWithUser);
       });
       var dbAutoPunishment = testRead.Single();
 
@@ -95,10 +92,7 @@ namespace Bot.Repository.Tests {
 
       var testRead = new List<AutoPunishment>();
       repository.Command(r => {
-        testRead.AddRange(r.AutoPunishments.GetAllMutedString());
-        testRead.AddRange(r.AutoPunishments.GetAllBannedString());
-        testRead.AddRange(r.AutoPunishments.GetAllMutedRegex());
-        testRead.AddRange(r.AutoPunishments.GetAllBannedRegex());
+        testRead.AddRange(r.AutoPunishments.GetAllWithUser);
       });
       var dbAutoPunishment = testRead.Single();
 
