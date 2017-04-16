@@ -11,6 +11,28 @@ namespace Bot.Repository.Tests {
   public class CustomCommandRepositoryTests {
 
     [TestMethod]
+    public void CustomCommandsRepository_GetMasterData_ReturnsMasterData() {
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
+      var masterDataCommand = "rules";
+
+      var customCommand = repository.Query(r => r.CustomCommand.Get(masterDataCommand));
+
+      Assert.IsTrue(customCommand.Response == "github.com/destinygg/bot2");
+    }
+
+    [TestMethod]
+    public void CustomCommandsRepository_GetNonexistantCommand_ReturnsNull() {
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
+      var nonexistantCommand = TestHelper.RandomString();
+
+      var customCommand = repository.Query(r => r.CustomCommand.Get(nonexistantCommand));
+
+      Assert.IsNull(customCommand);
+    }
+
+    [TestMethod]
     public void CustomCommandsRepository_GetAll_ReturnsMasterData() {
       var container = new TestContainerManager().InitializeAndIsolateRepository();
       var repository = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
