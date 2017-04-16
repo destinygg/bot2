@@ -12,6 +12,7 @@ using SimpleInjector;
 namespace Bot.Pipeline.Tests {
   [TestClass]
   public class FullNukeTests {
+
     [TestMethod]
     public void NukePunishes_UsersAfter_Always() {
       var sender = new TestableSender();

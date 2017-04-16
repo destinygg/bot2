@@ -11,11 +11,13 @@ namespace Bot.Logic {
   public class ModCommandFactory : BaseSendableFactory<Moderator, IMessage> {
     private readonly IModCommandLogic _modCommandLogic;
     private readonly IModCommandRegex _modCommandRegex;
+    private readonly IModCommandParser _modCommandParser;
     private readonly IFactory<IReceived<Moderator, IMessage>, Nuke> _nukeFactory;
 
-    public ModCommandFactory(IModCommandLogic modCommandLogic, IModCommandRegex modCommandRegex, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory) {
+    public ModCommandFactory(IModCommandLogic modCommandLogic, IModCommandRegex modCommandRegex, IModCommandParser modCommandParser, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory) {
       _modCommandLogic = modCommandLogic;
       _modCommandRegex = modCommandRegex;
+      _modCommandParser = modCommandParser;
       _nukeFactory = nukeFactory;
     }
 
@@ -32,6 +34,15 @@ namespace Bot.Logic {
         return _modCommandLogic.Nuke(context, _nukeFactory.Create(message));
       if (message.IsMatch(_modCommandRegex.Aegis))
         return _modCommandLogic.Aegis(context);
+      if (message.IsMatch(_modCommandRegex.AddCommand)) {
+        var tuple = _modCommandParser.AddCommand(message.Transmission.Text);
+        return _modCommandLogic.AddCommand(tuple.Item1, tuple.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.DelCommand)) {
+        var commandToDelete = _modCommandParser.DelCommand(message.Transmission.Text);
+        return _modCommandLogic.DelCommand(commandToDelete);
+      }
+
       return new List<ISendable<ITransmittable>>();
     }
 

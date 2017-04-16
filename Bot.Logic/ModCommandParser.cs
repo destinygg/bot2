@@ -14,7 +14,7 @@ namespace Bot.Logic {
     public string Stalk(string input) => _firstGroup(_modCommandRegex.Stalk, input);
     public bool SubOnly(string input) => _firstGroup(_modCommandRegex.SubOnly, input) == "on";
 
-    public Tuple<string, string> AddCommand(string input) => _stringStringGroupsToTuple(_modCommandRegex.Mute, input);
+    public Tuple<string, string> AddCommand(string input) => _stringStringGroupsToTuple(_modCommandRegex.AddCommand, input);
     public string DelCommand(string input) => _firstGroup(_modCommandRegex.DelCommand, input);
 
     public Tuple<string, TimeSpan> AddMute(string input) => _numberUnitStringGroupsToTuple(_modCommandRegex.Mute, input);
