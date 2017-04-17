@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bot.Logic;
@@ -6,6 +7,7 @@ using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Pipeline.Interfaces;
 using Bot.Tests;
+using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 
@@ -35,6 +37,44 @@ namespace Bot.Pipeline.Tests {
 
       Task.Delay(1000).Wait();
       Assert.IsTrue(sender.Outbox.Cast<SendableMute>().First().Target.Nick == "User");
+    }
+
+    [TestMethod]
+    public void NukesExpire_Always_AfterSomeTime() {
+      var sender = new TestableSender();
+      var containerManager = new TestContainerManager(container => {
+        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+      }, settings => {
+        settings.NukeMaximumLinger = TimeSpan.FromSeconds(5);
+      }).InitializeAndIsolateRepository();
+      var factory = containerManager.GetInstance<ReceivedFactory>();
+      var pipeline = containerManager.GetInstance<IPipeline>();
+      var timeService = containerManager.GetInstance<ITimeService>();
+      var data = new List<IReceived<IUser, ITransmittable>> {
+        factory.ModPublicReceivedMessage("!nuke !time"),
+        factory.PublicReceivedMessage("User01","!time"),
+        factory.PublicReceivedMessage("User02","!time"),
+        factory.PublicReceivedMessage("User03","!time"),
+        factory.PublicReceivedMessage("User04","!time"),
+        factory.PublicReceivedMessage("User05","!time"),
+        factory.PublicReceivedMessage("User06","!time"),
+        factory.PublicReceivedMessage("User07","!time"),
+        factory.PublicReceivedMessage("User08","!time"),
+        factory.PublicReceivedMessage("User09","!time"),
+        factory.PublicReceivedMessage("User10","!time"),
+      };
+      Task.Delay(1000).Wait();
+
+      data.ForEach(x => {
+        Task.Delay(1000).Wait();
+        pipeline.Enqueue(x);
+      });
+
+      Task.Delay(1000).Wait();
+      Assert.IsTrue(sender.Outbox.OfType<SendableMute>().Count() >= 4);
+      Assert.IsTrue(sender.Outbox.OfType<SendableMute>().Count() <= 8);
+      Assert.IsTrue(sender.Outbox.OfType<SendablePublicMessage>().Single().Text.Contains(timeService.DestinyNow.ToShortTimeString()));
     }
 
   }
