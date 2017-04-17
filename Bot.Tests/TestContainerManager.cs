@@ -23,12 +23,19 @@ using SimpleInjector.Lifestyles;
 
 namespace Bot.Tests {
   public class TestContainerManager {
-    public TestContainerManager(Action<Container> additionalRegistrations = null) {
+    public TestContainerManager(Action<Container> additionalRegistrations = null, Action<TestSettings> configureSettings = null, [CallerMemberName] string sqliteName = null) {
       Container = new Container();
 
       Container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
       additionalRegistrations?.Invoke(Container);
+
+      var settings = new TestSettings {
+        SqlitePath = $"{sqliteName}_{TestHelper.RandomInt()}_Bot.sqlite"
+      };
+      configureSettings?.Invoke(settings);
+      var settingsServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => settings, Container);
+      Container.RegisterConditional(typeof(ISettings), settingsServiceRegistration, pc => !pc.Handled);
 
       Container.Register<IBotDbContext, BotDbContext>(Lifestyle.Scoped);
       Container.RegisterSingleton<IQueryCommandService<IBotDbContext>, QueryCommandService<IBotDbContext>>();
@@ -59,7 +66,6 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterConditional<ISettings, Settings>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterSingleton<ReceivedFactory>();
@@ -75,15 +81,8 @@ namespace Bot.Tests {
 
     public Container Container { get; }
 
-    public Container InitializeAndIsolateRepository(Action<ISettings> configureSettings = null, [CallerMemberName] string sqliteName = null) {
-      var settings = Substitute.For<ISettings>();
-      settings.SqlitePath.Returns($"{sqliteName}_{TestHelper.RandomInt()}_Bot.sqlite");
-      configureSettings?.Invoke(settings);
-      var settingsServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => settings, Container);
-      Container.RegisterConditional(typeof(ISettings), settingsServiceRegistration, pc => !pc.Handled);
-
+    public Container InitializeAndIsolateRepository() {
       Container.GetInstance<RepositoryInitializer>().RecreateWithMasterData();
-
       return Container;
     }
 

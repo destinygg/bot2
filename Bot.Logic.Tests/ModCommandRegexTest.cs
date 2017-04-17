@@ -28,14 +28,14 @@ namespace Bot.Logic.Tests {
     public void ModCommandRegex_ThrowsException_YieldsSendableErrorMessage() {
       var modCommandRegex = Substitute.For<IModCommandRegex>();
       modCommandRegex.Nuke.Returns(_ => { throw new Exception(); });
-      var containerManager = new TestContainerManager(
-        container => {
-          var modCommandRegexRegistration = Lifestyle.Singleton.CreateRegistration(() => modCommandRegex, container);
-          container.RegisterConditional(typeof(IModCommandRegex), modCommandRegexRegistration, pc => !pc.Handled);
-        });
-      var receivedFactory = containerManager.Container.GetInstance<ReceivedFactory>();
-      var snapshotFactory = containerManager.Container.GetInstance<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>>();
-      var sendableFactory = containerManager.Container.GetInstance<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>();
+      var container = new TestContainerManager(
+        c => {
+          var modCommandRegexRegistration = Lifestyle.Singleton.CreateRegistration(() => modCommandRegex, c);
+          c.RegisterConditional(typeof(IModCommandRegex), modCommandRegexRegistration, pc => !pc.Handled);
+        }).InitializeAndIsolateRepository();
+      var receivedFactory = container.GetInstance<ReceivedFactory>();
+      var snapshotFactory = container.GetInstance<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>>();
+      var sendableFactory = container.GetInstance<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>>();
       var received = receivedFactory.ModPublicReceivedMessage("!nuke10m test");
       var snapshot = snapshotFactory.Create(received);
       var sendables = sendableFactory.Create(snapshot);

@@ -48,6 +48,8 @@ namespace Bot.Pipeline.Tests {
       var containerManager = new TestContainerManager(container => {
         var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+      }, settings => {
+        settings.CivilianCommandInterval = TimeSpan.FromSeconds(0);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();

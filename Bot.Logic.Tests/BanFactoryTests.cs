@@ -16,9 +16,10 @@ namespace Bot.Logic.Tests {
   public class BanFactoryTests {
 
     private Container InitializeContainerAndRepository(string term, [CallerMemberName] string sqliteName = null) {
-      var container = new TestContainerManager().InitializeAndIsolateRepository(
-        settings => settings.MinimumPunishmentSimilarity.Returns(0.7d)
-      );
+      var container = new TestContainerManager(configureSettings: settings => {
+        settings.MinimumPunishmentSimilarity = 0.7d;
+        settings.SqlitePath = sqliteName;
+      }).InitializeAndIsolateRepository();
       container.GetInstance<IQueryCommandService<IUnitOfWork>>().Command(db =>
         db.AutoPunishments.Add(new AutoPunishment(new AutoPunishmentEntity {
           Term = term,
