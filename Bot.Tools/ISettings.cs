@@ -7,6 +7,7 @@ namespace Bot.Tools {
     string DestinyTimeZone { get; }
     bool IsMono { get; }
     TimeSpan NukeBlastRadius { get; }
+    TimeSpan NukeMaximumLinger { get; }
     double NukeMinimumStringSimilarity { get; }
     string SqlitePath { get; }
     double MinimumPunishmentSimilarity { get; }
