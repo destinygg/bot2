@@ -63,6 +63,7 @@
     <Compile Include="AsyncTests.cs" />
     <Compile Include="FullNukeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CommandTests.cs" />
     <Compile Include="TestableLogger.cs" />
     <Compile Include="TestableSender.cs" />
     <Compile Include="StressTests.cs" />

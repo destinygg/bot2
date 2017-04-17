@@ -26,6 +26,7 @@ namespace Bot.Pipeline.Tests {
         factory.ModPublicReceivedMessage("!nuke banplox"),
         factory.PublicReceivedMessage("User", "banplox"),
       };
+      Task.Delay(1000).Wait();
 
       data.ForEach(x => {
         Task.Delay(1000).Wait();
