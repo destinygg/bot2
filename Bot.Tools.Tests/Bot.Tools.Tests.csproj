@@ -60,6 +60,7 @@
     <Compile Include="TimeExtensionMethodTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MergeTests.cs" />
+    <Compile Include="PeriodicTaskFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Tools\Bot.Tools.csproj">
