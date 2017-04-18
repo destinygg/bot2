@@ -5,6 +5,7 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Models.Sendable;
+using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 
@@ -12,13 +13,16 @@ namespace Bot.Logic {
   public class AegisPardonFactory : NukeAegisSendableFactoryBase, IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IFactory<IReceived<Moderator, IMessage>, Nuke> _nukeFactory;
+    private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
 
-    public AegisPardonFactory(IModCommandRegex modCommandRegex, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory, ISettings settings, ITimeService timeService) : base(settings, timeService) {
+    public AegisPardonFactory(IModCommandRegex modCommandRegex, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory, IQueryCommandService<IUnitOfWork> unitOfWork, ISettings settings, ITimeService timeService) : base(settings, timeService) {
       _modCommandRegex = modCommandRegex;
       _nukeFactory = nukeFactory;
+      _unitOfWork = unitOfWork;
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Create(IReadOnlyList<IReceived<IUser, ITransmittable>> context) {
+      _unitOfWork.Command(u => u.InMemory.Nukes.Clear());
       var modMessages = context.OfType<IReceived<Moderator, IMessage>>().ToList();
       var nukes = _GetStringNukes(modMessages).Concat(_GetRegexNukes(modMessages));
       var victims = nukes.SelectMany(n => GetCurrentVictims(n, context));

@@ -77,5 +77,44 @@ namespace Bot.Pipeline.Tests {
       Assert.IsTrue(sender.Outbox.OfType<SendablePublicMessage>().Single().Text.Contains(timeService.DestinyNow.ToShortTimeString()));
     }
 
+    [TestMethod]
+    public void Aegis_Always_PreventsMoreMutes() {
+      var sender = new TestableSender();
+      var containerManager = new TestContainerManager(container => {
+        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+      }).InitializeAndIsolateRepository();
+      var factory = containerManager.GetInstance<ReceivedFactory>();
+      var pipeline = containerManager.GetInstance<IPipeline>();
+      var timeService = containerManager.GetInstance<ITimeService>();
+      var data = new List<IReceived<IUser, ITransmittable>> {
+        factory.ModPublicReceivedMessage("!nuke !time"),
+        factory.PublicReceivedMessage("User01","!time"),
+        factory.PublicReceivedMessage("User02","!time"),
+        factory.PublicReceivedMessage("User03","!time"),
+        factory.PublicReceivedMessage("User04","!time"),
+        factory.PublicReceivedMessage("User05","!time"),
+        factory.ModPublicReceivedMessage("!aegis"),
+        factory.PublicReceivedMessage("User06","!time"),
+        factory.PublicReceivedMessage("User07","!time"),
+        factory.PublicReceivedMessage("User08","!time"),
+        factory.PublicReceivedMessage("User09","!time"),
+        factory.PublicReceivedMessage("User10","!time"),
+      };
+      Task.Delay(1000).Wait();
+
+      data.ForEach(x => {
+        Task.Delay(1000).Wait();
+        pipeline.Enqueue(x);
+      });
+
+      Task.Delay(1000).Wait();
+      Assert.IsTrue(sender.Outbox.OfType<SendableMute>().Count() >= 4);
+      Assert.IsTrue(sender.Outbox.OfType<SendableMute>().Count() <= 8);
+      Assert.IsTrue(sender.Outbox.OfType<SendablePardon>().Count() >= 4);
+      Assert.IsTrue(sender.Outbox.OfType<SendablePardon>().Count() <= 8);
+      Assert.IsTrue(sender.Outbox.OfType<SendablePublicMessage>().Single().Text.Contains(timeService.DestinyNow.ToShortTimeString()));
+    }
+
   }
 }
