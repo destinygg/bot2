@@ -101,7 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoPunishmentRepository.cs" />
+    <Compile Include="PeriodicMessageRepository.cs" />
     <Compile Include="Interfaces\IAutoPunishmentRepository.cs" />
+    <Compile Include="Interfaces\IPeriodicMessageRepository.cs" />
     <Compile Include="Interfaces\IPunishedUserRepository.cs" />
     <Compile Include="Interfaces\IInMemoryRepository.cs" />
     <Compile Include="Interfaces\ICustomCommandRepository.cs" />
