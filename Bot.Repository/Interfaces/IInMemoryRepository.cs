@@ -7,6 +7,7 @@ namespace Bot.Repository.Interfaces {
     ICollection<Nuke> Nukes { get; }
     void Add(Nuke nuke);
     void Remove(Nuke nuke);
+    void ClearNukes();
     DateTime LatestCivilianCommandTime { get; set; }
 
   }
