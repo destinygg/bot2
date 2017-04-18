@@ -11,6 +11,7 @@ namespace Bot.Repository {
       AutoPunishments = new AutoPunishmentRepository(_context.AutoPunishments);
       PunishedUsers = new PunishedUserRepository(_context.PunishedUsers, _context.AutoPunishments);
       CustomCommand = new CustomCommandRepository(_context.CustomCommands);
+      PeriodicMessages = new PeriodicMessageRepository(_context.PeriodicMessages );
       InMemory = inMemoryRepository;
     }
 
@@ -19,6 +20,7 @@ namespace Bot.Repository {
     public IPunishedUserRepository PunishedUsers { get; }
     public IInMemoryRepository InMemory { get; }
     public ICustomCommandRepository CustomCommand { get; }
+    public IPeriodicMessageRepository PeriodicMessages { get; }
 
     public void Dispose() => _context.Dispose();
 

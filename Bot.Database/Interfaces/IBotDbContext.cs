@@ -10,6 +10,7 @@ namespace Bot.Database.Interfaces {
     DbSet<PunishedUserEntity> PunishedUsers { get; set; }
     DbSet<StateIntegerEntity> StateIntegers { get; set; }
     DbSet<CustomCommandEntity> CustomCommands { get; set; }
+    DbSet<PeriodicMessageEntity> PeriodicMessages { get; set; }
     DatabaseFacade Database { get; }
   }
 }

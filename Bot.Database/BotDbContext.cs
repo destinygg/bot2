@@ -17,12 +17,14 @@ namespace Bot.Database {
     public DbSet<AutoPunishmentEntity> AutoPunishments { get; set; }
     public DbSet<PunishedUserEntity> PunishedUsers { get; set; }
     public DbSet<CustomCommandEntity> CustomCommands { get; set; }
+    public DbSet<PeriodicMessageEntity> PeriodicMessages { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
       modelBuilder.Entity<StateIntegerEntity>().HasKey(si => si.Key);
       modelBuilder.Entity<CustomCommandEntity>().HasKey(cc => cc.Command);
       modelBuilder.Entity<PunishedUserEntity>().HasKey(pu => pu.Id);
+      modelBuilder.Entity<PeriodicMessageEntity>().HasKey(pm => pm.Id);
 
       modelBuilder.Entity<PunishedUserEntity>()
         .HasOne(pt => pt.AutoPunishmentEntity)
