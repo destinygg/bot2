@@ -60,11 +60,28 @@
   <ItemGroup>
     <Compile Include="ContainerManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PeriodicTasksTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Main.Moderate\Bot.Main.Moderate.csproj">
       <Project>{496E249E-AB00-4224-AFB0-BDDDCAE92F09}</Project>
       <Name>Bot.Main.Moderate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
+      <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
+      <Name>Bot.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline.Tests\Bot.Pipeline.Tests.csproj">
+      <Project>{98933F7B-7E96-4335-A8F1-8002C259487D}</Project>
+      <Name>Bot.Pipeline.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Pipeline\Bot.Pipeline.csproj">
+      <Project>{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}</Project>
+      <Name>Bot.Pipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bot.Tests\Bot.Tests.csproj">
+      <Project>{29C9D95A-BA8D-4E5E-B88A-FC22C607A73F}</Project>
+      <Name>Bot.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
