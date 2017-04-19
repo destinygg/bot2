@@ -16,9 +16,10 @@ namespace Bot.Main.Moderate {
       logger.Info("Welcome to Bot!");
       logger.Info("Initializing...");
 
-      var containerManager = new TestContainerManager();
-      var factory = containerManager.Container.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.Container.GetInstance<IPipeline>();
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var factory = container.GetInstance<ReceivedFactory>();
+      var pipeline = container.GetInstance<IPipeline>();
+      var periodicTasks = container.GetInstance<PeriodicTasks>();
 
       logger.Info("Initialization complete.");
       logger.Info("Running...\r\n\r\n");
@@ -36,6 +37,7 @@ namespace Bot.Main.Moderate {
         Task.Delay(100).Wait();
         pipeline.Enqueue(x);
       });
+      periodicTasks.Run();
 
       Console.ReadLine();
     }
