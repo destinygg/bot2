@@ -16,5 +16,6 @@ namespace Bot.Tests {
     public string DebuggerTimeZone { get; set; } = Settings.DebuggerTimeZone;
     public double MinimumPunishmentSimilarity { get; set; } = Settings.MinimumPunishmentSimilarity;
     public TimeSpan CivilianCommandInterval { get; set; } = Settings.CivilianCommandInterval;
+    public TimeSpan PeriodicTaskInterval { get; set; } = Settings.PeriodicTaskInterval;
   }
 }

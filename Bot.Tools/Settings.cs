@@ -12,5 +12,6 @@ namespace Bot.Tools {
     public string DebuggerTimeZone => IsMono ? "US/Central" : "Central Standard Time";
     public double MinimumPunishmentSimilarity => 0.7d;
     public TimeSpan CivilianCommandInterval => TimeSpan.FromSeconds(10);
+    public TimeSpan PeriodicTaskInterval { get; } = TimeSpan.FromMinutes(10);
   }
 }
