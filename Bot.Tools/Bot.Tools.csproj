@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MergeExtensions.cs" />
+    <Compile Include="ObjectDumper.cs" />
     <Compile Include="PeriodicTaskFactory.cs" />
     <Compile Include="QueryCommandService.cs" />
     <Compile Include="DelegatedFactory.cs" />
