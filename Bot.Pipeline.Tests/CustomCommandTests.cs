@@ -18,8 +18,8 @@ namespace Bot.Pipeline.Tests {
     public void AddingCommand_Afterwards_GetsResponse() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
@@ -46,8 +46,8 @@ namespace Bot.Pipeline.Tests {
     public void UpdatingCommand_Afterwards_GetsDifferentResponse() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }, settings => {
         settings.CivilianCommandInterval = TimeSpan.FromSeconds(0);
       }).InitializeAndIsolateRepository();
@@ -80,8 +80,8 @@ namespace Bot.Pipeline.Tests {
     public void DeletingCommand_Afterwards_GetsNoResponse() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();

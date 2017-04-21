@@ -19,8 +19,8 @@ namespace Bot.Pipeline.Tests {
     public void NukePunishes_UsersAfter_Always() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
@@ -43,8 +43,8 @@ namespace Bot.Pipeline.Tests {
     public void NukesExpire_Always_AfterSomeTime() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }, settings => {
         settings.NukeMaximumLinger = TimeSpan.FromSeconds(5);
       }).InitializeAndIsolateRepository();
@@ -81,8 +81,8 @@ namespace Bot.Pipeline.Tests {
     public void Aegis_Always_PreventsMoreMutes() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();

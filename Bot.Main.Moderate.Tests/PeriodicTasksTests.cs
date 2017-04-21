@@ -18,8 +18,8 @@ namespace Bot.Main.Moderate.Tests {
     public void PeriodicTasks_Run_YieldsAlternatingMessages() {
       var sender = new TestableSender();
       var container = new TestContainerManager(c => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
-        c.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
+        c.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
       .InitializeAndIsolateRepository();
       var tasks = container.GetInstance<PeriodicTasks>();

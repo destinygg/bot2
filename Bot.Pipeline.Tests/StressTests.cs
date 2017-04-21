@@ -24,8 +24,8 @@ namespace Bot.Pipeline.Tests {
         outputStrings.Add(s);
       });
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();

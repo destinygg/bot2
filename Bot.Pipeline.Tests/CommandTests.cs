@@ -14,8 +14,8 @@ namespace Bot.Pipeline.Tests {
     public void TwentyNineCivilianMessages_WithCommands_ExecutesOnlyThree() {
       var sender = new TestableSender();
       var containerManager = new TestContainerManager(container => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), timeServiceRegistration, _ => true);
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
