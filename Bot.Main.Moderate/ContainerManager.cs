@@ -55,6 +55,7 @@ namespace Bot.Main.Moderate {
 
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
       _container.RegisterSingleton<ISettings, Settings>();
+      _container.RegisterSingleton<IPrivateConstants, PrivateConstants>();
       _container.RegisterSingleton<ITimeService, TimeService>();
       _container.RegisterSingleton<IErrorableFactory<string, string, Tuple<bool, string>>, DownloadFactory>();
 

@@ -38,6 +38,7 @@
     <Compile Include="MergeExtensions.cs" />
     <Compile Include="ObjectDumper.cs" />
     <Compile Include="PeriodicTaskFactory.cs" />
+    <Compile Include="PrivateConstants.cs" />
     <Compile Include="QueryCommandService.cs" />
     <Compile Include="DelegatedFactory.cs" />
     <Compile Include="DelegatedProvider.cs" />
