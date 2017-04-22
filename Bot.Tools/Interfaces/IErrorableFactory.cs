@@ -11,4 +11,8 @@
   public interface IErrorableFactory<in T1, in T2, out TResult> : IFactory<T1, T2, TResult> {
     TResult OnErrorCreate { get; }
   }
+
+  public interface IErrorableFactory<in T1, in T2, in T3, out TResult> : IFactory<T1, T2, T3, TResult> {
+    TResult OnErrorCreate { get; }
+  }
 }

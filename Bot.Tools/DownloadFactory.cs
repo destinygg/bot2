@@ -4,16 +4,17 @@ using System.Text;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Tools {
-  public class DownloadFactory : IErrorableFactory<string, string, Tuple<bool, string>> {
+  public class DownloadFactory : IErrorableFactory<string, string, string, string> {
 
-    public Tuple<bool, string> Create(string url, string header = "") {
+    public string Create(string url, string header, string error) {
+      OnErrorCreate = error;
       var client = new WebClient { Encoding = Encoding.UTF8 };
       if (header != "") {
         client.Headers = new WebHeaderCollection { header };
       }
-      return Tuple.Create(true, client.DownloadString(url));
+      return client.DownloadString(url);
     }
 
-    public Tuple<bool, string> OnErrorCreate => Tuple.Create(false, "");
+    public string OnErrorCreate { get; private set; }
   }
 }

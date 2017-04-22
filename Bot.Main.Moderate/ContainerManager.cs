@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Bot.Database;
 using Bot.Database.Interfaces;
 using Bot.Logic;
@@ -57,7 +56,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ISettings, Settings>();
       _container.RegisterSingleton<IPrivateConstants, PrivateConstants>();
       _container.RegisterSingleton<ITimeService, TimeService>();
-      _container.RegisterSingleton<IErrorableFactory<string, string, Tuple<bool, string>>, DownloadFactory>();
+      _container.RegisterSingleton<IErrorableFactory<string, string, string, string>, DownloadFactory>();
 
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
