@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bot.Database;
 using Bot.Database.Interfaces;
 using Bot.Logic;
@@ -55,6 +56,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
       _container.RegisterSingleton<ISettings, Settings>();
       _container.RegisterSingleton<ITimeService, TimeService>();
+      _container.RegisterSingleton<IErrorableFactory<string, string, Tuple<bool, string>>, DownloadFactory>();
 
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();

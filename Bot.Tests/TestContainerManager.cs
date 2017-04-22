@@ -67,6 +67,7 @@ namespace Bot.Tests {
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<string, string, Tuple<bool, string>>, DownloadFactory>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterSingleton<ReceivedFactory>();
 
