@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IGenericClassFactory.cs" />
     <Compile Include="Interfaces\IPrivateConstants.cs" />
     <Compile Include="MergeExtensions.cs" />
     <Compile Include="ObjectDumper.cs" />
