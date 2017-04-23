@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoPunishment.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Websockets\UnBanReceiver.cs" />
     <Compile Include="Websockets\UnMuteReceiver.cs" />
     <Compile Include="Websockets\User.cs" />
+    <Compile Include="Xml\YoutubeFeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
