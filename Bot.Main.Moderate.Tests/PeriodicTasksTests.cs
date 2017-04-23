@@ -27,9 +27,10 @@ namespace Bot.Main.Moderate.Tests {
       tasks.Run();
 
       Task.Delay(1000).Wait();
-      Assert.AreEqual(5, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("GreenManGaming")));
-      Assert.AreEqual(5, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("twitter.com")));
-      Assert.AreEqual(10, sender.Outbox.Count);
+      Assert.AreEqual(3, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("GreenManGaming")));
+      Assert.AreEqual(3, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("twitter.com")));
+      Assert.AreEqual(3, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("youtu.be")));
+      Assert.AreEqual(9, sender.Outbox.Count);
     }
 
   }
