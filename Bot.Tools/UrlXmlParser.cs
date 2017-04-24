@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 using Bot.Tools.Interfaces;
 
@@ -12,8 +13,9 @@ namespace Bot.Tools {
 
     public TResult Create<TResult>(string url, string header, string error)
       where TResult : class {
-      var xml = _downloadFactory.Create(url, header, error);
-      if (xml == error) return null;
+      var uniqueError = error + Guid.NewGuid();
+      var xml = _downloadFactory.Create(url, header, uniqueError);
+      if (xml == uniqueError) return null;
       var serializer = new XmlSerializer(typeof(TResult));
       using (var reader = new StringReader(xml)) {
         return (TResult) serializer.Deserialize(reader);
