@@ -17,5 +17,6 @@ namespace Bot.Tests {
     public double MinimumPunishmentSimilarity { get; set; } = Settings.MinimumPunishmentSimilarity;
     public TimeSpan CivilianCommandInterval { get; set; } = Settings.CivilianCommandInterval;
     public TimeSpan PeriodicTaskInterval { get; set; } = Settings.PeriodicTaskInterval;
+    public TimeSpan AutoLiveCheckInterval { get; set; } = Settings.AutoLiveCheckInterval;
   }
 }

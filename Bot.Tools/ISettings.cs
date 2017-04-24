@@ -13,5 +13,6 @@ namespace Bot.Tools {
     double MinimumPunishmentSimilarity { get; }
     TimeSpan CivilianCommandInterval { get; }
     TimeSpan PeriodicTaskInterval { get; }
+    TimeSpan AutoLiveCheckInterval { get; }
   }
 }
