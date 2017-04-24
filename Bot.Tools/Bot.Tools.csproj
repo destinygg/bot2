@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericClassFactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IGenericClassFactory.cs" />
     <Compile Include="Interfaces\IPrivateConstants.cs" />
     <Compile Include="MergeExtensions.cs" />
