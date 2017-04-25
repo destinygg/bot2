@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Tools {
+
+  // http://xmltocsharp.azurewebsites.net/
+
   public class UrlXmlParser : IGenericClassFactory<string, string, string> {
     private readonly IErrorableFactory<string, string, string, string> _downloadFactory;
 

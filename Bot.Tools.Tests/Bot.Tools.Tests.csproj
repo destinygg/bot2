@@ -67,6 +67,7 @@
     <Compile Include="MergeTests.cs" />
     <Compile Include="PeriodicTaskFactoryTests.cs" />
     <Compile Include="UrlXmlParserTests.cs" />
+    <Compile Include="DownloadFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
