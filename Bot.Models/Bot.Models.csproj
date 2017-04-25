@@ -99,6 +99,7 @@
     <Compile Include="Websockets\UnBanReceiver.cs" />
     <Compile Include="Websockets\UnMuteReceiver.cs" />
     <Compile Include="Websockets\User.cs" />
+    <Compile Include="Xml\TwitchLiveStatus.cs" />
     <Compile Include="Xml\YoutubeFeed.cs" />
   </ItemGroup>
   <ItemGroup>
