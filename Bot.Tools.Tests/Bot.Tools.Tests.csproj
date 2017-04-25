@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MergeTests.cs" />
     <Compile Include="PeriodicTaskFactoryTests.cs" />
+    <Compile Include="UrlJsonParserTests.cs" />
     <Compile Include="UrlXmlParserTests.cs" />
     <Compile Include="DownloadFactoryTests.cs" />
   </ItemGroup>
