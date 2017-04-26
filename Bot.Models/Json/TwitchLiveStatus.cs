@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Bot.Models.Xml {
+namespace Bot.Models.Json {
   public class TwitchLiveStatus {
 
     public class Preview {

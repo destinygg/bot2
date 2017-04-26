@@ -5,6 +5,9 @@ using Bot.Tools.Interfaces;
 using Newtonsoft.Json;
 
 namespace Bot.Tools {
+
+  // http://json2csharp.com
+
   public class UrlJsonParser : IGenericClassFactory<string, string, string> {
     private readonly IErrorableFactory<string, string, string, string> _downloadFactory;
 

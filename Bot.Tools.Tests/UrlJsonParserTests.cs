@@ -1,5 +1,5 @@
 ﻿using System;
-using Bot.Models.Xml;
+using Bot.Models.Json;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
