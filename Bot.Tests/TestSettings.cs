@@ -18,5 +18,6 @@ namespace Bot.Tests {
     public TimeSpan CivilianCommandInterval { get; set; } = Settings.CivilianCommandInterval;
     public TimeSpan PeriodicTaskInterval { get; set; } = Settings.PeriodicTaskInterval;
     public TimeSpan AutoLiveCheckInterval { get; set; } = Settings.AutoLiveCheckInterval;
+    public TimeSpan OnOffTimeTolerance { get; set; } = Settings.OnOffTimeTolerance;
   }
 }

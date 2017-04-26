@@ -14,5 +14,6 @@ namespace Bot.Tools {
     public TimeSpan CivilianCommandInterval => TimeSpan.FromSeconds(10);
     public TimeSpan PeriodicTaskInterval => TimeSpan.FromMinutes(10);
     public TimeSpan AutoLiveCheckInterval => TimeSpan.FromMinutes(1);
+    public TimeSpan OnOffTimeTolerance => TimeSpan.FromMinutes(10);
   }
 }

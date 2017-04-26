@@ -14,5 +14,6 @@ namespace Bot.Tools {
     TimeSpan CivilianCommandInterval { get; }
     TimeSpan PeriodicTaskInterval { get; }
     TimeSpan AutoLiveCheckInterval { get; }
+    TimeSpan OnOffTimeTolerance { get; }
   }
 }
