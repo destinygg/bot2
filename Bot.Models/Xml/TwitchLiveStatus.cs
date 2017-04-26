@@ -61,6 +61,7 @@ namespace Bot.Models.Xml {
       public double average_fps { get; set; }
       public int delay { get; set; }
       public string created_at { get; set; }
+      public DateTime Parsed_created_at => DateTime.ParseExact(created_at, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture).ToUniversalTime();
       public bool is_playlist { get; set; }
       public Preview preview { get; set; }
       public Channel channel { get; set; }

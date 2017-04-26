@@ -100,7 +100,7 @@ namespace Bot.Models.Xml {
       [XmlElement(ElementName = "published", Namespace = "http://www.w3.org/2005/Atom")]
       public string Published { get; set; }
       [XmlIgnore]
-      public DateTime ParsedPublished => DateTime.ParseExact(Published, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture);
+      public DateTime ParsedPublished => DateTime.ParseExact(Published, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture).ToUniversalTime();
       [XmlElement(ElementName = "updated", Namespace = "http://www.w3.org/2005/Atom")]
       public string Updated { get; set; }
       [XmlElement(ElementName = "group", Namespace = "http://search.yahoo.com/mrss/")]
