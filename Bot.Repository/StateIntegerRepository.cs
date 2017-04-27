@@ -24,6 +24,11 @@ namespace Bot.Repository {
       set { _Update(nameof(LatestStreamOffTime), value.ToUnixTime()); }
     }
 
+    public LiveStatus LiveStatus {
+      get { return (LiveStatus) _Read(nameof(LiveStatus)); }
+      set { _Update(nameof(LiveStatus), (int) value); }
+    }
+
     public long DeathCount {
       get { return _Read(nameof(DeathCount)); }
       set { _Update(nameof(DeathCount), value); }
