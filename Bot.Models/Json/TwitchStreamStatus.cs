@@ -2,7 +2,7 @@
 using System.Globalization;
 
 namespace Bot.Models.Json {
-  public class TwitchLiveStatus {
+  public class TwitchStreamStatus {
 
     public class Preview {
       public string small { get; set; }

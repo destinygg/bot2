@@ -22,7 +22,7 @@ namespace Bot.Tools.Tests {
       });
       var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
 
-      var twitchLiveStatus = urlJsonParser.Create<TwitchLiveStatus.RootObject>("", "", "");
+      var twitchLiveStatus = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "");
 
       Assert.AreEqual(2557, twitchLiveStatus.stream.viewers);
     }
@@ -39,7 +39,7 @@ namespace Bot.Tools.Tests {
       });
       var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
 
-      var parsedCreatedAt = urlJsonParser.Create<TwitchLiveStatus.RootObject>("", "", "").stream.Parsed_created_at;
+      var parsedCreatedAt = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "").stream.Parsed_created_at;
 
       Assert.AreEqual(new DateTime(2017, 04, 24, 21, 23, 16, DateTimeKind.Utc), parsedCreatedAt);
     }
