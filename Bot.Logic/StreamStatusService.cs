@@ -1,21 +1,21 @@
-﻿using Bot.Models.Json;
+﻿using Bot.Logic.Interfaces;
 using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class StreamStatusService {
-    private readonly IGenericClassFactory<string, string, string> _urlJsonParser;
+    private readonly IDownloader _downloader;
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly ITimeService _timeService;
     private readonly ISettings _settings;
 
     public StreamStatusService(
-      IGenericClassFactory<string, string, string> urlJsonParser,
+      IDownloader downloader,
       IQueryCommandService<IUnitOfWork> unitOfWork,
       ITimeService timeService,
       ISettings settings) {
-      _urlJsonParser = urlJsonParser;
+      _downloader = downloader;
       _unitOfWork = unitOfWork;
       _timeService = timeService;
       _settings = settings;
@@ -23,7 +23,7 @@ namespace Bot.Logic {
 
     public StreamStatus GetStatus() {
       var now = _timeService.UtcNow;
-      var streamStatus = _urlJsonParser.Create<TwitchStreamStatus.RootObject>("https://api.twitch.tv/kraken/streams/destiny", "", "");
+      var streamStatus = _downloader.StreamStatus();
       var isOn = streamStatus.stream != null;
       var previously = _unitOfWork.Query(u => u.StateIntegers.StreamStatus);
       if (isOn) {
