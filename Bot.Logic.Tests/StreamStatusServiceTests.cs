@@ -26,7 +26,7 @@ namespace Bot.Logic.Tests {
       }).InitializeAndIsolateRepository();
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      var status = streamStatusService.GetStatus();
+      var status = streamStatusService.Refresh();
 
       Assert.AreEqual(StreamStatus.On, status);
     }
@@ -41,7 +41,7 @@ namespace Bot.Logic.Tests {
       }).InitializeAndIsolateRepository();
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      var status = streamStatusService.GetStatus();
+      var status = streamStatusService.Refresh();
 
       Assert.AreEqual(StreamStatus.Off, status);
     }
@@ -73,8 +73,8 @@ namespace Bot.Logic.Tests {
       var container = _getContainer(timeService, urlJsonParser);
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
 
       var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
       var onTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);
@@ -92,9 +92,9 @@ namespace Bot.Logic.Tests {
       var container = _getContainer(timeService, urlJsonParser);
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
 
       var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
       var onTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);
@@ -114,10 +114,10 @@ namespace Bot.Logic.Tests {
       var container = _getContainer(timeService, urlJsonParser);
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
 
       var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
       var onTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);
@@ -137,11 +137,11 @@ namespace Bot.Logic.Tests {
       var container = _getContainer(timeService, urlJsonParser);
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
 
       var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
       var onTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);
@@ -161,12 +161,12 @@ namespace Bot.Logic.Tests {
       var container = _getContainer(timeService, urlJsonParser);
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
 
       var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
       var onTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);
@@ -186,10 +186,10 @@ namespace Bot.Logic.Tests {
       var container = _getContainer(timeService, urlJsonParser);
       var streamStatusService = container.GetInstance<StreamStatusService>();
 
-      Assert.AreEqual(StreamStatus.Off, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.GetStatus());
-      Assert.AreEqual(StreamStatus.On, streamStatusService.GetStatus());
+      Assert.AreEqual(StreamStatus.Off, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.PossiblyOff, streamStatusService.Refresh());
+      Assert.AreEqual(StreamStatus.On, streamStatusService.Refresh());
 
       var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
       var onTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);

@@ -21,7 +21,7 @@ namespace Bot.Logic {
       _settings = settings;
     }
 
-    public StreamStatus GetStatus() {
+    public StreamStatus Refresh() {
       var now = _timeService.UtcNow;
       var streamStatus = _downloader.StreamStatus();
       var isOn = streamStatus.stream != null;
