@@ -4,7 +4,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class StreamStatusService {
+  public class StreamStatusService : IStreamStatusService {
     private readonly IDownloader _downloader;
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly ITimeService _timeService;
