@@ -18,7 +18,12 @@ namespace Bot.Main.Moderate {
     private readonly ISettings _settings;
     private readonly ILogger _logger;
 
-    public PeriodicTasks(ICommandHandler<IEnumerable<ISendable<ITransmittable>>> sender, IQueryCommandService<IUnitOfWork> unitOfWork, IDownloader downloader, ISettings settings, ILogger logger) {
+    public PeriodicTasks(
+      ICommandHandler<IEnumerable<ISendable<ITransmittable>>> sender,
+      IQueryCommandService<IUnitOfWork> unitOfWork,
+      IDownloader downloader,
+      ISettings settings,
+      ILogger logger) {
       _sender = sender;
       _unitOfWork = unitOfWork;
       _downloader = downloader;
@@ -28,6 +33,10 @@ namespace Bot.Main.Moderate {
 
     public void Run() {
       var periodicTaskFactory = new PeriodicTaskFactory();
+      RepeatingMessages(periodicTaskFactory);
+    }
+
+    private void RepeatingMessages(PeriodicTaskFactory periodicTaskFactory) {
       var rng = new Random();
       var messageCount = PeriodicMessages().Count();
       var i = rng.Next(messageCount);
