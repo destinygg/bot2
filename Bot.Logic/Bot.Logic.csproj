@@ -54,6 +54,7 @@
     <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
     <Compile Include="ReceivedVisitor\ReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\SnapshotVisitor.cs" />
+    <Compile Include="StreamStatusService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">

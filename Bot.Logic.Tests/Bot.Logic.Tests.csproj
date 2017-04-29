@@ -74,6 +74,7 @@
     <Compile Include="PairedNukeAegisTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanFactoryTests.cs" />
+    <Compile Include="StreamStatusServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
