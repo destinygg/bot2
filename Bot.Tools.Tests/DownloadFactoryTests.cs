@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Tools.Tests {
   [TestClass]
-  [Ignore]
   public class DownloadFactoryTests {
 
     [TestMethod]
