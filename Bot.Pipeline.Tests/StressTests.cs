@@ -14,7 +14,6 @@ namespace Bot.Pipeline.Tests {
   [TestClass]
   public class StressTests {
     [TestMethod]
-    [Ignore]
     public void TwentyFiveCivilianMessages_WithNuke_ProcessesInUnder20ms() {
       var outputStopwatch = new Stopwatch();
       var outputMilliseconds = new List<long>();

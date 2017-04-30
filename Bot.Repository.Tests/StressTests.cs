@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Repository.Tests {
   [TestClass]
-  [Ignore]
   public class StressTests {
 
     private const int Loops = 100;
