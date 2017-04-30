@@ -9,6 +9,7 @@ using Bot.Pipeline.Interfaces;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using SimpleInjector;
 
 namespace Bot.Pipeline.Tests {
@@ -80,13 +81,16 @@ namespace Bot.Pipeline.Tests {
     [TestMethod]
     public void Aegis_Always_PreventsMoreMutes() {
       var sender = new TestableSender();
+      var timeService = Substitute.For<ITimeService>();
+      timeService.UtcNow.Returns(TestHelper.RandomDateTime());
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, container);
+        container.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
-      var timeService = containerManager.GetInstance<ITimeService>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!nuke !time"),
         factory.PublicReceivedMessage("User01","!time"),
