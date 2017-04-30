@@ -4,6 +4,41 @@ using Bot.Tools.Logging;
 
 namespace Bot.Tools {
 
+  public class GenericClassFactoryTryCatchDecorator<T> : IGenericClassFactory<T> {
+    private readonly IGenericClassFactory<T> _factory;
+    private readonly ILogger _logger;
+
+    public GenericClassFactoryTryCatchDecorator(IGenericClassFactory<T> factory, ILogger logger) {
+      _factory = factory;
+      _logger = logger;
+      _logger.LogInformation($"{nameof(GenericClassFactoryTryCatchDecorator<object, object, object>)} now decorates {_factory.GetType()}");
+    }
+
+    public TResult Create<TResult>(T input)
+      where TResult : class {
+      try {
+        return _factory.Create<TResult>(input);
+      } catch (Exception e) {
+        _logger.LogError($"Error occured in {nameof(GenericClassFactoryTryCatchDecorator<object, object, object>)}", e);
+        _logger.LogError(LogExtraInformation(input));
+        return null;
+      }
+    }
+
+    private string LogExtraInformation(T input) {
+      try {
+        return
+          $"{nameof(_factory)} is of type {_factory.GetType()}\r\n" +
+          $"{nameof(T)} is {typeof(T)}\r\n" +
+          $"{nameof(input)} is of type {input.GetType()}\r\n" +
+          $"{nameof(input)} is {ObjectDumper.Dump(input, 10)}";
+      } catch (Exception e) {
+        return $"Error logging extra information: {e}";
+      }
+    }
+
+  }
+
   public class GenericClassFactoryTryCatchDecorator<T1, T2, T3> : IGenericClassFactory<T1, T2, T3> {
     private readonly IGenericClassFactory<T1, T2, T3> _factory;
     private readonly ILogger _logger;
