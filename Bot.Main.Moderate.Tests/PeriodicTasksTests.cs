@@ -34,11 +34,12 @@ namespace Bot.Main.Moderate.Tests {
 
       tasks.Run();
 
-      Task.Delay(900).Wait();
-      Assert.AreEqual(3, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("GreenManGaming")));
-      Assert.AreEqual(3, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("twitter.com")));
-      Assert.AreEqual(3, sender.Outbox.Cast<SendablePublicMessage>().Count(x => x.Text.Contains("youtu.be")));
-      Assert.AreEqual(9, sender.Outbox.Count);
+      Task.Delay(1000).Wait();
+      var cache = "";
+      foreach (var sendable in sender.Outbox.Cast<SendablePublicMessage>()) {
+        if (sendable.Text == cache) Assert.Fail();
+        cache = sendable.Text;
+      }
     }
 
     [TestMethod]
