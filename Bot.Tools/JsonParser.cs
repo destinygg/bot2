@@ -4,6 +4,9 @@ using Bot.Tools.Interfaces;
 using Newtonsoft.Json;
 
 namespace Bot.Tools {
+
+  // http://json2csharp.com
+
   public class JsonParser : IGenericClassFactory<string> {
 
     public TResult Create<TResult>(string json) where TResult : class {
