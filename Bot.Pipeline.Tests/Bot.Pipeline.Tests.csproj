@@ -82,7 +82,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AsyncTests.cs" />
+    <Compile Include="ConsoleSender.cs" />
     <Compile Include="FullNukeTests.cs" />
+    <Compile Include="InfiniteSampleReceived.cs" />
+    <Compile Include="Log4NetSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommandTests.cs" />
     <Compile Include="TestableLogger.cs" />

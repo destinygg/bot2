@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 
-namespace Bot.Pipeline {
+namespace Bot.Pipeline.Tests {
   public class ConsoleSender : ICommandHandler<IEnumerable<ISendable<ITransmittable>>> {
     private readonly ISendableVisitor<string> _sendableVisitor;
 

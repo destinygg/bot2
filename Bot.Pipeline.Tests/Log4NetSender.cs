@@ -3,7 +3,7 @@ using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 using log4net;
 
-namespace Bot.Pipeline {
+namespace Bot.Pipeline.Tests {
   public class Log4NetSender : ICommandHandler<IEnumerable<ISendable<ITransmittable>>> {
     private readonly ISendableVisitor<string> _sendableVisitor;
     private readonly ILog _logger;

@@ -42,16 +42,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Log4NetSender.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
     <Compile Include="Log4NetLogger.cs" />
     <Compile Include="Interfaces\IPipeline.cs" />
-    <Compile Include="InfiniteSampleReceived.cs" />
     <Compile Include="SnapshotFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pipeline.cs" />
-    <Compile Include="ConsoleSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">

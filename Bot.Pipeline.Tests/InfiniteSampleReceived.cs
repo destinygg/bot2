@@ -4,7 +4,7 @@ using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Pipeline {
+namespace Bot.Pipeline.Tests {
   public class InfiniteSampleReceived {
     private readonly ITimeService _timeService;
 
