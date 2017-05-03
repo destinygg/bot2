@@ -85,7 +85,7 @@
     <Compile Include="StateInteger.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Websockets\BanReceiver.cs" />
-    <Compile Include="Websockets\BanSender.cs" />
+    <Compile Include="Websockets\SendableBan.cs" />
     <Compile Include="Websockets\BroadcastReceiver.cs" />
     <Compile Include="Websockets\JoinReceiver.cs" />
     <Compile Include="Websockets\MessageReceiver.cs" />

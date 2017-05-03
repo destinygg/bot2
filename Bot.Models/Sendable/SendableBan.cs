@@ -17,6 +17,7 @@ namespace Bot.Models.Sendable {
     public TimeSpan Duration => Transmission.Duration;
     public string Reason => Transmission.Reason;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
-    public override string ToString() => $"Muted {Target} for {Duration.TotalMinutes}m for: {Reason}";
+    public object Json => new Websockets.SendableBan(Target.Nick, false, Duration, false, Reason);
+    public override string ToString() => $"Banned {Target} for {Duration.TotalMinutes}m for: {Reason}";
   }
 }
