@@ -157,7 +157,7 @@
     <Compile Include="DelegatedFactory.cs" />
     <Compile Include="DelegatedProvider.cs" />
     <Compile Include="DelegatedScopeCreator.cs" />
-    <Compile Include="FactoryTryCatchDecorator.cs" />
+    <Compile Include="ErrorableFactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IQueryCommandService.cs" />
     <Compile Include="Interfaces\IQueryCommandServiceExtensions.cs" />
     <Compile Include="Interfaces\IErrorableFactory.cs" />
