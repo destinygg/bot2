@@ -53,6 +53,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
       _container.RegisterSingleton<ICommandHandler<IEnumerable<ISendable<ITransmittable>>>, Log4NetSender>();
       _container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
+      _container.RegisterSingleton<IClient, DestinyGgClient>();
 
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
       _container.RegisterSingleton<ISettings, Settings>();

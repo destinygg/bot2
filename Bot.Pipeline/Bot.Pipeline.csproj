@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DestinyGgClient.cs" />
+    <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
     <Compile Include="Log4NetLogger.cs" />
