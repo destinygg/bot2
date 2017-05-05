@@ -8,11 +8,16 @@ using WebSocketSharp.Net;
 
 namespace Bot.Pipeline {
   public class DestinyGgClient : IClient {
+    private const int MaximumBackoffTimeInSeconds = 60;
     private readonly ILogger _logger;
+    private readonly ITimeService _timeService;
     private readonly WebSocket _websocket;
+    private DateTime _lastConnectedAt;
+    private int _connectionAttemptedCount;
 
-    public DestinyGgClient(IPrivateConstants privateConstants, ILogger logger) {
+    public DestinyGgClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService) {
       _logger = logger;
+      _timeService = timeService;
       _websocket = new WebSocket("ws://www.destiny.gg:9998/ws");
       _websocket.SetCookie(new Cookie("authtoken", privateConstants.BotWebsocketAuth));
       _websocket.OnMessage += WebsocketMessaged;
@@ -22,15 +27,18 @@ namespace Bot.Pipeline {
     }
 
     public void Connect() {
-      var retryCount = 0;
+      if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
+        _connectionAttemptedCount = 0;
+      }
       while (_websocket.ReadyState != WebSocketState.Open) {
         try {
+          var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionAttemptedCount), MaximumBackoffTimeInSeconds);
+          Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
+          _logger.LogInformation($"Connecting... {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionAttemptedCount)} is {_connectionAttemptedCount}.");
           _websocket.Connect();
+          _connectionAttemptedCount++;
         } catch (Exception e) {
-          var backoffTime = Math.Min((int) Math.Pow(2, retryCount), 30);
-          _logger.LogError($"{nameof(DestinyGgClient)} had error connecting. {nameof(retryCount)} is {retryCount} and {nameof(backoffTime)} is {backoffTime}", e);
-          Thread.Sleep(TimeSpan.FromSeconds(backoffTime));
-          retryCount++;
+          _logger.LogError($"{nameof(DestinyGgClient)} had an error connecting.", e);
         }
       }
     }
@@ -41,7 +49,10 @@ namespace Bot.Pipeline {
 
     private void WebsocketMessaged(object sender, MessageEventArgs e) => Receive(e.Data);
 
-    private void WebsocketOpened(object sender, EventArgs e) => _logger.LogInformation("Connected!");
+    private void WebsocketOpened(object sender, EventArgs e) {
+      _lastConnectedAt = _timeService.UtcNow;
+      _logger.LogInformation("Connected!");
+    }
 
     private void WebsocketClosed(object sender, EventArgs e) {
       _logger.LogWarning("Websocket closed! Reconnecting...");
