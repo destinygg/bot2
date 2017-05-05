@@ -7,7 +7,7 @@ using WebSocketSharp;
 using WebSocketSharp.Net;
 
 namespace Bot.Pipeline {
-  public class DestinyGgClient : IClient {
+  public abstract class DestinyGgBaseClient : IClient {
     private const int MaximumBackoffTimeInSeconds = 60;
     private readonly ILogger _logger;
     private readonly ITimeService _timeService;
@@ -15,7 +15,7 @@ namespace Bot.Pipeline {
     private DateTime _lastConnectedAt;
     private int _connectionAttemptedCount;
 
-    public DestinyGgClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService) {
+    public DestinyGgBaseClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService) {
       _logger = logger;
       _timeService = timeService;
       _websocket = new WebSocket("ws://www.destiny.gg:9998/ws");
@@ -38,14 +38,14 @@ namespace Bot.Pipeline {
           _websocket.Connect();
           _connectionAttemptedCount++;
         } catch (Exception e) {
-          _logger.LogError($"{nameof(DestinyGgClient)} had an error connecting.", e);
+          _logger.LogError($"{nameof(DestinyGgBaseClient)} had an error connecting.", e);
         }
       }
     }
 
-    public void Receive(string input) { }
+    public abstract void Receive(string input);
 
-    public void Send(string data) { }
+    public abstract void Send(string data);
 
     private void WebsocketMessaged(object sender, MessageEventArgs e) => Receive(e.Data);
 
