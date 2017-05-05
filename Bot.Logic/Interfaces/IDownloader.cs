@@ -5,5 +5,6 @@ namespace Bot.Logic.Interfaces {
   public interface IDownloader {
     TwitchStreamStatus.RootObject StreamStatus();
     YoutubeFeed.Feed YoutubeFeed();
+    GoogleCalendar.RootObject GoogleCalendar();
   }
 }
