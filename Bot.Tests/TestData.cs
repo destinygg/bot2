@@ -33931,7 +33931,7 @@
 }
 ";
 
-    public static string GoogleCalendarFirstIsAllDayEvent = @"{
+    public static string GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay = @"{
  ""kind"": ""calendar#events"",
  ""etag"": ""\""p33ga9i7mv7at60g\"""",
  ""summary"": ""Destiny - Stream Schedule"",

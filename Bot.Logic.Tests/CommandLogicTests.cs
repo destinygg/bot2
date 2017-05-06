@@ -66,7 +66,7 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void GoogleCalendar_FirstIsAllDayInLength_BeforeFirst() {
+    public void GoogleCalendar_FirstIsAllDayEventSecondIsWithinThatDay_BeforeFirst() {
       var time = new DateTime(2017, 5, 4, 0, 0, 0);
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
@@ -79,7 +79,7 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void GoogleCalendar_FirstIsAllDayInLength_DuringFirst() {
+    public void GoogleCalendar_FirstIsAllDayEventSecondIsWithinThatDay_DuringFirst() {
       var time = new DateTime(2017, 5, 4, 5, 0, 0);
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
@@ -92,12 +92,90 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void GoogleCalendar_FirstIsAllDayInLength_AfterFirst() {
+    public void GoogleCalendar_FirstIsAllDayEventSecondIsWithinThatDay_AfterFirst() {
       var time = new DateTime(2017, 5, 4, 5, 0, 1);
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
       var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Nathan Times\" scheduled to begin in 14h 29m";
+
+      var actual = commandLogic.Schedule().Transmission.Text;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GoogleCalendar_FirstIsAllDayEventSecondIsAfterThatDay_BeforeFirst() {
+      var time = new DateTime(2017, 5, 4, 0, 0, 0);
+      var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay;
+      var testContainerManager = TestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 5h";
+
+      var actual = commandLogic.Schedule().Transmission.Text;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GoogleCalendar_FirstIsAllDayEventSecondIsAfterThatDay_DuringFirst() {
+      var time = new DateTime(2017, 5, 4, 5, 0, 0);
+      var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay;
+      var testContainerManager = TestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 0m";
+
+      var actual = commandLogic.Schedule().Transmission.Text;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GoogleCalendar_FirstIsAllDayEventSecondIsAfterThatDay_AfterFirst() {
+      var time = new DateTime(2017, 5, 4, 5, 0, 1);
+      var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay;
+      var testContainerManager = TestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Stream - Chrono Trigger\" scheduled to begin in 1 day 11h";
+
+      var actual = commandLogic.Schedule().Transmission.Text;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GoogleCalendar_FirstTwoAreMultiDayEvents_BeforeFirst() {
+      var time = new DateTime(2017, 5, 28, 0, 0, 0);
+      var data = TestData.GoogleCalendarFirstTwoAreMultiDayEvents;
+      var testContainerManager = TestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+      var expected = "\"In Taiwan\", an all day event, is scheduled to begin in 5h";
+
+      var actual = commandLogic.Schedule().Transmission.Text;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GoogleCalendar_FirstTwoAreMultiDayEvents_DuringFirst() {
+      var time = new DateTime(2017, 5, 28, 5, 0, 0);
+      var data = TestData.GoogleCalendarFirstTwoAreMultiDayEvents;
+      var testContainerManager = TestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+      var expected = "\"In Taiwan\", an all day event, is scheduled to begin in 0m";
+
+      var actual = commandLogic.Schedule().Transmission.Text;
+
+      Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GoogleCalendar_FirstTwoAreMultiDayEvents_AfterFirst() {
+      var time = new DateTime(2017, 5, 28, 5, 0, 1);
+      var data = TestData.GoogleCalendarFirstTwoAreMultiDayEvents;
+      var testContainerManager = TestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+      var expected = "\"In Taiwan\", an all day event, is scheduled for today. \"Paying Bills, Monthly Schedule\" scheduled to begin in 3 days 23h";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
