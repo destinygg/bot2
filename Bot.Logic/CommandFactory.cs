@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
@@ -10,11 +11,11 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class CommandFactory : BaseSendableFactory<IUser, IMessage> {
     private readonly IQueryCommandService<IUnitOfWork> _repository;
-    private readonly ITimeService _timeService;
+    private readonly ICommandLogic _commandLogic;
 
-    public CommandFactory(IQueryCommandService<IUnitOfWork> repository, ITimeService timeService) {
+    public CommandFactory(IQueryCommandService<IUnitOfWork> repository, ICommandLogic commandLogic) {
       _repository = repository;
-      _timeService = timeService;
+      _commandLogic = commandLogic;
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, IMessage> snapshot) {
@@ -27,7 +28,7 @@ namespace Bot.Logic {
       }
 
       if (message.StartsWith("!time")) {
-        outbox.Add(new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time"));
+        outbox.Add(_commandLogic.Time());
       }
       return outbox;
     }

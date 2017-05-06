@@ -37,8 +37,10 @@
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
+    <Compile Include="CommandLogic.cs" />
     <Compile Include="Downloader.cs" />
     <Compile Include="Interfaces\IDownloader.cs" />
+    <Compile Include="Interfaces\ICommandLogic.cs" />
     <Compile Include="Interfaces\IStreamStatusService.cs" />
     <Compile Include="NukeAegisSendableFactoryBase.cs" />
     <Compile Include="NukeFactory.cs" />

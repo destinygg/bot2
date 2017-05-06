@@ -54,6 +54,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
       Container.RegisterSingleton<IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();
       Container.RegisterSingleton<IFactory<IReceived<Moderator, IMessage>, Nuke>, NukeFactory>();
+      Container.RegisterSingleton<ICommandLogic, CommandLogic>();
       Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
       Container.RegisterConditional<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterSingleton<IModCommandParser, ModCommandParser>();
