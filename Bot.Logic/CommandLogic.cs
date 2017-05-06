@@ -24,17 +24,15 @@ namespace Bot.Logic {
 
     public ISendable<PublicMessage> Schedule() {
       var events = _downloader.GoogleCalendar().ExtendedItem;
-      var first = events[0];
-      if (first.Item.start.date != null) {
-        var delta = first.ParsedStart - _timeService.UtcNow;
-        var scheduledString =
-          delta < TimeSpan.Zero
-          ? $"for today"
-          : $"to begin in {delta.ToPretty(_logger)}";
-        return new SendablePublicMessage($"\"{first.Item.summary}\", an all day event, is scheduled {scheduledString}");
-      }
       var nextEvent = events.First(e => e.ParsedStart >= _timeService.UtcNow);
-      return new SendablePublicMessage($"\"{nextEvent.Item.summary}\" scheduled to begin in {(nextEvent.ParsedStart - _timeService.UtcNow).ToPretty(_logger)}");
+      var nextString = $"\"{nextEvent.Item.summary}\" scheduled to begin in {(nextEvent.ParsedStart - _timeService.UtcNow).ToPretty(_logger)}";
+      var first = events[0];
+      if (first.Item.start.date == null) return new SendablePublicMessage(nextString);
+      var delta = first.ParsedStart - _timeService.UtcNow;
+      var scheduledString = delta < TimeSpan.Zero
+        ? $"for today. {nextString}"
+        : $"to begin in {delta.ToPretty(_logger)}";
+      return new SendablePublicMessage($"\"{first.Item.summary}\", an all day event, is scheduled {scheduledString}");
     }
 
   }

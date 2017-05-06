@@ -68,7 +68,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void GoogleCalendar_FirstIsAllDayInLength_BeforeFirst() {
       var time = new DateTime(2017, 5, 4, 0, 0, 0);
-      var data = TestData.GoogleCalendarFirstIsAllDayEvent;
+      var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
       var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 5h";
@@ -81,7 +81,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void GoogleCalendar_FirstIsAllDayInLength_DuringFirst() {
       var time = new DateTime(2017, 5, 4, 5, 0, 0);
-      var data = TestData.GoogleCalendarFirstIsAllDayEvent;
+      var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
       var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 0m";
@@ -94,10 +94,10 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void GoogleCalendar_FirstIsAllDayInLength_AfterFirst() {
       var time = new DateTime(2017, 5, 4, 5, 0, 1);
-      var data = TestData.GoogleCalendarFirstIsAllDayEvent;
+      var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Nathan Times\" scheduled to begin in 14h 29m";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
