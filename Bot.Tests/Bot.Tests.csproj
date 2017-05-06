@@ -197,6 +197,7 @@
     <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="ReceivedFactory.cs" />
     <Compile Include="RepositoryInitializer.cs" />
+    <Compile Include="TestData.cs" />
     <Compile Include="TestSettings.cs" />
     <Compile Include="TestContainerManagerTests.cs" />
     <Compile Include="TestContainerManager.cs" />

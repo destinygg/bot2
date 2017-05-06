@@ -21,7 +21,7 @@ namespace Bot.Main.Moderate.Tests {
     [TestMethod]
     public void PeriodicTasks_Run_YieldsAlternatingMessages() {
       var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestHelper.YoutubeFeed);
+      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestData.YoutubeFeed);
       var sender = new TestableSender();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
