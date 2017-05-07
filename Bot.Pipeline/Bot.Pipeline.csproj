@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="DestinyGgLoggingClient.cs" />
     <Compile Include="DestinyGgBaseClient.cs" />
+    <Compile Include="DestinyGgParser.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />
     <Compile Include="CommandHandlerTryCatchDecorator.cs" />
