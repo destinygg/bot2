@@ -94,7 +94,7 @@
     <Compile Include="Websockets\BroadcastReceiver.cs" />
     <Compile Include="Websockets\JoinReceiver.cs" />
     <Compile Include="Websockets\MessageReceiver.cs" />
-    <Compile Include="Websockets\MessageSender.cs" />
+    <Compile Include="Websockets\SendablePublicMessage.cs" />
     <Compile Include="Websockets\MuteReceiver.cs" />
     <Compile Include="Websockets\MuteSender.cs" />
     <Compile Include="Websockets\NamesReceiver.cs" />
