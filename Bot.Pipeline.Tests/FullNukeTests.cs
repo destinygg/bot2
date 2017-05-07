@@ -21,7 +21,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
@@ -45,7 +45,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }, settings => {
         settings.NukeMaximumLinger = TimeSpan.FromSeconds(5);
       }).InitializeAndIsolateRepository();
@@ -85,7 +85,7 @@ namespace Bot.Pipeline.Tests {
       timeService.UtcNow.Returns(TestHelper.RandomDateTime());
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
         var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, container);
         container.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
       }).InitializeAndIsolateRepository();

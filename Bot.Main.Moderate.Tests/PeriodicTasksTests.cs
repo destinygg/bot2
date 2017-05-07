@@ -25,7 +25,7 @@ namespace Bot.Main.Moderate.Tests {
       var sender = new TestableSerializer();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
-        c.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        c.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
         var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
         c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
       }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
@@ -50,7 +50,7 @@ namespace Bot.Main.Moderate.Tests {
       var testableLogger = new TestableLogger();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
-        c.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        c.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
         var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
         c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
         var loggerRegistration = Lifestyle.Singleton.CreateRegistration(() => testableLogger, c);

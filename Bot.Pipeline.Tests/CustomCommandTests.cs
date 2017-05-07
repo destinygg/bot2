@@ -7,6 +7,7 @@ using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Pipeline.Interfaces;
 using Bot.Tests;
+using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 
@@ -19,7 +20,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
@@ -47,7 +48,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }, settings => {
         settings.CivilianCommandInterval = TimeSpan.FromSeconds(0);
       }).InitializeAndIsolateRepository();
@@ -81,7 +82,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
-        container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
