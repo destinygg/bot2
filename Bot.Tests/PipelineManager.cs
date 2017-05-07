@@ -4,7 +4,7 @@ using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Pipeline {
+namespace Bot.Tests {
   public class PipelineManager : IPipeline {
     private readonly BufferBlock<IReceived<IUser, ITransmittable>> _bufferBlock = new BufferBlock<IReceived<IUser, ITransmittable>>();
     public PipelineManager(

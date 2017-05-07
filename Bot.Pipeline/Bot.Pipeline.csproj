@@ -60,7 +60,6 @@
     <Compile Include="Interfaces\IPipeline.cs" />
     <Compile Include="SnapshotFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PipelineManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">

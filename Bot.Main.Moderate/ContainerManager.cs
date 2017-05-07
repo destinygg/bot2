@@ -12,6 +12,7 @@ using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
 using Bot.Repository;
 using Bot.Repository.Interfaces;
+using Bot.Tests;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
