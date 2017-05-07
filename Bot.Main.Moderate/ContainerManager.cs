@@ -54,7 +54,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
       _container.RegisterSingleton<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>();
       _container.RegisterSingleton<ICommandHandler<IEnumerable<string>>, DestinyGgLoggingClient>();
-      _container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
+      _container.RegisterSingleton<IPipeline, PipelineManager>();
       _container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
 
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
@@ -82,6 +82,6 @@ namespace Bot.Main.Moderate {
       _container.Verify();
     }
 
-    public IPipeline Pipeline => _container.GetInstance<Pipeline.Pipeline>();
+    public IPipeline Pipeline => _container.GetInstance<PipelineManager>();
   }
 }

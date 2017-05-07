@@ -67,7 +67,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
       Container.RegisterConditional<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ICommandHandler<IEnumerable<string>>, DestinyGgLoggingClient>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
+      Container.RegisterSingleton<IPipeline, PipelineManager>();
       Container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, c => !c.Handled);

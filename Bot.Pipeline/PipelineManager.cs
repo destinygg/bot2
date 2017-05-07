@@ -5,9 +5,9 @@ using Bot.Pipeline.Interfaces;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
-  public class Pipeline : IPipeline {
+  public class PipelineManager : IPipeline {
     private readonly BufferBlock<IReceived<IUser, ITransmittable>> _bufferBlock = new BufferBlock<IReceived<IUser, ITransmittable>>();
-    public Pipeline(
+    public PipelineManager(
       IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> snapshotFactory,
       IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> sendableFactory,
       IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>> serializer,
