@@ -98,7 +98,7 @@
     <Compile Include="Websockets\MuteReceiver.cs" />
     <Compile Include="Websockets\SendableMute.cs" />
     <Compile Include="Websockets\NamesReceiver.cs" />
-    <Compile Include="Websockets\PardonSender.cs" />
+    <Compile Include="Websockets\SendablePardon.cs" />
     <Compile Include="Websockets\PrivateMessageSender.cs" />
     <Compile Include="Websockets\QuitReceiver.cs" />
     <Compile Include="Websockets\UnBanReceiver.cs" />
