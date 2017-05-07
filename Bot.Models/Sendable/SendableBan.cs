@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Models.Interfaces;
+using Bot.Models.Websockets;
 
 namespace Bot.Models.Sendable {
   public class SendableBan : ISendable<Ban> {
@@ -17,7 +18,7 @@ namespace Bot.Models.Sendable {
     public TimeSpan Duration => Transmission.Duration;
     public string Reason => Transmission.Reason;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
-    public object Json => new Websockets.SendableBan(Target.Nick, false, Duration, false, Reason);
+    public IDggJson Json => new Websockets.SendableBan(Target.Nick, false, Duration, false, Reason);
     public override string ToString() => $"Banned {Target} for {Duration.TotalMinutes}m for: {Reason}";
   }
 }

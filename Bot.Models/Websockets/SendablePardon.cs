@@ -1,10 +1,15 @@
+using Newtonsoft.Json;
+
 namespace Bot.Models.Websockets {
-  public class SendablePardon {
+  public class SendablePardon : IDggJson {
     public SendablePardon(string nick) {
       Data = nick;
     }
 
     public string Data { get; }
+
+    [JsonIgnore]
+    public string Command => "UNBAN";
   }
 }
 

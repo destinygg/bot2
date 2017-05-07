@@ -1,4 +1,5 @@
 ﻿using Bot.Models.Interfaces;
+using Bot.Models.Websockets;
 
 namespace Bot.Models.Sendable {
   public class SendablePardon : ISendable<Pardon> {
@@ -10,7 +11,7 @@ namespace Bot.Models.Sendable {
     public Pardon Transmission { get; }
     public IUser Target => Transmission.Target;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
-    public object Json => new Websockets.SendablePardon(Target.Nick);
+    public IDggJson Json => new Websockets.SendablePardon(Target.Nick);
     public override string ToString() => $"Pardoned {Target})";
   }
 }

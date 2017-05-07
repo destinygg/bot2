@@ -1,13 +1,17 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Bot.Models.Websockets {
-  public class SendableMute {
+  public class SendableMute : IDggJson {
     public SendableMute(string victim, TimeSpan duration) {
       Data = victim;
       Duration = ((ulong) duration.TotalMilliseconds) * 1000000UL;
     }
     public string Data { get; }
     public ulong Duration { get; }
+
+    [JsonIgnore]
+    public string Command => "MUTE";
   }
 }
 

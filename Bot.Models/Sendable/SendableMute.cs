@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Models.Interfaces;
+using Bot.Models.Websockets;
 
 namespace Bot.Models.Sendable {
   public class SendableMute : ISendable<Mute> {
@@ -17,7 +18,7 @@ namespace Bot.Models.Sendable {
     public TimeSpan Duration => Transmission.Duration;
     public string Reason => Transmission.Reason;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
-    public object Json => new Websockets.SendableMute(Target.Nick, Duration);
+    public IDggJson Json => new Websockets.SendableMute(Target.Nick, Duration);
     public override string ToString() => Transmission.ToString();
   }
 }

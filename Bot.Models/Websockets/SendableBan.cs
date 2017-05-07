@@ -1,7 +1,8 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Bot.Models.Websockets {
-  public class SendableBan {
+  public class SendableBan : IDggJson {
     public SendableBan(string victim, bool isIpBan, TimeSpan duration, bool isPermanent, string reason) {
       Nick = victim;
       BanIp = isIpBan;
@@ -15,6 +16,9 @@ namespace Bot.Models.Websockets {
     public bool BanIp { get; set; }
     public bool IsPermanent { get; set; }
     public string Reason { get; set; }
+
+    [JsonIgnore]
+    public string Command => "BAN";
   }
 }
 
