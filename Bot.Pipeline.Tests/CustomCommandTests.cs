@@ -16,7 +16,7 @@ namespace Bot.Pipeline.Tests {
 
     [TestMethod]
     public void AddingCommand_Afterwards_GetsResponse() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
@@ -44,7 +44,7 @@ namespace Bot.Pipeline.Tests {
 
     [TestMethod]
     public void UpdatingCommand_Afterwards_GetsDifferentResponse() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
@@ -78,7 +78,7 @@ namespace Bot.Pipeline.Tests {
 
     [TestMethod]
     public void DeletingCommand_Afterwards_GetsNoResponse() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);

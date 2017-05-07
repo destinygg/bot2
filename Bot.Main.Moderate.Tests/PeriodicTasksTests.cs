@@ -22,7 +22,7 @@ namespace Bot.Main.Moderate.Tests {
     public void PeriodicTasks_Run_YieldsAlternatingMessages() {
       var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
       downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestData.YoutubeFeed);
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
         c.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
@@ -46,7 +46,7 @@ namespace Bot.Main.Moderate.Tests {
     public void PeriodicTasks_YoutubeDown_DecoratorReportsErrors() {
       var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
       downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns("");
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var testableLogger = new TestableLogger();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);

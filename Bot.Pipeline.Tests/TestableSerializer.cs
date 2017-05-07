@@ -4,10 +4,10 @@ using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 
 namespace Bot.Pipeline.Tests {
-  public class TestableSender : ICommandHandler<IEnumerable<ISendable<ITransmittable>>> {
+  public class TestableSerializer : ICommandHandler<IEnumerable<ISendable<ITransmittable>>> {
     private readonly Action<string> _action;
 
-    public TestableSender(Action<string> action = null) {
+    public TestableSerializer(Action<string> action = null) {
       _action = action;
     }
 

@@ -18,7 +18,7 @@ namespace Bot.Pipeline.Tests {
 
     [TestMethod]
     public void NukePunishes_UsersAfter_Always() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
@@ -42,7 +42,7 @@ namespace Bot.Pipeline.Tests {
 
     [TestMethod]
     public void NukesExpire_Always_AfterSomeTime() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);
@@ -80,7 +80,7 @@ namespace Bot.Pipeline.Tests {
 
     [TestMethod]
     public void Aegis_Always_PreventsMoreMutes() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(TestHelper.RandomDateTime());
       var containerManager = new TestContainerManager(container => {

@@ -12,7 +12,7 @@ namespace Bot.Pipeline.Tests {
   public class CommandTests {
     [TestMethod]
     public void TwentyNineCivilianMessages_WithCommands_ExecutesOnlyThree() {
-      var sender = new TestableSender();
+      var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
         container.RegisterConditional(typeof(ICommandHandler<IEnumerable<ISendable<ITransmittable>>>), senderRegistration, _ => true);

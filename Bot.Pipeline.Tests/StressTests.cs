@@ -18,7 +18,7 @@ namespace Bot.Pipeline.Tests {
       var outputStopwatch = new Stopwatch();
       var outputMilliseconds = new List<long>();
       var outputStrings = new List<string>();
-      var sender = new TestableSender(s => {
+      var sender = new TestableSerializer(s => {
         outputMilliseconds.Add(outputStopwatch.ElapsedMilliseconds);
         outputStrings.Add(s);
       });
