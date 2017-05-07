@@ -53,6 +53,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
       _container.RegisterSingleton<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>();
+      _container.RegisterSingleton<ICommandHandler<IEnumerable<string>>, DestinyGgLoggingClient>();
       _container.RegisterSingleton<IPipeline, Pipeline.Pipeline>();
       _container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
 
