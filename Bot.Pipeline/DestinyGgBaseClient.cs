@@ -32,7 +32,7 @@ namespace Bot.Pipeline {
       }
       while (_websocket.ReadyState != WebSocketState.Open) {
         try {
-          var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionAttemptedCount), MaximumBackoffTimeInSeconds);
+          var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionAttemptedCount) - 1, MaximumBackoffTimeInSeconds);
           Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
           _logger.LogInformation($"Connecting... {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionAttemptedCount)} is {_connectionAttemptedCount}.");
           _websocket.Connect();
