@@ -16,5 +16,7 @@ namespace Bot.Logic.ReceivedVisitor {
     public DelegatedSnapshotFactory Visit(IReceived<Moderator, Pardon> pardon) =>
       new DelegatedSnapshotFactory(context => new PardonSnapshot(pardon, context));
 
+    public DelegatedSnapshotFactory Visit(IReceived<Moderator, InitialUsers> initialUsers) =>
+      new DelegatedSnapshotFactory(context => new InitialUsersSnapshot(initialUsers, context));
   }
 }

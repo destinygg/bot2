@@ -62,5 +62,6 @@ namespace Bot.Logic.SnapshotVisitor {
       return new List<ISendable<ITransmittable>>();
     }
 
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, InitialUsers> initialUsers) => new List<ISendable<ITransmittable>>();
   }
 }
