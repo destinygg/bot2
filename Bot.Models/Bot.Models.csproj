@@ -47,6 +47,7 @@
     <Compile Include="Civilian.cs" />
     <Compile Include="CustomCommand.cs" />
     <Compile Include="ErrorMessage.cs" />
+    <Compile Include="InitialUsers.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IReceived.cs" />
     <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Sendable\SendableBan.cs" />
     <Compile Include="Snapshot\ErrorSnapshot.cs" />
     <Compile Include="Snapshot\MessageSnapshot.cs" />
+    <Compile Include="Snapshot\InitialUsersSnapshot.cs" />
     <Compile Include="Snapshot\PardonSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageFromCivilianSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageFromModSnapshot.cs" />
