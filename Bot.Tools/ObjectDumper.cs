@@ -67,7 +67,7 @@ namespace Bot.Tools {
           }
         } else {
           Type objectType = element.GetType();
-          Write("{{{0}(HashCode:{1})}}", objectType.FullName, element.GetHashCode());
+          Write($"{{{objectType.FullName}(HashCode:{element.GetHashCode()})}}");
           if (!AlreadyDumped(element)) {
             _currentIndent++;
             MemberInfo[] members = objectType.GetMembers(BindingFlags.Public | BindingFlags.Instance);
@@ -85,15 +85,15 @@ namespace Bot.Tools {
                   ? fieldInfo.GetValue(element)
                   : propertyInfo.GetValue(element, null);
               } catch (Exception e) {
-                Write("{0} failed with:{1}", memberInfo.Name, (e.GetBaseException() ?? e).Message);
+                Write($"{memberInfo.Name} failed with:{e.GetBaseException().Message}");
                 continue;
               }
 
               if (type.IsValueType || type == typeof(string)) {
-                Write("{0}: {1}", memberInfo.Name, FormatValue(value));
+                Write($"{memberInfo.Name}: {FormatValue(value)}");
               } else {
                 var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
-                Write("{0}: {1}", memberInfo.Name, isEnumerable ? "..." : "{ }");
+                Write($"{memberInfo.Name}: {(isEnumerable ? "..." : "{ }")}");
 
                 _currentIndent++;
                 DumpElement(value);
@@ -113,19 +113,15 @@ namespace Bot.Tools {
         return false;
       int lineNo;
       if (_hashListOfFoundElements.TryGetValue(value, out lineNo)) {
-        Write("(reference already dumped - line:{0})", lineNo);
+        Write($"(reference already dumped - line:{lineNo})");
         return true;
       }
       _hashListOfFoundElements.Add(value, _currentLine);
       return false;
     }
 
-    private void Write(string value, params object[] args) {
+    private void Write(string value) {
       var space = new string(_indentChar, _currentIndent * _indentSize);
-
-      if (args != null)
-        value = string.Format(value, args);
-
       _stringBuilder.AppendLine(space + value);
       _currentLine++;
     }
