@@ -45,6 +45,8 @@ namespace Bot.Pipeline {
 
     public abstract void Receive(string input);
 
+    public virtual void SetReceive(Action<string> receiveAction) { }
+
     public abstract void Send(string data);
 
     private void WebsocketMessaged(object sender, MessageEventArgs e) => Receive(e.Data);
