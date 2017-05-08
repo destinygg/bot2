@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks.Dataflow;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Tests {
@@ -11,6 +12,7 @@ namespace Bot.Tests {
 
     private readonly TransformBlock<string, IReceived<IUser, ITransmittable>> _parserBlock;
     private readonly TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> _snapshotFactoryBlock;
+    private readonly TransformBlock<IReadOnlyList<ISendable<ITransmittable>>, IEnumerable<string>> _serializerBlock;
     private Action<string> _sender = s => { };
 
     public PipelineManager(
@@ -24,16 +26,20 @@ namespace Bot.Tests {
         MaxDegreeOfParallelism = DataflowBlockOptions.Unbounded,
         EnsureOrdered = false,
       });
-      var serializerBlock = new TransformBlock<IReadOnlyList<ISendable<ITransmittable>>, IEnumerable<string>>(r => serializer.Create(r));
+      _serializerBlock = new TransformBlock<IReadOnlyList<ISendable<ITransmittable>>, IEnumerable<string>>(r => serializer.Create(r));
       var senderBlock = new ActionBlock<IEnumerable<string>>(ss => ss.ToList().ForEach(s => _sender(s)));
 
       _parserBlock.LinkTo(_snapshotFactoryBlock);
       _snapshotFactoryBlock.LinkTo(sendableFactoryBlock);
-      sendableFactoryBlock.LinkTo(serializerBlock);
-      serializerBlock.LinkTo(senderBlock);
+      sendableFactoryBlock.LinkTo(_serializerBlock);
+      _serializerBlock.LinkTo(senderBlock);
     }
 
     public void Enqueue(IReceived<IUser, ITransmittable> received) => _snapshotFactoryBlock.SendAsync(received);
+
+    public void Enqueue(ISendable<ITransmittable> received) => _serializerBlock.SendAsync(received.Wrap().ToList());
+
+    public void Enqueue(IReadOnlyList<ISendable<ITransmittable>> received) => _serializerBlock.SendAsync(received);
 
     public void Enqueue(string received) => _parserBlock.SendAsync(received);
 
