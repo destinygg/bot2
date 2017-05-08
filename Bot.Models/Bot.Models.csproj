@@ -70,6 +70,8 @@
     <Compile Include="PunishedUser.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
+    <Compile Include="Received\ReceivedInitialUsers.cs" />
+    <Compile Include="Received\ReceivedFromSystem.cs" />
     <Compile Include="Received\Received.cs" />
     <Compile Include="Received\ReceivedError.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
