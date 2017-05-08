@@ -102,7 +102,7 @@
     <Compile Include="Websockets\SendablePublicMessage.cs" />
     <Compile Include="Websockets\MuteReceiver.cs" />
     <Compile Include="Websockets\SendableMute.cs" />
-    <Compile Include="Websockets\NamesReceiver.cs" />
+    <Compile Include="Websockets\ReceivedNames.cs" />
     <Compile Include="Websockets\SendablePardon.cs" />
     <Compile Include="Websockets\PrivateMessageSender.cs" />
     <Compile Include="Websockets\QuitReceiver.cs" />
