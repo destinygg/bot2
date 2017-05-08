@@ -1,7 +1,7 @@
 ﻿namespace Bot.Models {
   public class Civilian : User {
 
-    public Civilian(string nick) : base(nick, false) {
+    public Civilian(string nick, bool isPunishable = true) : base(nick, false, isPunishable) {
 
     }
 
