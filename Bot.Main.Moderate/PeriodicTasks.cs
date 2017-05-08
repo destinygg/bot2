@@ -12,24 +12,21 @@ using Bot.Tools.Logging;
 
 namespace Bot.Main.Moderate {
   public class PeriodicTasks {
-    private readonly IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>> _serializer;
-    private readonly ICommandHandler<IEnumerable<string>> _client;
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly IStreamStatusService _streamStatusService;
     private readonly IDownloader _downloader;
     private readonly ISettings _settings;
+    private readonly IPipeline _pipeline;
     private readonly ILogger _logger;
 
     public PeriodicTasks(
-      IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>> serializer,
-      ICommandHandler<IEnumerable<string>> client,
       IQueryCommandService<IUnitOfWork> unitOfWork,
       IStreamStatusService streamStatusService,
       IDownloader downloader,
       ISettings settings,
+      IPipeline pipeline,
       ILogger logger) {
-      _serializer = serializer;
-      _client = client;
+      _pipeline = pipeline;
       _unitOfWork = unitOfWork;
       _streamStatusService = streamStatusService;
       _downloader = downloader;
@@ -48,8 +45,7 @@ namespace Bot.Main.Moderate {
       var messageCount = PeriodicMessages().Count();
       var i = rng.Next(messageCount);
       periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => {
-        var message = _serializer.Create(new SendablePublicMessage(PeriodicMessages().Skip(i).First()).Wrap());
-        _client.Handle(message);
+        _pipeline.Enqueue(new SendablePublicMessage(PeriodicMessages().Skip(i).First()));
         i++;
         if (i >= messageCount) {
           i = 0;
