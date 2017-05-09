@@ -121,6 +121,7 @@
     <Compile Include="Websockets\UnMuteReceiver.cs" />
     <Compile Include="Websockets\User.cs" />
     <Compile Include="Json\TwitchStreamStatus.cs" />
+    <Compile Include="Xml\DestinyGgBlogFeed.cs" />
     <Compile Include="Xml\YoutubeFeed.cs" />
   </ItemGroup>
   <ItemGroup>
