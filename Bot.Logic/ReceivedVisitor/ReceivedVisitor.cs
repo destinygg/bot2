@@ -18,5 +18,8 @@ namespace Bot.Logic.ReceivedVisitor {
 
     public DelegatedSnapshotFactory Visit(IReceived<Moderator, InitialUsers> initialUsers) =>
       new DelegatedSnapshotFactory(context => new InitialUsersSnapshot(initialUsers, context));
+
+    public DelegatedSnapshotFactory Visit(IReceived<IUser, Join> join) =>
+      new DelegatedSnapshotFactory(context => new JoinSnapshot(join, context));
   }
 }
