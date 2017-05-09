@@ -13,6 +13,8 @@ namespace Bot.Pipeline {
 
     private readonly IGenericClassFactory<string> _jsonParser;
     private readonly ITimeService _timeService;
+    private readonly Func<string, bool> _isProtected = f => f != "protected";
+    private readonly Func<string, bool> _isMod = f => f == "bot" || f == "admin" || f == "moderator";
 
     public DestinyGgParser(IGenericClassFactory<string> jsonParser, ITimeService timeService) {
       _jsonParser = jsonParser;
@@ -24,19 +26,24 @@ namespace Bot.Pipeline {
       var command = input.Substring(0, index);
       var json = input.Substring(index + 1);
       switch (command) {
-        case "NAMES":
-          var receivedNames = _jsonParser.Create<ReceivedNames.RootObject>(json);
-          var mods = receivedNames.users.Where(u => u.features.Any(f => f == "bot" || f == "admin" || f == "moderator")).Select(u => new Moderator(u.nick)).ToList();
-          var civilians = receivedNames.users.Where(u => !u.features.Any(f => f == "bot" || f == "admin" || f == "moderator")).Select(u => new Civilian(u.nick, u.features.All(f => f != "protected"))).ToList().OrderBy(x => x.Nick);
-          var initialUsers = new InitialUsers(new List<IUser>().Concat(mods).Concat(civilians));
-          return new ReceivedInitialUsers(_timeService.UtcNow, initialUsers);
-        case "MSG":
-          var message = _jsonParser.Create<ReceivedMsg.RootObject>(json);
-          if (message.features.Any(f => f == "bot" || f == "admin" || f == "moderator")) {
-            return new PublicMessageFromMod(message.nick, message.data, GetTimestamp(message.timestamp));
-          } else {
-            var isPunishable = message.features.All(f => f != "protected");
-            return new PublicMessageFromCivilian(message.nick, message.data, GetTimestamp(message.timestamp), isPunishable);
+        case "NAMES": {
+            var receivedNames = _jsonParser.Create<ReceivedNames.RootObject>(json);
+            var mods = receivedNames.users.Where(u => u.features.Any(_isMod)).Select(u => new Moderator(u.nick));
+            var civilians = receivedNames.users.Where(u => !u.features.Any(_isMod)).Select(u => new Civilian(u.nick, u.features.All(_isProtected)));
+            var initialUsers = new InitialUsers(new List<IUser>().Concat(mods).Concat(civilians));
+            return new ReceivedInitialUsers(_timeService.UtcNow, initialUsers);
+          }
+        case "JOIN": {
+            var join = _jsonParser.Create<Models.Websockets.ReceivedJoin.RootObject>(json);
+            return join.features.Any(_isMod)
+              ? new Models.Received.ReceivedJoin(new Moderator(join.nick), GetTimestamp(join.timestamp))
+              : new Models.Received.ReceivedJoin(new Civilian(join.nick, join.features.All(_isProtected)), GetTimestamp(join.timestamp));
+          }
+        case "MSG": {
+            var message = _jsonParser.Create<ReceivedMsg.RootObject>(json);
+            return message.features.Any(_isMod)
+              ? (IReceived<IUser, ITransmittable>) new PublicMessageFromMod(message.nick, message.data, GetTimestamp(message.timestamp))
+              : (IReceived<IUser, ITransmittable>) new PublicMessageFromCivilian(message.nick, message.data, GetTimestamp(message.timestamp), message.features.All(_isProtected));
           }
       }
       return null;

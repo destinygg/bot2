@@ -83,5 +83,13 @@ namespace Bot.Pipeline.Tests {
       Assert.AreEqual(new DateTime(2017, 5, 9, 0, 28, 35, 517), timestamp);
     }
 
+    [TestMethod]
+    public void InitialUsers_ParsesJoin_WithoutError() {
+      var data = TestData.DestinyGgJoin;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
   }
 }
