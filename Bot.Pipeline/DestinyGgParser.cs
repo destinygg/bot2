@@ -39,6 +39,12 @@ namespace Bot.Pipeline {
               ? new Models.Received.ReceivedJoin(new Moderator(join.nick), GetTimestamp(join.timestamp))
               : new Models.Received.ReceivedJoin(new Civilian(join.nick, join.features.All(_isProtected)), GetTimestamp(join.timestamp));
           }
+        case "QUIT": {
+            var quit = _jsonParser.Create<Models.Websockets.ReceivedQuit.RootObject>(json);
+            return quit.features.Any(_isMod)
+              ? new Models.Received.ReceivedQuit(new Moderator(quit.nick), GetTimestamp(quit.timestamp))
+              : new Models.Received.ReceivedQuit(new Civilian(quit.nick, quit.features.All(_isProtected)), GetTimestamp(quit.timestamp));
+          }
         case "MSG": {
             var message = _jsonParser.Create<ReceivedMsg.RootObject>(json);
             return message.features.Any(_isMod)

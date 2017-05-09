@@ -91,5 +91,13 @@ namespace Bot.Pipeline.Tests {
       var received = parser.Create(data);
     }
 
+    [TestMethod]
+    public void InitialUsers_ParsesQuit_WithoutError() {
+      var data = TestData.DestinyGgQuit;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
   }
 }

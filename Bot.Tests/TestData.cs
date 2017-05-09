@@ -1,6 +1,8 @@
 ﻿namespace Bot.Tests {
   public static class TestData {
 
+    public static string DestinyGgQuit = @"QUIT {""nick"":""MiroVH"",""features"":[],""timestamp"":1494297679067}";
+
     public static string DestinyGgJoin = @"JOIN {""nick"":""Krypto406"",""features"":[],""timestamp"":1494294081485}";
 
     public static string DestinyGgPublicMsgFromMod = @"MSG {""nick"":""Bot"",""features"":[""protected"",""subscriber"",""bot"",""flair8""],""timestamp"":1494292319781,""data"":""Live with 3198 viewers for ~3h 8m""}";
