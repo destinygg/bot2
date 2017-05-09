@@ -102,7 +102,7 @@
     <Compile Include="Websockets\ReceivedMsg.cs" />
     <Compile Include="Websockets\SendableBan.cs" />
     <Compile Include="Websockets\BroadcastReceiver.cs" />
-    <Compile Include="Websockets\JoinReceiver.cs" />
+    <Compile Include="Websockets\ReceivedJoin.cs" />
     <Compile Include="Websockets\MessageReceiver.cs" />
     <Compile Include="Websockets\SendablePublicMessage.cs" />
     <Compile Include="Websockets\MuteReceiver.cs" />
