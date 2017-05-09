@@ -7,7 +7,8 @@ namespace Bot.Models.Interfaces {
     , IVisitor<IReceived<Moderator, ErrorMessage>, TResult>
     , IVisitor<IReceived<Moderator, Pardon>, TResult>
     , IVisitor<IReceived<Moderator, InitialUsers>, TResult> 
-    , IVisitor<IReceived<IUser, Join>, TResult> {
+    , IVisitor<IReceived<IUser, Join>, TResult> 
+    , IVisitor<IReceived<IUser, Quit>, TResult> {
 
   }
 }
