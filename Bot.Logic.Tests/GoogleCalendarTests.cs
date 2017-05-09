@@ -9,7 +9,7 @@ using SimpleInjector;
 
 namespace Bot.Logic.Tests {
   [TestClass]
-  public class CommandLogicTests {
+  public class GoogleCalendarTests {
 
     private static TestContainerManager TestContainerManager(string data, DateTime time) {
       var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();

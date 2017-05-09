@@ -87,7 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BanFactoryTests.cs" />
     <Compile Include="StreamStatusServiceTests.cs" />
-    <Compile Include="CommandLogicTests.cs" />
+    <Compile Include="GoogleCalendarTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">
