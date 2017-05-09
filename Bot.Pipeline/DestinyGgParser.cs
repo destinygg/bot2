@@ -34,12 +34,14 @@ namespace Bot.Pipeline {
             return new ReceivedInitialUsers(_timeService.UtcNow, initialUsers);
           }
         case "JOIN": {
+            return null;
             var join = _jsonParser.Create<Models.Websockets.ReceivedJoin.RootObject>(json);
             return join.features.Any(_isMod)
               ? new Models.Received.ReceivedJoin(new Moderator(join.nick), GetTimestamp(join.timestamp))
               : new Models.Received.ReceivedJoin(new Civilian(join.nick, join.features.All(_isProtected)), GetTimestamp(join.timestamp));
           }
         case "QUIT": {
+            return null;
             var quit = _jsonParser.Create<Models.Websockets.ReceivedQuit.RootObject>(json);
             return quit.features.Any(_isMod)
               ? new Models.Received.ReceivedQuit(new Moderator(quit.nick), GetTimestamp(quit.timestamp))
@@ -51,8 +53,24 @@ namespace Bot.Pipeline {
               ? (IReceived<IUser, ITransmittable>) new PublicMessageFromMod(message.nick, message.data, GetTimestamp(message.timestamp))
               : (IReceived<IUser, ITransmittable>) new PublicMessageFromCivilian(message.nick, message.data, GetTimestamp(message.timestamp), message.features.All(_isProtected));
           }
+        case "REFRESH":
+        case "MUTE":
+        case "BAN":
+        case "UNMUTE":
+        case "UNBAN":
+        case "BROADCAST": {
+            /* 
+               REFRESH {"nick":"Bot","features":["protected","subscriber","bot","flair8"],"timestamp":1494299684381}
+               MUTE {"nick":"Bot","features":["protected","subscriber","bot","flair8"],"timestamp":1494300981192,"data":"dharmatest"}
+               BAN {"nick":"Bot","features":["protected","subscriber","bot","flair8"],"timestamp":1494301117732,"data":"dharmatest"}
+               UNMUTE {"nick":"Bot","features":["protected","subscriber","bot","flair8"],"timestamp":1494301248941,"data":"dharmatest"}
+               UNBAN {"nick":"Bot","features":["protected","subscriber","bot","flair8"],"timestamp":1494301339617,"data":"dharmatest"}
+               BROADCAST {"timestamp":1494301406689,"data":"dharmatest (sorry, this should be the last)"}
+            */
+            return null;
+          }
       }
-      return null;
+      throw new NotImplementedException($"{nameof(DestinyGgParser)} did not have a case for {input}");
     }
 
     private DateTime GetTimestamp(long timestamp) => TimeService.UnixEpoch.AddMilliseconds(timestamp);

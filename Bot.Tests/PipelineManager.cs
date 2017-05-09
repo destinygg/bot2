@@ -29,6 +29,7 @@ namespace Bot.Tests {
       _serializerBlock = new TransformBlock<IReadOnlyList<ISendable<ITransmittable>>, IEnumerable<string>>(r => serializer.Create(r));
       var senderBlock = new ActionBlock<IEnumerable<string>>(ss => ss.ToList().ForEach(s => _sender(s)));
 
+      _parserBlock.LinkTo(DataflowBlock.NullTarget<IReceived<IUser, ITransmittable>>(), s => s == null);
       _parserBlock.LinkTo(_snapshotFactoryBlock);
       _snapshotFactoryBlock.LinkTo(sendableFactoryBlock);
       sendableFactoryBlock.LinkTo(_serializerBlock);

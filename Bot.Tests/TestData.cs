@@ -1,6 +1,18 @@
 ﻿namespace Bot.Tests {
   public static class TestData {
 
+    public static string DestinyGgRefresh = @"REFRESH {""nick"":""Bot"",""features"":[""protected"",""subscriber"",""bot"",""flair8""],""timestamp"":1494299684381}";
+
+    public static string DestinyGgMute = @"MUTE {""nick"":""Bot"",""features"":[""protected"",""subscriber"",""bot"",""flair8""],""timestamp"":1494300981192,""data"":""dharmatest""}";
+
+    public static string DestinyGgBan = @"BAN {""nick"":""Bot"",""features"":[""protected"",""subscriber"",""bot"",""flair8""],""timestamp"":1494301117732,""data"":""dharmatest""}";
+
+    public static string DestinyGgUnmute = @"UNMUTE {""nick"":""Bot"",""features"":[""protected"",""subscriber"",""bot"",""flair8""],""timestamp"":1494301248941,""data"":""dharmatest""}";
+
+    public static string DestinyGgUnban = @"UNBAN {""nick"":""Bot"",""features"":[""protected"",""subscriber"",""bot"",""flair8""],""timestamp"":1494301339617,""data"":""dharmatest""}";
+
+    public static string DestinyGgBroadcast = @"BROADCAST {""timestamp"":1494301406689,""data"":""dharmatest (sorry, this should be the last)""}";
+
     public static string DestinyGgQuit = @"QUIT {""nick"":""MiroVH"",""features"":[],""timestamp"":1494297679067}";
 
     public static string DestinyGgJoin = @"JOIN {""nick"":""Krypto406"",""features"":[],""timestamp"":1494294081485}";

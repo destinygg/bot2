@@ -99,5 +99,53 @@ namespace Bot.Pipeline.Tests {
       var received = parser.Create(data);
     }
 
+    [TestMethod]
+    public void InitialUsers_ParsesRefresh_WithoutError() {
+      var data = TestData.DestinyGgRefresh;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
+    [TestMethod]
+    public void InitialUsers_ParsesMute_WithoutError() {
+      var data = TestData.DestinyGgMute;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
+    [TestMethod]
+    public void InitialUsers_ParsesBan_WithoutError() {
+      var data = TestData.DestinyGgBan;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
+    [TestMethod]
+    public void InitialUsers_ParsesUnmute_WithoutError() {
+      var data = TestData.DestinyGgUnmute;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
+    [TestMethod]
+    public void InitialUsers_ParsesUnban_WithoutError() {
+      var data = TestData.DestinyGgUnban;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
+    [TestMethod]
+    public void InitialUsers_ParsesBroadcast_WithoutError() {
+      var data = TestData.DestinyGgBroadcast;
+      var container = new TestContainerManager();
+      var parser = container.Container.GetInstance<DestinyGgParser>();
+      var received = parser.Create(data);
+    }
+
   }
 }
