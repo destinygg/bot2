@@ -10,12 +10,14 @@ namespace Bot.Logic {
 
     private readonly IGenericClassFactory<string, string, string> _urlJsonParser;
     private readonly IGenericClassFactory<string, string, string> _urlXmlParser;
+    private readonly IErrorableFactory<string, string, string, string> _downloadFactory;
     private readonly IPrivateConstants _privateConstants;
     private readonly ITimeService _timeService;
 
-    public Downloader(IGenericClassFactory<string, string, string> urlJsonParser, IGenericClassFactory<string, string, string> urlXmlParser, IPrivateConstants privateConstants, ITimeService timeService) {
+    public Downloader(IGenericClassFactory<string, string, string> urlJsonParser, IGenericClassFactory<string, string, string> urlXmlParser, IErrorableFactory<string, string, string, string> downloadFactory, IPrivateConstants privateConstants, ITimeService timeService) {
       _urlJsonParser = urlJsonParser;
       _urlXmlParser = urlXmlParser;
+      _downloadFactory = downloadFactory;
       _privateConstants = privateConstants;
       _timeService = timeService;
     }
@@ -32,7 +34,9 @@ namespace Bot.Logic {
       return _urlJsonParser.Create<GoogleCalendar.RootObject>($"https://www.googleapis.com/calendar/v3/calendars/i54j4cu9pl4270asok3mqgdrhk%40group.calendar.google.com/events?orderBy=startTime&singleEvents=true&timeMin={time}&key={_privateConstants.GoogleKey}", "", "");
     }
 
-    public DestinyGgBlogFeed.Rss DestinyGgBlogFeed() => _urlJsonParser.Create<DestinyGgBlogFeed.Rss>($"http://blog.destiny.gg/feed/", "", "");
+    public DestinyGgBlogFeed.Rss DestinyGgBlogFeed() => _urlXmlParser.Create<DestinyGgBlogFeed.Rss>($"http://blog.destiny.gg/feed/", "", "");
+
+    public string OverRustle() => _downloadFactory.Create("http://api.overrustle.com/api", "", "");
 
   }
 }

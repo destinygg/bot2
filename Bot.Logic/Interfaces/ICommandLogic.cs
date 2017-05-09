@@ -1,4 +1,5 @@
-﻿using Bot.Models;
+﻿using System.Collections.Generic;
+using Bot.Models;
 using Bot.Models.Interfaces;
 
 namespace Bot.Logic.Interfaces {
@@ -6,5 +7,6 @@ namespace Bot.Logic.Interfaces {
     ISendable<PublicMessage> Time();
     ISendable<PublicMessage> Schedule();
     ISendable<PublicMessage> Blog();
+    IEnumerable<ISendable<PublicMessage>> Streams();
   }
 }

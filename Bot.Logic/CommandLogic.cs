@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
@@ -7,6 +9,8 @@ using Bot.Models.Sendable;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Bot.Logic {
   public class CommandLogic : ICommandLogic {
@@ -38,6 +42,22 @@ namespace Bot.Logic {
     public ISendable<PublicMessage> Blog() {
       var firstEntry = _downloader.DestinyGgBlogFeed().Channel.Item[0];
       return new SendablePublicMessage($"\"{firstEntry.Title}\" posted {(_timeService.UtcNow - firstEntry.Parsed_PubDate).ToPretty(_logger)} ago {firstEntry.Link2}");
+    }
+
+    public IEnumerable<ISendable<PublicMessage>> Streams() {
+      dynamic overrustle = JsonConvert.DeserializeObject(_downloader.OverRustle());
+      var streamListArray = (JArray) overrustle.stream_list;
+      foreach (var stream in streamListArray.Children().Take(3)) {
+        var sb = new StringBuilder();
+        foreach (dynamic detail in stream.Children()) {
+          if (detail.Name == "rustlers") {
+            sb.Append(detail.Value.Value);
+          } else if (detail.Name == "url") {
+            sb.Append($" overrustle.com{detail.Value.Value}");
+            yield return new SendablePublicMessage(sb.ToString());
+          }
+        }
+      }
     }
 
   }

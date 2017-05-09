@@ -7,5 +7,6 @@ namespace Bot.Logic.Interfaces {
     YoutubeFeed.Feed YoutubeFeed();
     GoogleCalendar.RootObject GoogleCalendar();
     DestinyGgBlogFeed.Rss DestinyGgBlogFeed();
+    string OverRustle();
   }
 }
