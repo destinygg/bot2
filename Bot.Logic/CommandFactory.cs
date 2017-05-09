@@ -19,7 +19,6 @@ namespace Bot.Logic {
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<IUser, IMessage> snapshot) {
-      var outbox = new List<ISendable<PublicMessage>>();
       var message = snapshot.Latest;
 
       foreach (var customCommand in _repository.Query(db => db.CustomCommand.GetAll)) {
@@ -27,10 +26,12 @@ namespace Bot.Logic {
           return new SendablePublicMessage(customCommand.Response).Wrap().ToList();
       }
 
-      if (message.StartsWith("!time")) {
-        outbox.Add(_commandLogic.Time());
-      }
-      return outbox;
+      if (message.StartsWith("!time"))
+        return _commandLogic.Time().Wrap().ToList();
+      if (message.StartsWith("!stream") || message.StartsWith("!strim"))
+        return _commandLogic.Streams().ToList();
+
+      return new List<ISendable<PublicMessage>>();
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(CommandFactory)}.").Wrap().ToList();
