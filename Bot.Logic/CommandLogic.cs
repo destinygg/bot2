@@ -35,5 +35,10 @@ namespace Bot.Logic {
       return new SendablePublicMessage($"\"{first.Item.summary}\", an all day event, is scheduled {scheduledString}");
     }
 
+    public ISendable<PublicMessage> Blog() {
+      var firstEntry = _downloader.DestinyGgBlogFeed().Channel.Item[0];
+      return new SendablePublicMessage($"\"{firstEntry.Title}\" posted {(_timeService.UtcNow - firstEntry.Parsed_PubDate).ToPretty(_logger)} ago {firstEntry.Link2}");
+    }
+
   }
 }

@@ -88,6 +88,7 @@
     <Compile Include="BanFactoryTests.cs" />
     <Compile Include="StreamStatusServiceTests.cs" />
     <Compile Include="GoogleCalendarTests.cs" />
+    <Compile Include="CommandLogicTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">

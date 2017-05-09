@@ -5,5 +5,6 @@ namespace Bot.Logic.Interfaces {
   public interface ICommandLogic {
     ISendable<PublicMessage> Time();
     ISendable<PublicMessage> Schedule();
+    ISendable<PublicMessage> Blog();
   }
 }
