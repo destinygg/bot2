@@ -6,5 +6,6 @@ namespace Bot.Logic.Interfaces {
     TwitchStreamStatus.RootObject StreamStatus();
     YoutubeFeed.Feed YoutubeFeed();
     GoogleCalendar.RootObject GoogleCalendar();
+    DestinyGgBlogFeed.Rss DestinyGgBlogFeed();
   }
 }

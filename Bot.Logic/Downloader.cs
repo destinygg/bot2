@@ -31,5 +31,8 @@ namespace Bot.Logic {
       var time = WebUtility.HtmlEncode(xmlTime);
       return _urlJsonParser.Create<GoogleCalendar.RootObject>($"https://www.googleapis.com/calendar/v3/calendars/i54j4cu9pl4270asok3mqgdrhk%40group.calendar.google.com/events?orderBy=startTime&singleEvents=true&timeMin={time}&key={_privateConstants.GoogleKey}", "", "");
     }
+
+    public DestinyGgBlogFeed.Rss DestinyGgBlogFeed() => _urlJsonParser.Create<DestinyGgBlogFeed.Rss>($"http://blog.destiny.gg/feed/", "", "");
+
   }
 }
