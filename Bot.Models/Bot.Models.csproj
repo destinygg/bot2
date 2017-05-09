@@ -61,6 +61,7 @@
     <Compile Include="Interfaces\ITargetable.cs" />
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Quit.cs" />
     <Compile Include="Join.cs" />
     <Compile Include="Json\GoogleCalendar.cs" />
     <Compile Include="Moderator.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Received\ReceivedFromSystem.cs" />
     <Compile Include="Received\Received.cs" />
     <Compile Include="Received\ReceivedError.cs" />
+    <Compile Include="Received\ReceivedQuit.cs" />
     <Compile Include="Received\ReceivedJoin.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
     <Compile Include="Sendable\SendableError.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Snapshot\PublicMessageFromCivilianSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageFromModSnapshot.cs" />
     <Compile Include="Snapshot\JoinSnapshot.cs" />
+    <Compile Include="Snapshot\QuitSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageSnapshot.cs" />
     <Compile Include="Snapshot\Snapshot.cs" />
     <Compile Include="Message.cs" />
@@ -113,7 +116,7 @@
     <Compile Include="Websockets\ReceivedNames.cs" />
     <Compile Include="Websockets\SendablePardon.cs" />
     <Compile Include="Websockets\PrivateMessageSender.cs" />
-    <Compile Include="Websockets\QuitReceiver.cs" />
+    <Compile Include="Websockets\ReceivedQuit.cs" />
     <Compile Include="Websockets\UnBanReceiver.cs" />
     <Compile Include="Websockets\UnMuteReceiver.cs" />
     <Compile Include="Websockets\User.cs" />
