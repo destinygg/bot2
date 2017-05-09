@@ -99,6 +99,7 @@
     <Compile Include="User.cs" />
     <Compile Include="Websockets\BanReceiver.cs" />
     <Compile Include="Websockets\IDggJson.cs" />
+    <Compile Include="Websockets\ReceivedMsg.cs" />
     <Compile Include="Websockets\SendableBan.cs" />
     <Compile Include="Websockets\BroadcastReceiver.cs" />
     <Compile Include="Websockets\JoinReceiver.cs" />
