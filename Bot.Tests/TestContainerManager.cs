@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Bot.Database;
 using Bot.Database.Interfaces;
 using Bot.Logic;
@@ -74,6 +75,7 @@ namespace Bot.Tests {
       Container.RegisterConditional<IPrivateConstants, PrivateConstants>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IDownloader, Downloader>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IErrorableFactory<string, string, string, string>, DownloadFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlXmlParser");
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlJsonParser");

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bot.Logic.Interfaces;
-using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Pipeline.Interfaces;
 using Bot.Repository.Interfaces;
@@ -16,16 +16,19 @@ namespace Bot.Main.Moderate {
     private readonly IStreamStatusService _streamStatusService;
     private readonly IDownloader _downloader;
     private readonly ISettings _settings;
+    private readonly IFactory<TimeSpan, Action, Task> _periodicTaskFactory;
     private readonly IPipeline _pipeline;
     private readonly ILogger _logger;
 
     public PeriodicTasks(
       IQueryCommandService<IUnitOfWork> unitOfWork,
+      IFactory<TimeSpan, Action, Task> periodicTaskFactory,
       IStreamStatusService streamStatusService,
       IDownloader downloader,
       ISettings settings,
       IPipeline pipeline,
       ILogger logger) {
+      _periodicTaskFactory = periodicTaskFactory;
       _pipeline = pipeline;
       _unitOfWork = unitOfWork;
       _streamStatusService = streamStatusService;
@@ -35,12 +38,11 @@ namespace Bot.Main.Moderate {
     }
 
     public void Run() {
-      var periodicTaskFactory = new PeriodicTaskFactory();
-      RepeatingMessages(periodicTaskFactory);
-      RefreshStreamStatus(periodicTaskFactory);
+      RepeatingMessages(_periodicTaskFactory);
+      RefreshStreamStatus(_periodicTaskFactory);
     }
 
-    private void RepeatingMessages(PeriodicTaskFactory periodicTaskFactory) {
+    private void RepeatingMessages(IFactory<TimeSpan, Action, Task> periodicTaskFactory) {
       var rng = new Random();
       var messageCount = PeriodicMessages().Count();
       var i = rng.Next(messageCount);
@@ -68,7 +70,7 @@ namespace Bot.Main.Moderate {
         : $"\"{video.Title}\" posted {(DateTime.UtcNow - video.ParsedPublished).ToPretty(_logger)} ago youtu.be/{video.VideoId}";
     }
 
-    private void RefreshStreamStatus(PeriodicTaskFactory periodicTaskFactory) =>
+    private void RefreshStreamStatus(IFactory<TimeSpan, Action, Task> periodicTaskFactory) =>
       periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStatusService.Refresh());
 
   }

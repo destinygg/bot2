@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bot.Database;
 using Bot.Database.Interfaces;
 using Bot.Logic;
@@ -63,6 +65,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IPrivateConstants, PrivateConstants>();
       _container.RegisterSingleton<ITimeService, TimeService>();
       _container.RegisterSingleton<IDownloader, Downloader>();
+      _container.RegisterSingleton<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>();
       _container.RegisterSingleton<IErrorableFactory<string, string, string, string>, DownloadFactory>();
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlXmlParser");
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlJsonParser");
