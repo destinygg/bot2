@@ -199,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerManager.cs" />
+    <Compile Include="IExecutable.cs" />
     <Compile Include="PeriodicTasks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
