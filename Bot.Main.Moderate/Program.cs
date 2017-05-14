@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Linq;
+using log4net.Core;
 
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+//[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]
 
 namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
-      var firstArg = args.FirstOrDefault();
+      var inputExecutable = args.FirstOrDefault();
+      var inputLevel = args.Skip(1).FirstOrDefault();
 
-      if (string.IsNullOrWhiteSpace(firstArg)) {
-        Console.WriteLine("Select a client:");
-        Console.WriteLine("");
-        Console.WriteLine("dl  = destiny.gg listening only");
-        Console.WriteLine("s   = sample client");
-        firstArg = Console.ReadLine();
+      var executable = ConfigureExecutable(inputExecutable);
+      var level = ConfigureLogger(inputLevel);
+      var logger = new SetupLog4Net();
+      logger.Setup(level);
+      executable.Execute();
+
+      Console.ReadLine();
+    }
+
+    private static IExecutable ConfigureExecutable(string inputClient) {
+      if (string.IsNullOrWhiteSpace(inputClient)) {
+        Console.WriteLine("Select an executable:");
+        Console.WriteLine("dl  = destiny.gg - listening only");
+        Console.WriteLine("s   = client with sample data");
+        inputClient = Console.ReadLine();
       }
 
       IExecutable executable;
-
-      switch (firstArg) {
+      switch (inputClient) {
         case "dl":
           executable = new DestinyGgListening();
           break;
@@ -28,10 +38,50 @@ namespace Bot.Main.Moderate {
         default:
           throw new Exception("Invalid input");
       }
-
-      executable.Execute();
-
-      Console.ReadLine();
+      return executable;
     }
+
+    private static Level ConfigureLogger(string inputLevel) {
+      if (string.IsNullOrWhiteSpace(inputLevel)) {
+        Console.WriteLine("Select a logging level:");
+        Console.WriteLine("o = off");
+        Console.WriteLine("f = fatal");
+        Console.WriteLine("e = error");
+        Console.WriteLine("w = warn");
+        Console.WriteLine("i = info");
+        Console.WriteLine("d = debug");
+        Console.WriteLine("a = all");
+        inputLevel = Console.ReadLine();
+      }
+
+      Level level;
+      switch (inputLevel) {
+        case "o":
+          level = Level.Off;
+          break;
+        case "f":
+          level = Level.Fatal;
+          break;
+        case "e":
+          level = Level.Error;
+          break;
+        case "w":
+          level = Level.Warn;
+          break;
+        case "i":
+          level = Level.Info;
+          break;
+        case "d":
+          level = Level.Debug;
+          break;
+        case "a":
+          level = Level.All;
+          break;
+        default:
+          throw new Exception("Invalid input");
+      }
+      return level;
+    }
+
   }
 }
