@@ -1,43 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Bot.Logic;
-using Bot.Models.Interfaces;
-using Bot.Pipeline.Interfaces;
-using Bot.Tests;
-using log4net;
+using System.Linq;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace Bot.Main.Moderate {
   class Program {
     static void Main(string[] args) {
-      var logger = LogManager.GetLogger("Main");
-      logger.Info("Welcome to Bot!");
-      logger.Info("Initializing...");
+      var firstArg = args.FirstOrDefault();
 
-      var container = new TestContainerManager().InitializeAndIsolateRepository();
-      var factory = container.GetInstance<ReceivedFactory>();
-      var pipeline = container.GetInstance<IPipeline>();
-      var periodicTasks = container.GetInstance<PeriodicTasks>();
+      if (string.IsNullOrWhiteSpace(firstArg)) {
+        Console.WriteLine("Select a client:");
+        Console.WriteLine("");
+        Console.WriteLine("s   = sample client");
+        firstArg = Console.ReadLine();
+      }
 
-      logger.Info("Initialization complete.");
-      logger.Info("Running...\r\n\r\n");
+      IExecutable executable;
 
-      var data = new List<IReceived<IUser, ITransmittable>> {
-        factory.ModPublicReceivedMessage("!long"),
-        factory.PublicReceivedMessage("hi"),
-        factory.PublicReceivedMessage("banplox"),
-        factory.PublicReceivedMessage("!time"),
-        factory.ModPublicReceivedMessage("!sing"),
-        factory.ModPublicReceivedMessage("!long"),
-      };
+      switch (firstArg) {
+        case "s":
+          executable = new SampleData();
+          break;
+        default:
+          throw new Exception("Invalid input");
+      }
 
-      data.ForEach(x => {
-        Task.Delay(100).Wait();
-        pipeline.Enqueue(x);
-      });
-      periodicTasks.Run();
+      executable.Execute();
 
       Console.ReadLine();
     }
