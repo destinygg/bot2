@@ -41,16 +41,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
+    <Compile Include="TwitterStatusFactory.cs" />
     <Compile Include="CommandLogic.cs" />
     <Compile Include="Downloader.cs" />
     <Compile Include="Interfaces\IDownloader.cs" />
     <Compile Include="Interfaces\ICommandLogic.cs" />
     <Compile Include="Interfaces\IStreamStatusService.cs" />
+    <Compile Include="Interfaces\ITwitterManager.cs" />
+    <Compile Include="Interfaces\ITwitterStreamingMessageObserver.cs" />
     <Compile Include="NukeAegisSendableFactoryBase.cs" />
     <Compile Include="NukeFactory.cs" />
     <Compile Include="SendableVisitor\ConsoleSendableVisitor.cs" />
@@ -70,6 +74,9 @@
     <Compile Include="ReceivedVisitor\ReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\SnapshotVisitor.cs" />
     <Compile Include="StreamStatusService.cs" />
+    <Compile Include="TwitterStatusFormatter.cs" />
+    <Compile Include="TwitterManager.cs" />
+    <Compile Include="TwitterStreamingMessageObserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">

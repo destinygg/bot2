@@ -77,7 +77,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -97,6 +99,7 @@
     <Compile Include="StreamStatusServiceTests.cs" />
     <Compile Include="GoogleCalendarTests.cs" />
     <Compile Include="CommandLogicTests.cs" />
+    <Compile Include="TwitterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">

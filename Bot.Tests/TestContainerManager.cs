@@ -18,6 +18,8 @@ using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
+using CoreTweet;
+using CoreTweet.Streaming;
 using NSubstitute;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
@@ -80,6 +82,11 @@ namespace Bot.Tests {
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlXmlParser");
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlJsonParser");
       Container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "jsonParser");
+
+      Container.RegisterConditional<IFactory<StreamingMessage, Status>, TwitterStatusFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IFactory<Status, string, IEnumerable<string>>, TwitterStatusFormatter>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<ITwitterManager, TwitterManager>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<ITwitterStreamingMessageObserver, TwitterStreamingMessageObserver>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterSingleton<ReceivedFactory>();
 

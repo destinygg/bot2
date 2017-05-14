@@ -18,6 +18,8 @@ using Bot.Tests;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
+using CoreTweet;
+using CoreTweet.Streaming;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -70,6 +72,11 @@ namespace Bot.Main.Moderate {
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlXmlParser");
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlJsonParser");
       _container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "jsonParser");
+
+      _container.RegisterSingleton<IFactory<StreamingMessage, Status>, TwitterStatusFactory>();
+      _container.RegisterSingleton<IFactory<Status, string, IEnumerable<string>>, TwitterStatusFormatter>();
+      _container.RegisterSingleton<ITwitterManager, TwitterManager>();
+      _container.RegisterSingleton<ITwitterStreamingMessageObserver, TwitterStreamingMessageObserver>();
 
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();

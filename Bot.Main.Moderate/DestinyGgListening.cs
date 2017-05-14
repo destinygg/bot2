@@ -1,4 +1,5 @@
-﻿using Bot.Pipeline.Interfaces;
+﻿using Bot.Logic.Interfaces;
+using Bot.Pipeline.Interfaces;
 using Bot.Tests;
 using log4net;
 
@@ -13,6 +14,7 @@ namespace Bot.Main.Moderate {
       var pipeline = container.GetInstance<IPipeline>();
       var periodicTasks = container.GetInstance<PeriodicTasks>();
       var client = container.GetInstance<IClient>();
+      var twitterManager = container.GetInstance<ITwitterManager>();
       pipeline.SetSender(client.Send);
       client.SetReceive(pipeline.Enqueue);
 
@@ -21,6 +23,7 @@ namespace Bot.Main.Moderate {
 
       client.Connect();
       periodicTasks.Run();
+      twitterManager.MonitorNewTweets(pipeline.Enqueue);
     }
 
   }
