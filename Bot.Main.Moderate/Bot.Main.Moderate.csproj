@@ -203,6 +203,7 @@
     <Compile Include="PeriodicTasks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DestinyGgListening.cs" />
     <Compile Include="SampleData.cs" />
   </ItemGroup>
   <ItemGroup>
