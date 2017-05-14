@@ -30,6 +30,10 @@ namespace Bot.Logic {
         return _commandLogic.Time().Wrap().ToList();
       if (message.StartsWith("!stream") || message.StartsWith("!strim"))
         return _commandLogic.Streams().ToList();
+      if (message.StartsWith("!aslan") || message.StartsWith("! aslan"))
+        return _commandLogic.TwitterAslan().ToList();
+      if (message.StartsWith("!twit") || message.StartsWith("!tweet") || message.StartsWith("!twat"))
+        return _commandLogic.TwitterDestiny().ToList();
 
       return new List<ISendable<PublicMessage>>();
     }

@@ -17,11 +17,13 @@ namespace Bot.Logic {
     private readonly ITimeService _timeService;
     private readonly IDownloader _downloader;
     private readonly ILogger _logger;
+    private readonly ITwitterManager _twitterManager;
 
-    public CommandLogic(ITimeService timeService, IDownloader downloader, ILogger logger) {
+    public CommandLogic(ITimeService timeService, IDownloader downloader, ILogger logger, ITwitterManager twitterManager) {
       _timeService = timeService;
       _downloader = downloader;
       _logger = logger;
+      _twitterManager = twitterManager;
     }
 
     public ISendable<PublicMessage> Time() => new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time");
@@ -59,6 +61,10 @@ namespace Bot.Logic {
         }
       }
     }
+
+    public IEnumerable<ISendable<PublicMessage>> TwitterDestiny() => _twitterManager.LatestTweetFromDestiny().Select(x => new SendablePublicMessage(x));
+
+    public IEnumerable<ISendable<PublicMessage>> TwitterAslan() => _twitterManager.LatestTweetFromAslan().Select(x => new SendablePublicMessage(x));
 
   }
 }

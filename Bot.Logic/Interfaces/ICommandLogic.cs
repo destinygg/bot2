@@ -8,5 +8,7 @@ namespace Bot.Logic.Interfaces {
     ISendable<PublicMessage> Schedule();
     ISendable<PublicMessage> Blog();
     IEnumerable<ISendable<PublicMessage>> Streams();
+    IEnumerable<ISendable<PublicMessage>> TwitterDestiny();
+    IEnumerable<ISendable<PublicMessage>> TwitterAslan();
   }
 }
