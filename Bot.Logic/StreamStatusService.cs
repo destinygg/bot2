@@ -24,9 +24,8 @@ namespace Bot.Logic {
     public StreamStatus Refresh() {
       var now = _timeService.UtcNow;
       var streamStatus = _downloader.StreamStatus();
-      var isOn = streamStatus.stream != null;
       var previously = _unitOfWork.Query(u => u.StateIntegers.StreamStatus);
-      if (isOn) {
+      if (streamStatus.IsLive) {
         if (previously == StreamStatus.Off) {
           _unitOfWork.Command(u => u.StateIntegers.LatestStreamOnTime = now);
         }

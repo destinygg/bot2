@@ -75,6 +75,7 @@ namespace Bot.Models.Json {
 
     public class RootObject {
       public Stream stream { get; set; }
+      public bool IsLive => stream != null;
       public Links3 _links { get; set; }
     }
 
