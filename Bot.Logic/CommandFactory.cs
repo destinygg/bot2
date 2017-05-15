@@ -28,12 +28,16 @@ namespace Bot.Logic {
 
       if (message.StartsWith("!time"))
         return _commandLogic.Time().Wrap().ToList();
+      if (message.StartsWith("!sch", "!calen"))
+        return _commandLogic.Schedule().Wrap().ToList();
+      if (message.StartsWith("!blog", "!blag"))
+        return _commandLogic.Blog().Wrap().ToList();
       if (message.StartsWith("!strim", "!stream"))
         return _commandLogic.Streams().ToList();
-      if (message.StartsWith("!aslan", "! aslan"))
-        return _commandLogic.TwitterAslan().ToList();
       if (message.StartsWith("!twit", "!tweet", "!twat"))
         return _commandLogic.TwitterDestiny().ToList();
+      if (message.StartsWith("!aslan", "! aslan"))
+        return _commandLogic.TwitterAslan().ToList();
 
       return new List<ISendable<PublicMessage>>();
     }
