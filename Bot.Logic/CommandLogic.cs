@@ -66,5 +66,18 @@ namespace Bot.Logic {
 
     public IEnumerable<ISendable<PublicMessage>> TwitterAslan() => _twitterManager.LatestTweetFromAslan().Select(x => new SendablePublicMessage(x));
 
+    public IEnumerable<ISendable<PublicMessage>> Song() {
+      var song = _downloader.LastFm().recenttracks.track.First();
+      var songString = $"{song.name} - {song.artist.text}";
+      string response;
+      if (song.NowPlaying) {
+        response = $"{songString} last.fm/user/stevenbonnellii";
+      } else {
+        var delta = (_timeService.UtcNow - song.date.Parsed_uts).ToPretty(_logger);
+        response = $"No song played/scrobbled. Played {delta} ago: {songString}";
+      }
+      return new SendablePublicMessage(response).Wrap();
+    }
+
   }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Interfaces;
+using Bot.Models.Sendable;
 using Bot.Tests;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
@@ -12,6 +13,21 @@ using SimpleInjector;
 namespace Bot.Logic.Tests {
   [TestClass]
   public class CommandLogicTests {
+
+    private TestContainerManager _createTestContainerManager(string data, DateTime? possibleTime = null) {
+      var time = possibleTime ?? DateTime.UtcNow;
+      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
+      var timeService = Substitute.For<ITimeService>();
+      timeService.UtcNow.Returns(time);
+      return new TestContainerManager(c => {
+        c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _ => true);
+        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
+        c.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
+      });
+    }
 
     [TestMethod]
     public void Blog_Returns_LatestEntry() {
@@ -56,6 +72,31 @@ namespace Bot.Logic.Tests {
       var commandResponse = commandLogic.Streams();
 
       Assert.IsTrue(commandResponse.Select(s => s.Transmission.Text).SequenceEqual(expected));
+    }
+
+    [TestMethod]
+    public void Song_NotPlaying_ReturnsMostRecentlyPlayedSong() {
+      var data = TestData.LastFmNotPlaying;
+      var time = new DateTime(2017, 5, 15, 4, 1, 0);
+      var expected = "No song played/scrobbled. Played 20h 12m ago: beauty - Nymano";
+      var testContainerManager = _createTestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+
+      var commandResponse = commandLogic.Song();
+
+      Assert.AreEqual(expected, commandResponse.OfType<SendablePublicMessage>().Single().Text);
+    }
+
+    [TestMethod]
+    public void Song_NowPlaying_ReturnsCurrentlyPlayingSong() {
+      var data = TestData.LastFmPlaying;
+      var expected = "Harambe - Dumbfoundead last.fm/user/stevenbonnellii";
+      var testContainerManager = _createTestContainerManager(data);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+
+      var commandResponse = commandLogic.Song();
+
+      Assert.AreEqual(expected, commandResponse.OfType<SendablePublicMessage>().Single().Text);
     }
 
   }
