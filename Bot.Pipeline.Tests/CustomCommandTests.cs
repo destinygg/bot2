@@ -44,6 +44,34 @@ namespace Bot.Pipeline.Tests {
     }
 
     [TestMethod]
+    public void AddingCommand_WithSpace_GetsResponse() {
+      var sender = new TestableSerializer();
+      var containerManager = new TestContainerManager(container => {
+        var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, container);
+        container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
+      }).InitializeAndIsolateRepository();
+      var factory = containerManager.GetInstance<ReceivedFactory>();
+      var pipeline = containerManager.GetInstance<IPipeline>();
+      var data = new List<IReceived<IUser, ITransmittable>> {
+        factory.ModPublicReceivedMessage("!addcommand !hi greetings"),
+        factory.PublicReceivedMessage("! hi"),
+      };
+      Task.Delay(1000).Wait();
+
+      data.ForEach(x => {
+        Task.Delay(1000).Wait();
+        pipeline.Enqueue(x);
+      });
+
+      Task.Delay(1000).Wait();
+      foreach (var sendable in sender.Outbox) {
+        Console.WriteLine(sendable);
+      }
+      Assert.IsTrue(sender.Outbox.Cast<SendablePublicMessage>().First().Text == "!hi added");
+      Assert.IsTrue(sender.Outbox.Cast<SendablePublicMessage>().Skip(1).First().Text == "greetings");
+    }
+
+    [TestMethod]
     public void UpdatingCommand_Afterwards_GetsDifferentResponse() {
       var sender = new TestableSerializer();
       var containerManager = new TestContainerManager(container => {

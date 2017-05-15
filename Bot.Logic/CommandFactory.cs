@@ -22,7 +22,7 @@ namespace Bot.Logic {
       var message = snapshot.Latest;
 
       foreach (var customCommand in _repository.Query(db => db.CustomCommand.GetAll)) {
-        if (message.StartsWith($"!{customCommand.Command}"))
+        if (message.StartsWith($"!{customCommand.Command}", $"! {customCommand.Command}"))
           return new SendablePublicMessage(customCommand.Response).Wrap().ToList();
       }
 
