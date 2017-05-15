@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Bot.Models.Json;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
@@ -42,6 +43,25 @@ namespace Bot.Tools.Tests {
       var parsedCreatedAt = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "").stream.Parsed_created_at;
 
       Assert.AreEqual(new DateTime(2017, 04, 24, 21, 23, 16, DateTimeKind.Utc), parsedCreatedAt);
+    }
+
+    [TestMethod]
+    public void UrlJsonParser_LastFmNotPlaying_ParsedUtsWorks() {
+      var data = TestData.LastFmNotPlaying;
+      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
+      var testContainerManager = new TestContainerManager(c => {
+        c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _ => true);
+        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+      });
+      var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
+      var expected = new DateTime(2017, 5, 14, 7, 48, 54);
+
+      var rootObject = urlJsonParser.Create<LastFm.RootObject>("", "", "");
+
+      var first = rootObject.recenttracks.track.First();
+      Assert.AreEqual(expected, first.date.Parsed_uts);
     }
 
   }
