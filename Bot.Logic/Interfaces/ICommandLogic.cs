@@ -11,5 +11,6 @@ namespace Bot.Logic.Interfaces {
     IEnumerable<ISendable<PublicMessage>> TwitterDestiny();
     IEnumerable<ISendable<PublicMessage>> TwitterAslan();
     IEnumerable<ISendable<PublicMessage>> Song();
+    IEnumerable<ISendable<PublicMessage>> PreviousSong();
   }
 }

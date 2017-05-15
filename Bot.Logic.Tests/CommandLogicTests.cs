@@ -82,5 +82,31 @@ namespace Bot.Logic.Tests {
       Assert.AreEqual(expected, commandResponse.OfType<SendablePublicMessage>().Single().Text);
     }
 
+    [TestMethod]
+    public void PreviousSong_NotPlaying_ReturnsMostRecentlyPlayedSong() {
+      var data = TestData.LastFmNotPlaying;
+      var time = new DateTime(2017, 5, 15, 4, 1, 0);
+      var expected = "truly happy - Nymano played 20h 13m ago before beauty - Nymano";
+      var testContainerManager = _createTestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+
+      var commandResponse = commandLogic.PreviousSong();
+
+      Assert.AreEqual(expected, commandResponse.OfType<SendablePublicMessage>().Single().Text);
+    }
+
+    [TestMethod]
+    public void PreviousSong_NowPlaying_ReturnsCurrentlyPlayingSong() {
+      var data = TestData.LastFmPlaying;
+      var time = new DateTime(2017, 5, 15, 4, 1, 0);
+      var expected = "Viva la Vida - Coldplay played 1h 23m ago before Harambe - Dumbfoundead";
+      var testContainerManager = _createTestContainerManager(data, time);
+      var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
+
+      var commandResponse = commandLogic.PreviousSong();
+
+      Assert.AreEqual(expected, commandResponse.OfType<SendablePublicMessage>().Single().Text);
+    }
+
   }
 }

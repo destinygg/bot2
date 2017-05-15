@@ -79,5 +79,14 @@ namespace Bot.Logic {
       return new SendablePublicMessage(response).Wrap();
     }
 
+    public IEnumerable<ISendable<PublicMessage>> PreviousSong() {
+      var first = _downloader.LastFm().recenttracks.track.First();
+      var second = _downloader.LastFm().recenttracks.track.Skip(1).First();
+      var firstString = $"{first.name} - {first.artist.text}";
+      var secondString = $"{second.name} - {second.artist.text}";
+      var delta = (_timeService.UtcNow - second.date.Parsed_uts).ToPretty(_logger);
+      var response = $"{secondString} played {delta} ago before {firstString}";
+      return new SendablePublicMessage(response).Wrap();
+    }
   }
 }
