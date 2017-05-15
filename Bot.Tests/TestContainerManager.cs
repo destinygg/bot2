@@ -54,24 +54,24 @@ namespace Bot.Tests {
 
       Container.RegisterConditional<IStreamStatusService, StreamStatusService>(Lifestyle.Singleton, c => !c.Handled);
 
-      Container.RegisterSingleton<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>();
-      Container.RegisterSingleton<IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>();
-      Container.RegisterSingleton<IFactory<IReceived<Moderator, IMessage>, Nuke>, NukeFactory>();
-      Container.RegisterSingleton<ICommandLogic, CommandLogic>();
-      Container.RegisterSingleton<IModCommandLogic, ModCommandLogic>();
+      Container.RegisterConditional<IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, AegisPardonFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>>, NukeMuteFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IFactory<IReceived<Moderator, IMessage>, Nuke>, NukeFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<ICommandLogic, CommandLogic>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IModCommandLogic, ModCommandLogic>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterSingleton<IModCommandParser, ModCommandParser>();
+      Container.RegisterConditional<IModCommandParser, ModCommandParser>(Lifestyle.Singleton, c => !c.Handled);
 
-      Container.RegisterSingleton<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>();
-      Container.RegisterSingleton<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>();
-      Container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>();
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>(Lifestyle.Singleton, c => !c.Handled);
 
-      Container.RegisterSingleton<IErrorableFactory<string, IReceived<IUser, ITransmittable>>, DestinyGgParser>();
-      Container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
-      Container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
+      Container.RegisterConditional<IErrorableFactory<string, IReceived<IUser, ITransmittable>>, DestinyGgParser>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterSingleton<IPipeline, PipelineManager>();
-      Container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
+      Container.RegisterConditional<IPipeline, PipelineManager>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IClient, DestinyGgLoggingClient>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IPrivateConstants, PrivateConstants>(Lifestyle.Singleton, c => !c.Handled);
@@ -90,9 +90,9 @@ namespace Bot.Tests {
 
       Container.RegisterSingleton<ReceivedFactory>();
 
-      Container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
-      Container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
-      Container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
+      Container.RegisterConditional<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<ISendableVisitor<string>, ConsoleSendableVisitor>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterDecorator(typeof(IFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IFactory<,,>), typeof(FactoryTryCatchDecorator<,,>), Lifestyle.Singleton);
