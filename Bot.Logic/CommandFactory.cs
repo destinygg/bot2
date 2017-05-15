@@ -28,11 +28,11 @@ namespace Bot.Logic {
 
       if (message.StartsWith("!time"))
         return _commandLogic.Time().Wrap().ToList();
-      if (message.StartsWith("!stream") || message.StartsWith("!strim"))
+      if (message.StartsWith("!strim", "!stream"))
         return _commandLogic.Streams().ToList();
-      if (message.StartsWith("!aslan") || message.StartsWith("! aslan"))
+      if (message.StartsWith("!aslan", "! aslan"))
         return _commandLogic.TwitterAslan().ToList();
-      if (message.StartsWith("!twit") || message.StartsWith("!tweet") || message.StartsWith("!twat"))
+      if (message.StartsWith("!twit", "!tweet", "!twat"))
         return _commandLogic.TwitterDestiny().ToList();
 
       return new List<ISendable<PublicMessage>>();
