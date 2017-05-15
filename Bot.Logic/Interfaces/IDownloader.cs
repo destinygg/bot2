@@ -8,5 +8,6 @@ namespace Bot.Logic.Interfaces {
     GoogleCalendar.RootObject GoogleCalendar();
     DestinyGgBlogFeed.Rss DestinyGgBlogFeed();
     string OverRustle();
+    LastFm.RootObject LastFm();
   }
 }
