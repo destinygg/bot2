@@ -4,7 +4,6 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Tests;
-using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -21,7 +20,6 @@ namespace Bot.Logic.Tests {
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(time);
       return new TestContainerManager(c => {
-        c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _ => true);
         var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
         c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
         var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
@@ -33,17 +31,7 @@ namespace Bot.Logic.Tests {
     public void Blog_Returns_LatestEntry() {
       var time = new DateTime(2016, 10, 13, 20, 16, 17);
       var data = TestData.Blog;
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
-      var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(time);
-      var testContainerManager = new TestContainerManager(c => {
-        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
-        c.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
-        c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, _ => true);
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
-        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
-      });
+      var testContainerManager = _createTestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
       var expected = "\"Current Streaming Set-up (October 2016)\" posted a few seconds ago https://blog.destiny.gg/current-streaming-set-up-october-2016/";
 
@@ -56,12 +44,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void Streams_Returns_ThreeMostPopularStreams() {
       var data = TestData.OverRustle;
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
-      var testContainerManager = new TestContainerManager(c => {
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
-        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
-      });
+      var testContainerManager = _createTestContainerManager(data);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
       var expected = new List<string> {
         "137 overrustle.com/nomdeplume",
