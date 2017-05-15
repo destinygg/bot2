@@ -61,6 +61,7 @@
     <Compile Include="Interfaces\ITargetable.cs" />
     <Compile Include="Interfaces\ITransmittable.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Json\LastFm.cs" />
     <Compile Include="Quit.cs" />
     <Compile Include="Join.cs" />
     <Compile Include="Json\GoogleCalendar.cs" />
