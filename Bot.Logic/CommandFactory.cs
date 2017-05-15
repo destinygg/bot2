@@ -38,6 +38,10 @@ namespace Bot.Logic {
         return _commandLogic.TwitterDestiny().ToList();
       if (message.StartsWith("!aslan", "! aslan"))
         return _commandLogic.TwitterAslan().ToList();
+      if (message.StartsWith("!song"))
+        return _commandLogic.Song().ToList();
+      if (message.StartsWith("!pastsong", "!lastsong", "!previoussong", "!earliersong"))
+        return _commandLogic.PreviousSong().ToList();
 
       return new List<ISendable<PublicMessage>>();
     }
