@@ -64,5 +64,41 @@ namespace Bot.Tools.Tests {
       Assert.AreEqual(expected, first.date.Parsed_uts);
     }
 
+    [TestMethod]
+    public void UrlJsonParser_LastFmNotPlaying_IsNotPlaying() {
+      var data = TestData.LastFmNotPlaying;
+      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
+      var testContainerManager = new TestContainerManager(c => {
+        c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _ => true);
+        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+      });
+      var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
+
+      var rootObject = urlJsonParser.Create<LastFm.RootObject>("", "", "");
+
+      var first = rootObject.recenttracks.track.First();
+      Assert.IsFalse(first.NowPlaying);
+    }
+
+    [TestMethod]
+    public void UrlJsonParser_LastFmPlaying_IsPlaying() {
+      var data = TestData.LastFmPlaying;
+      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
+      var testContainerManager = new TestContainerManager(c => {
+        c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _ => true);
+        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+      });
+      var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
+
+      var rootObject = urlJsonParser.Create<LastFm.RootObject>("", "", "");
+
+      var first = rootObject.recenttracks.track.First();
+      Assert.IsTrue(first.NowPlaying);
+    }
+
   }
 }
