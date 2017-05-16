@@ -55,7 +55,7 @@ namespace Bot.Logic {
     void IStreamStatusContext.TransitionToOff() => _currentStatus = _offStatus;
     void IStreamStatusContext.TransitionToPossiblyOff() => _currentStatus = _possiblyOffStatus;
 
-    public StreamStatus Refresh() {
+    public StreamStatus Get() {
       var newStatus = _downloader.StreamStatus();
       _currentStatus.Refresh(newStatus.IsLive);
       return _currentStatus.StreamStatus;

@@ -71,7 +71,7 @@ namespace Bot.Main.Moderate {
     }
 
     private void RefreshStreamStatus(IFactory<TimeSpan, Action, Task> periodicTaskFactory) =>
-      periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStatusService.Refresh());
+      periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStatusService.Get());
 
   }
 }

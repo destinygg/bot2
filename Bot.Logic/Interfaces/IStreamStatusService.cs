@@ -2,6 +2,6 @@
 
 namespace Bot.Logic.Interfaces {
   public interface IStreamStatusService {
-    StreamStatus Refresh();
+    StreamStatus Get();
   }
 }
