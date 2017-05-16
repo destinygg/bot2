@@ -1,4 +1,4 @@
-﻿using Bot.Repository.Interfaces;
+﻿using Bot.Models;
 
 namespace Bot.Logic.Interfaces {
   public interface IStreamStatusService {

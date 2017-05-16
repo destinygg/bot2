@@ -1,5 +1,6 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
+using Bot.Models;
 using Bot.Repository.Interfaces;
 using Bot.Tools.Interfaces;
 

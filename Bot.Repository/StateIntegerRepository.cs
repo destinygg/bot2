@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Bot.Database.Entities;
+using Bot.Models;
 using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Microsoft.EntityFrameworkCore;

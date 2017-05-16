@@ -1,6 +1,6 @@
 ﻿using System;
 using Bot.Logic.Interfaces;
-using Bot.Models.Json;
+using Bot.Models;
 using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Bot.Models;
 
 namespace Bot.Repository.Interfaces {
   public interface IStateIntegerRepository {
@@ -6,11 +7,5 @@ namespace Bot.Repository.Interfaces {
     DateTime LatestStreamOffTime { get; set; }
     StreamStatus StreamStatus { get; set; }
     long DeathCount { get; set; }
-  }
-
-  public enum StreamStatus {
-    On,
-    Off,
-    PossiblyOff
   }
 }
