@@ -57,18 +57,26 @@ namespace Bot.Logic.Tests {
     private readonly DateTime _minu4 = DateTime.Today + TimeSpan.FromMinutes(4);
     private readonly DateTime _minu5 = DateTime.Today + TimeSpan.FromMinutes(5);
 
-    private Container _getContainer(ITimeService timeService, IGenericClassFactory<string, string, string> urlJsonParser) => new TestContainerManager(c => {
-      var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
-      c.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
-      var urlJsonParserRegistration = Lifestyle.Singleton.CreateRegistration(() => urlJsonParser, c);
-      c.RegisterConditional(typeof(IGenericClassFactory<string, string, string>), urlJsonParserRegistration, _ => true);
-    }, s => s.OnOffTimeTolerance = TimeSpan.FromMinutes(2))
-      .InitializeAndIsolateRepository();
+    private Container _getContainer(ITimeService timeService, IGenericClassFactory<string, string, string> urlJsonParser) {
+      var container = new TestContainerManager(c => {
+        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
+        c.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
+        var urlJsonParserRegistration = Lifestyle.Singleton.CreateRegistration(() => urlJsonParser, c);
+        c.RegisterConditional(typeof(IGenericClassFactory<string, string, string>), urlJsonParserRegistration, _ => true);
+      }, s => s.OnOffTimeTolerance = TimeSpan.FromMinutes(2))
+        .InitializeAndIsolateRepository();
+      var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
+      unitOfWork.Command(u => {
+        u.StateIntegers.StreamStatus = StreamStatus.Off;
+        u.StateIntegers.LatestStreamOffTime = _time0;
+      });
+      return container;
+    }
 
     [TestMethod]
     public void StreamStatusService_OffOnHourLater_UpdatesDatabase() {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(_time0, _hour1);
+      timeService.UtcNow.Returns(_hour1);
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on);
       var container = _getContainer(timeService, urlJsonParser);
@@ -87,7 +95,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void StreamStatusService_OffOnOffHourLater_UpdatesDatabase() {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(_time0, _hour1, _hour2);
+      timeService.UtcNow.Returns(_hour1, _hour2);
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off);
       var container = _getContainer(timeService, urlJsonParser);
@@ -109,7 +117,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void StreamStatusService_OffOnOffOffHourLater_UpdatesDatabase() {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(_time0, _hour1, _hour2, _hour3);
+      timeService.UtcNow.Returns(_hour1, _hour2, _hour3);
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _off);
       var container = _getContainer(timeService, urlJsonParser);
@@ -132,7 +140,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void StreamStatusService_OffOnOffOffOffMinuteLater_UpdatesDatabase() {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(_time0, _minu1, _minu2, _minu3, _minu4);
+      timeService.UtcNow.Returns(_minu1, _minu2, _minu3, _minu4);
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _off, _off);
       var container = _getContainer(timeService, urlJsonParser);
@@ -156,7 +164,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void StreamStatusService_OffOnOffOffOffOnMinuteLater_UpdatesDatabase() {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(_time0, _minu1, _minu2, _minu3, _minu4, _minu5);
+      timeService.UtcNow.Returns(_minu1, _minu2, _minu3, _minu4, _minu5);
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _off, _off, _on);
       var container = _getContainer(timeService, urlJsonParser);
@@ -181,7 +189,7 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void StreamStatusService_OffOnOffOnMinuteLater_UpdatesDatabase() {
       var timeService = Substitute.For<ITimeService>();
-      timeService.UtcNow.Returns(_time0, _minu1, _minu2, _minu3, _minu4, _minu5);
+      timeService.UtcNow.Returns(_minu1, _minu2, _minu3, _minu4, _minu5);
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _on);
       var container = _getContainer(timeService, urlJsonParser);
