@@ -88,7 +88,7 @@ namespace Bot.Tools.Tests {
       var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
       var twitchLiveStatus = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "");
 
-      new StreamState(StreamStatus.On, twitchLiveStatus);
+      new StreamState(StreamStatus.On, DateTime.MaxValue, DateTime.MaxValue, twitchLiveStatus);
     }
 
     [TestMethod]
@@ -98,7 +98,7 @@ namespace Bot.Tools.Tests {
       var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
       var twitchLiveStatus = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "");
 
-      new StreamState(StreamStatus.Off, twitchLiveStatus);
+      new StreamState(StreamStatus.Off, DateTime.MaxValue, DateTime.MaxValue, twitchLiveStatus);
     }
 
   }

@@ -25,6 +25,8 @@ namespace Bot.Logic {
     private readonly IStreamStatusStatus _possiblyOffStatus;
 
     private IStreamStatusStatus _currentStatus;
+    private DateTime _latestStreamOnTime;
+    private DateTime _latestStreamOffTime;
 
     public StreamStateService(
       IQueryCommandService<IUnitOfWork> unitOfWork,
@@ -41,6 +43,8 @@ namespace Bot.Logic {
       _possiblyOffStatus = new PossiblyOffStatus(this, _unitOfWork, _timeService, settings);
 
       var initialStatus = unitOfWork.Query(u => u.StateIntegers.StreamStatus);
+      _latestStreamOnTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOnTime);
+      _latestStreamOffTime = unitOfWork.Query(u => u.StateIntegers.LatestStreamOffTime);
       switch (initialStatus) {
         case StreamStatus.On:
           _currentStatus = _onStatus;
@@ -59,9 +63,10 @@ namespace Bot.Logic {
     void IStreamStatusContext.TransitionToOn(bool updateLatestStreamOnTime) {
       _currentStatus = _onStatus;
       if (updateLatestStreamOnTime) {
+        _latestStreamOnTime = _timeService.UtcNow;
         _unitOfWork.Command(u => {
           u.StateIntegers.StreamStatus = StreamStatus.On;
-          u.StateIntegers.LatestStreamOnTime = _timeService.UtcNow;
+          u.StateIntegers.LatestStreamOnTime = _latestStreamOnTime;
         });
       } else {
         _unitOfWork.Command(u => u.StateIntegers.StreamStatus = StreamStatus.On);
@@ -75,16 +80,17 @@ namespace Bot.Logic {
 
     void IStreamStatusContext.TransitionToPossiblyOff() {
       _currentStatus = _possiblyOffStatus;
+      _latestStreamOffTime = _timeService.UtcNow;
       _unitOfWork.Command(u => {
         u.StateIntegers.StreamStatus = StreamStatus.PossiblyOff;
-        u.StateIntegers.LatestStreamOffTime = _timeService.UtcNow;
+        u.StateIntegers.LatestStreamOffTime = _latestStreamOffTime;
       });
     }
 
     public StreamState Get() {
       var newStatus = _downloader.StreamStatus();
       _currentStatus.Refresh(newStatus.IsLive);
-      return new StreamState(_currentStatus.StreamStatus, newStatus);
+      return new StreamState(_currentStatus.StreamStatus, _latestStreamOnTime, _latestStreamOffTime, newStatus);
     }
 
 

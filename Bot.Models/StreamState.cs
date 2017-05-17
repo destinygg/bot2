@@ -4,8 +4,10 @@ using Bot.Models.Json;
 namespace Bot.Models {
   public class StreamState {
 
-    public StreamState(StreamStatus streamStatus, TwitchStreamStatus.RootObject rawStatus) {
+    public StreamState(StreamStatus streamStatus, DateTime latestStreamOnTime, DateTime latestStreamOffTime, TwitchStreamStatus.RootObject rawStatus) {
       StreamStatus = streamStatus;
+      LatestStreamOnTime = latestStreamOnTime;
+      LatestStreamOffTime = latestStreamOffTime;
       Viewers = rawStatus.stream?.viewers ?? 0;
       Title = rawStatus.stream?.channel.status;
       Game = rawStatus.stream?.game;
@@ -15,6 +17,8 @@ namespace Bot.Models {
     }
 
     public StreamStatus StreamStatus { get; }
+    public DateTime LatestStreamOnTime { get; }
+    public DateTime LatestStreamOffTime { get; }
     public string Title { get; }
     public string Game { get; }
     public int Viewers { get; }
