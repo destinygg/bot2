@@ -103,6 +103,7 @@
     <Compile Include="Sendable\SendablePardon.cs" />
     <Compile Include="Pardon.cs" />
     <Compile Include="StateInteger.cs" />
+    <Compile Include="StreamState.cs" />
     <Compile Include="StreamStatus.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Websockets\BanReceiver.cs" />

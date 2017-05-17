@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Bot.Models;
 using Bot.Models.Json;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
@@ -78,6 +79,26 @@ namespace Bot.Tools.Tests {
 
       var first = rootObject.recenttracks.track.First();
       Assert.IsTrue(first.NowPlaying);
+    }
+
+    [TestMethod]
+    public void StreamState_TwitchOnline_CanBeCreated() {
+      var data = TestData.TwitchOnline;
+      var testContainerManager = CreateTestContainerManager(data);
+      var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
+      var twitchLiveStatus = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "");
+
+      new StreamState(StreamStatus.On, twitchLiveStatus);
+    }
+
+    [TestMethod]
+    public void StreamState_TwitchOffline_CanBeCreated() {
+      var data = TestData.TwitchOffline;
+      var testContainerManager = CreateTestContainerManager(data);
+      var urlJsonParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
+      var twitchLiveStatus = urlJsonParser.Create<TwitchStreamStatus.RootObject>("", "", "");
+
+      new StreamState(StreamStatus.Off, twitchLiveStatus);
     }
 
   }
