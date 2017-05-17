@@ -44,7 +44,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
     </Reference>
@@ -90,10 +89,6 @@
     <ProjectReference Include="..\Bot.Pipeline.Tests\Bot.Pipeline.Tests.csproj">
       <Project>{98933F7B-7E96-4335-A8F1-8002C259487D}</Project>
       <Name>Bot.Pipeline.Tests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bot.Pipeline\Bot.Pipeline.csproj">
-      <Project>{D5F1D9BF-2DDA-40F6-B30C-86C8B6D23E87}</Project>
-      <Name>Bot.Pipeline</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Tests\Bot.Tests.csproj">
       <Project>{29C9D95A-BA8D-4E5E-B88A-FC22C607A73F}</Project>

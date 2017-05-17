@@ -52,7 +52,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
     </Reference>
@@ -107,10 +106,6 @@
       <Project>{2A5B9732-8A1F-44DB-AD56-8446D3402CAE}</Project>
       <Name>Bot.Database.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bot.Database\Bot.Database.csproj">
-      <Project>{90E3E455-DA71-4415-8BA6-05E05926274B}</Project>
-      <Name>Bot.Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
       <Project>{1B710B73-3FF1-4944-909B-538927C0041B}</Project>
       <Name>Bot.Logic</Name>
@@ -118,10 +113,6 @@
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
       <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
       <Name>Bot.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bot.Repository.Tests\Bot.Repository.Tests.csproj">
-      <Project>{EC073990-3E0F-4D25-A5AD-F85F9AB9F2C6}</Project>
-      <Name>Bot.Repository.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bot.Repository\Bot.Repository.csproj">
       <Project>{2DB78506-B364-469D-B162-00C9A5F430C4}</Project>

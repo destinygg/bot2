@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
-using Bot.Pipeline.Interfaces;
 using Bot.Pipeline.Tests;
 using Bot.Tests;
 using Bot.Tools;
