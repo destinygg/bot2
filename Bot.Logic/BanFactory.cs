@@ -30,7 +30,7 @@ namespace Bot.Logic {
         .Apply(outbox.AddRange);
       var autoPunishments = _repository.Query(r => r.AutoPunishments.GetAllWithUser);
       Func<AutoPunishment, bool> stringFilter = autoPunishment => message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity;
-      Func<AutoPunishment, bool> regexFilter = autoPunishment => message.IsMatch(new Regex(autoPunishment.Term));
+      Func<AutoPunishment, bool> regexFilter = autoPunishment => message.IsMatch(new Regex(autoPunishment.Term, RegexOptions.IgnoreCase));
       ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.MutedString), stringFilter, (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
       ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.MutedRegex), regexFilter, (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
       ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.BannedString), stringFilter, (x, y) => new SendableBan(x, y)).Apply(outbox.AddRange);
