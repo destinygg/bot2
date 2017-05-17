@@ -9,14 +9,17 @@ namespace Bot.Logic {
 
 
   internal interface IStreamStatusContext {
-    void TransitionToOn();
+    void TransitionToOn(bool updateLatestStreamOnTime);
     void TransitionToOff();
     void TransitionToPossiblyOff();
   }
 
 
   public class StreamStateService : IStreamStatusContext, IStreamStateService {
+    private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
+    private readonly ITimeService _timeService;
     private readonly IDownloader _downloader;
+
     private readonly IStreamStatusStatus _onStatus;
     private readonly IStreamStatusStatus _offStatus;
     private readonly IStreamStatusStatus _possiblyOffStatus;
@@ -26,14 +29,16 @@ namespace Bot.Logic {
     public StreamStateService(
       IQueryCommandService<IUnitOfWork> unitOfWork,
       ITimeService timeService,
-      ISettings settings,
-      IDownloader downloader
+      IDownloader downloader,
+      ISettings settings
     ) {
+      _unitOfWork = unitOfWork;
+      _timeService = timeService;
       _downloader = downloader;
 
-      _onStatus = new OnStatus(this, unitOfWork, timeService);
-      _offStatus = new OffStatus(this, unitOfWork, timeService);
-      _possiblyOffStatus = new PossiblyOffStatus(this, unitOfWork, timeService, settings);
+      _onStatus = new OnStatus(this);
+      _offStatus = new OffStatus(this);
+      _possiblyOffStatus = new PossiblyOffStatus(this, _unitOfWork, _timeService, settings);
 
       var initialStatus = unitOfWork.Query(u => u.StateIntegers.StreamStatus);
       switch (initialStatus) {
@@ -51,9 +56,30 @@ namespace Bot.Logic {
       }
     }
 
-    void IStreamStatusContext.TransitionToOn() => _currentStatus = _onStatus;
-    void IStreamStatusContext.TransitionToOff() => _currentStatus = _offStatus;
-    void IStreamStatusContext.TransitionToPossiblyOff() => _currentStatus = _possiblyOffStatus;
+    void IStreamStatusContext.TransitionToOn(bool updateLatestStreamOnTime) {
+      _currentStatus = _onStatus;
+      if (updateLatestStreamOnTime) {
+        _unitOfWork.Command(u => {
+          u.StateIntegers.StreamStatus = StreamStatus.On;
+          u.StateIntegers.LatestStreamOnTime = _timeService.UtcNow;
+        });
+      } else {
+        _unitOfWork.Command(u => u.StateIntegers.StreamStatus = StreamStatus.On);
+      }
+    }
+
+    void IStreamStatusContext.TransitionToOff() {
+      _currentStatus = _offStatus;
+      _unitOfWork.Command(u => u.StateIntegers.StreamStatus = StreamStatus.Off);
+    }
+
+    void IStreamStatusContext.TransitionToPossiblyOff() {
+      _currentStatus = _possiblyOffStatus;
+      _unitOfWork.Command(u => {
+        u.StateIntegers.StreamStatus = StreamStatus.PossiblyOff;
+        u.StateIntegers.LatestStreamOffTime = _timeService.UtcNow;
+      });
+    }
 
     public StreamState Get() {
       var newStatus = _downloader.StreamStatus();
@@ -71,21 +97,13 @@ namespace Bot.Logic {
 
     private class OnStatus : IStreamStatusStatus {
       private readonly IStreamStatusContext _context;
-      private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
-      private readonly ITimeService _timeService;
 
-      public OnStatus(IStreamStatusContext context, IQueryCommandService<IUnitOfWork> unitOfWork, ITimeService timeService) {
+      public OnStatus(IStreamStatusContext context) {
         _context = context;
-        _unitOfWork = unitOfWork;
-        _timeService = timeService;
       }
 
       public void Refresh(bool isLive) {
         if (!isLive) {
-          _unitOfWork.Command(u => {
-            u.StateIntegers.StreamStatus = StreamStatus.PossiblyOff;
-            u.StateIntegers.LatestStreamOffTime = _timeService.UtcNow;
-          });
           _context.TransitionToPossiblyOff();
         }
       }
@@ -96,22 +114,14 @@ namespace Bot.Logic {
 
     private class OffStatus : IStreamStatusStatus {
       private readonly IStreamStatusContext _context;
-      private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
-      private readonly ITimeService _timeService;
 
-      public OffStatus(IStreamStatusContext context, IQueryCommandService<IUnitOfWork> unitOfWork, ITimeService timeService) {
+      public OffStatus(IStreamStatusContext context) {
         _context = context;
-        _unitOfWork = unitOfWork;
-        _timeService = timeService;
       }
 
       public void Refresh(bool isLive) {
         if (isLive) {
-          _unitOfWork.Command(u => {
-            u.StateIntegers.StreamStatus = StreamStatus.On;
-            u.StateIntegers.LatestStreamOnTime = _timeService.UtcNow;
-          });
-          _context.TransitionToOn();
+          _context.TransitionToOn(true);
         }
       }
 
@@ -134,12 +144,10 @@ namespace Bot.Logic {
 
       public void Refresh(bool isLive) {
         if (isLive) {
-          _unitOfWork.Command(u => u.StateIntegers.StreamStatus = StreamStatus.On);
-          _context.TransitionToOn();
+          _context.TransitionToOn(false);
         } else {
           var possibleStreamOffTime = _unitOfWork.Query(u => u.StateIntegers.LatestStreamOffTime);
           if (possibleStreamOffTime + _settings.OnOffTimeTolerance <= _timeService.UtcNow) {
-            _unitOfWork.Command(u => u.StateIntegers.StreamStatus = StreamStatus.Off);
             _context.TransitionToOff();
           }
         }
