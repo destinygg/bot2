@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
+    <Compile Include="RepositoryBanFactory.cs" />
     <Compile Include="TwitterStatusFactory.cs" />
     <Compile Include="CommandLogic.cs" />
     <Compile Include="Downloader.cs" />

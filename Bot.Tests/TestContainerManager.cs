@@ -64,6 +64,7 @@ namespace Bot.Tests {
 
       Container.RegisterConditional<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, RepositoryBanFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterConditional<IErrorableFactory<string, IReceived<IUser, ITransmittable>>, DestinyGgParser>(Lifestyle.Singleton, c => !c.Handled);

@@ -8,12 +8,11 @@ using Bot.Repository.Interfaces;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using SimpleInjector;
 
 namespace Bot.Logic.Tests {
   [TestClass]
-  public class BanFactoryTests {
+  public class RepositoryBanFactoryTests {
 
     private Container InitializeContainerAndRepository(string term, [CallerMemberName] string sqliteName = null) {
       var container = new TestContainerManager(configureSettings: settings => {
