@@ -55,10 +55,10 @@ namespace Bot.Logic {
     void IStreamStatusContext.TransitionToOff() => _currentStatus = _offStatus;
     void IStreamStatusContext.TransitionToPossiblyOff() => _currentStatus = _possiblyOffStatus;
 
-    public StreamStatus Get() {
+    public StreamState Get() {
       var newStatus = _downloader.StreamStatus();
       _currentStatus.Refresh(newStatus.IsLive);
-      return _currentStatus.StreamStatus;
+      return new StreamState(_currentStatus.StreamStatus, newStatus);
     }
 
 
