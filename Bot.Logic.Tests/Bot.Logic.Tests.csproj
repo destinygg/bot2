@@ -100,6 +100,7 @@
     <Compile Include="CommandLogicTests.cs" />
     <Compile Include="TwitterTests.cs" />
     <Compile Include="CommandFactoryTests.cs" />
+    <Compile Include="LiveCommandTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">

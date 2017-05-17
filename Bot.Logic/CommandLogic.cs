@@ -18,12 +18,16 @@ namespace Bot.Logic {
     private readonly IDownloader _downloader;
     private readonly ILogger _logger;
     private readonly ITwitterManager _twitterManager;
+    private readonly IStreamStateService _streamStateService;
+    private readonly ISettings _settings;
 
-    public CommandLogic(ITimeService timeService, IDownloader downloader, ILogger logger, ITwitterManager twitterManager) {
+    public CommandLogic(ITimeService timeService, IDownloader downloader, ILogger logger, ITwitterManager twitterManager, IStreamStateService streamStateService, ISettings settings) {
       _timeService = timeService;
       _downloader = downloader;
       _logger = logger;
       _twitterManager = twitterManager;
+      _streamStateService = streamStateService;
+      _settings = settings;
     }
 
     public ISendable<PublicMessage> Time() => new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time");
@@ -88,5 +92,27 @@ namespace Bot.Logic {
       var response = $"{secondString} played {delta} ago before {firstString}";
       return new SendablePublicMessage(response).Wrap();
     }
+
+    public IEnumerable<ISendable<PublicMessage>> Live() {
+      var status = _streamStateService.Get();
+      switch (status.StreamStatus) {
+        case StreamStatus.On: {
+            var delta = _timeService.UtcNow - status.LatestStreamOnTime;
+            return new SendablePublicMessage($"Live with {status.Viewers} viewers for {delta.ToPretty(_logger)} playing {status.Game}: {status.Title}").Wrap();
+          }
+        case StreamStatus.Off: {
+            var delta = _timeService.UtcNow - status.LatestStreamOffTime;
+            var streamLength = status.LatestStreamOffTime - status.LatestStreamOnTime;
+            return new SendablePublicMessage($"Stream went offline {delta.ToPretty(_logger)} ago and its duration was {streamLength.ToPretty(_logger)}").Wrap();
+          }
+        case StreamStatus.PossiblyOff: {
+            var streamLength = status.LatestStreamOffTime - status.LatestStreamOnTime;
+            return new SendablePublicMessage($"Stream went offline in the past ~{_settings.OnOffTimeTolerance.ToPretty(_logger)} and its duration was {streamLength.ToPretty(_logger)}").Wrap();
+          }
+        default:
+          throw new NotSupportedException($"The stream status {status.StreamStatus} is not registered");
+      }
+    }
+
   }
 }

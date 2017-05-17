@@ -42,6 +42,8 @@ namespace Bot.Logic {
         return _commandLogic.Song().ToList();
       if (message.StartsWith("!pastsong", "!lastsong", "!previoussong", "!earliersong"))
         return _commandLogic.PreviousSong().ToList();
+      if (message.StartsWith("!live"))
+        return _commandLogic.Live().ToList();
 
       return new List<ISendable<PublicMessage>>();
     }
