@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IReceived.cs" />
     <Compile Include="Interfaces\IReceivedExtensionMethods.cs" />
+    <Compile Include="Interfaces\ISnapshotExtensionMethods.cs" />
     <Compile Include="Interfaces\IReceivedMessageExtensionMethods.cs" />
     <Compile Include="Interfaces\ISendableVisitor.cs" />
     <Compile Include="Interfaces\ISnapshotVisitor.cs" />
