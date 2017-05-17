@@ -15,5 +15,6 @@ namespace Bot.Tools {
     TimeSpan PeriodicTaskInterval { get; }
     TimeSpan AutoLiveCheckInterval { get; }
     TimeSpan OnOffTimeTolerance { get; }
+    TimeSpan SelfSpamWindow { get; }
   }
 }
