@@ -52,7 +52,7 @@
     <Compile Include="Downloader.cs" />
     <Compile Include="Interfaces\IDownloader.cs" />
     <Compile Include="Interfaces\ICommandLogic.cs" />
-    <Compile Include="Interfaces\IStreamStatusService.cs" />
+    <Compile Include="Interfaces\IStreamStateService.cs" />
     <Compile Include="Interfaces\ITwitterManager.cs" />
     <Compile Include="Interfaces\ITwitterStreamingMessageObserver.cs" />
     <Compile Include="NukeAegisSendableFactoryBase.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
     <Compile Include="ReceivedVisitor\ReceivedVisitor.cs" />
     <Compile Include="SnapshotVisitor\SnapshotVisitor.cs" />
-    <Compile Include="StreamStatusService.cs" />
+    <Compile Include="StreamStateService.cs" />
     <Compile Include="TwitterStatusFormatter.cs" />
     <Compile Include="TwitterManager.cs" />
     <Compile Include="TwitterStreamingMessageObserver.cs" />

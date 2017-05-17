@@ -15,7 +15,7 @@ namespace Bot.Logic {
   }
 
 
-  public class StreamStatusService : IStreamStatusContext, IStreamStatusService {
+  public class StreamStateService : IStreamStatusContext, IStreamStateService {
     private readonly IDownloader _downloader;
     private readonly IStreamStatusStatus _onStatus;
     private readonly IStreamStatusStatus _offStatus;
@@ -23,7 +23,7 @@ namespace Bot.Logic {
 
     private IStreamStatusStatus _currentStatus;
 
-    public StreamStatusService(
+    public StreamStateService(
       IQueryCommandService<IUnitOfWork> unitOfWork,
       ITimeService timeService,
       ISettings settings,
