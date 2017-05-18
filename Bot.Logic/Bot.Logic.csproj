@@ -69,7 +69,7 @@
     <Compile Include="NukeMuteFactory.cs" />
     <Compile Include="SendableFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BanFactory.cs" />
+    <Compile Include="PunishmentFactory.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="ModCommandFactory.cs" />
     <Compile Include="ReceivedVisitor\DelegatedSnapshotFactory.cs" />
