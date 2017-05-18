@@ -18,5 +18,6 @@ namespace Bot.Tools {
     TimeSpan SelfSpamWindow { get; }
     TimeSpan LongSpamWindow { get; }
     int LongSpamMinimumLength { get; }
+    int RepeatCharacterSpamLimit { get; }
   }
 }

@@ -18,5 +18,6 @@ namespace Bot.Tools {
     public TimeSpan SelfSpamWindow => TimeSpan.FromSeconds(15);
     public TimeSpan LongSpamWindow => TimeSpan.FromMinutes(1);
     public int LongSpamMinimumLength => 60;
+    public int RepeatCharacterSpamLimit => 45;
   }
 }
