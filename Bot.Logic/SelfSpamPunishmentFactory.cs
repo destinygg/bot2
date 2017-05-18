@@ -8,11 +8,11 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class SelfSpamBanFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class SelfSpamPunishmentFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly ITimeService _timeService;
     private readonly ISettings _settings;
 
-    public SelfSpamBanFactory(ITimeService timeService, ISettings settings) {
+    public SelfSpamPunishmentFactory(ITimeService timeService, ISettings settings) {
       _timeService = timeService;
       _settings = settings;
     }

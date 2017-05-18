@@ -12,7 +12,7 @@ using SimpleInjector;
 
 namespace Bot.Logic.Tests {
   [TestClass]
-  public class RepositoryBanFactoryTests {
+  public class RepositoryPunishmentFactoryTests {
 
     private Container InitializeContainerAndRepository(string term, [CallerMemberName] string sqliteName = null) {
       var container = new TestContainerManager(configureSettings: settings => {
@@ -29,71 +29,71 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void BanFactory_NotInList_DoesNotPunish() {
+    public void RepositoryPunishmentFactory_NotInList_DoesNotPunish() {
       var bannedTerm = TestHelper.RandomString();
       var spokenTerm = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(bannedTerm);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(spokenTerm);
-      var banFactory = container.GetInstance<BanFactory>();
+      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      var ban = banFactory.Create(snapshot);
+      var ban = RepositoryPunishmentFactory.Create(snapshot);
 
       Assert.IsFalse(ban.Any());
     }
 
     [TestMethod]
-    public void BanFactory_FirstOffense_10MinutePunishment() {
+    public void RepositoryPunishmentFactory_FirstOffense_10MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var banFactory = container.GetInstance<BanFactory>();
+      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      var output = banFactory.Create(snapshot);
+      var output = RepositoryPunishmentFactory.Create(snapshot);
 
       var mute = output.Cast<SendableMute>().Single();
       Assert.IsTrue(mute.Duration.TotalMinutes == 10);
     }
 
     [TestMethod]
-    public void BanFactory_SecondOffense_20MinutePunishment() {
+    public void RepositoryPunishmentFactory_SecondOffense_20MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var banFactory = container.GetInstance<BanFactory>();
+      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      banFactory.Create(snapshot);
-      var output = banFactory.Create(snapshot);
+      RepositoryPunishmentFactory.Create(snapshot);
+      var output = RepositoryPunishmentFactory.Create(snapshot);
 
       var mute = output.Cast<SendableMute>().Single();
       Assert.AreEqual(20, mute.Duration.TotalMinutes);
     }
 
     [TestMethod]
-    public void BanFactory_ThirdOffense_40MinutePunishment() {
+    public void RepositoryPunishmentFactory_ThirdOffense_40MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var banFactory = container.GetInstance<BanFactory>();
+      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      banFactory.Create(snapshot);
-      banFactory.Create(snapshot);
-      var output = banFactory.Create(snapshot);
+      RepositoryPunishmentFactory.Create(snapshot);
+      RepositoryPunishmentFactory.Create(snapshot);
+      var output = RepositoryPunishmentFactory.Create(snapshot);
 
       var mute = output.Cast<SendableMute>().Single();
       Assert.AreEqual(40, mute.Duration.TotalMinutes);
     }
 
     [TestMethod]
-    public void BanFactory_FourthOffense_80MinutePunishment() {
+    public void RepositoryPunishmentFactory_FourthOffense_80MinutePunishment() {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var banFactory = container.GetInstance<BanFactory>();
+      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      banFactory.Create(snapshot);
-      banFactory.Create(snapshot);
-      banFactory.Create(snapshot);
-      var output = banFactory.Create(snapshot);
+      RepositoryPunishmentFactory.Create(snapshot);
+      RepositoryPunishmentFactory.Create(snapshot);
+      RepositoryPunishmentFactory.Create(snapshot);
+      var output = RepositoryPunishmentFactory.Create(snapshot);
 
       var mute = output.Cast<SendableMute>().Single();
       Assert.AreEqual(80, mute.Duration.TotalMinutes);

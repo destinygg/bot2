@@ -47,8 +47,8 @@
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
-    <Compile Include="SelfSpamBanFactory.cs" />
-    <Compile Include="RepositoryBanFactory.cs" />
+    <Compile Include="SelfSpamPunishmentFactory.cs" />
+    <Compile Include="RepositoryPunishmentFactory.cs" />
     <Compile Include="TwitterStatusFactory.cs" />
     <Compile Include="CommandLogic.cs" />
     <Compile Include="Downloader.cs" />

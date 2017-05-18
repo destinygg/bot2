@@ -11,11 +11,11 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class RepositoryBanFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class RepositoryPunishmentFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly ISettings _settings;
 
-    public RepositoryBanFactory(IQueryCommandService<IUnitOfWork> unitOfWork, ISettings settings) {
+    public RepositoryPunishmentFactory(IQueryCommandService<IUnitOfWork> unitOfWork, ISettings settings) {
       _unitOfWork = unitOfWork;
       _settings = settings;
     }
