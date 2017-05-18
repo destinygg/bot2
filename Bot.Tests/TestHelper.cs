@@ -16,16 +16,16 @@ namespace Bot.Tests {
       return (AutoPunishmentType) values.GetValue(Random().Next(values.Length));
     }
 
-    public static Random Random() {
+    public static Random Random(bool printSeed = true) {
       var seed = Guid.NewGuid().GetHashCode();
-      Trace.WriteLine($"Seed is: {seed}");
+      if (printSeed) Trace.WriteLine($"Seed is: {seed}");
       return new Random(seed);
     }
 
-    public static string RandomString(int length = 10) {
+    public static string RandomString(int length = 10, bool printSeed = false) {
       const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
       return new string(Enumerable.Repeat(chars, length)
-        .Select(s => s[Random().Next(s.Length)]).ToArray());
+        .Select(s => s[Random(printSeed).Next(s.Length)]).ToArray());
     }
 
     public static TException AssertCatch<TException>(Action action)
