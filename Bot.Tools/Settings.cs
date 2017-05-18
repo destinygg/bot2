@@ -16,5 +16,7 @@ namespace Bot.Tools {
     public TimeSpan AutoLiveCheckInterval => TimeSpan.FromMinutes(1);
     public TimeSpan OnOffTimeTolerance => TimeSpan.FromMinutes(10);
     public TimeSpan SelfSpamWindow => TimeSpan.FromSeconds(15);
+    public TimeSpan LongSpamWindow => TimeSpan.FromMinutes(1);
+    public int LongSpamMinimumLength => 60;
   }
 }

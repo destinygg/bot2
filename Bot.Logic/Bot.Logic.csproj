@@ -49,6 +49,7 @@
     <Compile Include="AegisPardonFactory.cs" />
     <Compile Include="SelfSpamPunishmentFactory.cs" />
     <Compile Include="RepositoryPunishmentFactory.cs" />
+    <Compile Include="LongSpamPunishmentFactory.cs" />
     <Compile Include="TwitterStatusFactory.cs" />
     <Compile Include="CommandLogic.cs" />
     <Compile Include="Downloader.cs" />

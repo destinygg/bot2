@@ -20,5 +20,7 @@ namespace Bot.Tests {
     public TimeSpan AutoLiveCheckInterval { get; set; } = Settings.AutoLiveCheckInterval;
     public TimeSpan OnOffTimeTolerance { get; set; } = Settings.OnOffTimeTolerance;
     public TimeSpan SelfSpamWindow { get; set; } = Settings.SelfSpamWindow;
+    public TimeSpan LongSpamWindow { get; set; } = Settings.LongSpamWindow;
+    public int LongSpamMinimumLength { get; set; } = Settings.LongSpamMinimumLength;
   }
 }

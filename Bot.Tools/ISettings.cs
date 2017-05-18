@@ -16,5 +16,7 @@ namespace Bot.Tools {
     TimeSpan AutoLiveCheckInterval { get; }
     TimeSpan OnOffTimeTolerance { get; }
     TimeSpan SelfSpamWindow { get; }
+    TimeSpan LongSpamWindow { get; }
+    int LongSpamMinimumLength { get; }
   }
 }
