@@ -8,7 +8,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class SelfSpamPunishmentFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class SelfSpamPunishmentFactory : IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly ITimeService _timeService;
     private readonly ISettings _settings;
 
@@ -29,5 +29,6 @@ namespace Bot.Logic {
         : new SendableMute(snapshot.Sender(), TimeSpan.FromMinutes(2), $"2m {snapshot.Sender().Nick}: {similarValues.Average()}% = your past text").Wrap().ToList();
     }
 
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>>();
   }
 }

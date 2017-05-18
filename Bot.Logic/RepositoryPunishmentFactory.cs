@@ -11,7 +11,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class RepositoryPunishmentFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class RepositoryPunishmentFactory : IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly ISettings _settings;
 
@@ -55,5 +55,6 @@ namespace Bot.Logic {
       return punishmentCtor(sender, duration);
     }
 
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>>();
   }
 }

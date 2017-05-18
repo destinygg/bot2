@@ -13,7 +13,7 @@ namespace Bot.Logic {
   //todo: make the graduation more encompassing; it should start banning when people say 100 characters 50x for example
   //todo: remove duplicate spaces and other characters with http://stackoverflow.com/questions/4429995/how-do-you-remove-repeated-characters-in-a-string
 
-  public class LongSpamPunishmentFactory : IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
+  public class LongSpamPunishmentFactory : IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly ITimeService _timeService;
     private readonly ISettings _settings;
     private readonly ILogger _logger;
@@ -44,5 +44,6 @@ namespace Bot.Logic {
 
     }
 
+    public IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new List<ISendable<ITransmittable>>();
   }
 }

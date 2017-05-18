@@ -11,7 +11,6 @@ using Bot.Tools.Interfaces;
 using log4net.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using SimpleInjector;
 
 namespace Bot.Pipeline.Tests {
   [TestClass]
@@ -34,11 +33,11 @@ namespace Bot.Pipeline.Tests {
     public void Log4NetLogger_Displays_TryCatchFactoryExceptions() {
       XmlConfigurator.Configure(new FileInfo(@"log4net.config"));
       var containerManager = new TestContainerManager();
-      var errorableFactory = containerManager.Container.GetInstance<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>>();
+      var errorableFactory = containerManager.Container.GetInstance<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>>();
       var receivedFactory = containerManager.Container.GetInstance<ReceivedFactory>();
       var snapshotFactory = containerManager.Container.GetInstance<SnapshotFactory>();
-      var snapshot = snapshotFactory.Create(receivedFactory.PublicReceivedMessage("derp"));
-      errorableFactory.Create((ISnapshot<Civilian, PublicMessage>) snapshot);
+      var snapshot = snapshotFactory.Create(receivedFactory.ModPublicReceivedMessage("derp"));
+      errorableFactory.Create((ISnapshot<Moderator, PublicMessage>) snapshot);
     }
 
     [TestMethod]

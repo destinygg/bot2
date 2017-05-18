@@ -8,14 +8,14 @@ using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
   public class PunishmentFactory : BaseSendableFactory<Civilian, PublicMessage> {
-    private readonly IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _repositoryPunishmentFactory;
-    private readonly IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _selfSpamPunishmentFactory;
-    private readonly IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _longSpamPunishmentFactory;
+    private readonly IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _repositoryPunishmentFactory;
+    private readonly IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _selfSpamPunishmentFactory;
+    private readonly IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _longSpamPunishmentFactory;
 
     public PunishmentFactory(
-      IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> repositoryPunishmentFactory,
-      IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> selfSpamPunishmentFactory,
-      IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> longSpamPunishmentFactory
+      IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> repositoryPunishmentFactory,
+      IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> selfSpamPunishmentFactory,
+      IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> longSpamPunishmentFactory
     ) {
       _repositoryPunishmentFactory = repositoryPunishmentFactory;
       _selfSpamPunishmentFactory = selfSpamPunishmentFactory;
