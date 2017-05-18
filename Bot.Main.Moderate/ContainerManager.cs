@@ -53,7 +53,8 @@ namespace Bot.Main.Moderate {
 
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>();
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, BanFactory>();
-      _container.RegisterSingleton<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, RepositoryBanFactory>();
+      _container.RegisterConditional<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, RepositoryBanFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "repositoryBanFactory");
+      _container.RegisterConditional<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, SelfSpamBanFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "selfSpamBanFactory");
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>();
 
       _container.RegisterSingleton<IErrorableFactory<string, IReceived<IUser, ITransmittable>>, DestinyGgParser>();

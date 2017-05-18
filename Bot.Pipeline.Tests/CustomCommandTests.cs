@@ -102,11 +102,11 @@ namespace Bot.Pipeline.Tests {
       var factory = containerManager.GetInstance<ReceivedFactory>();
       var pipeline = containerManager.GetInstance<IPipeline>();
       var data = new List<IReceived<IUser, ITransmittable>> {
-        factory.PublicReceivedMessage("!rules"),
+        factory.ModPublicReceivedMessage("!rules"),
         factory.ModPublicReceivedMessage("!delcommand !rules"),
-        factory.PublicReceivedMessage("!rules"),
-        factory.PublicReceivedMessage("!rules"),
-        factory.PublicReceivedMessage("!rules"),
+        factory.ModPublicReceivedMessage("!rules"),
+        factory.ModPublicReceivedMessage("!rules"),
+        factory.ModPublicReceivedMessage("!rules"),
       };
 
       Run(data, pipeline, sender);
