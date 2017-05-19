@@ -7,18 +7,18 @@ using Bot.Tests;
 using log4net;
 
 namespace Bot.Main.Moderate {
-  public class DestinyGgListening : IExecutable {
+  public class DestinyGgExecutable : IExecutable {
     private readonly bool _canSend;
     private readonly bool _runTwitter;
 
-    public DestinyGgListening(bool canSend, bool runTwitter) {
+    public DestinyGgExecutable(bool canSend, bool runTwitter) {
       _canSend = canSend;
       _runTwitter = runTwitter;
     }
 
 
     public void Execute() {
-      var logger = LogManager.GetLogger(nameof(DestinyGgListening));
+      var logger = LogManager.GetLogger(nameof(DestinyGgExecutable));
       logger.Info("Welcome to Bot!");
       logger.Info("Initializing...");
 

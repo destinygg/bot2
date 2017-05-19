@@ -33,16 +33,16 @@ namespace Bot.Main.Moderate {
       IExecutable executable;
       switch (inputClient) {
         case "dl":
-          executable = new DestinyGgListening(false, false);
+          executable = new DestinyGgExecutable(false, false);
           break;
         case "dlt":
-          executable = new DestinyGgListening(false, true);
+          executable = new DestinyGgExecutable(false, true);
           break;
         case "ds":
-          executable = new DestinyGgListening(true, false);
+          executable = new DestinyGgExecutable(true, false);
           break;
         case "dst":
-          executable = new DestinyGgListening(true, true);
+          executable = new DestinyGgExecutable(true, true);
           break;
         case "s":
           executable = new SampleDataExecutable();
