@@ -39,5 +39,7 @@ namespace Bot.Logic {
     public string OverRustle() => _downloadFactory.Create("http://api.overrustle.com/api", "", "");
 
     public LastFm.RootObject LastFm() => _urlJsonParser.Create<LastFm.RootObject>($"http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=stevenbonnellii&api_key={_privateConstants.LastFmApiKey}&format=json", "", "");
+
+    public string OverRustleLogs(string user) => _downloadFactory.Create($"https://dgg.overrustlelogs.net/Destinygg%20chatlog/current/{user}.txt", "", "");
   }
 }

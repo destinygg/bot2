@@ -9,5 +9,6 @@ namespace Bot.Logic.Interfaces {
     DestinyGgBlogFeed.Rss DestinyGgBlogFeed();
     string OverRustle();
     LastFm.RootObject LastFm();
+    string OverRustleLogs(string nick);
   }
 }
