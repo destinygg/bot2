@@ -31,7 +31,18 @@ namespace Bot.Logic {
       _repositoryPunishmentFactory.Create(snapshot).Apply(s => outbox.AddRange(s));
       _selfSpamPunishmentFactory.Create(snapshot).Apply(s => outbox.AddRange(s));
       _longSpamPunishmentFactory.Create(snapshot).Apply(s => outbox.AddRange(s));
-      return outbox;
+      return _processMaximumPunishment(outbox);
+    }
+
+    private List<ISendable<ITransmittable>> _processMaximumPunishment(List<ISendable<ITransmittable>> punishments) {
+      var maxPunishment = punishments.Cast<ISendable<Punishment>>().ArgMax(x => x.Transmission.Duration);
+      var responses = new List<ISendable<ITransmittable>>();
+      if (maxPunishment == null) return responses;
+      responses.Add(maxPunishment);
+      if (!string.IsNullOrWhiteSpace(maxPunishment.Transmission.Reason)) {
+        responses.Add(new SendablePublicMessage(maxPunishment.Transmission.Reason));
+      }
+      return responses;
     }
 
     public override IReadOnlyList<ISendable<ITransmittable>> OnErrorCreate => new SendableError($"An error occured in {nameof(PunishmentFactory)}.").Wrap().ToList();

@@ -50,7 +50,7 @@ namespace Bot.Logic.Tests {
 
       var output = RepositoryPunishmentFactory.Create(snapshot);
 
-      var mute = output.Cast<SendableMute>().Single();
+      var mute = output.OfType<SendableMute>().Single();
       Assert.IsTrue(mute.Duration.TotalMinutes == 10);
     }
 
@@ -64,7 +64,7 @@ namespace Bot.Logic.Tests {
       RepositoryPunishmentFactory.Create(snapshot);
       var output = RepositoryPunishmentFactory.Create(snapshot);
 
-      var mute = output.Cast<SendableMute>().Single();
+      var mute = output.OfType<SendableMute>().Single();
       Assert.AreEqual(20, mute.Duration.TotalMinutes);
     }
 
@@ -79,7 +79,7 @@ namespace Bot.Logic.Tests {
       RepositoryPunishmentFactory.Create(snapshot);
       var output = RepositoryPunishmentFactory.Create(snapshot);
 
-      var mute = output.Cast<SendableMute>().Single();
+      var mute = output.OfType<SendableMute>().Single();
       Assert.AreEqual(40, mute.Duration.TotalMinutes);
     }
 
@@ -95,7 +95,7 @@ namespace Bot.Logic.Tests {
       RepositoryPunishmentFactory.Create(snapshot);
       var output = RepositoryPunishmentFactory.Create(snapshot);
 
-      var mute = output.Cast<SendableMute>().Single();
+      var mute = output.OfType<SendableMute>().Single();
       Assert.AreEqual(80, mute.Duration.TotalMinutes);
     }
 
