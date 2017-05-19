@@ -19,6 +19,12 @@ namespace Bot.Models.Websockets {
 
     [JsonIgnore]
     public string Command => "BAN";
+
+    public bool ShouldSerializeIsPermanent() => IsPermanent;
+
+    public bool ShouldSerializeBanIp() => BanIp;
+
+    public bool ShouldSerializeDuration() => !IsPermanent;
   }
 }
 

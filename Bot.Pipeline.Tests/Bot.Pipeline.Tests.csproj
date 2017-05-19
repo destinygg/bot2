@@ -93,6 +93,7 @@
     <Compile Include="CustomCommandTests.cs" />
     <Compile Include="Log4NetLoggerTests.cs" />
     <Compile Include="DestinyGgParserTests.cs" />
+    <Compile Include="DestinyGgSerializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bot.Main.Moderate\log4net.config">
