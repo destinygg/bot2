@@ -72,6 +72,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ITimeService, TimeService>();
       _container.RegisterSingleton<IDownloadMapper, DownloadMapper>();
       _container.RegisterSingleton<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>();
+      _container.RegisterSingleton<IFactory<string, string, string>, DownloadFactory>();
       _container.RegisterSingleton<IErrorableFactory<string, string, string, string>, ErrorableDownloadFactory>();
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlXmlParser");
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlJsonParser");

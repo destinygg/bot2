@@ -1,18 +1,16 @@
-﻿using System.Net;
-using System.Text;
-using Bot.Tools.Interfaces;
+﻿using Bot.Tools.Interfaces;
 
 namespace Bot.Tools {
   public class ErrorableDownloadFactory : IErrorableFactory<string, string, string, string> {
+    private readonly IFactory<string, string, string> _downloadFactory;
+
+    public ErrorableDownloadFactory(IFactory<string, string, string> downloadFactory) {
+      _downloadFactory = downloadFactory;
+    }
 
     public string Create(string url, string header, string error) {
       OnErrorCreate = error;
-      using (var client = new WebClient { Encoding = Encoding.UTF8 }) {
-        if (header != "") {
-          client.Headers = new WebHeaderCollection { header };
-        }
-        return client.DownloadString(url);
-      }
+      return _downloadFactory.Create(url, header);
     }
 
     public string OnErrorCreate { get; private set; }

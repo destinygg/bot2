@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DownloadFactory.cs" />
     <Compile Include="FactoryTryCatchDecorator.cs" />
     <Compile Include="GenericClassFactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IGenericClassFactory.cs" />
