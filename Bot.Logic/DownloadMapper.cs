@@ -11,13 +11,21 @@ namespace Bot.Logic {
     private readonly IGenericClassFactory<string, string, string> _urlJsonParser;
     private readonly IGenericClassFactory<string, string, string> _urlXmlParser;
     private readonly IErrorableFactory<string, string, string, string> _errorableDownloadFactory;
+    private readonly IFactory<string, string, string> _downloadFactory;
     private readonly IPrivateConstants _privateConstants;
     private readonly ITimeService _timeService;
 
-    public DownloadMapper(IGenericClassFactory<string, string, string> urlJsonParser, IGenericClassFactory<string, string, string> urlXmlParser, IErrorableFactory<string, string, string, string> errorableDownloadFactory, IPrivateConstants privateConstants, ITimeService timeService) {
+    public DownloadMapper(
+      IGenericClassFactory<string, string, string> urlJsonParser,
+      IGenericClassFactory<string, string, string> urlXmlParser,
+      IErrorableFactory<string, string, string, string> errorableDownloadFactory,
+      IFactory<string, string, string> downloadFactory,
+      IPrivateConstants privateConstants,
+      ITimeService timeService) {
       _urlJsonParser = urlJsonParser;
       _urlXmlParser = urlXmlParser;
       _errorableDownloadFactory = errorableDownloadFactory;
+      _downloadFactory = downloadFactory;
       _privateConstants = privateConstants;
       _timeService = timeService;
     }
@@ -40,6 +48,6 @@ namespace Bot.Logic {
 
     public LastFm.RootObject LastFm() => _urlJsonParser.Create<LastFm.RootObject>($"http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=stevenbonnellii&api_key={_privateConstants.LastFmApiKey}&format=json", "", "");
 
-    public string OverRustleLogs(string user) => _errorableDownloadFactory.Create($"https://dgg.overrustlelogs.net/Destinygg%20chatlog/current/{user}.txt", "", "");
+    public string OverRustleLogs(string user) => _downloadFactory.Create($"https://dgg.overrustlelogs.net/Destinygg%20chatlog/current/{user}.txt", "");
   }
 }

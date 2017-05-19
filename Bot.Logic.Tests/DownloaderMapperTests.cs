@@ -1,4 +1,5 @@
-﻿using Bot.Logic.Interfaces;
+﻿using System.Net;
+using Bot.Logic.Interfaces;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -7,13 +8,23 @@ namespace Bot.Logic.Tests {
   public class DownloaderMapperTests {
 
     [TestMethod]
-    public void Downloader_OverRustleLogs_DoesNotCrash() {
+    public void DownloadMapper_OverRustleLogsExistingUser_DoesNotCrash_DoNotRunContinuously() {
       var testContainerManager = new TestContainerManager();
       var downloadMapper = testContainerManager.Container.GetInstance<IDownloadMapper>();
 
       var logs = downloadMapper.OverRustleLogs("woopboop");
 
       Assert.IsNotNull(logs);
+    }
+
+    [TestMethod]
+    public void DownloadMapper_OverRustleLogsNonexistantUser_404s_DoNotRunContinuously() {
+      var testContainerManager = new TestContainerManager();
+      var downloadFactory = testContainerManager.Container.GetInstance<IDownloadMapper>();
+
+      var exception = TestHelper.AssertCatch<WebException>(() => downloadFactory.OverRustleLogs(TestHelper.RandomString()));
+
+      Assert.AreEqual(((HttpWebResponse) exception.Response).StatusCode, HttpStatusCode.NotFound);
     }
 
   }
