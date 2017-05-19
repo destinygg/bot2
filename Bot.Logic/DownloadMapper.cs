@@ -6,7 +6,7 @@ using Bot.Models.Xml;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Logic {
-  public class Downloader : IDownloader {
+  public class DownloadMapper : IDownloadMapper {
 
     private readonly IGenericClassFactory<string, string, string> _urlJsonParser;
     private readonly IGenericClassFactory<string, string, string> _urlXmlParser;
@@ -14,7 +14,7 @@ namespace Bot.Logic {
     private readonly IPrivateConstants _privateConstants;
     private readonly ITimeService _timeService;
 
-    public Downloader(IGenericClassFactory<string, string, string> urlJsonParser, IGenericClassFactory<string, string, string> urlXmlParser, IErrorableFactory<string, string, string, string> errorableDownloadFactory, IPrivateConstants privateConstants, ITimeService timeService) {
+    public DownloadMapper(IGenericClassFactory<string, string, string> urlJsonParser, IGenericClassFactory<string, string, string> urlXmlParser, IErrorableFactory<string, string, string, string> errorableDownloadFactory, IPrivateConstants privateConstants, ITimeService timeService) {
       _urlJsonParser = urlJsonParser;
       _urlXmlParser = urlXmlParser;
       _errorableDownloadFactory = errorableDownloadFactory;

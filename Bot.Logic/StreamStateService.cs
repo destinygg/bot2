@@ -18,7 +18,7 @@ namespace Bot.Logic {
   public class StreamStateService : IStreamStatusContext, IStreamStateService {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly ITimeService _timeService;
-    private readonly IDownloader _downloader;
+    private readonly IDownloadMapper _downloadMapper;
 
     private readonly IStreamStatusStatus _onStatus;
     private readonly IStreamStatusStatus _offStatus;
@@ -31,12 +31,12 @@ namespace Bot.Logic {
     public StreamStateService(
       IQueryCommandService<IUnitOfWork> unitOfWork,
       ITimeService timeService,
-      IDownloader downloader,
+      IDownloadMapper downloadMapper,
       ISettings settings
     ) {
       _unitOfWork = unitOfWork;
       _timeService = timeService;
-      _downloader = downloader;
+      _downloadMapper = downloadMapper;
 
       _onStatus = new OnStatus(this);
       _offStatus = new OffStatus(this);
@@ -88,7 +88,7 @@ namespace Bot.Logic {
     }
 
     public StreamState Get() {
-      var newStatus = _downloader.StreamStatus();
+      var newStatus = _downloadMapper.StreamStatus();
       _currentStatus.Refresh(newStatus.IsLive);
       return new StreamState(_currentStatus.StreamStatus, _latestStreamOnTime, _latestStreamOffTime, newStatus);
     }

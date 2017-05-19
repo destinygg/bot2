@@ -2,7 +2,7 @@
 using Bot.Models.Xml;
 
 namespace Bot.Logic.Interfaces {
-  public interface IDownloader {
+  public interface IDownloadMapper {
     TwitchStreamStatus.RootObject StreamStatus();
     YoutubeFeed.Feed YoutubeFeed();
     GoogleCalendar.RootObject GoogleCalendar();

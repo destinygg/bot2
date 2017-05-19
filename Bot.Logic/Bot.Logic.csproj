@@ -53,8 +53,8 @@
     <Compile Include="LongSpamPunishmentFactory.cs" />
     <Compile Include="TwitterStatusFactory.cs" />
     <Compile Include="CommandLogic.cs" />
-    <Compile Include="Downloader.cs" />
-    <Compile Include="Interfaces\IDownloader.cs" />
+    <Compile Include="DownloadMapper.cs" />
+    <Compile Include="Interfaces\IDownloadMapper.cs" />
     <Compile Include="Interfaces\ICommandLogic.cs" />
     <Compile Include="Interfaces\IStreamStateService.cs" />
     <Compile Include="Interfaces\ITwitterManager.cs" />

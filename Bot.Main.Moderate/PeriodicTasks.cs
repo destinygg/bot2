@@ -14,7 +14,7 @@ namespace Bot.Main.Moderate {
   public class PeriodicTasks {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly IStreamStateService _streamStateService;
-    private readonly IDownloader _downloader;
+    private readonly IDownloadMapper _downloadMapper;
     private readonly ISettings _settings;
     private readonly IFactory<TimeSpan, Action, Task> _periodicTaskFactory;
     private readonly IPipeline _pipeline;
@@ -24,7 +24,7 @@ namespace Bot.Main.Moderate {
       IQueryCommandService<IUnitOfWork> unitOfWork,
       IFactory<TimeSpan, Action, Task> periodicTaskFactory,
       IStreamStateService streamStateService,
-      IDownloader downloader,
+      IDownloadMapper downloadMapper,
       ISettings settings,
       IPipeline pipeline,
       ILogger logger) {
@@ -32,7 +32,7 @@ namespace Bot.Main.Moderate {
       _pipeline = pipeline;
       _unitOfWork = unitOfWork;
       _streamStateService = streamStateService;
-      _downloader = downloader;
+      _downloadMapper = downloadMapper;
       _settings = settings;
       _logger = logger;
     }
@@ -63,7 +63,7 @@ namespace Bot.Main.Moderate {
     }
 
     private string GetLatestYoutube() {
-      var feed = _downloader.YoutubeFeed();
+      var feed = _downloadMapper.YoutubeFeed();
       var video = feed?.Entry.OrderByDescending(x => x.ParsedPublished).First();
       return video == null
         ? "An error occured while contacting YouTube."

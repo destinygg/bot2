@@ -105,7 +105,7 @@
     <Compile Include="LiveCommandTests.cs" />
     <Compile Include="SingleLineSpamPunishmentFactoryTests.cs" />
     <Compile Include="PunishmentFactoryTests.cs" />
-    <Compile Include="DownloaderTests.cs" />
+    <Compile Include="DownloaderMapperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Database.Entities\Bot.Database.Entities.csproj">

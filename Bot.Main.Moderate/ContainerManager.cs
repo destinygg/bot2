@@ -70,7 +70,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ISettings, Settings>();
       _container.RegisterSingleton<IPrivateConstants, PrivateConstants>();
       _container.RegisterSingleton<ITimeService, TimeService>();
-      _container.RegisterSingleton<IDownloader, Downloader>();
+      _container.RegisterSingleton<IDownloadMapper, DownloadMapper>();
       _container.RegisterSingleton<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>();
       _container.RegisterSingleton<IErrorableFactory<string, string, string, string>, ErrorableDownloadFactory>();
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlXmlParser");

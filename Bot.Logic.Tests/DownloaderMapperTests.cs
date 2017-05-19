@@ -4,16 +4,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Logic.Tests {
   [TestClass]
-  public class DownloaderTests {
+  public class DownloaderMapperTests {
 
     [TestMethod]
     public void Downloader_OverRustleLogs_DoesNotCrash() {
       var testContainerManager = new TestContainerManager();
-      var downloader = testContainerManager.Container.GetInstance<IDownloader>();
+      var downloadMapper = testContainerManager.Container.GetInstance<IDownloadMapper>();
 
-      var html = downloader.OverRustleLogs("woopboop");
+      var logs = downloadMapper.OverRustleLogs("woopboop");
 
-      Assert.IsNotNull(html);
+      Assert.IsNotNull(logs);
     }
 
   }
