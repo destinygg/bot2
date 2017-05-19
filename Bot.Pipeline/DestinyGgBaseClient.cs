@@ -13,10 +13,11 @@ namespace Bot.Pipeline {
     private readonly ITimeService _timeService;
     private DateTime _lastConnectedAt;
     private int _connectionAttemptedCount;
+    private Action<string> _receiveAction;
 
     protected readonly WebSocket Websocket;
 
-    public DestinyGgBaseClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService) {
+    protected DestinyGgBaseClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService) {
       _logger = logger;
       _timeService = timeService;
       Websocket = new WebSocket("ws://www.destiny.gg:9998/ws");
@@ -44,9 +45,12 @@ namespace Bot.Pipeline {
       }
     }
 
-    public abstract void Receive(string input);
+    public void Receive(string input) {
+      _logger.LogDebug(input);
+      _receiveAction(input);
+    }
 
-    public virtual void SetReceive(Action<string> receiveAction) { }
+    public void SetReceive(Action<string> receiveAction) => _receiveAction = receiveAction;
 
     public abstract void Send(string data);
 
