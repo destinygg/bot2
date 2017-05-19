@@ -82,7 +82,7 @@ namespace Bot.Tests {
       Container.RegisterConditional<ITimeService, TimeService>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IDownloader, Downloader>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterConditional<IErrorableFactory<string, string, string, string>, DownloadFactory>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<string, string, string, string>, ErrorableDownloadFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlXmlParser");
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlJsonParser");
       Container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "jsonParser");

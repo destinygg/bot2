@@ -19,14 +19,14 @@ namespace Bot.Main.Moderate.Tests {
 
     [TestMethod]
     public void PeriodicTasks_Run_YieldsAlternatingMessages() {
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestData.YoutubeFeed);
+      var errorableDownloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      errorableDownloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestData.YoutubeFeed);
       var sender = new TestableSerializer();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
         c.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
-        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+        var errorableDownloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => errorableDownloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
       }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
       .InitializeAndIsolateRepository();
       var tasks = container.GetInstance<PeriodicTasks>();
@@ -43,15 +43,15 @@ namespace Bot.Main.Moderate.Tests {
 
     [TestMethod]
     public void PeriodicTasks_YoutubeDown_DecoratorReportsErrors() {
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns("");
+      var errorableDownloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      errorableDownloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns("");
       var sender = new TestableSerializer();
       var testableLogger = new TestableLogger();
       var container = new TestContainerManager(c => {
         var senderRegistration = Lifestyle.Singleton.CreateRegistration(() => sender, c);
         c.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
-        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+        var errorableDownloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => errorableDownloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
         var loggerRegistration = Lifestyle.Singleton.CreateRegistration(() => testableLogger, c);
         c.RegisterConditional(typeof(ILogger), loggerRegistration, pc => !pc.Handled);
       }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))

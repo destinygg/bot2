@@ -15,13 +15,13 @@ namespace Bot.Logic.Tests {
 
     private TestContainerManager _createTestContainerManager(string data, DateTime? possibleTime = null) {
       var time = possibleTime ?? DateTime.UtcNow;
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
+      var errorableDownloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      errorableDownloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
       var timeService = Substitute.For<ITimeService>();
       timeService.UtcNow.Returns(time);
       return new TestContainerManager(c => {
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
-        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+        var errorableDownloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => errorableDownloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
         var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
         c.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
       });

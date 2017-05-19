@@ -168,7 +168,7 @@
     <Compile Include="Interfaces\ITimeService.cs" />
     <Compile Include="ObjectExtensionMethods.cs" />
     <Compile Include="ScopedQueryCommandServiceDecorator.cs" />
-    <Compile Include="DownloadFactory.cs" />
+    <Compile Include="ErrorableDownloadFactory.cs" />
     <Compile Include="StringExtensionMethods.cs" />
     <Compile Include="TimeExtensionMethods.cs" />
     <Compile Include="Settings.cs" />

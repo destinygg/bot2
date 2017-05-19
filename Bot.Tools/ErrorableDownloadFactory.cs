@@ -3,7 +3,7 @@ using System.Text;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Tools {
-  public class DownloadFactory : IErrorableFactory<string, string, string, string> {
+  public class ErrorableDownloadFactory : IErrorableFactory<string, string, string, string> {
 
     public string Create(string url, string header, string error) {
       OnErrorCreate = error;

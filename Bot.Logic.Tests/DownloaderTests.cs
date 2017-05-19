@@ -9,9 +9,9 @@ namespace Bot.Logic.Tests {
     [TestMethod]
     public void Downloader_OverRustleLogs_DoesNotCrash() {
       var testContainerManager = new TestContainerManager();
-      var downloadFactory = testContainerManager.Container.GetInstance<IDownloader>();
+      var downloader = testContainerManager.Container.GetInstance<IDownloader>();
 
-      var html = downloadFactory.OverRustleLogs("woopboop");
+      var html = downloader.OverRustleLogs("woopboop");
 
       Assert.IsNotNull(html);
     }

@@ -13,12 +13,12 @@ namespace Bot.Tools.Tests {
   public class UrlJsonParserTests {
 
     private TestContainerManager CreateTestContainerManager(string data) {
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
+      var errorableDownloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      errorableDownloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(data);
       return new TestContainerManager(c => {
         c.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _ => true);
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
-        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+        var errorableDownloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => errorableDownloadFactory, c);
+        c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
       });
     }
 

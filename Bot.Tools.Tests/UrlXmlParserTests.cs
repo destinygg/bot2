@@ -11,12 +11,12 @@ namespace Bot.Tools.Tests {
 
     [TestMethod]
     public void UrlXmlParser_Youtube_Works() {
-      var downloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
-      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestData.YoutubeFeed);
+      var errorableDownloadFactory = Substitute.For<IErrorableFactory<string, string, string, string>>();
+      errorableDownloadFactory.Create(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(TestData.YoutubeFeed);
       var testContainerManager = new TestContainerManager(container => {
         container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => true);
-        var downloaderRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, container);
-        container.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), downloaderRegistration, _ => true);
+        var errorableDownloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => errorableDownloadFactory, container);
+        container.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
       });
       var urlXmlParser = testContainerManager.Container.GetInstance<IGenericClassFactory<string, string, string>>();
 

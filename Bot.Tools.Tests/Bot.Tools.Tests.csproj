@@ -67,7 +67,7 @@
     <Compile Include="PeriodicTaskFactoryTests.cs" />
     <Compile Include="UrlJsonParserTests.cs" />
     <Compile Include="UrlXmlParserTests.cs" />
-    <Compile Include="DownloadFactoryTests.cs" />
+    <Compile Include="ErrorableDownloadFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
