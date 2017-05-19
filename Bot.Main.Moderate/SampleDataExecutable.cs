@@ -7,9 +7,9 @@ using Bot.Tests;
 using log4net;
 
 namespace Bot.Main.Moderate {
-  public class SampleData : IExecutable {
+  public class SampleDataExecutable : IExecutable {
     public void Execute() {
-      var logger = LogManager.GetLogger(nameof(SampleData));
+      var logger = LogManager.GetLogger(nameof(SampleDataExecutable));
       logger.Info("Welcome to Bot!");
       logger.Info("Initializing...");
 

@@ -33,7 +33,7 @@ namespace Bot.Main.Moderate {
           executable = new DestinyGgListening();
           break;
         case "s":
-          executable = new SampleData();
+          executable = new SampleDataExecutable();
           break;
         default:
           throw new Exception("Invalid input");
