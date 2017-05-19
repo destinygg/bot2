@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DestinyGgSendingClient.cs" />
     <Compile Include="DestinyGgLoggingClient.cs" />
     <Compile Include="DestinyGgBaseClient.cs" />
     <Compile Include="DestinyGgParser.cs" />
