@@ -26,6 +26,7 @@ namespace Bot.Main.Moderate {
         if (_canSend) c.RegisterConditional(typeof(IClient), typeof(DestinyGgSendingClient), pc => !pc.Handled);
       }, s => {
         s.SqlitePath = "Bot.sqlite";
+        s.ClientType = nameof(DestinyGgExecutable);
       }).Container;
 
       var pipeline = container.GetInstance<IPipeline>();

@@ -13,7 +13,9 @@ namespace Bot.Main.Moderate {
       logger.Info("Welcome to Bot!");
       logger.Info("Initializing...");
 
-      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var container = new TestContainerManager(
+        configureSettings: s => s.ClientType = nameof(SampleDataExecutable)
+        ).InitializeAndIsolateRepository();
       var factory = container.GetInstance<ReceivedFactory>();
       var pipeline = container.GetInstance<IPipeline>();
       var periodicTasks = container.GetInstance<PeriodicTasks>();

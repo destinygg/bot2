@@ -2,6 +2,7 @@
 
 namespace Bot.Tools {
   public interface ISettings {
+    string ClientType { get; set; }
     int ContextSize { get; }
     string DebuggerTimeZone { get; }
     string DestinyTimeZone { get; }
