@@ -42,6 +42,10 @@ namespace Bot.Logic {
         var commandToDelete = _modCommandParser.DelCommand(message.Transmission.Text);
         return _modCommandLogic.DelCommand(commandToDelete);
       }
+      if (message.IsMatch(_modCommandRegex.Stalk)) {
+        var user = _modCommandParser.Stalk(message.Transmission.Text);
+        return _modCommandLogic.Stalk(user);
+      }
 
       return new List<ISendable<ITransmittable>>();
     }
