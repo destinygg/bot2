@@ -1,4 +1,6 @@
-﻿using Bot.Logic.Interfaces;
+﻿using System;
+using Bot.Logic;
+using Bot.Logic.Interfaces;
 using Bot.Pipeline.Interfaces;
 using Bot.Tests;
 using log4net;
@@ -24,6 +26,13 @@ namespace Bot.Main.Moderate {
       client.Connect();
       periodicTasks.Run();
       twitterManager.MonitorNewTweets(pipeline.Enqueue);
+
+      var r = container.GetInstance<ReceivedFactory>();
+      while (true) {
+        var line = Console.ReadLine();
+        var message = r.ModPublicReceivedMessage(line);
+        pipeline.Enqueue(message);
+      }
     }
 
   }
