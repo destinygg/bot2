@@ -22,7 +22,10 @@ namespace Bot.Main.Moderate {
     private static IExecutable ConfigureExecutable(string inputClient) {
       if (string.IsNullOrWhiteSpace(inputClient)) {
         Console.WriteLine("Select an executable:");
-        Console.WriteLine("dl  = destiny.gg - listening only");
+        Console.WriteLine("dl  = destiny.gg - listening ");
+        Console.WriteLine("dlt = destiny.gg - listening and twitter");
+        Console.WriteLine("ds  = destiny.gg - sending ");
+        Console.WriteLine("dst = destiny.gg - sending and twitter");
         Console.WriteLine("s   = client with sample data");
         inputClient = Console.ReadLine();
       }
@@ -30,7 +33,16 @@ namespace Bot.Main.Moderate {
       IExecutable executable;
       switch (inputClient) {
         case "dl":
-          executable = new DestinyGgListening();
+          executable = new DestinyGgListening(false, false);
+          break;
+        case "dlt":
+          executable = new DestinyGgListening(false, true);
+          break;
+        case "ds":
+          executable = new DestinyGgListening(true, false);
+          break;
+        case "dst":
+          executable = new DestinyGgListening(true, true);
           break;
         case "s":
           executable = new SampleDataExecutable();
