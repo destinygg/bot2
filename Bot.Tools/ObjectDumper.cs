@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -93,7 +94,11 @@ namespace Bot.Tools {
                 Write($"{memberInfo.Name}: {FormatValue(value)}");
               } else {
                 var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
-                Write($"{memberInfo.Name}: {(isEnumerable ? "..." : "{ }")}");
+                if (isEnumerable) {
+                  Write($"{memberInfo.Name}: {(((IEnumerable) value).Cast<object>().Any() ? "..." : "[]")}");
+                } else {
+                  Write(memberInfo.Name + ": { }");
+                }
 
                 _currentIndent++;
                 DumpElement(value);
