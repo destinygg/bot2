@@ -138,7 +138,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDictionaryExtensions.cs" />
     <Compile Include="DownloadFactory.cs" />
+    <Compile Include="CachedProviderDecorator.cs" />
+    <Compile Include="CachedFactoryDecorator.cs" />
     <Compile Include="FactoryTryCatchDecorator.cs" />
     <Compile Include="GenericClassFactoryTryCatchDecorator.cs" />
     <Compile Include="Interfaces\IGenericClassFactory.cs" />
