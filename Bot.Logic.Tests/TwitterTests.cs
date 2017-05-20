@@ -13,7 +13,7 @@ namespace Bot.Logic.Tests {
   public class TwitterTests {
 
     [TestMethod]
-    public void TwitterManager_LatestTweetFromDestiny_RequiresManualCheckingForReasonablewResult() {
+    public void TwitterManager_LatestTweetFromDestiny_RequiresManualCheckingForReasonablewResult_DoNotRunContinuously() {
       var container = new TestContainerManager();
       var twitterManager = container.Container.GetInstance<ITwitterManager>();
 
@@ -23,7 +23,7 @@ namespace Bot.Logic.Tests {
     }
 
     [TestMethod]
-    public void TwitterStatusFormatter_FormattingLatest200Tweets_RequiresManualCheckingForReasonableResults() {
+    public void TwitterStatusFormatter_FormattingLatest200Tweets_RequiresManualCheckingForReasonableResults_DoNotRunContinuously() {
       var container = new TestContainerManager();
       var privateConstants = container.Container.GetInstance<IPrivateConstants>();
       var tokens = Tokens.Create(privateConstants.TwitterConsumerKey, privateConstants.TwitterConsumerSecret, privateConstants.TwitterAccessToken, privateConstants.TwitterAccessTokenSecret);

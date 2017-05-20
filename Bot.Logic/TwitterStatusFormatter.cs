@@ -12,7 +12,7 @@ namespace Bot.Logic {
     public IEnumerable<string> Create(Status status, string prefix) {
       var text = status.RetweetedStatus == null ? status.FullText : $"RT @{status.RetweetedStatus.User.ScreenName}: {status.RetweetedStatus.FullText}";
       text = HttpUtility.HtmlDecode(text);
-      text = string.Join(prefix, text);
+      text = prefix + text;
       if (status.RetweetedStatus?.Entities?.Media != null) {
         text = status.RetweetedStatus.Entities.Media.GroupBy(p => p.Url).ToDictionary(x => x.Key, y => y.First().DisplayUrl).Aggregate(text, _Replace);
       }

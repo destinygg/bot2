@@ -35,7 +35,7 @@ namespace Bot.Logic {
       var tokens = Tokens.Create(_privateConstants.TwitterConsumerKey, _privateConstants.TwitterConsumerSecret, _privateConstants.TwitterAccessToken, _privateConstants.TwitterAccessTokenSecret);
       _twitterObserver.SetReconnect(() => MonitorNewTweets(send));
       _twitterObserver.SetSend(send);
-      _twitterStream = tokens.Streaming.SampleAsObservable().Subscribe(_twitterObserver); // make sure this uses TweetMode.Extended
+      _twitterStream = tokens.Streaming.UserAsObservable().Subscribe(_twitterObserver); // make sure this uses TweetMode.Extended
     }
 
     private IEnumerable<string> LatestTweet(string twitterHandle) {
