@@ -7,6 +7,13 @@ using Bot.Tools;
 namespace Bot.Models {
   public class AutoPunishment {
 
+    public AutoPunishment(string term, AutoPunishmentType type, TimeSpan duration) {
+      Term = term;
+      Type = type;
+      Duration = duration;
+      PunishedUsers = new List<PunishedUser>();
+    }
+
     public AutoPunishment(AutoPunishmentEntity entity) {
       Id = entity.Id;
       Term = entity.Term;
@@ -18,7 +25,7 @@ namespace Bot.Models {
     public int Id { get; }
     public string Term { get; }
     public AutoPunishmentType Type { get; }
-    public TimeSpan Duration { get; }
+    public TimeSpan Duration { get; set; }
     public ICollection<PunishedUser> PunishedUsers { get; }
 
     public void CopyTo(AutoPunishmentEntity entity) {
