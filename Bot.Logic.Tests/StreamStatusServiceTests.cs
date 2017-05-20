@@ -215,5 +215,17 @@ namespace Bot.Logic.Tests {
       Assert.AreEqual(StreamStatus.On, currentState);
     }
 
+    [TestMethod]
+    public void StreamStatusServiceProvider_Get_ReturnsTheSameInstance() {
+      // Uses the CachedProviderDecorator
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var streamStateServiceProvider = container.GetInstance<IProvider<IStreamStateService>>();
+
+      var objA = streamStateServiceProvider.Get();
+      var objB = streamStateServiceProvider.Get();
+
+      Assert.IsTrue(ReferenceEquals(objA, objB));
+    }
+
   }
 }
