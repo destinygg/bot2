@@ -137,5 +137,25 @@ namespace Bot.Logic.Tests {
       Assert.AreEqual("7m nick: 94% = past text", reason);
     }
 
+    [TestMethod]
+    public void LongSpamPunishmentFactory_SameMessageMinimumLengthWithNonSpam_1mNick100PastText() {
+      var nick = "nick";
+      var longSpamMinimumLength = 60;
+      var x2SpamText = TestHelper.RandomString(longSpamMinimumLength);
+      var otherText = TestHelper.RandomString(longSpamMinimumLength);
+      var container = GetContainer(longSpamMinimumLength);
+      var snapshotFactory = container.GetInstance<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>>();
+      var selfSpamPunishmentFactory = container.GetInstance<LongSpamPunishmentFactory>();
+      var receivedFactory = container.GetInstance<ReceivedFactory>();
+
+      snapshotFactory.Create(receivedFactory.PublicReceivedMessage(nick, otherText));
+      snapshotFactory.Create(receivedFactory.PublicReceivedMessage(nick, x2SpamText));
+      var snapshot = (ISnapshot<Civilian, PublicMessage>) snapshotFactory.Create(receivedFactory.PublicReceivedMessage(nick, x2SpamText));
+      var bans = selfSpamPunishmentFactory.Create(snapshot);
+
+      var reason = bans.OfType<SendableMute>().Single().Reason;
+      Assert.AreEqual("1m nick: 100% = past text", reason);
+    }
+
   }
 }

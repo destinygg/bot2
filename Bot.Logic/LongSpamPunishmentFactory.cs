@@ -39,7 +39,7 @@ namespace Bot.Logic {
         return new List<ISendable<ITransmittable>>();
       } else {
         var banLength = TimeSpan.FromMinutes((snapshot.Latest.Transmission.Text.Length - _settings.LongSpamMinimumLength) / 10 + 1);
-        return new SendableMute(snapshot.Sender(), banLength, $"{banLength.ToPretty(_logger)} {snapshot.Sender().Nick}: {similarValues.Average():#%} = past text").Wrap().ToList();
+        return new SendableMute(snapshot.Sender(), banLength, $"{banLength.ToPretty(_logger)} {snapshot.Sender().Nick}: {similarValues.Max():#%} = past text").Wrap().ToList();
       }
 
     }
