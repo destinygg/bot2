@@ -69,6 +69,38 @@ namespace Bot.Logic {
         var nick = _modCommandParser.Pardon(message.Transmission.Text);
         return _modCommandLogic.Pardon(nick);
       }
+      if (message.IsMatch(_modCommandRegex.AddMute)) {
+        var muteDuration = _modCommandParser.AddMute(message.Transmission.Text);
+        return _modCommandRepositoryLogic.AddMute(muteDuration.Item1, muteDuration.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.AddMuteRegex)) {
+        var muteDuration = _modCommandParser.AddMuteRegex(message.Transmission.Text);
+        return _modCommandRepositoryLogic.AddMuteRegex(muteDuration.Item1, muteDuration.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.AddBan)) {
+        var banDuration = _modCommandParser.AddBan(message.Transmission.Text);
+        return _modCommandRepositoryLogic.AddBan(banDuration.Item1, banDuration.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.AddBanRegex)) {
+        var banDuration = _modCommandParser.AddBanRegex(message.Transmission.Text);
+        return _modCommandRepositoryLogic.AddBanRegex(banDuration.Item1, banDuration.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.DelMute)) {
+        var mutedPhrase = _modCommandParser.DelMute(message.Transmission.Text);
+        return _modCommandRepositoryLogic.DelMute(mutedPhrase);
+      }
+      if (message.IsMatch(_modCommandRegex.DelMuteRegex)) {
+        var mutedPhrase = _modCommandParser.DelMuteRegex(message.Transmission.Text);
+        return _modCommandRepositoryLogic.DelMuteRegex(mutedPhrase);
+      }
+      if (message.IsMatch(_modCommandRegex.DelBan)) {
+        var bannedPhrase = _modCommandParser.DelBan(message.Transmission.Text);
+        return _modCommandRepositoryLogic.DelBan(bannedPhrase);
+      }
+      if (message.IsMatch(_modCommandRegex.DelBanRegex)) {
+        var bannedPhrase = _modCommandParser.DelBanRegex(message.Transmission.Text);
+        return _modCommandRepositoryLogic.DelBanRegex(bannedPhrase);
+      }
 
       return new List<ISendable<ITransmittable>>();
     }
