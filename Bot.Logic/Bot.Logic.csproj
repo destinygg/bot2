@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
+    <Compile Include="Interfaces\IModCommandRepositoryLogic.cs" />
+    <Compile Include="ModCommandRepositoryLogic.cs" />
     <Compile Include="SelfSpamPunishmentFactory.cs" />
     <Compile Include="SingleLineSpamPunishmentFactory.cs" />
     <Compile Include="RepositoryPunishmentFactory.cs" />

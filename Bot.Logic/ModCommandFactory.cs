@@ -10,12 +10,19 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class ModCommandFactory : BaseSendableFactory<Moderator, IMessage> {
     private readonly IModCommandLogic _modCommandLogic;
+    private readonly IModCommandRepositoryLogic _modCommandRepositoryLogic;
     private readonly IModCommandRegex _modCommandRegex;
     private readonly IModCommandParser _modCommandParser;
     private readonly IFactory<IReceived<Moderator, IMessage>, Nuke> _nukeFactory;
 
-    public ModCommandFactory(IModCommandLogic modCommandLogic, IModCommandRegex modCommandRegex, IModCommandParser modCommandParser, IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory) {
+    public ModCommandFactory(
+      IModCommandLogic modCommandLogic, 
+      IModCommandRepositoryLogic modCommandRepositoryLogic, 
+      IModCommandRegex modCommandRegex, 
+      IModCommandParser modCommandParser, 
+      IFactory<IReceived<Moderator, IMessage>, Nuke> nukeFactory) {
       _modCommandLogic = modCommandLogic;
+      _modCommandRepositoryLogic = modCommandRepositoryLogic;
       _modCommandRegex = modCommandRegex;
       _modCommandParser = modCommandParser;
       _nukeFactory = nukeFactory;
@@ -36,11 +43,11 @@ namespace Bot.Logic {
         return _modCommandLogic.Aegis(context);
       if (message.IsMatch(_modCommandRegex.AddCommand)) {
         var tuple = _modCommandParser.AddCommand(message.Transmission.Text);
-        return _modCommandLogic.AddCommand(tuple.Item1, tuple.Item2);
+        return _modCommandRepositoryLogic.AddCommand(tuple.Item1, tuple.Item2);
       }
       if (message.IsMatch(_modCommandRegex.DelCommand)) {
         var commandToDelete = _modCommandParser.DelCommand(message.Transmission.Text);
-        return _modCommandLogic.DelCommand(commandToDelete);
+        return _modCommandRepositoryLogic.DelCommand(commandToDelete);
       }
       if (message.IsMatch(_modCommandRegex.Stalk)) {
         var user = _modCommandParser.Stalk(message.Transmission.Text);

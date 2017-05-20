@@ -8,7 +8,6 @@ using Bot.Logic.Interfaces;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
-using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
@@ -17,7 +16,6 @@ namespace Bot.Logic {
   public class ModCommandLogic : IModCommandLogic {
     private readonly IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> _nukeMuteFactory;
     private readonly IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> _aegisPardonFactory;
-    private readonly IQueryCommandService<IUnitOfWork> _repository;
     private readonly IDownloadMapper _downloadMapper;
     private readonly ITimeService _timeService;
     private readonly ISettings _settings;
@@ -26,14 +24,12 @@ namespace Bot.Logic {
     public ModCommandLogic(
       IErrorableFactory<Nuke, IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> nukeMuteFactory,
       IErrorableFactory<IReadOnlyList<IReceived<IUser, ITransmittable>>, IReadOnlyList<ISendable<ITransmittable>>> aegisPardonFactory,
-      IQueryCommandService<IUnitOfWork> repository,
       IDownloadMapper downloadMapper,
       ITimeService timeService,
       ISettings settings,
       ILogger logger) {
       _nukeMuteFactory = nukeMuteFactory;
       _aegisPardonFactory = aegisPardonFactory;
-      _repository = repository;
       _downloadMapper = downloadMapper;
       _timeService = timeService;
       _settings = settings;
@@ -66,31 +62,6 @@ namespace Bot.Logic {
     public IReadOnlyList<ISendable<ITransmittable>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, Nuke nuke) => _nukeMuteFactory.Create(nuke, context);
 
     public IReadOnlyList<ISendable<ITransmittable>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context) => _aegisPardonFactory.Create(context);
-
-    public IReadOnlyList<ISendable<ITransmittable>> AddCommand(string command, string response) {
-      var existingCommand = _repository.Query(r => r.CustomCommand.Get(command));
-      string confirmation;
-      if (existingCommand == null) {
-        _repository.Command(r => r.CustomCommand.Add(command, response));
-        confirmation = $"!{command} added";
-      } else {
-        _repository.Command(r => r.CustomCommand.Update(command, response));
-        confirmation = $"!{command} updated";
-      }
-      return new SendablePublicMessage(confirmation).Wrap().ToList();
-    }
-
-    public IReadOnlyList<ISendable<ITransmittable>> DelCommand(string command) {
-      var existingCommand = _repository.Query(r => r.CustomCommand.Get(command));
-      string confirmation;
-      if (existingCommand == null) {
-        confirmation = $"!{command} is not an existing custom command";
-      } else {
-        _repository.Command(r => r.CustomCommand.Delete(command));
-        confirmation = $"!{command} removed";
-      }
-      return new SendablePublicMessage(confirmation).Wrap().ToList();
-    }
 
     public IReadOnlyList<ISendable<ITransmittable>> Stalk(string user) {
       var output = new List<ISendable<ITransmittable>>();

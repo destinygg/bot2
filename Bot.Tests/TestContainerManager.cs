@@ -59,6 +59,7 @@ namespace Bot.Tests {
       Container.RegisterConditional<IFactory<IReceived<Moderator, IMessage>, Nuke>, NukeFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ICommandLogic, CommandLogic>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IModCommandLogic, ModCommandLogic>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IModCommandRepositoryLogic, ModCommandRepositoryLogic>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IModCommandRegex, ModCommandRegex>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IModCommandParser, ModCommandParser>(Lifestyle.Singleton, c => !c.Handled);
 

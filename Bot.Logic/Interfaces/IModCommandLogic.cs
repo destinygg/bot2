@@ -9,8 +9,6 @@ namespace Bot.Logic.Interfaces {
     ISendable<PublicMessage> Sing();
     IReadOnlyList<ISendable<ITransmittable>> Nuke(IReadOnlyList<IReceived<IUser, ITransmittable>> context, Nuke nuke);
     IReadOnlyList<ISendable<ITransmittable>> Aegis(IReadOnlyList<IReceived<IUser, ITransmittable>> context);
-    IReadOnlyList<ISendable<ITransmittable>> AddCommand(string command, string response);
-    IReadOnlyList<ISendable<ITransmittable>> DelCommand(string command);
     IReadOnlyList<ISendable<ITransmittable>> Stalk(string user);
     IReadOnlyList<ISendable<ITransmittable>> Ipban(string nick, TimeSpan duration);
     IReadOnlyList<ISendable<ITransmittable>> Ban(string nick, TimeSpan duration);
