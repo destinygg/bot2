@@ -20,6 +20,12 @@ namespace Bot.Repository {
       _entities.Add(entity);
     }
 
+    public void Delete(AutoPunishment autoPunishment) {
+      var entity = new AutoPunishmentEntity();
+      autoPunishment.CopyTo(entity);
+      _entities.Remove(entity);
+    }
+
     public void Update(AutoPunishment autoPunishment) {
       var entity = _single(autoPunishment.Id);
       autoPunishment.CopyTo(entity);
@@ -31,5 +37,11 @@ namespace Bot.Repository {
 
     public IList<AutoPunishment> GetAllWithUser =>
       _entities.Include(e => e.PunishedUsers).ToList().Select(e => new AutoPunishment(e)).ToList();
+
+    public AutoPunishment Get(string term, AutoPunishmentType type) {
+      var entity = _entities.FirstOrDefault(e => e.Term == term && e.Type == type);
+      return entity == null ? null : new AutoPunishment(entity);
+    }
+
   }
 }
