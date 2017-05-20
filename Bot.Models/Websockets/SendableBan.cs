@@ -6,7 +6,7 @@ namespace Bot.Models.Websockets {
     public SendableBan(string victim, bool isIpBan, TimeSpan duration, bool isPermanent, string reason) {
       Nick = victim;
       BanIp = isIpBan;
-      Reason = reason;
+      Reason = string.IsNullOrWhiteSpace(reason) ? "Unspecified reason" : reason;
       Duration = ((ulong) duration.TotalMilliseconds) * 1000000UL;
       IsPermanent = isPermanent;
     }

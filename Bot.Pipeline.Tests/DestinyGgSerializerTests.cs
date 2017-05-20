@@ -15,7 +15,7 @@ namespace Bot.Pipeline.Tests {
       var container = new TestContainerManager().Container;
       var sendableBan = new SendableBan(new Civilian("User"), TimeSpan.MaxValue);
       var destinyGgSerializer = container.GetInstance<DestinyGgSerializer>();
-      var expected = @"BAN {""Nick"":""User"",""IsPermanent"":true,""Reason"":null}";
+      var expected = @"BAN {""Nick"":""User"",""IsPermanent"":true,""Reason"":""Unspecified reason""}";
 
       var serialized = destinyGgSerializer.Create(sendableBan.Wrap().ToList());
 
@@ -27,7 +27,7 @@ namespace Bot.Pipeline.Tests {
       var container = new TestContainerManager().Container;
       var sendableBan = new SendableBan(new Civilian("User"), TimeSpan.FromSeconds(1));
       var destinyGgSerializer = container.GetInstance<DestinyGgSerializer>();
-      var expected = @"BAN {""Nick"":""User"",""Duration"":1000000000,""Reason"":null}";
+      var expected = @"BAN {""Nick"":""User"",""Duration"":1000000000,""Reason"":""Unspecified reason""}";
 
       var serialized = destinyGgSerializer.Create(sendableBan.Wrap().ToList());
 
@@ -39,7 +39,7 @@ namespace Bot.Pipeline.Tests {
       var container = new TestContainerManager().Container;
       var sendableBan = new SendableIpban(new Civilian("User"), TimeSpan.MaxValue);
       var destinyGgSerializer = container.GetInstance<DestinyGgSerializer>();
-      var expected = @"BAN {""Nick"":""User"",""BanIp"":true,""IsPermanent"":true,""Reason"":null}";
+      var expected = @"BAN {""Nick"":""User"",""BanIp"":true,""IsPermanent"":true,""Reason"":""Unspecified reason""}";
 
       var serialized = destinyGgSerializer.Create(sendableBan.Wrap().ToList());
 
@@ -51,7 +51,7 @@ namespace Bot.Pipeline.Tests {
       var container = new TestContainerManager().Container;
       var sendableBan = new SendableIpban(new Civilian("User"), TimeSpan.FromSeconds(1));
       var destinyGgSerializer = container.GetInstance<DestinyGgSerializer>();
-      var expected = @"BAN {""Nick"":""User"",""Duration"":1000000000,""BanIp"":true,""Reason"":null}";
+      var expected = @"BAN {""Nick"":""User"",""Duration"":1000000000,""BanIp"":true,""Reason"":""Unspecified reason""}";
 
       var serialized = destinyGgSerializer.Create(sendableBan.Wrap().ToList());
 
