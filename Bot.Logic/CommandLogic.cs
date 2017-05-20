@@ -18,15 +18,15 @@ namespace Bot.Logic {
     private readonly IDownloadMapper _downloadMapper;
     private readonly ILogger _logger;
     private readonly ITwitterManager _twitterManager;
-    private readonly IStreamStateService _streamStateService;
+    private readonly IProvider<IStreamStateService> _streamStateServiceProvider;
     private readonly ISettings _settings;
 
-    public CommandLogic(ITimeService timeService, IDownloadMapper downloadMapper, ILogger logger, ITwitterManager twitterManager, IStreamStateService streamStateService, ISettings settings) {
+    public CommandLogic(ITimeService timeService, IDownloadMapper downloadMapper, ILogger logger, ITwitterManager twitterManager, IProvider<IStreamStateService> streamStateServiceProvider, ISettings settings) {
       _timeService = timeService;
       _downloadMapper = downloadMapper;
       _logger = logger;
       _twitterManager = twitterManager;
-      _streamStateService = streamStateService;
+      _streamStateServiceProvider = streamStateServiceProvider;
       _settings = settings;
     }
 
@@ -94,7 +94,7 @@ namespace Bot.Logic {
     }
 
     public IEnumerable<ISendable<PublicMessage>> Live() {
-      var status = _streamStateService.Get();
+      var status = _streamStateServiceProvider.Get().Get();
       switch (status.StreamStatus) {
         case StreamStatus.On: {
             var delta = _timeService.UtcNow - status.LatestStreamOnTime;

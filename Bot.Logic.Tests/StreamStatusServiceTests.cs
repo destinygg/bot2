@@ -31,7 +31,7 @@ namespace Bot.Logic.Tests {
         var urlJsonParserRegistration = Lifestyle.Singleton.CreateRegistration(() => urlJsonParser, c);
         c.RegisterConditional(typeof(IGenericClassFactory<string, string, string>), urlJsonParserRegistration, _ => true);
       }).InitializeAndIsolateRepository();
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       var status = streamStatusService.Get().StreamStatus;
 
@@ -46,7 +46,7 @@ namespace Bot.Logic.Tests {
         var urlJsonParserRegistration = Lifestyle.Singleton.CreateRegistration(() => urlJsonParser, c);
         c.RegisterConditional(typeof(IGenericClassFactory<string, string, string>), urlJsonParserRegistration, _ => true);
       }).InitializeAndIsolateRepository();
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       var status = streamStatusService.Get().StreamStatus;
 
@@ -86,7 +86,7 @@ namespace Bot.Logic.Tests {
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on);
       var container = _getContainer(timeService, urlJsonParser);
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       Assert.AreEqual(StreamStatus.Off, streamStatusService.Get().StreamStatus);
       Assert.AreEqual(StreamStatus.On, streamStatusService.Get().StreamStatus);
@@ -105,7 +105,7 @@ namespace Bot.Logic.Tests {
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off);
       var container = _getContainer(timeService, urlJsonParser);
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       Assert.AreEqual(StreamStatus.Off, streamStatusService.Get().StreamStatus);
       Assert.AreEqual(StreamStatus.On, streamStatusService.Get().StreamStatus);
@@ -127,7 +127,7 @@ namespace Bot.Logic.Tests {
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _off);
       var container = _getContainer(timeService, urlJsonParser);
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       Assert.AreEqual(StreamStatus.Off, streamStatusService.Get().StreamStatus);
       Assert.AreEqual(StreamStatus.On, streamStatusService.Get().StreamStatus);
@@ -150,7 +150,7 @@ namespace Bot.Logic.Tests {
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _off, _off);
       var container = _getContainer(timeService, urlJsonParser);
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       Assert.AreEqual(StreamStatus.Off, streamStatusService.Get().StreamStatus);
       Assert.AreEqual(StreamStatus.On, streamStatusService.Get().StreamStatus);
@@ -174,7 +174,7 @@ namespace Bot.Logic.Tests {
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _off, _off, _on);
       var container = _getContainer(timeService, urlJsonParser);
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       Assert.AreEqual(StreamStatus.Off, streamStatusService.Get().StreamStatus);
       Assert.AreEqual(StreamStatus.On, streamStatusService.Get().StreamStatus);
@@ -199,7 +199,7 @@ namespace Bot.Logic.Tests {
       var urlJsonParser = Substitute.For<IGenericClassFactory<string, string, string>>();
       urlJsonParser.Create<TwitchStreamStatus.RootObject>(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(_off, _on, _off, _on);
       var container = _getContainer(timeService, urlJsonParser);
-      var streamStatusService = container.GetInstance<IStreamStateService>();
+      var streamStatusService = container.GetInstance<IProvider<IStreamStateService>>().Get();
 
       Assert.AreEqual(StreamStatus.Off, streamStatusService.Get().StreamStatus);
       Assert.AreEqual(StreamStatus.On, streamStatusService.Get().StreamStatus);

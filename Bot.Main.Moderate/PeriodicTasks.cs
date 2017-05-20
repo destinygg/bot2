@@ -13,7 +13,7 @@ using Bot.Tools.Logging;
 namespace Bot.Main.Moderate {
   public class PeriodicTasks {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
-    private readonly IStreamStateService _streamStateService;
+    private readonly IProvider<IStreamStateService> _streamStateServiceProvider;
     private readonly IDownloadMapper _downloadMapper;
     private readonly ISettings _settings;
     private readonly IFactory<TimeSpan, Action, Task> _periodicTaskFactory;
@@ -23,7 +23,7 @@ namespace Bot.Main.Moderate {
     public PeriodicTasks(
       IQueryCommandService<IUnitOfWork> unitOfWork,
       IFactory<TimeSpan, Action, Task> periodicTaskFactory,
-      IStreamStateService streamStateService,
+      IProvider<IStreamStateService> streamStateServiceProvider,
       IDownloadMapper downloadMapper,
       ISettings settings,
       IPipeline pipeline,
@@ -31,7 +31,7 @@ namespace Bot.Main.Moderate {
       _periodicTaskFactory = periodicTaskFactory;
       _pipeline = pipeline;
       _unitOfWork = unitOfWork;
-      _streamStateService = streamStateService;
+      _streamStateServiceProvider = streamStateServiceProvider;
       _downloadMapper = downloadMapper;
       _settings = settings;
       _logger = logger;
@@ -71,7 +71,7 @@ namespace Bot.Main.Moderate {
     }
 
     private void RefreshStreamStatus(IFactory<TimeSpan, Action, Task> periodicTaskFactory) =>
-      periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStateService.Get());
+      periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStateServiceProvider.Get().Get());
 
   }
 }
