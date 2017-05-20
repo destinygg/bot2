@@ -20,5 +20,7 @@ namespace Bot.Logic.SendableVisitor {
     public string Visit(ISendable<Mute> mute) => $"Mute -> {mute.Transmission.Target} for {mute.Transmission.Duration.ToPretty(_logger)} Reason: {mute.Transmission.Reason}";
 
     public string Visit(ISendable<Ban> ban) => $"Ban -> {ban.Transmission.Target} for {ban.Transmission.Duration.ToPretty(_logger)} Reason: {ban.Transmission.Reason}";
+
+    public string Visit(ISendable<Ipban> ipban) => $"Ipban -> {ipban.Transmission.Target} for {ipban.Transmission.Duration.ToPretty(_logger)} Reason: {ipban.Transmission.Reason}";
   }
 }

@@ -5,6 +5,7 @@ namespace Bot.Models.Interfaces {
     : IVisitor<ISendable<PublicMessage>, TResult>
     , IVisitor<ISendable<ErrorMessage>, TResult>
     , IVisitor<ISendable<Pardon>, TResult>
+    , IVisitor<ISendable<Ipban>, TResult>
     , IVisitor<ISendable<Mute>, TResult>
     , IVisitor<ISendable<Ban>, TResult> {
 

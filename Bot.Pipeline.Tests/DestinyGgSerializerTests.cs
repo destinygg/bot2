@@ -34,5 +34,29 @@ namespace Bot.Pipeline.Tests {
       Assert.AreEqual(expected, serialized.Single());
     }
 
+    [TestMethod]
+    public void DestinyGgSerializer_IpbanMaxDuration_ParsesProperly() {
+      var container = new TestContainerManager().Container;
+      var sendableBan = new SendableIpban(new Civilian("User"), TimeSpan.MaxValue);
+      var destinyGgSerializer = container.GetInstance<DestinyGgSerializer>();
+      var expected = @"BAN {""Nick"":""User"",""BanIp"":true,""IsPermanent"":true,""Reason"":null}";
+
+      var serialized = destinyGgSerializer.Create(sendableBan.Wrap().ToList());
+
+      Assert.AreEqual(expected, serialized.Single());
+    }
+
+    [TestMethod]
+    public void DestinyGgSerializer_IpbanSomeDuration_ParsesProperly() {
+      var container = new TestContainerManager().Container;
+      var sendableBan = new SendableIpban(new Civilian("User"), TimeSpan.FromSeconds(1));
+      var destinyGgSerializer = container.GetInstance<DestinyGgSerializer>();
+      var expected = @"BAN {""Nick"":""User"",""Duration"":1000000000,""BanIp"":true,""Reason"":null}";
+
+      var serialized = destinyGgSerializer.Create(sendableBan.Wrap().ToList());
+
+      Assert.AreEqual(expected, serialized.Single());
+    }
+
   }
 }

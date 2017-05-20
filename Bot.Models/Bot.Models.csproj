@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoPunishment.cs" />
+    <Compile Include="Ipban.cs" />
     <Compile Include="Civilian.cs" />
     <Compile Include="CustomCommand.cs" />
     <Compile Include="ErrorMessage.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Received\ReceivedQuit.cs" />
     <Compile Include="Received\ReceivedJoin.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
+    <Compile Include="Sendable\SendableIpban.cs" />
     <Compile Include="Sendable\SendableError.cs" />
     <Compile Include="Sendable\SendableBan.cs" />
     <Compile Include="Snapshot\ErrorSnapshot.cs" />
