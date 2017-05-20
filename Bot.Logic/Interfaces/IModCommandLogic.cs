@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bot.Models;
 using Bot.Models.Interfaces;
 
@@ -11,5 +12,9 @@ namespace Bot.Logic.Interfaces {
     IReadOnlyList<ISendable<ITransmittable>> AddCommand(string command, string response);
     IReadOnlyList<ISendable<ITransmittable>> DelCommand(string command);
     IReadOnlyList<ISendable<ITransmittable>> Stalk(string user);
+    IReadOnlyList<ISendable<ITransmittable>> Ipban(string nick, TimeSpan duration);
+    IReadOnlyList<ISendable<ITransmittable>> Ban(string nick, TimeSpan duration);
+    IReadOnlyList<ISendable<ITransmittable>> Mute(string nick, TimeSpan duration);
+    IReadOnlyList<ISendable<ITransmittable>> Pardon(string nick);
   }
 }

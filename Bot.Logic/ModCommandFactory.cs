@@ -46,6 +46,22 @@ namespace Bot.Logic {
         var user = _modCommandParser.Stalk(message.Transmission.Text);
         return _modCommandLogic.Stalk(user);
       }
+      if (message.IsMatch(_modCommandRegex.Ipban)) {
+        var ipbanTuple = _modCommandParser.Ipban(message.Transmission.Text);
+        return _modCommandLogic.Ipban(ipbanTuple.Item1, ipbanTuple.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.Ban)) {
+        var banTuple = _modCommandParser.Ban(message.Transmission.Text);
+        return _modCommandLogic.Ban(banTuple.Item1, banTuple.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.Mute)) {
+        var muteTuple = _modCommandParser.Mute(message.Transmission.Text);
+        return _modCommandLogic.Mute(muteTuple.Item1, muteTuple.Item2);
+      }
+      if (message.IsMatch(_modCommandRegex.Pardon)) {
+        var nick = _modCommandParser.Pardon(message.Transmission.Text);
+        return _modCommandLogic.Pardon(nick);
+      }
 
       return new List<ISendable<ITransmittable>>();
     }

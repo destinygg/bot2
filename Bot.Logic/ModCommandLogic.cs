@@ -119,5 +119,15 @@ namespace Bot.Logic {
       return output;
     }
 
+    // todo make it handle cases where reasons are given
+
+    public IReadOnlyList<ISendable<ITransmittable>> Ipban(string nick, TimeSpan duration) => new SendableIpban(nick, duration).Wrap().ToList();
+
+    public IReadOnlyList<ISendable<ITransmittable>> Ban(string nick, TimeSpan duration) => new SendableBan(nick, duration).Wrap().ToList();
+
+    public IReadOnlyList<ISendable<ITransmittable>> Mute(string nick, TimeSpan duration) => new SendableMute(nick, duration).Wrap().ToList();
+
+    public IReadOnlyList<ISendable<ITransmittable>> Pardon(string nick) => new SendablePardon(new Civilian(nick)).Wrap().ToList();
+
   }
 }
