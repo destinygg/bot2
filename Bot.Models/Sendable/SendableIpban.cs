@@ -5,13 +5,12 @@ using Bot.Models.Websockets;
 namespace Bot.Models.Sendable {
   public class SendableIpban : ISendable<Ipban> {
 
-    public SendableIpban(Civilian target, TimeSpan duration) {
-      Transmission = new Ipban(target, duration);
-    }
-
-    public SendableIpban(Civilian target, TimeSpan duration, string reason) {
+    public SendableIpban(Civilian target, TimeSpan duration, string reason = null) {
       Transmission = new Ipban(target, duration, reason);
     }
+
+    public SendableIpban(string target, TimeSpan duration, string reason = null) :
+      this(new Civilian(target), duration, reason) { }
 
     public Ipban Transmission { get; }
     public IUser Target => Transmission.Target;

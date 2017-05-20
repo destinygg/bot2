@@ -5,13 +5,12 @@ using Bot.Models.Websockets;
 namespace Bot.Models.Sendable {
   public class SendableBan : ISendable<Ban> {
 
-    public SendableBan(Civilian target, TimeSpan duration) {
-      Transmission = new Ban(target, duration);
-    }
-
-    public SendableBan(Civilian target, TimeSpan duration, string reason) {
+    public SendableBan(Civilian target, TimeSpan duration, string reason = null) {
       Transmission = new Ban(target, duration, reason);
     }
+
+    public SendableBan(string target, TimeSpan duration, string reason = null) :
+      this(new Civilian(target), duration, reason) { }
 
     public Ban Transmission { get; }
     public IUser Target => Transmission.Target;

@@ -5,13 +5,12 @@ using Bot.Models.Websockets;
 namespace Bot.Models.Sendable {
   public class SendableMute : ISendable<Mute> {
 
-    public SendableMute(Civilian target, TimeSpan duration) {
-      Transmission = new Mute(target, duration);
-    }
-
-    public SendableMute(Civilian target, TimeSpan duration, string reason) {
+    public SendableMute(Civilian target, TimeSpan duration, string reason = null) {
       Transmission = new Mute(target, duration, reason);
     }
+
+    public SendableMute(string target, TimeSpan duration, string reason = null) :
+      this(new Civilian(target), duration, reason) { }
 
     public Mute Transmission { get; }
     public IUser Target => Transmission.Target;

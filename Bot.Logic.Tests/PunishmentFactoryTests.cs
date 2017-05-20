@@ -38,7 +38,7 @@ namespace Bot.Logic.Tests {
     public void PunishmentFactory_OnePunishment_YieldsPunishmentAndMessage() {
       var reason = "A made up reason";
       var inputPunishments = new List<SendableMute> {
-        new SendableMute(new Civilian(""), TimeSpan.FromTicks(1), reason)
+        new SendableMute("", TimeSpan.FromTicks(1), reason)
       };
       var container = GetContainer(inputPunishments);
       var punishmentFactory = container.GetInstance<PunishmentFactory>();
@@ -56,8 +56,8 @@ namespace Bot.Logic.Tests {
       var shortReason = "Short reason";
       var longReason = "Long reason";
       var inputPunishments = new List<SendableMute> {
-        new SendableMute(new Civilian(""), TimeSpan.FromTicks(1), shortReason),
-        new SendableMute(new Civilian(""), TimeSpan.FromDays(1), longReason)
+        new SendableMute("", TimeSpan.FromTicks(1), shortReason),
+        new SendableMute("", TimeSpan.FromDays(1), longReason)
       };
       var container = GetContainer(inputPunishments);
       var punishmentFactory = container.GetInstance<PunishmentFactory>();
@@ -75,8 +75,8 @@ namespace Bot.Logic.Tests {
       var shortReason = "Short reason";
       var longReason = "Long reason";
       var inputPunishments = new List<SendableMute> {
-        new SendableMute(new Civilian(""), TimeSpan.FromDays(1), longReason),
-        new SendableMute(new Civilian(""), TimeSpan.FromTicks(1), shortReason)
+        new SendableMute("", TimeSpan.FromDays(1), longReason),
+        new SendableMute("", TimeSpan.FromTicks(1), shortReason)
       };
       var container = GetContainer(inputPunishments);
       var punishmentFactory = container.GetInstance<PunishmentFactory>();
