@@ -7,7 +7,7 @@ using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 
-namespace Bot.Tests {
+namespace Bot.Pipeline {
   public class PipelineManager : IPipeline {
 
     private readonly TransformBlock<string, IReceived<IUser, ITransmittable>> _parserBlock;
