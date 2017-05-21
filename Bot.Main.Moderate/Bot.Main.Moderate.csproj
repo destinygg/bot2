@@ -207,7 +207,7 @@
     <Compile Include="PeriodicTasks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DestinyGgExecutable.cs" />
+    <Compile Include="ContinuousExecutable.cs" />
     <Compile Include="SampleDataExecutable.cs" />
   </ItemGroup>
   <ItemGroup>

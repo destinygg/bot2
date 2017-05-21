@@ -37,28 +37,28 @@ namespace Bot.Main.Moderate {
       IExecutable executable;
       switch (inputClient) {
         case "dl":
-          executable = new DestinyGgExecutable(false, false, true);
+          executable = new ContinuousExecutable(false, false, true);
           break;
         case "dlt":
-          executable = new DestinyGgExecutable(false, true, true);
+          executable = new ContinuousExecutable(false, true, true);
           break;
         case "ds":
-          executable = new DestinyGgExecutable(true, false, true);
+          executable = new ContinuousExecutable(true, false, true);
           break;
         case "dst":
-          executable = new DestinyGgExecutable(true, true, true);
+          executable = new ContinuousExecutable(true, true, true);
           break;
         case "tl":
-          executable = new DestinyGgExecutable(false, false, false);
+          executable = new ContinuousExecutable(false, false, false);
           break;
         case "tlt":
-          executable = new DestinyGgExecutable(false, true, false);
+          executable = new ContinuousExecutable(false, true, false);
           break;
         case "ts":
-          executable = new DestinyGgExecutable(true, false, false);
+          executable = new ContinuousExecutable(true, false, false);
           break;
         case "tst":
-          executable = new DestinyGgExecutable(true, true, false);
+          executable = new ContinuousExecutable(true, true, false);
           break;
         case "s":
           executable = new SampleDataExecutable();

@@ -11,19 +11,19 @@ using log4net;
 using SimpleInjector;
 
 namespace Bot.Main.Moderate {
-  public class DestinyGgExecutable : IExecutable {
+  public class ContinuousExecutable : IExecutable {
     private readonly bool _canSend;
     private readonly bool _runTwitter;
     private readonly bool _isDestinyGg;
 
-    public DestinyGgExecutable(bool canSend, bool runTwitter, bool isDestinyGg) {
+    public ContinuousExecutable(bool canSend, bool runTwitter, bool isDestinyGg) {
       _canSend = canSend;
       _runTwitter = runTwitter;
       _isDestinyGg = isDestinyGg;
     }
 
     public void Execute() {
-      var logger = LogManager.GetLogger(nameof(DestinyGgExecutable));
+      var logger = LogManager.GetLogger(nameof(ContinuousExecutable));
       logger.Info("Welcome to Bot!");
       logger.Info("Initializing...");
 
@@ -42,7 +42,7 @@ namespace Bot.Main.Moderate {
         }
       }, s => {
         s.SqlitePath = "Bot.sqlite";
-        s.ClientType = nameof(DestinyGgExecutable);
+        s.ClientType = nameof(ContinuousExecutable);
       }).Container;
 
       var pipelineManager = container.GetInstance<IPipelineManager>();
