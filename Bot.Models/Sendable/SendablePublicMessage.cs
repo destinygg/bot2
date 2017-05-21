@@ -12,6 +12,7 @@ namespace Bot.Models.Sendable {
     public string Text => Transmission.Text;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
     public IDggJson Json => new Websockets.SendablePublicMessage(Text);
+    public string Twitch => Text;
     public override string ToString() => $"Sending: {Text}";
   }
 }

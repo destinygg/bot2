@@ -6,5 +6,6 @@ namespace Bot.Models.Interfaces {
     T Transmission { get; }
     TResult Accept<TResult>(ISendableVisitor<TResult> visitor);
     IDggJson Json { get; }
+    string Twitch { get; }
   }
 }

@@ -18,6 +18,7 @@ namespace Bot.Models.Sendable {
     public string Reason => Transmission.Reason;
     public TResult Accept<TResult>(ISendableVisitor<TResult> visitor) => visitor.Visit(this);
     public IDggJson Json => new Websockets.SendableMute(Target.Nick, Duration);
+    public string Twitch => $".timeout {Target} {Duration.TotalSeconds} {Reason}";
     public override string ToString() => Transmission.ToString();
   }
 }
