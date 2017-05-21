@@ -11,15 +11,16 @@ namespace Bot.Pipeline {
     private const int MaximumBackoffTimeInSeconds = 60;
     private readonly ILogger _logger;
     private readonly ITimeService _timeService;
+    private readonly IPipelineManager _pipelineManager;
     private DateTime _lastConnectedAt;
     private int _connectionAttemptedCount;
-    private Action<string> _receiveAction;
 
     protected readonly WebSocket Websocket;
 
-    protected DestinyGgBaseClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService) {
+    protected DestinyGgBaseClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService, IPipelineManager pipelineManager) {
       _logger = logger;
       _timeService = timeService;
+      _pipelineManager = pipelineManager;
       Websocket = new WebSocket("ws://www.destiny.gg:9998/ws");
       Websocket.SetCookie(new Cookie("authtoken", privateConstants.BotWebsocketAuth));
       Websocket.OnMessage += WebsocketMessaged;
@@ -45,16 +46,9 @@ namespace Bot.Pipeline {
       }
     }
 
-    public void Receive(string input) {
-      _logger.LogDebug(input);
-      _receiveAction(input);
-    }
-
-    public void SetReceive(Action<string> receiveAction) => _receiveAction = receiveAction;
-
     public abstract void Send(string data);
 
-    private void WebsocketMessaged(object sender, MessageEventArgs e) => Receive(e.Data);
+    private void WebsocketMessaged(object sender, MessageEventArgs e) => _pipelineManager.Enqueue(e.Data);
 
     private void WebsocketOpened(object sender, EventArgs e) {
       _lastConnectedAt = _timeService.UtcNow;

@@ -34,7 +34,6 @@ namespace Bot.Main.Moderate {
       var client = container.GetInstance<IClient>();
       var twitterManager = container.GetInstance<ITwitterManager>();
       pipelineManager.SetSender(client.Send);
-      client.SetReceive(pipelineManager.Enqueue);
 
       logger.Info("Initialization complete.");
       logger.Info("Running...\r\n\r\n");
