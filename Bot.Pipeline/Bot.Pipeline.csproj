@@ -54,6 +54,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TwitchSerializer.cs" />
+    <Compile Include="TwitchSendingClient.cs" />
+    <Compile Include="TwitchLoggingClient.cs" />
+    <Compile Include="TwitchBaseClient.cs" />
     <Compile Include="DestinyGgSendingClient.cs" />
     <Compile Include="DestinyGgLoggingClient.cs" />
     <Compile Include="DestinyGgBaseClient.cs" />
@@ -67,6 +71,7 @@
     <Compile Include="PipelineManager.cs" />
     <Compile Include="SnapshotFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TwitchMessageParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Logic\Bot.Logic.csproj">
