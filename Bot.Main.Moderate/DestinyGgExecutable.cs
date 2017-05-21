@@ -33,7 +33,6 @@ namespace Bot.Main.Moderate {
       var periodicTasks = container.GetInstance<PeriodicTasks>();
       var client = container.GetInstance<IClient>();
       var twitterManager = container.GetInstance<ITwitterManager>();
-      pipelineManager.SetSender(client.Send);
 
       logger.Info("Initialization complete.");
       logger.Info("Running...\r\n\r\n");

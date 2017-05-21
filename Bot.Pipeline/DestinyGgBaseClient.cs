@@ -21,6 +21,7 @@ namespace Bot.Pipeline {
       _logger = logger;
       _timeService = timeService;
       _pipelineManager = pipelineManager;
+      _pipelineManager.SetSender(Send);
       Websocket = new WebSocket("ws://www.destiny.gg:9998/ws");
       Websocket.SetCookie(new Cookie("authtoken", privateConstants.BotWebsocketAuth));
       Websocket.OnMessage += WebsocketMessaged;
