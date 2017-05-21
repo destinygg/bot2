@@ -26,6 +26,10 @@ namespace Bot.Main.Moderate {
         Console.WriteLine("dlt = destiny.gg - listening and twitter");
         Console.WriteLine("ds  = destiny.gg - sending ");
         Console.WriteLine("dst = destiny.gg - sending and twitter");
+        Console.WriteLine("tl  = twitch     - listening ");
+        Console.WriteLine("tlt = twitch     - listening and twitter");
+        Console.WriteLine("ts  = twitch     - sending ");
+        Console.WriteLine("tst = twitch     - sending and twitter");
         Console.WriteLine("s   = client with sample data");
         inputClient = Console.ReadLine();
       }
@@ -33,16 +37,28 @@ namespace Bot.Main.Moderate {
       IExecutable executable;
       switch (inputClient) {
         case "dl":
-          executable = new DestinyGgExecutable(false, false);
+          executable = new DestinyGgExecutable(false, false, true);
           break;
         case "dlt":
-          executable = new DestinyGgExecutable(false, true);
+          executable = new DestinyGgExecutable(false, true, true);
           break;
         case "ds":
-          executable = new DestinyGgExecutable(true, false);
+          executable = new DestinyGgExecutable(true, false, true);
           break;
         case "dst":
-          executable = new DestinyGgExecutable(true, true);
+          executable = new DestinyGgExecutable(true, true, true);
+          break;
+        case "tl":
+          executable = new DestinyGgExecutable(false, false, false);
+          break;
+        case "tlt":
+          executable = new DestinyGgExecutable(false, true, false);
+          break;
+        case "ts":
+          executable = new DestinyGgExecutable(true, false, false);
+          break;
+        case "tst":
+          executable = new DestinyGgExecutable(true, true, false);
           break;
         case "s":
           executable = new SampleDataExecutable();
