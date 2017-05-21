@@ -21,6 +21,7 @@ using CoreTweet;
 using CoreTweet.Streaming;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
+using TwitchLib.Models.Client;
 
 namespace Bot.Main.Moderate {
   public class ContainerManager {
@@ -65,6 +66,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>();
       _container.RegisterSingleton<IPipelineManager, PipelineManager>();
       _container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
+      _container.RegisterConditional<IFactory<ChatMessage, IReceived<IUser, ITransmittable>>, TwitchMessageParser>(Lifestyle.Singleton, c => !c.Handled);
 
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
       _container.RegisterSingleton<ISettings, Settings>();
