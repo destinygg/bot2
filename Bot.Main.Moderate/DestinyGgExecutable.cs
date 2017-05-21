@@ -29,25 +29,25 @@ namespace Bot.Main.Moderate {
         s.ClientType = nameof(DestinyGgExecutable);
       }).Container;
 
-      var pipeline = container.GetInstance<IPipeline>();
+      var pipelineManager = container.GetInstance<IPipelineManager>();
       var periodicTasks = container.GetInstance<PeriodicTasks>();
       var client = container.GetInstance<IClient>();
       var twitterManager = container.GetInstance<ITwitterManager>();
-      pipeline.SetSender(client.Send);
-      client.SetReceive(pipeline.Enqueue);
+      pipelineManager.SetSender(client.Send);
+      client.SetReceive(pipelineManager.Enqueue);
 
       logger.Info("Initialization complete.");
       logger.Info("Running...\r\n\r\n");
 
       client.Connect();
       periodicTasks.Run();
-      if (_runTwitter) twitterManager.MonitorNewTweets(pipeline.Enqueue);
+      if (_runTwitter) twitterManager.MonitorNewTweets(pipelineManager.Enqueue);
 
       var r = container.GetInstance<ReceivedFactory>();
       while (true) {
         var line = Console.ReadLine();
         var message = r.ModPublicReceivedMessage(line);
-        pipeline.Enqueue(message);
+        pipelineManager.Enqueue(message);
       }
     }
 

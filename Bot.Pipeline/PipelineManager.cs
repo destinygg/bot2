@@ -8,7 +8,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 
 namespace Bot.Pipeline {
-  public class PipelineManager : IPipeline {
+  public class PipelineManager : IPipelineManager {
 
     private readonly TransformBlock<string, IReceived<IUser, ITransmittable>> _parserBlock;
     private readonly TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> _snapshotFactoryBlock;

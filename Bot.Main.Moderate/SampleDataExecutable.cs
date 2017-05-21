@@ -17,7 +17,7 @@ namespace Bot.Main.Moderate {
         configureSettings: s => s.ClientType = nameof(SampleDataExecutable)
         ).InitializeAndIsolateRepository();
       var factory = container.GetInstance<ReceivedFactory>();
-      var pipeline = container.GetInstance<IPipeline>();
+      var pipelineManager = container.GetInstance<IPipelineManager>();
       var periodicTasks = container.GetInstance<PeriodicTasks>();
 
       logger.Info("Initialization complete.");
@@ -34,7 +34,7 @@ namespace Bot.Main.Moderate {
 
       data.ForEach(x => {
         Task.Delay(100).Wait();
-        pipeline.Enqueue(x);
+        pipelineManager.Enqueue(x);
       });
       periodicTasks.Run();
     }

@@ -22,14 +22,14 @@ namespace Bot.Pipeline.Tests {
           container.RegisterConditional(typeof(ILogger), settingsServiceRegistration, pc => !pc.Handled);
         });
       var factory = containerManager.Container.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.Container.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.Container.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!long"),
         factory.ModPublicReceivedMessage("!long"),
         factory.ModPublicReceivedMessage("!long"),
       };
 
-      data.ForEach(x => pipeline.Enqueue(x));
+      data.ForEach(x => pipelineManager.Enqueue(x));
 
       await Task.Delay(15000);
       var results = testableLogger.Outbox.Where(s => s == "#1" || s == "#2" || s == "#3").ToList();

@@ -14,7 +14,6 @@ using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
 using Bot.Repository;
 using Bot.Repository.Interfaces;
-using Bot.Tests;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
@@ -64,7 +63,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>, SnapshotFactory>();
       _container.RegisterSingleton<IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>, SendableFactory>();
       _container.RegisterSingleton<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>();
-      _container.RegisterSingleton<IPipeline, PipelineManager>();
+      _container.RegisterSingleton<IPipelineManager, PipelineManager>();
       _container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
 
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
@@ -100,6 +99,6 @@ namespace Bot.Main.Moderate {
       _container.Verify();
     }
 
-    public IPipeline Pipeline => _container.GetInstance<PipelineManager>();
+    public IPipelineManager PipelineManager => _container.GetInstance<IPipelineManager>();
   }
 }

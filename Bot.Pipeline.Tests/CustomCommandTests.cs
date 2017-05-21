@@ -26,12 +26,12 @@ namespace Bot.Pipeline.Tests {
       return containerManager;
     }
 
-    private void Run(List<IReceived<IUser, ITransmittable>> data, IPipeline pipeline, TestableSerializer sender) {
+    private void Run(List<IReceived<IUser, ITransmittable>> data, IPipelineManager pipelineManager, TestableSerializer sender) {
       Task.Delay(1000).Wait();
 
       data.ForEach(x => {
         Task.Delay(1000).Wait();
-        pipeline.Enqueue(x);
+        pipelineManager.Enqueue(x);
       });
 
       Task.Delay(1000).Wait();
@@ -45,13 +45,13 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = CreateContainer(sender);
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!addcommand !hi greetings"),
         factory.PublicReceivedMessage("!hi"),
       };
 
-      Run(data, pipeline, sender);
+      Run(data, pipelineManager, sender);
 
       Assert.IsTrue(sender.Outbox.Cast<SendablePublicMessage>().First().Text == "!hi added");
       Assert.IsTrue(sender.Outbox.Cast<SendablePublicMessage>().Skip(1).First().Text == "greetings");
@@ -62,13 +62,13 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = CreateContainer(sender);
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!addcommand !hi greetings"),
         factory.PublicReceivedMessage("! hi"),
       };
 
-      Run(data, pipeline, sender);
+      Run(data, pipelineManager, sender);
 
       Assert.IsTrue(sender.Outbox.Cast<SendablePublicMessage>().First().Text == "!hi added");
       Assert.IsTrue(sender.Outbox.Cast<SendablePublicMessage>().Skip(1).First().Text == "greetings");
@@ -79,7 +79,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = CreateContainer(sender);
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!addcommand !hi greetings"),
         factory.PublicReceivedMessage("!hi"),
@@ -87,7 +87,7 @@ namespace Bot.Pipeline.Tests {
         factory.PublicReceivedMessage("!hi"),
       };
 
-      Run(data, pipeline, sender);
+      Run(data, pipelineManager, sender);
 
       Assert.AreEqual("!hi added", sender.Outbox.Cast<SendablePublicMessage>().First().Text);
       Assert.AreEqual("greetings", sender.Outbox.Cast<SendablePublicMessage>().Skip(1).First().Text);
@@ -100,7 +100,7 @@ namespace Bot.Pipeline.Tests {
       var sender = new TestableSerializer();
       var containerManager = CreateContainer(sender);
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!rules"),
         factory.ModPublicReceivedMessage("!delcommand !rules"),
@@ -109,7 +109,7 @@ namespace Bot.Pipeline.Tests {
         factory.ModPublicReceivedMessage("!rules"),
       };
 
-      Run(data, pipeline, sender);
+      Run(data, pipelineManager, sender);
 
       Assert.AreEqual("github.com/destinygg/bot2", sender.Outbox.Cast<SendablePublicMessage>().First().Text);
       Assert.AreEqual("!rules removed", sender.Outbox.Cast<SendablePublicMessage>().Skip(1).First().Text);

@@ -28,7 +28,7 @@ namespace Bot.Pipeline.Tests {
         container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!nuke burrito"),
         factory.PublicReceivedMessage("User01","burrito"),
@@ -62,7 +62,7 @@ namespace Bot.Pipeline.Tests {
       enqueueStopwatch.Start();
       outputStopwatch.Start();
       data.ForEach(x => {
-        pipeline.Enqueue(x);
+        pipelineManager.Enqueue(x);
       });
       enqueueStopwatch.Stop();
 

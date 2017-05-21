@@ -24,7 +24,7 @@ namespace Bot.Pipeline.Tests {
         container.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!nuke banplox"),
         factory.PublicReceivedMessage("User", "banplox"),
@@ -33,7 +33,7 @@ namespace Bot.Pipeline.Tests {
 
       data.ForEach(x => {
         Task.Delay(1000).Wait();
-        pipeline.Enqueue(x);
+        pipelineManager.Enqueue(x);
       });
 
       Task.Delay(1000).Wait();
@@ -50,7 +50,7 @@ namespace Bot.Pipeline.Tests {
         settings.NukeMaximumLinger = TimeSpan.FromSeconds(5);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var timeService = containerManager.GetInstance<ITimeService>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!nuke !time"),
@@ -69,7 +69,7 @@ namespace Bot.Pipeline.Tests {
 
       data.ForEach(x => {
         Task.Delay(1000).Wait();
-        pipeline.Enqueue(x);
+        pipelineManager.Enqueue(x);
       });
 
       Task.Delay(1000).Wait();
@@ -90,7 +90,7 @@ namespace Bot.Pipeline.Tests {
         container.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
       }).InitializeAndIsolateRepository();
       var factory = containerManager.GetInstance<ReceivedFactory>();
-      var pipeline = containerManager.GetInstance<IPipeline>();
+      var pipelineManager = containerManager.GetInstance<IPipelineManager>();
       var data = new List<IReceived<IUser, ITransmittable>> {
         factory.ModPublicReceivedMessage("!nuke !time"),
         factory.PublicReceivedMessage("User01","!time"),
@@ -109,7 +109,7 @@ namespace Bot.Pipeline.Tests {
 
       data.ForEach(x => {
         Task.Delay(1000).Wait();
-        pipeline.Enqueue(x);
+        pipelineManager.Enqueue(x);
       });
 
       Task.Delay(1000).Wait();

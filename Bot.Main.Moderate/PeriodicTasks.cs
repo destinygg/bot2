@@ -17,7 +17,7 @@ namespace Bot.Main.Moderate {
     private readonly IDownloadMapper _downloadMapper;
     private readonly ISettings _settings;
     private readonly IFactory<TimeSpan, Action, Task> _periodicTaskFactory;
-    private readonly IPipeline _pipeline;
+    private readonly IPipelineManager _pipelineManager;
     private readonly ILogger _logger;
 
     public PeriodicTasks(
@@ -26,10 +26,10 @@ namespace Bot.Main.Moderate {
       IProvider<IStreamStateService> streamStateServiceProvider,
       IDownloadMapper downloadMapper,
       ISettings settings,
-      IPipeline pipeline,
+      IPipelineManager pipelineManager,
       ILogger logger) {
       _periodicTaskFactory = periodicTaskFactory;
-      _pipeline = pipeline;
+      _pipelineManager = pipelineManager;
       _unitOfWork = unitOfWork;
       _streamStateServiceProvider = streamStateServiceProvider;
       _downloadMapper = downloadMapper;
@@ -47,7 +47,7 @@ namespace Bot.Main.Moderate {
       var messageCount = PeriodicMessages().Count();
       var i = rng.Next(messageCount);
       periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => {
-        _pipeline.Enqueue(new SendablePublicMessage(PeriodicMessages().Skip(i).First()));
+        _pipelineManager.Enqueue(new SendablePublicMessage(PeriodicMessages().Skip(i).First()));
         i++;
         if (i >= messageCount) {
           i = 0;
