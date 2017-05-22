@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Bot.Logic.Interfaces;
 using Bot.Logic.Tests.Helper;
 using Bot.Models;
 using Bot.Models.Interfaces;
@@ -113,6 +113,43 @@ namespace Bot.Logic.Tests {
 
       var aegisedUsers = aegisResults.OfType<SendablePardon>().Select(umb => umb.Target);
       _messagesContainingAndSimilarToNukedWord.VerifyTargeted(aegisedUsers);
+    }
+
+    [TestMethod]
+    public void Nuke_SameUserSameTwoMessages_OneMute() {
+      var nick = "MyNick";
+      var nukedText = "nuked words";
+      var nukeTimestamp = new DateTime(2000, 1, 1, 0, 10, 0);
+      var container = NukeHelper.GetContainer(nukeTimestamp, TimeSpan.FromMinutes(10));
+      var receivedFactory = container.GetInstance<ReceivedFactory>();
+      var logic = container.GetInstance<ModCommandLogic>();
+      var nukeableMessage1 = receivedFactory.PublicReceivedMessage(nick, nukedText);
+      var nukeableMessage2 = receivedFactory.PublicReceivedMessage(nick, nukedText);
+      var context = new List<IReceived<IUser, ITransmittable>> { nukeableMessage1, nukeableMessage2 };
+      var nukeFactory = container.GetInstance<IFactory<IReceived<Moderator, IMessage>, Nuke>>();
+      var nuke = nukeFactory.Create(receivedFactory.ModPublicReceivedMessage($"!nuke10m {nukedText}"));
+
+      var mutes = logic.Nuke(context, nuke);
+
+      Assert.AreEqual(1, mutes.Count);
+    }
+
+    [TestMethod]
+    public void Aegis_SameUserSameTwoMessages_OneMute() {
+      var nick = "MyNick";
+      var nukedText = "nuked words";
+      var nukeTimestamp = new DateTime(2000, 1, 1, 0, 10, 0);
+      var container = NukeHelper.GetContainer(nukeTimestamp, TimeSpan.FromMinutes(10));
+      var logic = container.GetInstance<ModCommandLogic>();
+      var receivedFactory = container.GetInstance<ReceivedFactory>();
+      var nukeableMessage1 = receivedFactory.PublicReceivedMessage(nick, nukedText);
+      var nukeableMessage2 = receivedFactory.PublicReceivedMessage(nick, nukedText);
+      var nuke = receivedFactory.ModPublicReceivedMessage($"!nuke10m {nukedText}");
+      var context = new List<IReceived<IUser, ITransmittable>> { nukeableMessage1, nukeableMessage2, nuke };
+
+      var pardons = logic.Aegis(context);
+
+      Assert.AreEqual(1, pardons.Count);
     }
 
   }

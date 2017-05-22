@@ -19,7 +19,7 @@ namespace Bot.Logic {
       .OfType<IReceived<Civilian, PublicMessage>>()
       .Where(m => WillPunish(nuke, m))
       .Select(m => m.Sender)
-      .Distinct();
+      .DistinctBy(c => c.Nick);
 
     private bool WillPunish(Nuke nuke, IReceived<Civilian, PublicMessage> message) =>
       nuke.MatchesNukedTerm(message.Transmission.Text) &&
