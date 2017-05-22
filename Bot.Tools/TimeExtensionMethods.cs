@@ -18,7 +18,9 @@ namespace Bot.Tools {
       var minute = Convert.ToInt32(span.ToString("%m"));
 
       if (span.CompareTo(TimeSpan.Zero) == -1) {
-        logger.LogWarning($"Time to sync the clock?{span}");
+        var warning = $"Time to sync the clock? Duration: {span}, or total minutes: {span.TotalMinutes}\r\n" +
+                      $"StackTrace: {Environment.StackTrace}";
+        logger.LogWarning(warning);
         return "a few seconds";
       }
 

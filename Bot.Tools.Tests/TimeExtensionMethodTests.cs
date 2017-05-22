@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bot.Pipeline.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Tools.Tests {
@@ -103,6 +104,16 @@ namespace Bot.Tools.Tests {
       }
 
       CollectionAssert.AreEqual(expectedAnswer, actualAnswer);
+    }
+
+    [TestMethod]
+    public void TimeExtensionMethod_NegativePrettyDeltaTime_LogsWarningWithCallingMethod() {
+      var timespan = TimeSpan.FromMinutes(-1);
+      var logger = new TestableLogger();
+
+      timespan.ToPretty(logger);
+
+      Assert.IsTrue(logger.Outbox.First().Contains(nameof(TimeExtensionMethod_NegativePrettyDeltaTime_LogsWarningWithCallingMethod)));
     }
   }
 }
