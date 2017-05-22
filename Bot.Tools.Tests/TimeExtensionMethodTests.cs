@@ -9,33 +9,27 @@ namespace Bot.Tools.Tests {
   public class TimeExtensionMethodTests {
 
     [TestMethod]
-    public void ToUnixTime_year2k() {
-      // Arrange
+    public void TimeExtensionMethod_ToUnixTime_year2k() {
       var year2K = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
       var expected = 946684800L;
 
-      // Act
       var actual = year2K.ToUnixTime();
 
-      // Assert
       Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
-    public void FromUnixTime_year2k() {
-      // Arrange
+    public void TimeExtensionMethod_FromUnixTime_year2k() {
       var year2K = 946684800L;
       var expected = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-      // Act
       var actual = year2K.FromUnixTime();
 
-      // Assert
       Assert.AreEqual(expected, actual);
     }
 
     [TestMethod]
-    public void PrettyDeltaTime_HasPrettyOutput() {
+    public void TimeExtensionMethod_PrettyDeltaTime_HasPrettyOutput() {
       var testList = new List<TimeSpan> {
         new TimeSpan(days:50,hours:23,minutes:59,seconds:59),
 
