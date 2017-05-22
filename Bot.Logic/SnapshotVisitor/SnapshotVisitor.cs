@@ -2,6 +2,7 @@
 using System.Linq;
 using Bot.Models;
 using Bot.Models.Interfaces;
+using Bot.Models.Sendable;
 using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
@@ -54,7 +55,7 @@ namespace Bot.Logic.SnapshotVisitor {
 
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, ErrorMessage> snapshot) {
       _logger.LogError(snapshot.Latest.Transmission.Text);
-      return new List<ISendable<ITransmittable>>();
+      return new SendablePublicMessage(snapshot.Latest.Transmission.Text).Wrap().ToList();
     }
 
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, Pardon> snapshot) {
