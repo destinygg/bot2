@@ -12,5 +12,15 @@ namespace Bot.Tools.Interfaces {
       return enumerated.Skip(Math.Max(0, enumerated.Count - n));
     }
 
+    // http://stackoverflow.com/a/1300116
+    public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) {
+      var knownKeys = new HashSet<TKey>();
+      foreach (var element in source) {
+        if (knownKeys.Add(keySelector(element))) {
+          yield return element;
+        }
+      }
+    }
+
   }
 }
