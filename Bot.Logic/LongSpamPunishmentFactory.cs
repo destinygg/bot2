@@ -35,7 +35,7 @@ namespace Bot.Logic {
         .Where(r => r.Transmission.Text.Length >= _settings.LongSpamMinimumLength)
         .Select(r => r.Transmission.Text.SimilarTo(snapshot.Latest.Transmission.Text)).ToList();
       var similarCount = similarValues.Count(p => p > _settings.MinimumPunishmentSimilarity);
-      if (similarCount < 1) {
+      if (snapshot.Latest.Transmission.Text.Length < _settings.LongSpamMinimumLength || similarCount < 1) {
         return new List<ISendable<ITransmittable>>();
       } else {
         var banLength = TimeSpan.FromMinutes((snapshot.Latest.Transmission.Text.Length - _settings.LongSpamMinimumLength) / 10 + 1);

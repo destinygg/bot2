@@ -157,5 +157,24 @@ namespace Bot.Logic.Tests {
       Assert.AreEqual("1m nick: 100% = past text", reason);
     }
 
+    [TestMethod]
+    public void LongSpamPunishmentFactory_LongSpamThenSameSpamButShorter_DoesNotBan() {
+      var nick = "nick";
+      var longSpamMinimumLength = 60;
+      var text1 = TestHelper.RandomString(longSpamMinimumLength);
+      var text2 = text1.Substring(1);
+      Assert.AreEqual(longSpamMinimumLength - 1, text2.Length);
+      var container = GetContainer(longSpamMinimumLength);
+      var snapshotFactory = container.GetInstance<IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>>();
+      var selfSpamPunishmentFactory = container.GetInstance<LongSpamPunishmentFactory>();
+      var receivedFactory = container.GetInstance<ReceivedFactory>();
+      snapshotFactory.Create(receivedFactory.PublicReceivedMessage(nick, text1));
+      var snapshot = (ISnapshot<Civilian, PublicMessage>) snapshotFactory.Create(receivedFactory.PublicReceivedMessage(nick, text2));
+
+      var bans = selfSpamPunishmentFactory.Create(snapshot);
+
+      Assert.IsFalse(bans.Any());
+    }
+
   }
 }
