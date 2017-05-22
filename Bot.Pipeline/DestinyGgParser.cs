@@ -53,6 +53,18 @@ namespace Bot.Pipeline {
               ? (IReceived<IUser, ITransmittable>) new PublicMessageFromMod(message.nick, message.data, GetTimestamp(message.timestamp))
               : (IReceived<IUser, ITransmittable>) new PublicMessageFromCivilian(message.nick, message.data, GetTimestamp(message.timestamp), message.features.All(_isProtected));
           }
+        case "ERR": {
+            switch (json.Trim('"')) {
+              case "notfound":
+              case "nopermission":
+              case "needbanreason":
+                return new ReceivedError($"Server reported error: {json}", _timeService);
+              //case "duplicate":
+              //case "protocolerror":
+              default:
+                throw new NotImplementedException($"{nameof(DestinyGgParser)}'s ERR did not have a case for {json}");
+            }
+          }
         case "REFRESH":
         case "MUTE":
         case "BAN":
