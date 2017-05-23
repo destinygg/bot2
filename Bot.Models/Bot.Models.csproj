@@ -75,10 +75,12 @@
     <Compile Include="PunishedUser.cs" />
     <Compile Include="Punishment.cs" />
     <Compile Include="Mute.cs" />
+    <Compile Include="Received\PrivateMessageFromMod.cs" />
     <Compile Include="Received\ReceivedInitialUsers.cs" />
     <Compile Include="Received\ReceivedFromSystem.cs" />
     <Compile Include="Received\Received.cs" />
     <Compile Include="Received\ReceivedError.cs" />
+    <Compile Include="Received\ReceivedPrivateMessage.cs" />
     <Compile Include="Received\ReceivedQuit.cs" />
     <Compile Include="Received\ReceivedJoin.cs" />
     <Compile Include="Received\ReceivedPublicMessage.cs" />
@@ -90,8 +92,10 @@
     <Compile Include="Snapshot\InitialUsersSnapshot.cs" />
     <Compile Include="Snapshot\PardonSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageFromCivilianSnapshot.cs" />
+    <Compile Include="Snapshot\PrivateMessageFromModSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageFromModSnapshot.cs" />
     <Compile Include="Snapshot\JoinSnapshot.cs" />
+    <Compile Include="Snapshot\PrivateMessageSnapshot.cs" />
     <Compile Include="Snapshot\QuitSnapshot.cs" />
     <Compile Include="Snapshot\PublicMessageSnapshot.cs" />
     <Compile Include="Snapshot\Snapshot.cs" />

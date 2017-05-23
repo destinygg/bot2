@@ -53,6 +53,9 @@ namespace Bot.Logic.SnapshotVisitor {
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, PublicMessage> snapshot) =>
       _modCommandFactory.Create(snapshot).Concat(_commandFactory.Create(snapshot)).ToList();
 
+    public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, PrivateMessage> snapshot) =>
+      _modCommandFactory.Create(snapshot).Concat(_commandFactory.Create(snapshot)).ToList();
+
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, ErrorMessage> snapshot) {
       _logger.LogError(snapshot.Latest.Transmission.Text);
       return new SendablePublicMessage(snapshot.Latest.Transmission.Text).Wrap().ToList();
@@ -66,6 +69,8 @@ namespace Bot.Logic.SnapshotVisitor {
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, InitialUsers> initialUsers) => new List<ISendable<ITransmittable>>();
 
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<IUser, Join> join) => new List<ISendable<ITransmittable>>();
+
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<IUser, Quit> join) => new List<ISendable<ITransmittable>>();
+
   }
 }

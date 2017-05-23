@@ -10,6 +10,9 @@ namespace Bot.Logic.ReceivedVisitor {
     public DelegatedSnapshotFactory Visit(IReceived<Moderator, PublicMessage> message) =>
       new DelegatedSnapshotFactory(context => new PublicMessageFromModSnapshot(message, context));
 
+    public DelegatedSnapshotFactory Visit(IReceived<Moderator, PrivateMessage> message) =>
+      new DelegatedSnapshotFactory(context => new PrivateMessageFromModSnapshot(message, context));
+
     public DelegatedSnapshotFactory Visit(IReceived<Moderator, ErrorMessage> message) =>
       new DelegatedSnapshotFactory(context => new ErrorSnapshot(message, context));
 
@@ -24,5 +27,6 @@ namespace Bot.Logic.ReceivedVisitor {
 
     public DelegatedSnapshotFactory Visit(IReceived<IUser, Quit> quit) =>
       new DelegatedSnapshotFactory(context => new QuitSnapshot(quit, context));
+
   }
 }
