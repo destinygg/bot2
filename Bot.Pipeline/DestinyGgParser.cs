@@ -57,6 +57,15 @@ namespace Bot.Pipeline {
               ? (IReceived<IUser, ITransmittable>) new PublicMessageFromMod(message.nick, message.data, GetTimestamp(message.timestamp))
               : (IReceived<IUser, ITransmittable>) new PublicMessageFromCivilian(message.nick, message.data, GetTimestamp(message.timestamp), message.features.All(_isProtected));
           }
+        case "PRIVMSG": {
+            var message = _jsonParser.Create<ReceivedPrivateMessage>(json);
+            return _mods.Contains(message.nick)
+              ? (IReceived<IUser, ITransmittable>) new PrivateMessageFromMod(message.nick, message.data, GetTimestamp(message.timestamp))
+              : (IReceived<IUser, ITransmittable>) null;
+          }
+        case "PRIVMSGSENT": {
+            return null;
+          }
         case "ERR": {
             switch (json.Trim('"')) {
               case "notfound":
