@@ -86,6 +86,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ITwitterStreamingMessageObserver, TwitterStreamingMessageObserver>();
 
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
+      _container.RegisterConditional<IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>>, PublicToPrivateMessageFactory>(Lifestyle.Singleton, c => !c.Handled);
       _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
       _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 

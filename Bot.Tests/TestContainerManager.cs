@@ -99,6 +99,7 @@ namespace Bot.Tests {
       Container.RegisterSingleton<ReceivedFactory>();
 
       Container.RegisterConditional<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>>, PublicToPrivateMessageFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ISendableVisitor<string>, ConsoleSendableVisitor>(Lifestyle.Singleton, c => !c.Handled);
 
