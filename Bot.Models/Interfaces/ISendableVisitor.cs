@@ -3,6 +3,7 @@
 namespace Bot.Models.Interfaces {
   public interface ISendableVisitor<out TResult>
     : IVisitor<ISendable<PublicMessage>, TResult>
+    , IVisitor<ISendable<PrivateMessage>, TResult>
     , IVisitor<ISendable<ErrorMessage>, TResult>
     , IVisitor<ISendable<Pardon>, TResult>
     , IVisitor<ISendable<Ipban>, TResult>

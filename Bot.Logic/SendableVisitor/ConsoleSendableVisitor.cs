@@ -13,6 +13,8 @@ namespace Bot.Logic.SendableVisitor {
 
     public string Visit(ISendable<PublicMessage> publicMessage) => $"PublicMessage -> {publicMessage.Transmission.Text}";
 
+    public string Visit(ISendable<PrivateMessage> privateMessage) => $"PrivateMessage -> {privateMessage.Transmission.Target} {privateMessage.Transmission.Text}";
+
     public string Visit(ISendable<ErrorMessage> error) => $"Error: -> {error.Transmission.Text}";
 
     public string Visit(ISendable<Pardon> pardon) => $"Pardon -> {pardon.Transmission.Target}";
@@ -22,5 +24,6 @@ namespace Bot.Logic.SendableVisitor {
     public string Visit(ISendable<Ban> ban) => $"Ban -> {ban.Transmission.Target} for {ban.Transmission.Duration.ToPretty(_logger)} Reason: {ban.Transmission.Reason}";
 
     public string Visit(ISendable<Ipban> ipban) => $"Ipban -> {ipban.Transmission.Target} for {ipban.Transmission.Duration.ToPretty(_logger)} Reason: {ipban.Transmission.Reason}";
+
   }
 }
