@@ -87,6 +87,7 @@
     <Compile Include="Sendable\SendableIpban.cs" />
     <Compile Include="Sendable\SendableError.cs" />
     <Compile Include="Sendable\SendableBan.cs" />
+    <Compile Include="Sendable\SendablePrivateMessage.cs" />
     <Compile Include="Snapshot\ErrorSnapshot.cs" />
     <Compile Include="Snapshot\MessageSnapshot.cs" />
     <Compile Include="Snapshot\InitialUsersSnapshot.cs" />
@@ -115,11 +116,13 @@
     <Compile Include="User.cs" />
     <Compile Include="Websockets\BanReceiver.cs" />
     <Compile Include="Websockets\IDggJson.cs" />
+    <Compile Include="Websockets\ReceivedPrivateMessage.cs" />
     <Compile Include="Websockets\ReceivedMsg.cs" />
     <Compile Include="Websockets\SendableBan.cs" />
     <Compile Include="Websockets\BroadcastReceiver.cs" />
     <Compile Include="Websockets\ReceivedJoin.cs" />
     <Compile Include="Websockets\MessageReceiver.cs" />
+    <Compile Include="Websockets\SendablePrivateMessage.cs" />
     <Compile Include="Websockets\SendablePublicMessage.cs" />
     <Compile Include="Websockets\MuteReceiver.cs" />
     <Compile Include="Websockets\SendableMute.cs" />
