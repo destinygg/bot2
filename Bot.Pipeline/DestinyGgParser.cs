@@ -15,6 +15,7 @@ namespace Bot.Pipeline {
     private readonly ITimeService _timeService;
     private readonly Func<string, bool> _isProtected = f => f != "protected";
     private readonly Func<string, bool> _isMod = f => f == "bot" || f == "admin" || f == "moderator";
+    private readonly List<string> _mods = new List<string>();
 
     public DestinyGgParser(IGenericClassFactory<string> jsonParser, ITimeService timeService) {
       _jsonParser = jsonParser;
@@ -28,24 +29,27 @@ namespace Bot.Pipeline {
       switch (command) {
         case "NAMES": {
             var receivedNames = _jsonParser.Create<ReceivedNames.RootObject>(json);
-            var mods = receivedNames.users.Where(u => u.features.Any(_isMod)).Select(u => new Moderator(u.nick));
+            var mods = receivedNames.users.Where(u => u.features.Any(_isMod)).Select(u => new Moderator(u.nick)).ToList();
             var civilians = receivedNames.users.Where(u => !u.features.Any(_isMod)).Select(u => new Civilian(u.nick, u.features.All(_isProtected)));
             var initialUsers = new InitialUsers(new List<IUser>().Concat(mods).Concat(civilians));
+            _mods.AddRange(mods.Select(x => x.Nick));
             return new ReceivedInitialUsers(_timeService.UtcNow, initialUsers);
           }
         case "JOIN": {
-            return null;
             var join = _jsonParser.Create<Models.Websockets.ReceivedJoin.RootObject>(json);
-            return join.features.Any(_isMod)
-              ? new Models.Received.ReceivedJoin(new Moderator(join.nick), GetTimestamp(join.timestamp))
-              : new Models.Received.ReceivedJoin(new Civilian(join.nick, join.features.All(_isProtected)), GetTimestamp(join.timestamp));
+            if (join.features.Any(_isMod)) {
+              _mods.Add(join.nick);
+              return new Models.Received.ReceivedJoin(new Moderator(join.nick), GetTimestamp(join.timestamp));
+            }
+            return new Models.Received.ReceivedJoin(new Civilian(join.nick, join.features.All(_isProtected)), GetTimestamp(join.timestamp));
           }
         case "QUIT": {
-            return null;
             var quit = _jsonParser.Create<Models.Websockets.ReceivedQuit.RootObject>(json);
-            return quit.features.Any(_isMod)
-              ? new Models.Received.ReceivedQuit(new Moderator(quit.nick), GetTimestamp(quit.timestamp))
-              : new Models.Received.ReceivedQuit(new Civilian(quit.nick, quit.features.All(_isProtected)), GetTimestamp(quit.timestamp));
+            if (quit.features.Any(_isMod)) {
+              _mods.Remove(quit.nick);
+              return new Models.Received.ReceivedQuit(new Moderator(quit.nick), GetTimestamp(quit.timestamp));
+            }
+            return new Models.Received.ReceivedQuit(new Civilian(quit.nick, quit.features.All(_isProtected)), GetTimestamp(quit.timestamp));
           }
         case "MSG": {
             var message = _jsonParser.Create<ReceivedMsg.RootObject>(json);
