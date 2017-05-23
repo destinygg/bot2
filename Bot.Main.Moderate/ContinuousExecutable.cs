@@ -42,7 +42,7 @@ namespace Bot.Main.Moderate {
         }
       }, s => {
         s.SqlitePath = "Bot.sqlite";
-        s.ClientType = nameof(ContinuousExecutable);
+        s.ClientType = _isDestinyGg ? "DestinyGg" : "Twitch";
       }).Container;
 
       var pipelineManager = container.GetInstance<IPipelineManager>();
