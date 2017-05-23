@@ -13,6 +13,7 @@ namespace Bot.Logic.SnapshotVisitor {
     private readonly IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _modCommandFactory;
     private readonly IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> _punishmentFactory;
     private readonly IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> _commandFactory;
+    private readonly IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>> _publicToPrivateMessageFactory;
     private readonly IQueryCommandService<IUnitOfWork> _repository;
     private readonly ITimeService _timeService;
     private readonly ISettings _settings;
@@ -22,13 +23,16 @@ namespace Bot.Logic.SnapshotVisitor {
       IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> modCommandFactory,
       IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> punishmentFactory,
       IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>> commandFactory,
+      IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>> publicToPrivateMessageFactory,
       IQueryCommandService<IUnitOfWork> repository,
       ITimeService timeService,
       ISettings settings,
-      ILogger logger) {
+      ILogger logger
+    ) {
       _modCommandFactory = modCommandFactory;
       _punishmentFactory = punishmentFactory;
       _commandFactory = commandFactory;
+      _publicToPrivateMessageFactory = publicToPrivateMessageFactory;
       _repository = repository;
       _timeService = timeService;
       _settings = settings;
@@ -54,7 +58,7 @@ namespace Bot.Logic.SnapshotVisitor {
       _modCommandFactory.Create(snapshot).Concat(_commandFactory.Create(snapshot)).ToList();
 
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, PrivateMessage> snapshot) =>
-      _modCommandFactory.Create(snapshot).Concat(_commandFactory.Create(snapshot)).ToList();
+      _modCommandFactory.Create(snapshot).Concat(_commandFactory.Create(snapshot)).Select(s => _publicToPrivateMessageFactory.Create(s, snapshot.Latest.Sender)).ToList();
 
     public IReadOnlyList<ISendable<ITransmittable>> Visit(ISnapshot<Moderator, ErrorMessage> snapshot) {
       _logger.LogError(snapshot.Latest.Transmission.Text);
