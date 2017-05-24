@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bot.Logic;
 using Bot.Logic.Interfaces;
+using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
@@ -60,7 +61,10 @@ namespace Bot.Main.Moderate {
       var r = container.GetInstance<ReceivedFactory>();
       while (true) {
         var line = Console.ReadLine();
-        var message = r.ModPublicReceivedMessage(line);
+        var message = line.StartsWith("~")
+          ? (IReceived<User, ITransmittable>) r.PublicReceivedMessage(line.Substring(1))
+          : (IReceived<User, ITransmittable>) r.ModPublicReceivedMessage(line);
+
         pipelineManager.Enqueue(message);
       }
     }
