@@ -6,6 +6,7 @@ using Bot.Models;
 using Bot.Models.Sendable;
 using Bot.Repository.Interfaces;
 using Bot.Tests;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
@@ -34,9 +35,9 @@ namespace Bot.Logic.Tests {
       var spokenTerm = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(bannedTerm);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(spokenTerm);
-      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      var ban = RepositoryPunishmentFactory.Create(snapshot);
+      var ban = punishmentFactory.Create(snapshot);
 
       Assert.IsFalse(ban.Any());
     }
@@ -46,12 +47,12 @@ namespace Bot.Logic.Tests {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      var output = RepositoryPunishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
 
       var mute = output.OfType<SendableMute>().Single();
-      Assert.IsTrue(mute.Duration.TotalMinutes == 10);
+      Assert.AreEqual(TimeSpan.FromMinutes(10), mute.Duration);
     }
 
     [TestMethod]
@@ -59,13 +60,13 @@ namespace Bot.Logic.Tests {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      RepositoryPunishmentFactory.Create(snapshot);
-      var output = RepositoryPunishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
 
       var mute = output.OfType<SendableMute>().Single();
-      Assert.AreEqual(20, mute.Duration.TotalMinutes);
+      Assert.AreEqual(TimeSpan.FromMinutes(20), mute.Duration);
     }
 
     [TestMethod]
@@ -73,14 +74,14 @@ namespace Bot.Logic.Tests {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      RepositoryPunishmentFactory.Create(snapshot);
-      RepositoryPunishmentFactory.Create(snapshot);
-      var output = RepositoryPunishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
 
       var mute = output.OfType<SendableMute>().Single();
-      Assert.AreEqual(40, mute.Duration.TotalMinutes);
+      Assert.AreEqual(TimeSpan.FromMinutes(40), mute.Duration);
     }
 
     [TestMethod]
@@ -88,15 +89,76 @@ namespace Bot.Logic.Tests {
       var term = TestHelper.RandomString();
       var container = InitializeContainerAndRepository(term);
       var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
-      var RepositoryPunishmentFactory = container.GetInstance<PunishmentFactory>();
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
 
-      RepositoryPunishmentFactory.Create(snapshot);
-      RepositoryPunishmentFactory.Create(snapshot);
-      RepositoryPunishmentFactory.Create(snapshot);
-      var output = RepositoryPunishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
 
       var mute = output.OfType<SendableMute>().Single();
-      Assert.AreEqual(80, mute.Duration.TotalMinutes);
+      Assert.AreEqual(TimeSpan.FromMinutes(80), mute.Duration);
+    }
+
+    [TestMethod]
+    public void RepositoryPunishmentFactory_FirstOffense_OrdinaryBanReason() {
+      var term = TestHelper.RandomString();
+      var container = InitializeContainerAndRepository(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
+
+      var output = punishmentFactory.Create(snapshot);
+
+      var reason = output.Skip(1).Cast<SendablePublicMessage>().Single().Text;
+      Assert.AreEqual("10m for prohibited phrase", reason);
+
+    }
+
+    [TestMethod]
+    public void RepositoryPunishmentFactory_SecondOffense_SecondBanReason() {
+      var term = TestHelper.RandomString();
+      var container = InitializeContainerAndRepository(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
+
+      punishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
+
+      var reason = output.Skip(1).Cast<SendablePublicMessage>().Single().Text;
+      Assert.AreEqual("20m for prohibited phrase; your time has doubled. Future sanctions will not be explicitly justified.", reason);
+    }
+
+    [TestMethod]
+    public void RepositoryPunishmentFactory_ThirdOffense_NoBanReason() {
+      var term = TestHelper.RandomString();
+      var container = InitializeContainerAndRepository(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
+
+      punishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
+
+      Console.WriteLine(ObjectDumper.Dump(output));
+
+      var sendableMute = output.Cast<SendableMute>().Single();
+      Assert.AreEqual("", sendableMute.Reason);
+    }
+
+    [TestMethod]
+    public void RepositoryPunishmentFactory_FourthOffense_NoBanReason() {
+      var term = TestHelper.RandomString();
+      var container = InitializeContainerAndRepository(term);
+      var snapshot = container.GetInstance<ReceivedFactory>().PublicReceivedSnapshot(term);
+      var punishmentFactory = container.GetInstance<PunishmentFactory>();
+
+      punishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      punishmentFactory.Create(snapshot);
+      var output = punishmentFactory.Create(snapshot);
+
+      var sendableMute = output.Cast<SendableMute>().Single();
+      Assert.AreEqual("", sendableMute.Reason);
     }
 
   }
