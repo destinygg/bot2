@@ -13,12 +13,11 @@ using Bot.Tools.Interfaces;
 namespace Bot.Logic {
   public class RepositoryPunishmentFactory : IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>> {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
-    private readonly ISettings _settings;
 
-    public RepositoryPunishmentFactory(IQueryCommandService<IUnitOfWork> unitOfWork, ISettings settings) {
+    public RepositoryPunishmentFactory(IQueryCommandService<IUnitOfWork> unitOfWork) {
       _unitOfWork = unitOfWork;
-      _settings = settings;
     }
+
     public IReadOnlyList<ISendable<ITransmittable>> Create(ISnapshot<Civilian, PublicMessage> snapshot) {
       var outbox = new List<ISendable<ITransmittable>>();
       var message = snapshot.Latest;
@@ -28,7 +27,7 @@ namespace Bot.Logic {
         .Select(nuke => new SendableMute(message.Sender, nuke.Duration))
         .Apply(outbox.AddRange);
       var autoPunishments = _unitOfWork.Query(r => r.AutoPunishments.GetAllWithUser);
-      Func<AutoPunishment, bool> stringFilter = autoPunishment => message.Transmission.Text.SimilarTo(autoPunishment.Term) >= _settings.MinimumPunishmentSimilarity;
+      Func<AutoPunishment, bool> stringFilter = autoPunishment => message.Transmission.Text.Contains(autoPunishment.Term);
       Func<AutoPunishment, bool> regexFilter = autoPunishment => message.IsMatch(new Regex(autoPunishment.Term, RegexOptions.IgnoreCase));
       ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.MutedString), stringFilter, (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
       ConstructPunishment(message, autoPunishments.Where(x => x.Type == AutoPunishmentType.MutedRegex), regexFilter, (x, y) => new SendableMute(x, y)).Apply(outbox.AddRange);
