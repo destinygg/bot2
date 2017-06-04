@@ -3,6 +3,36 @@ using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 
 namespace Bot.Tools {
+  public class FactoryTryCatchDecorator<TOutput> : IFactory<TOutput> {
+    private readonly IFactory<TOutput> _factory;
+    private readonly ILogger _logger;
+
+    public FactoryTryCatchDecorator(IFactory<TOutput> factory, ILogger logger) {
+      _factory = factory;
+      _logger = logger;
+      _logger.LogInformation($"{nameof(FactoryTryCatchDecorator<object, object>)} now decorates {_factory.GetType()}");
+    }
+
+    public virtual TOutput Create() {
+      try {
+        return _factory.Create();
+      } catch (Exception e) {
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}", e);
+        _logger.LogError(LogExtraInformation());
+        throw;
+      }
+    }
+
+    protected string LogExtraInformation() {
+      try {
+        return
+          $"{nameof(_factory)} is of type {_factory.GetType()}";
+      } catch (Exception e) {
+        return $"Error logging extra information: {e}";
+      }
+    }
+  }
+
   public class FactoryTryCatchDecorator<T, TOutput> : IFactory<T, TOutput> {
     private readonly IFactory<T, TOutput> _factory;
     private readonly ILogger _logger;

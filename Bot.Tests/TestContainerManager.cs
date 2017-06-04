@@ -103,6 +103,7 @@ namespace Bot.Tests {
       Container.RegisterConditional<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ISendableVisitor<string>, ConsoleSendableVisitor>(Lifestyle.Singleton, c => !c.Handled);
 
+      Container.RegisterDecorator(typeof(IFactory<>), typeof(FactoryTryCatchDecorator<>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IFactory<,,>), typeof(FactoryTryCatchDecorator<,,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IProvider<>), typeof(CachedProviderDecorator<>), Lifestyle.Singleton, p => p.ImplementationType.Name == nameof(StreamStateServiceProvider));
