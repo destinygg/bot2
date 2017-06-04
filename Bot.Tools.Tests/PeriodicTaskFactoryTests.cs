@@ -18,20 +18,13 @@ namespace Bot.Tools.Tests {
       stopwatchA.Start();
       stopwatchB.Start();
 
-      factory.Create(TimeSpan.FromMilliseconds(100), () => listA.Add(stopwatchA.ElapsedMilliseconds));
-      factory.Create(TimeSpan.FromMilliseconds(200), () => listB.Add(stopwatchA.ElapsedMilliseconds));
+      factory.Create(TimeSpan.FromMilliseconds(50), () => listA.Add(stopwatchA.ElapsedMilliseconds));
+      factory.Create(TimeSpan.FromMilliseconds(100), () => listB.Add(stopwatchA.ElapsedMilliseconds));
 
-      Task.Delay(1000).Wait();
-      foreach (var i in listA) {
-        Console.WriteLine("A:" + i);
-      }
-      foreach (var i in listB) {
-        Console.WriteLine("B:" + i);
-      }
-      Console.WriteLine(listA.Count);
-      Console.WriteLine(listB.Count);
-      Assert.AreEqual(10, listA.Count);
-      Assert.AreEqual(5, listB.Count);
+      Task.Delay(140).Wait();
+
+      Assert.AreEqual(3, listA.Count); // 0ms, ~50+ ms, ~100+ ms
+      Assert.AreEqual(2, listB.Count); // 0ms,          ~100+ ms
     }
 
   }
