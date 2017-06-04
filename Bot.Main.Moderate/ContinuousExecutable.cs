@@ -47,7 +47,7 @@ namespace Bot.Main.Moderate {
       }).Container;
 
       var pipelineManager = container.GetInstance<IPipelineManager>();
-      var periodicTasks = container.GetInstance<PeriodicTasks>();
+      var periodicTaskRunner = container.GetInstance<PeriodicTaskRunner>();
       var client = container.GetInstance<IClient>();
       var twitterManager = container.GetInstance<ITwitterManager>();
 
@@ -55,7 +55,7 @@ namespace Bot.Main.Moderate {
       logger.Info("Running...\r\n\r\n");
 
       client.Connect();
-      periodicTasks.Run();
+      periodicTaskRunner.Run();
       if (_runTwitter) twitterManager.MonitorNewTweets(pipelineManager.Enqueue);
 
       var r = container.GetInstance<ReceivedFactory>();

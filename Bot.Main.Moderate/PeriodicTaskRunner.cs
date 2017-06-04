@@ -11,7 +11,7 @@ using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 
 namespace Bot.Main.Moderate {
-  public class PeriodicTasks {
+  public class PeriodicTaskRunner {
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
     private readonly IProvider<IStreamStateService> _streamStateServiceProvider;
     private readonly IDownloadMapper _downloadMapper;
@@ -20,7 +20,7 @@ namespace Bot.Main.Moderate {
     private readonly IPipelineManager _pipelineManager;
     private readonly ILogger _logger;
 
-    public PeriodicTasks(
+    public PeriodicTaskRunner(
       IQueryCommandService<IUnitOfWork> unitOfWork,
       IFactory<TimeSpan, Action, Task> periodicTaskFactory,
       IProvider<IStreamStateService> streamStateServiceProvider,

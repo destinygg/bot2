@@ -29,9 +29,9 @@ namespace Bot.Main.Moderate.Tests {
         c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
       }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
       .InitializeAndIsolateRepository();
-      var tasks = container.GetInstance<PeriodicTasks>();
+      var periodicTaskRunner = container.GetInstance<PeriodicTaskRunner>();
 
-      tasks.Run();
+      periodicTaskRunner.Run();
 
       Task.Delay(1000).Wait();
       var cache = "";
@@ -56,9 +56,9 @@ namespace Bot.Main.Moderate.Tests {
         c.RegisterConditional(typeof(ILogger), loggerRegistration, pc => !pc.Handled);
       }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
       .InitializeAndIsolateRepository();
-      var tasks = container.GetInstance<PeriodicTasks>();
+      var periodicTaskRunner = container.GetInstance<PeriodicTaskRunner>();
 
-      tasks.Run();
+      periodicTaskRunner.Run();
 
       Task.Delay(900).Wait();
       Console.WriteLine(ObjectDumper.Dump(testableLogger.Outbox));
