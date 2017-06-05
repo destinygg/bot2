@@ -207,6 +207,7 @@
     <Compile Include="ContainerManager.cs" />
     <Compile Include="IExecutable.cs" />
     <Compile Include="PeriodicMessages.cs" />
+    <Compile Include="PeriodicStreamStatusUpdater.cs" />
     <Compile Include="SetupLog4Net.cs" />
     <Compile Include="PeriodicTaskRunner.cs" />
     <Compile Include="Program.cs" />

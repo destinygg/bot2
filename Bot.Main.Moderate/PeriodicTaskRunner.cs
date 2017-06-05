@@ -1,35 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
-using Bot.Logic.Interfaces;
-using Bot.Pipeline.Interfaces;
-using Bot.Tools;
-using Bot.Tools.Interfaces;
+﻿using Bot.Pipeline.Interfaces;
 
 namespace Bot.Main.Moderate {
   public class PeriodicTaskRunner {
-    private readonly IProvider<IStreamStateService> _streamStateServiceProvider;
     private readonly ICommandHandler _periodicMessages;
-    private readonly ISettings _settings;
-    private readonly IFactory<TimeSpan, Action, Task> _periodicTaskFactory;
+    private readonly ICommandHandler _periodicStreamStatusUpdater;
 
     public PeriodicTaskRunner(
-      IFactory<TimeSpan, Action, Task> periodicTaskFactory,
-      IProvider<IStreamStateService> streamStateServiceProvider,
       ICommandHandler periodicMessages,
-      ISettings settings) {
-      _periodicTaskFactory = periodicTaskFactory;
-      _streamStateServiceProvider = streamStateServiceProvider;
+      ICommandHandler periodicStreamStatusUpdater) {
       _periodicMessages = periodicMessages;
-      _settings = settings;
+      _periodicStreamStatusUpdater = periodicStreamStatusUpdater;
     }
 
     public void Run() {
       _periodicMessages.Handle();
-      RefreshStreamStatus(_periodicTaskFactory);
+      _periodicStreamStatusUpdater.Handle();
     }
-
-    private void RefreshStreamStatus(IFactory<TimeSpan, Action, Task> periodicTaskFactory) =>
-      periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStateServiceProvider.Get().Get());
 
   }
 }
