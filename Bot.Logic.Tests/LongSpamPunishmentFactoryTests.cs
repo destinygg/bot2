@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Bot.Main.Moderate;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;

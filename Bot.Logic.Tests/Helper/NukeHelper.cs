@@ -1,4 +1,5 @@
 ﻿using System;
+using Bot.Main.Moderate;
 using Bot.Tests;
 using Bot.Tools;
 using Bot.Tools.Interfaces;

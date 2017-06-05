@@ -1,4 +1,5 @@
-﻿using Bot.Models.Xml;
+﻿using Bot.Main.Moderate;
+using Bot.Models.Xml;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

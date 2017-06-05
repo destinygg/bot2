@@ -15,6 +15,7 @@ using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
 using Bot.Repository;
 using Bot.Repository.Interfaces;
+using Bot.Tests;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
@@ -25,7 +26,7 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using TwitchLib.Models.Client;
 
-namespace Bot.Tests {
+namespace Bot.Main.Moderate {
   public class TestContainerManager {
     public TestContainerManager(Action<Container> additionalRegistrations = null, Action<TestSettings> configureSettings = null, [CallerMemberName] string sqliteName = null) {
       Container = new Container();

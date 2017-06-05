@@ -76,6 +76,7 @@
     <Compile Include="ContainerManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PeriodicTasksTests.cs" />
+    <Compile Include="TestContainerManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bot.Main.Moderate\Bot.Main.Moderate.csproj">

@@ -205,8 +205,6 @@
     <Compile Include="RepositoryInitializer.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="TestSettings.cs" />
-    <Compile Include="TestContainerManagerTests.cs" />
-    <Compile Include="TestContainerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelper.cs" />
   </ItemGroup>

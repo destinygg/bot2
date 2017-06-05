@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Bot.Tests;
+using Bot.Main.Moderate;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bot.Logic.Tests {

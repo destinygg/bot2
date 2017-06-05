@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Bot.Main.Moderate;
 using Bot.Repository.Interfaces;
 using Bot.Tests;
 using Bot.Tools.Interfaces;

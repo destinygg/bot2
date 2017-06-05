@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Bot.Database.Entities;
+using Bot.Main.Moderate;
 using Bot.Models;
 using Bot.Models.Sendable;
 using Bot.Repository.Interfaces;

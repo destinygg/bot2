@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bot.Logic;
+using Bot.Main.Moderate;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Pipeline.Interfaces;

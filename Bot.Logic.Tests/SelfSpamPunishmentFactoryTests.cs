@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using Bot.Main.Moderate;
 using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Models.Sendable;
-using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

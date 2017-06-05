@@ -1,5 +1,6 @@
 ﻿using Bot.Database.Entities;
 using Bot.Database.Interfaces;
+using Bot.Main.Moderate;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.EntityFrameworkCore;

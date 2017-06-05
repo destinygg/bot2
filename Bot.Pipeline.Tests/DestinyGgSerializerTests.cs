@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bot.Main.Moderate;
 using Bot.Models;
 using Bot.Models.Sendable;
-using Bot.Tests;
 using Bot.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

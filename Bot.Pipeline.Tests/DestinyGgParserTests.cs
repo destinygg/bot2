@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bot.Main.Moderate;
 using Bot.Models;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -213,6 +213,10 @@
       <Project>{C4B57927-0CB4-438D-8B45-FC51A8E43C58}</Project>
       <Name>Bot.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bot.Main.Moderate\Bot.Main.Moderate.csproj">
+      <Project>{496E249E-AB00-4224-AFB0-BDDDCAE92F09}</Project>
+      <Name>Bot.Main.Moderate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bot.Models\Bot.Models.csproj">
       <Project>{0FE69118-F69A-48F0-9B51-58FE52D0B826}</Project>
       <Name>Bot.Models</Name>

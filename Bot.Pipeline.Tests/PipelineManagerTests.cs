@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bot.Main.Moderate;
 using Bot.Models.Interfaces;
 using Bot.Models.Received;
 using Bot.Models.Sendable;
 using Bot.Pipeline.Interfaces;
-using Bot.Tests;
 using Bot.Tools.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;

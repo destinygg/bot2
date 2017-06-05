@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bot.Tests {
+namespace Bot.Main.Moderate.Tests {
   [TestClass]
   public class TestContainerManagerTests {
 

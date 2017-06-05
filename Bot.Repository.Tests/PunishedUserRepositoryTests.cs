@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bot.Database.Entities;
+using Bot.Main.Moderate;
 using Bot.Models;
 using Bot.Repository.Interfaces;
 using Bot.Tests;

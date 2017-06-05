@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Bot.Main.Moderate;
 using Bot.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
