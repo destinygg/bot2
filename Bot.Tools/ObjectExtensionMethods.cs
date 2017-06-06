@@ -29,5 +29,8 @@ namespace Bot.Tools {
     /// <param name="source">The value to be applied.</param>
     /// <param name="action">An action to be applied to the <paramref name="source"/>.</param>
     public static void Apply<TInput>(this TInput source, Action<TInput> action) => action(source);
+
+    public static void WriteDump<TInput>(this TInput input) => Console.WriteLine(ObjectDumper.Dump(input));
+
   }
 }
