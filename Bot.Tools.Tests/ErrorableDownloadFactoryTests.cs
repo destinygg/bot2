@@ -8,7 +8,7 @@ namespace Bot.Tools.Tests {
   public class ErrorableDownloadFactoryTests {
 
     [TestMethod]
-    public void ErrorableDownloadFactory_PlainCreate_Works() {
+    public void ErrorableDownloadFactory_PlainCreate_Works_DoNotRunContinuously() {
       var testContainerManager = new TestContainerManager();
       var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
 
@@ -19,7 +19,7 @@ namespace Bot.Tools.Tests {
     }
 
     [TestMethod]
-    public void ErrorableDownloadFactory_CreateWithHeader_Works() {
+    public void ErrorableDownloadFactory_CreateWithHeader_Works_DoNotRunContinuously() {
       var testContainerManager = new TestContainerManager();
       var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
       var key = "Key";
