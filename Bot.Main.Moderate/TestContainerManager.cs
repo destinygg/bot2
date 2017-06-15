@@ -102,9 +102,11 @@ namespace Bot.Main.Moderate {
 
       Container.RegisterSingleton<ReceivedFactory>();
 
+      Container.RegisterConditional<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>(Lifestyle.Singleton, c => !c.Handled);
+      Container.RegisterConditional<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CivilianPublicMessageToSendablesFactory>(Lifestyle.Singleton, c => !c.Handled);
+
       Container.RegisterConditional<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>>, PublicToPrivateMessageFactory>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterConditional<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ISendableVisitor<string>, ConsoleSendableVisitor>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterDecorator(typeof(IFactory<>), typeof(FactoryTryCatchDecorator<>), Lifestyle.Singleton);

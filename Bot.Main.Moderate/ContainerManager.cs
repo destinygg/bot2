@@ -85,9 +85,11 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<ITwitterManager, TwitterManager>();
       _container.RegisterSingleton<ITwitterStreamingMessageObserver, TwitterStreamingMessageObserver>();
 
+      _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
+      _container.RegisterSingleton<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CivilianPublicMessageToSendablesFactory>();
+
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
       _container.RegisterConditional<IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>>, PublicToPrivateMessageFactory>(Lifestyle.Singleton, c => !c.Handled);
-      _container.RegisterSingleton<ISnapshotVisitor<IReadOnlyList<ISendable<ITransmittable>>>, SnapshotVisitor>();
       _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
       _container.RegisterDecorator(typeof(IFactory<>), typeof(FactoryTryCatchDecorator<>), Lifestyle.Singleton);
