@@ -3,6 +3,7 @@
 namespace Bot.Tools {
   public class Settings : ISettings {
     public string ClientType { get; set; }
+    public TimeSpan ClientCheckerInterval => TimeSpan.FromMinutes(1);
     public int ContextSize => 1000;
     public string SqlitePath => "Bot.sqlite";
     public TimeSpan NukeBlastRadius => TimeSpan.FromMinutes(5);

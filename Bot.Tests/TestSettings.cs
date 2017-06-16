@@ -7,6 +7,7 @@ namespace Bot.Tests {
     private static readonly Settings Settings = new Settings();
 
     public string ClientType { get; set; } = Settings.ClientType;
+    public TimeSpan ClientCheckerInterval { get; set; } = Settings.ClientCheckerInterval;
     public int ContextSize { get; set; } = Settings.ContextSize;
     public string SqlitePath { get; set; } = Settings.SqlitePath;
     public TimeSpan NukeBlastRadius { get; set; } = Settings.NukeBlastRadius;
