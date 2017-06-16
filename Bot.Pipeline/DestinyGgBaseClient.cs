@@ -49,7 +49,12 @@ namespace Bot.Pipeline {
 
     public abstract void Send(string data);
 
-    private void WebsocketMessaged(object sender, MessageEventArgs e) => _pipelineManager.Enqueue(e.Data);
+    public DateTime LatestReceivedAt { get; private set; }
+
+    private void WebsocketMessaged(object sender, MessageEventArgs e) {
+      LatestReceivedAt = _timeService.UtcNow;
+      _pipelineManager.Enqueue(e.Data);
+    }
 
     private void WebsocketOpened(object sender, EventArgs e) {
       _lastConnectedAt = _timeService.UtcNow;

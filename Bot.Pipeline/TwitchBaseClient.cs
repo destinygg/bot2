@@ -64,7 +64,12 @@ namespace Bot.Pipeline {
 
     public abstract void Send(string data);
 
-    private void OnMessageReceived(object sender, OnMessageReceivedArgs e) => _pipelineManager.Enqueue(_twitchChatMessageParser.Create(e.ChatMessage));
+    public DateTime LatestReceivedAt { get; private set; }
+
+    private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
+      LatestReceivedAt = _timeService.UtcNow;
+      _pipelineManager.Enqueue(_twitchChatMessageParser.Create(e.ChatMessage));
+    }
 
     private void OnConnected(object sender, OnConnectedArgs e) {
       _lastConnectedAt = _timeService.UtcNow;
