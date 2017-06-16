@@ -34,7 +34,7 @@ namespace Bot.Pipeline {
       if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
         _connectionAttemptedCount = 0;
       }
-      while (Websocket.ReadyState != WebSocketState.Open) {
+      while (!Websocket.IsAlive) {
         try {
           var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionAttemptedCount) - 1, MaximumBackoffTimeInSeconds);
           Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
