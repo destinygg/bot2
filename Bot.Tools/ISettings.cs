@@ -21,5 +21,6 @@ namespace Bot.Tools {
     TimeSpan LongSpamWindow { get; }
     int LongSpamMinimumLength { get; }
     int RepeatCharacterSpamLimit { get; }
+    TimeSpan TwitterStatusUpdaterInterval { get; }
   }
 }
