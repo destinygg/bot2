@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Main.Moderate;
+using Bot.Repository.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using CoreTweet;
@@ -34,6 +35,20 @@ namespace Bot.Logic.Tests {
       var responses = tweets.Select(x => formatter.Create(x, ""));
 
       Console.WriteLine(ObjectDumper.Dump(responses));
+    }
+
+    [TestMethod]
+    public void TwitterManager_LatestTweetFromDestiny_StoredToDb_DoNotRunContinuously() {
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var twitterManager = container.GetInstance<ITwitterManager>();
+      var unitOfWork = container.GetInstance<IQueryCommandService<IUnitOfWork>>();
+      var id = unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
+      Assert.AreEqual(-1, id);
+
+      twitterManager.LatestTweetFromDestiny();
+
+      id = unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
+      Assert.AreNotEqual(-1, id);
     }
 
   }
