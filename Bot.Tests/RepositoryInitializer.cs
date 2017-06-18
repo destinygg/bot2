@@ -20,6 +20,7 @@ namespace Bot.Tests {
         context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.LatestStreamOffTime), 0));
         context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.StreamStatus), (int) StreamStatus.Off));
         context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.DeathCount), 0));
+        context.StateIntegers.Add(new StateIntegerEntity(nameof(IStateIntegerRepository.LatestDestinyTweetId), -1));
         context.CustomCommands.Add(new CustomCommandEntity("rules", @"github.com/destinygg/bot2"));
         context.PeriodicMessages.Add(new PeriodicMessageEntity(@"Follow Destiny! twitter.com/OmniDestiny"));
         context.PeriodicMessages.Add(new PeriodicMessageEntity(@"Buy video games with Destiny's GreenManGaming referral link! destiny.gg/gmg"));

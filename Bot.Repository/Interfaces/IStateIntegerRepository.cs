@@ -7,5 +7,6 @@ namespace Bot.Repository.Interfaces {
     DateTime LatestStreamOffTime { get; set; }
     StreamStatus StreamStatus { get; set; }
     long DeathCount { get; set; }
+    long LatestDestinyTweetId { get; set; }
   }
 }

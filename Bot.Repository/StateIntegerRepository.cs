@@ -35,6 +35,11 @@ namespace Bot.Repository {
       set { _Update(nameof(DeathCount), value); }
     }
 
+    public long LatestDestinyTweetId {
+      get => _Read(nameof(LatestDestinyTweetId));
+      set => _Update(nameof(LatestDestinyTweetId), value);
+    }
+
     private long _Read(string key) =>
       _entities.SingleOrDefault(x => x.Key == key).Value;
 
