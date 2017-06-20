@@ -6,9 +6,11 @@ using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 
 namespace Bot.Pipeline {
   public class PipelineManager : IPipelineManager {
+    private readonly ILogger _logger;
 
     private readonly TransformBlock<string, IReceived<IUser, ITransmittable>> _parserBlock;
     private readonly TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> _snapshotFactoryBlock;
@@ -19,7 +21,9 @@ namespace Bot.Pipeline {
       IErrorableFactory<string, IReceived<IUser, ITransmittable>> parser,
       IErrorableFactory<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>> snapshotFactory,
       IErrorableFactory<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>> sendableFactory,
-      IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>> serializer) {
+      IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>> serializer,
+      ILogger logger) {
+      _logger = logger;
       _parserBlock = new TransformBlock<string, IReceived<IUser, ITransmittable>>(s => parser.Create(s));
       _snapshotFactoryBlock = new TransformBlock<IReceived<IUser, ITransmittable>, ISnapshot<IUser, ITransmittable>>(r => snapshotFactory.Create(r));
       var sendableFactoryBlock = new TransformBlock<ISnapshot<IUser, ITransmittable>, IReadOnlyList<ISendable<ITransmittable>>>(c => sendableFactory.Create(c), new ExecutionDataflowBlockOptions {
@@ -44,7 +48,13 @@ namespace Bot.Pipeline {
 
     public void Enqueue(string received) => _parserBlock.SendAsync(received);
 
-    public void SetSender(Action<string> sender) => _sender = sender;
+    public void SetSender(Action<string> sender) => _sender = s => {
+      try {
+        sender(s);
+      } catch (Exception e) {
+        _logger.LogError($"Sending error in {nameof(PipelineManager)}", e);
+      }
+    };
 
   }
 }
