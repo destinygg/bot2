@@ -90,7 +90,7 @@ namespace Bot.Tools {
                 continue;
               }
 
-              if (type.IsValueType || type == typeof(string)) {
+              if (type.IsValueType || type == typeof(string) || value == null) {
                 Write($"{memberInfo.Name}: {FormatValue(value)}");
               } else {
                 var isEnumerable = typeof(IEnumerable).IsAssignableFrom(type);
