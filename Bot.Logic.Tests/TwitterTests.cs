@@ -15,8 +15,8 @@ namespace Bot.Logic.Tests {
 
     [TestMethod]
     public void TwitterManager_LatestTweetFromDestiny_RequiresManualCheckingForReasonablewResult_DoNotRunContinuously() {
-      var container = new TestContainerManager();
-      var twitterManager = container.Container.GetInstance<ITwitterManager>();
+      var container = new TestContainerManager().InitializeAndIsolateRepository();
+      var twitterManager = container.GetInstance<ITwitterManager>();
 
       var latest = twitterManager.LatestTweetFromDestiny();
 

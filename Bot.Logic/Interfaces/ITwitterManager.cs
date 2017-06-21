@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bot.Models.Sendable;
+using CoreTweet;
 
 namespace Bot.Logic.Interfaces {
   public interface ITwitterManager {
-    IEnumerable<string> LatestTweetFromDestiny();
-    IEnumerable<string> LatestTweetFromAslan();
+    Status LatestTweetFromDestiny();
+    Status LatestTweetFromAslan();
     void MonitorNewTweets(Action<IReadOnlyList<SendablePublicMessage>> send);
   }
 }
