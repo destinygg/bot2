@@ -206,6 +206,7 @@
   <ItemGroup>
     <Compile Include="ContainerManager.cs" />
     <Compile Include="IExecutable.cs" />
+    <Compile Include="PeriodicClientChecker.cs" />
     <Compile Include="PeriodicMessages.cs" />
     <Compile Include="PeriodicStreamStatusUpdater.cs" />
     <Compile Include="SetupLog4Net.cs" />

@@ -66,19 +66,23 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>, DestinyGgSerializer>();
       _container.RegisterSingleton<IPipelineManager, PipelineManager>();
       _container.RegisterSingleton<IClient, DestinyGgLoggingClient>();
-      _container.RegisterConditional<IFactory<ChatMessage, IReceived<IUser, ITransmittable>>, TwitchMessageParser>(Lifestyle.Singleton, c => !c.Handled);
+      _container.RegisterSingleton<IFactory<ChatMessage, IReceived<IUser, ITransmittable>>, TwitchMessageParser>();
 
       _container.RegisterConditional(typeof(ILogger), c => typeof(Log4NetLogger<>).MakeGenericType(c.Consumer.ImplementationType), Lifestyle.Singleton, _ => true);
       _container.RegisterSingleton<ISettings, Settings>();
       _container.RegisterSingleton<IPrivateConstants, PrivateConstants>();
       _container.RegisterSingleton<ITimeService, TimeService>();
       _container.RegisterSingleton<IDownloadMapper, DownloadMapper>();
-      _container.RegisterSingleton<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>();
       _container.RegisterSingleton<IFactory<string, string, string>, DownloadFactory>();
       _container.RegisterSingleton<IErrorableFactory<string, string, string, string>, ErrorableDownloadFactory>();
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlXmlParser");
       _container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "urlJsonParser");
       _container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "jsonParser");
+
+      _container.RegisterConditional<ICommandHandler, PeriodicClientChecker>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "periodicClientChecker");
+      _container.RegisterConditional<ICommandHandler, PeriodicStreamStatusUpdater>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "periodicStreamStatusUpdater");
+      _container.RegisterConditional<ICommandHandler, PeriodicMessages>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "periodicMessages");
+      _container.RegisterSingleton<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>();
 
       _container.RegisterSingleton<IFactory<StreamingMessage, Status>, TwitterStatusFactory>();
       _container.RegisterSingleton<IFactory<Status, string, IEnumerable<string>>, TwitterStatusFormatter>();
@@ -89,7 +93,7 @@ namespace Bot.Main.Moderate {
       _container.RegisterSingleton<IFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CivilianPublicMessageToSendablesFactory>();
 
       _container.RegisterSingleton<IReceivedVisitor<DelegatedSnapshotFactory>, ReceivedVisitor>();
-      _container.RegisterConditional<IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>>, PublicToPrivateMessageFactory>(Lifestyle.Singleton, c => !c.Handled);
+      _container.RegisterSingleton<IFactory<ISendable<ITransmittable>, Moderator, ISendable<ITransmittable>>, PublicToPrivateMessageFactory>();
       _container.RegisterSingleton<ISendableVisitor<string>, ConsoleSendableVisitor>();
 
       _container.RegisterDecorator(typeof(IFactory<>), typeof(FactoryTryCatchDecorator<>), Lifestyle.Singleton);

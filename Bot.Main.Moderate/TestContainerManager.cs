@@ -91,6 +91,7 @@ namespace Bot.Main.Moderate {
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlJsonParser");
       Container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "jsonParser");
 
+      Container.RegisterConditional<ICommandHandler, PeriodicClientChecker>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "periodicClientChecker");
       Container.RegisterConditional<ICommandHandler, PeriodicStreamStatusUpdater>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "periodicStreamStatusUpdater");
       Container.RegisterConditional<ICommandHandler, PeriodicMessages>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "periodicMessages");
       Container.RegisterConditional<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>(Lifestyle.Singleton, c => !c.Handled);
