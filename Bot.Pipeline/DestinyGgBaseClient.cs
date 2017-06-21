@@ -13,7 +13,7 @@ namespace Bot.Pipeline {
     private readonly ITimeService _timeService;
     private readonly IPipelineManager _pipelineManager;
     private DateTime _lastConnectedAt;
-    private int _connectionAttemptedCount;
+    private int _connectionFailureCount;
 
     protected readonly WebSocket Websocket;
 
@@ -32,19 +32,28 @@ namespace Bot.Pipeline {
 
     public void Connect() {
       if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
-        _connectionAttemptedCount = 0;
+        _connectionFailureCount = 0;
       }
       while (!Websocket.IsAlive) {
         try {
-          var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionAttemptedCount) - 1, MaximumBackoffTimeInSeconds);
-          Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
-          _logger.LogInformation($"Connecting... {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionAttemptedCount)} is {_connectionAttemptedCount}.");
+          Websocket.Close();
           Websocket.Connect();
-          _connectionAttemptedCount++;
         } catch (Exception e) {
           _logger.LogError($"{nameof(DestinyGgBaseClient)} had an error connecting.", e);
+        } finally {
+          if (!Websocket.IsAlive) {
+            _onConnectionFailure();
+          }
+          Thread.Sleep(TimeSpan.FromSeconds(1));
         }
       }
+    }
+
+    private void _onConnectionFailure() {
+      _connectionFailureCount++;
+      var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionFailureCount) - 1, MaximumBackoffTimeInSeconds);
+      _logger.LogInformation($"Unable to connect. {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionFailureCount)} is {_connectionFailureCount}.");
+      Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
     }
 
     public abstract void Send(string data);
