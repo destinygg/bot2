@@ -7,17 +7,21 @@ using WebSocketSharp;
 using WebSocketSharp.Net;
 
 namespace Bot.Pipeline {
-  public abstract class DestinyGgBaseClient : IClient {
-    private const int MaximumBackoffTimeInSeconds = 60;
+  public abstract class DestinyGgBaseClient : BaseClient {
+
     private readonly ILogger _logger;
     private readonly ITimeService _timeService;
     private readonly IPipelineManager _pipelineManager;
     private DateTime _lastConnectedAt;
-    private int _connectionFailureCount;
 
     protected readonly WebSocket Websocket;
 
-    protected DestinyGgBaseClient(IPrivateConstants privateConstants, ILogger logger, ITimeService timeService, IPipelineManager pipelineManager) {
+    protected DestinyGgBaseClient(
+      IPrivateConstants privateConstants,
+      ILogger logger,
+      ITimeService timeService,
+      IPipelineManager pipelineManager
+    ) : base(logger) {
       _logger = logger;
       _timeService = timeService;
       _pipelineManager = pipelineManager;
@@ -30,9 +34,9 @@ namespace Bot.Pipeline {
       Websocket.OnOpen += WebsocketOpened;
     }
 
-    public void Connect() {
+    public override void Connect() {
       if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
-        _connectionFailureCount = 0;
+        ConnectionFailureCount = 0;
       }
       while (!Websocket.IsAlive) {
         try {
@@ -48,17 +52,6 @@ namespace Bot.Pipeline {
         }
       }
     }
-
-    private void _onConnectionFailure() {
-      _connectionFailureCount++;
-      var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionFailureCount) - 1, MaximumBackoffTimeInSeconds);
-      _logger.LogInformation($"Unable to connect. {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionFailureCount)} is {_connectionFailureCount}.");
-      Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
-    }
-
-    public abstract void Send(string data);
-
-    public DateTime LatestReceivedAt { get; private set; }
 
     private void WebsocketMessaged(object sender, MessageEventArgs e) {
       LatestReceivedAt = _timeService.UtcNow;

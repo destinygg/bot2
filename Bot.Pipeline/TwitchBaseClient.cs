@@ -9,13 +9,11 @@ using TwitchLib.Events.Client;
 using TwitchLib.Models.Client;
 
 namespace Bot.Pipeline {
-  public abstract class TwitchBaseClient : IClient {
-    private const int MaximumBackoffTimeInSeconds = 60;
+  public abstract class TwitchBaseClient : BaseClient {
     private readonly IFactory<ChatMessage, IReceived<IUser, ITransmittable>> _twitchChatMessageParser;
     private readonly IPipelineManager _pipelineManager;
     private readonly ITimeService _timeService;
     private readonly ILogger _logger;
-    private int _connectionAttemptedCount;
     private DateTime _lastConnectedAt;
 
     protected readonly TwitchClient Client;
@@ -26,7 +24,7 @@ namespace Bot.Pipeline {
       IPipelineManager pipelineManager,
       ITimeService timeService,
       ILogger logger
-    ) {
+    ) : base(logger) {
       _twitchChatMessageParser = twitchChatMessageParser;
       _pipelineManager = pipelineManager;
       _timeService = timeService;
@@ -45,26 +43,24 @@ namespace Bot.Pipeline {
 
     private void OnJoinedChannel(object sender, OnJoinedChannelArgs e) => _logger.LogInformation($"Joined {e.Channel}");
 
-    public void Connect() {
+    public override void Connect() {
       if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
-        _connectionAttemptedCount = 0;
+        ConnectionFailureCount = 0;
       }
       while (!Client.IsConnected) {
         try {
-          var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionAttemptedCount) - 1, MaximumBackoffTimeInSeconds);
-          Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
-          _logger.LogInformation($"Connecting... {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionAttemptedCount)} is {_connectionAttemptedCount}.");
+          Client.Disconnect();
           Client.Connect();
-          _connectionAttemptedCount++;
         } catch (Exception e) {
           _logger.LogError($"{nameof(TwitchBaseClient)} had an error connecting.", e);
+        } finally {
+          if (!Client.IsConnected) {
+            _onConnectionFailure();
+          }
+          Thread.Sleep(TimeSpan.FromSeconds(1));
         }
       }
     }
-
-    public abstract void Send(string data);
-
-    public DateTime LatestReceivedAt { get; private set; }
 
     private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
       LatestReceivedAt = _timeService.UtcNow;

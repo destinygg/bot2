@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClient.cs" />
     <Compile Include="TwitchSerializer.cs" />
     <Compile Include="TwitchSendingClient.cs" />
     <Compile Include="TwitchLoggingClient.cs" />
