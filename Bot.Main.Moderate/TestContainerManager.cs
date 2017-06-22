@@ -66,11 +66,11 @@ namespace Bot.Main.Moderate {
       Container.RegisterConditional<IModCommandParser, ModCommandParser>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterConditional<IErrorableFactory<ISnapshot<Moderator, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, ModCommandFactory>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, PunishmentFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "punishmentFactory" && !c.Handled);
-      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, RepositoryPunishmentFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "repositoryPunishmentFactory" && !c.Handled);
-      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, SelfSpamPunishmentFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "selfSpamPunishmentFactory" && !c.Handled);
-      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, LongSpamPunishmentFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "longSpamPunishmentFactory" && !c.Handled);
-      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, SingleLineSpamPunishmentFactory>(Lifestyle.Singleton, c => c.Consumer.Target.Name == "singleLineSpamPunishmentFactory" && !c.Handled);
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, PunishmentFactory>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PunishmentFactory)));
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, RepositoryPunishmentFactory>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(RepositoryPunishmentFactory)));
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, SelfSpamPunishmentFactory>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(SelfSpamPunishmentFactory)));
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, LongSpamPunishmentFactory>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(LongSpamPunishmentFactory)));
+      Container.RegisterConditional<IErrorableFactory<ISnapshot<Civilian, PublicMessage>, IReadOnlyList<ISendable<ITransmittable>>>, SingleLineSpamPunishmentFactory>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(SingleLineSpamPunishmentFactory)));
       Container.RegisterConditional<IErrorableFactory<ISnapshot<IUser, IMessage>, IReadOnlyList<ISendable<ITransmittable>>>, CommandFactory>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterConditional<IErrorableFactory<string, IReceived<IUser, ITransmittable>>, DestinyGgParser>(Lifestyle.Singleton, c => !c.Handled);
@@ -87,13 +87,13 @@ namespace Bot.Main.Moderate {
       Container.RegisterConditional<IDownloadMapper, DownloadMapper>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IFactory<string, string, string>, DownloadFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IErrorableFactory<string, string, string, string>, ErrorableDownloadFactory>(Lifestyle.Singleton, c => !c.Handled);
-      Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlXmlParser");
-      Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "urlJsonParser");
-      Container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "jsonParser");
+      Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlXmlParser>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(UrlXmlParser)));
+      Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(UrlJsonParser)));
+      Container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(JsonParser)));
 
-      Container.RegisterConditional<ICommandHandler, PeriodicClientChecker>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "periodicClientChecker");
-      Container.RegisterConditional<ICommandHandler, PeriodicStreamStatusUpdater>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "periodicStreamStatusUpdater");
-      Container.RegisterConditional<ICommandHandler, PeriodicMessages>(Lifestyle.Singleton, c => !c.Handled && c.Consumer.Target.Name == "periodicMessages");
+      Container.RegisterConditional<ICommandHandler, PeriodicClientChecker>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicClientChecker)));
+      Container.RegisterConditional<ICommandHandler, PeriodicStreamStatusUpdater>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicStreamStatusUpdater)));
+      Container.RegisterConditional<ICommandHandler, PeriodicMessages>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicMessages)));
       Container.RegisterConditional<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>(Lifestyle.Singleton, c => !c.Handled);
 
       Container.RegisterConditional<IFactory<StreamingMessage, Status>, TwitterStatusFactory>(Lifestyle.Singleton, c => !c.Handled);
@@ -146,5 +146,8 @@ namespace Bot.Main.Moderate {
       return containerManager.Container;
     }
 
+    private Predicate<PredicateContext> _notHandledAndMatchingClassName(string className) => c => !c.Handled && c.Consumer.Target.Name == _toVariableName(className);
+
+    private string _toVariableName(string className) => Char.ToLowerInvariant(className[0]) + className.Substring(1);
   }
 }
