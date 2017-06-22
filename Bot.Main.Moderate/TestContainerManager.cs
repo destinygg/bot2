@@ -91,6 +91,7 @@ namespace Bot.Main.Moderate {
       Container.RegisterConditional<IGenericClassFactory<string, string, string>, UrlJsonParser>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(UrlJsonParser)));
       Container.RegisterConditional<IGenericClassFactory<string>, JsonParser>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(JsonParser)));
 
+      Container.RegisterConditional<ICommandHandler, PeriodicTwitterStatusUpdater>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicTwitterStatusUpdater)));
       Container.RegisterConditional<ICommandHandler, PeriodicClientChecker>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicClientChecker)));
       Container.RegisterConditional<ICommandHandler, PeriodicStreamStatusUpdater>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicStreamStatusUpdater)));
       Container.RegisterConditional<ICommandHandler, PeriodicMessages>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicMessages)));
