@@ -1,5 +1,6 @@
 ﻿using System;
 using Bot.Pipeline.Interfaces;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using WebSocketSharp;
@@ -14,9 +15,10 @@ namespace Bot.Pipeline {
     protected DestinyGgBaseClient(
       IPrivateConstants privateConstants,
       ILogger logger,
+      ISettings settings,
       ITimeService timeService,
       IPipelineManager pipelineManager
-    ) : base(logger, timeService, pipelineManager) {
+    ) : base(logger, settings, timeService, pipelineManager) {
       _privateConstants = privateConstants;
 
       pipelineManager.SetSender(Send);

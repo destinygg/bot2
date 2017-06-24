@@ -1,5 +1,6 @@
 ﻿using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using TwitchLib.Models.Client;
@@ -13,8 +14,9 @@ namespace Bot.Pipeline {
       IPrivateConstants privateConstants,
       IPipelineManager pipelineManager,
       ITimeService timeService,
+      ISettings settings,
       ILogger logger
-    ) : base(twitchChatMessageParser, privateConstants, pipelineManager, timeService, logger) {
+    ) : base(twitchChatMessageParser, privateConstants, pipelineManager, timeService, settings, logger) {
       _logger = logger;
     }
 

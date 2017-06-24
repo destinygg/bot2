@@ -2,31 +2,34 @@
 using System.Threading;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 
 namespace Bot.Pipeline {
   public abstract class BaseClient : IClient {
     private readonly ILogger _logger;
+    private readonly ISettings _settings;
     private readonly ITimeService _timeService;
     private readonly IPipelineManager _pipelineManager;
 
-    protected const int MaximumBackoffTimeInSeconds = 60;
     private int _connectionFailureCount;
     private DateTime _lastConnectedAt;
 
     protected BaseClient(
       ILogger logger,
+      ISettings settings,
       ITimeService timeService,
       IPipelineManager pipelineManager
     ) {
       _logger = logger;
+      _settings = settings;
       _timeService = timeService;
       _pipelineManager = pipelineManager;
     }
 
     public void TryConnect() {
-      if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
+      if (_lastConnectedAt - _timeService.UtcNow > _settings.MaximumBackoffTime) {
         _connectionFailureCount = 0;
       }
       while (!IsConnected()) {
@@ -55,7 +58,7 @@ namespace Bot.Pipeline {
 
     private void _connectionBackoff() {
       _connectionFailureCount++;
-      var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionFailureCount) - 1, MaximumBackoffTimeInSeconds);
+      var backoffTimeInSeconds = Math.Min((int) Math.Pow(2, _connectionFailureCount) - 1, _settings.MaximumBackoffTime.TotalSeconds);
       _logger.LogWarning($"Unable to connect. {nameof(backoffTimeInSeconds)} is {backoffTimeInSeconds}. {nameof(_connectionFailureCount)} is {_connectionFailureCount}.");
       Thread.Sleep(TimeSpan.FromSeconds(backoffTimeInSeconds));
     }

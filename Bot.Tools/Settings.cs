@@ -23,5 +23,6 @@ namespace Bot.Tools {
     public int LongSpamMinimumLength => 60;
     public int RepeatCharacterSpamLimit => 45;
     public TimeSpan TwitterStatusUpdaterInterval => TimeSpan.FromSeconds(15);
+    public TimeSpan MaximumBackoffTime => TimeSpan.FromMinutes(1);
   }
 }
