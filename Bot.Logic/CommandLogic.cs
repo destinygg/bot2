@@ -43,17 +43,19 @@ namespace Bot.Logic {
 
     public ISendable<PublicMessage> Time() => new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time");
 
-    public ISendable<PublicMessage> Schedule() {
+    public ISendable<PublicMessage> Schedule() => new SendablePublicMessage(_rawSchedule() + " destiny.gg/schedule");
+
+    private string _rawSchedule() {
       var events = _downloadMapper.GoogleCalendar().ExtendedItem;
       var nextEvent = events.First(e => e.ParsedStart >= _timeService.UtcNow);
       var nextString = $"\"{nextEvent.Item.summary}\" scheduled to begin in {(nextEvent.ParsedStart - _timeService.UtcNow).ToPretty(_logger)}";
       var first = events[0];
-      if (first.Item.start.date == null) return new SendablePublicMessage(nextString);
+      if (first.Item.start.date == null) return nextString;
       var delta = first.ParsedStart - _timeService.UtcNow;
       var scheduledString = delta < TimeSpan.Zero
         ? $"for today. {nextString}"
         : $"to begin in {delta.ToPretty(_logger)}";
-      return new SendablePublicMessage($"\"{first.Item.summary}\", an all day event, is scheduled {scheduledString}");
+      return $"\"{first.Item.summary}\", an all day event, is scheduled {scheduledString}";
     }
 
     public ISendable<PublicMessage> Blog() {

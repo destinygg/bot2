@@ -33,7 +33,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstTenAreSubDayInLength;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"Nathan Times\" scheduled to begin in 19h 30m";
+      var expected = "\"Nathan Times\" scheduled to begin in 19h 30m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -46,7 +46,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstTenAreSubDayInLength;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"Nathan Times\" scheduled to begin in 0m";
+      var expected = "\"Nathan Times\" scheduled to begin in 0m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -59,7 +59,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstTenAreSubDayInLength;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"Stream - Factorio/PUBG\" scheduled to begin in 5h 29m";
+      var expected = "\"Stream - Factorio/PUBG\" scheduled to begin in 5h 29m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -72,7 +72,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 5h";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 5h destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -85,7 +85,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 0m";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 0m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -98,7 +98,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsWithinThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Nathan Times\" scheduled to begin in 14h 29m";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Nathan Times\" scheduled to begin in 14h 29m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -111,7 +111,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 5h";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 5h destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -124,7 +124,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 0m";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled to begin in 0m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -137,7 +137,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstIsAllDayEventSecondIsAfterThatDay;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Stream - Chrono Trigger\" scheduled to begin in 1 day 11h";
+      var expected = "\"WILL HE MAKE THE YT VIDEO TODAY? FIND OUT NEXT TIME, ON DESTINYBALLZ\", an all day event, is scheduled for today. \"Stream - Chrono Trigger\" scheduled to begin in 1 day 11h destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -150,7 +150,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstTwoAreMultiDayEvents;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"In Taiwan\", an all day event, is scheduled to begin in 5h";
+      var expected = "\"In Taiwan\", an all day event, is scheduled to begin in 5h destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -163,7 +163,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstTwoAreMultiDayEvents;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"In Taiwan\", an all day event, is scheduled to begin in 0m";
+      var expected = "\"In Taiwan\", an all day event, is scheduled to begin in 0m destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
@@ -176,7 +176,7 @@ namespace Bot.Logic.Tests {
       var data = TestData.GoogleCalendarFirstTwoAreMultiDayEvents;
       var testContainerManager = TestContainerManager(data, time);
       var commandLogic = testContainerManager.Container.GetInstance<ICommandLogic>();
-      var expected = "\"In Taiwan\", an all day event, is scheduled for today. \"Paying Bills, Monthly Schedule\" scheduled to begin in 3 days 23h";
+      var expected = "\"In Taiwan\", an all day event, is scheduled for today. \"Paying Bills, Monthly Schedule\" scheduled to begin in 3 days 23h destiny.gg/schedule";
 
       var actual = commandLogic.Schedule().Transmission.Text;
 
