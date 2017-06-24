@@ -14,7 +14,8 @@ namespace Bot.Tools {
     string SqlitePath { get; }
     double MinimumPunishmentSimilarity { get; }
     TimeSpan CivilianCommandInterval { get; }
-    TimeSpan PeriodicTaskInterval { get; }
+    TimeSpan PeriodicSteamCheckInterval { get; }
+    TimeSpan PeriodicMessageInterval { get; }
     TimeSpan AutoLiveCheckInterval { get; }
     TimeSpan OnOffTimeTolerance { get; }
     TimeSpan SelfSpamWindow { get; }

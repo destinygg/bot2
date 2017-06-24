@@ -3,7 +3,7 @@
 namespace Bot.Tools {
   public class Settings : ISettings {
     public string ClientType { get; set; }
-    public TimeSpan ClientCheckerInterval => TimeSpan.FromMinutes(1);
+    public TimeSpan ClientCheckerInterval => PeriodicMessageInterval;
     public int ContextSize => 1000;
     public string SqlitePath => "Bot.sqlite";
     public TimeSpan NukeBlastRadius => TimeSpan.FromMinutes(5);
@@ -14,7 +14,8 @@ namespace Bot.Tools {
     public string DebuggerTimeZone => IsMono ? "US/Central" : "Central Standard Time";
     public double MinimumPunishmentSimilarity => 0.7d;
     public TimeSpan CivilianCommandInterval => TimeSpan.FromSeconds(10);
-    public TimeSpan PeriodicTaskInterval => TimeSpan.FromMinutes(10);
+    public TimeSpan PeriodicSteamCheckInterval => TimeSpan.FromMinutes(1);
+    public TimeSpan PeriodicMessageInterval => TimeSpan.FromMinutes(10);
     public TimeSpan AutoLiveCheckInterval => TimeSpan.FromMinutes(1);
     public TimeSpan OnOffTimeTolerance => TimeSpan.FromMinutes(10);
     public TimeSpan SelfSpamWindow => TimeSpan.FromSeconds(15);

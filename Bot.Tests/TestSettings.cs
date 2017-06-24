@@ -18,7 +18,8 @@ namespace Bot.Tests {
     public string DebuggerTimeZone { get; set; } = Settings.DebuggerTimeZone;
     public double MinimumPunishmentSimilarity { get; set; } = Settings.MinimumPunishmentSimilarity;
     public TimeSpan CivilianCommandInterval { get; set; } = Settings.CivilianCommandInterval;
-    public TimeSpan PeriodicTaskInterval { get; set; } = Settings.PeriodicTaskInterval;
+    public TimeSpan PeriodicSteamCheckInterval { get; set; } = Settings.PeriodicSteamCheckInterval;
+    public TimeSpan PeriodicMessageInterval { get; set; } = Settings.PeriodicMessageInterval;
     public TimeSpan AutoLiveCheckInterval { get; set; } = Settings.AutoLiveCheckInterval;
     public TimeSpan OnOffTimeTolerance { get; set; } = Settings.OnOffTimeTolerance;
     public TimeSpan SelfSpamWindow { get; set; } = Settings.SelfSpamWindow;

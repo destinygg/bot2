@@ -27,7 +27,7 @@ namespace Bot.Main.Moderate.Tests {
         c.RegisterConditional(typeof(IFactory<IEnumerable<ISendable<ITransmittable>>, IEnumerable<string>>), senderRegistration, _ => true);
         var errorableDownloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => errorableDownloadFactory, c);
         c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
-      }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
+      }, settings => settings.PeriodicMessageInterval = TimeSpan.FromMilliseconds(100))
       .InitializeAndIsolateRepository();
       var periodicTaskRunner = container.GetInstance<PeriodicTaskRunner>();
 
@@ -54,7 +54,7 @@ namespace Bot.Main.Moderate.Tests {
         c.RegisterConditional(typeof(IErrorableFactory<string, string, string, string>), errorableDownloadFactoryRegistration, _ => true);
         var loggerRegistration = Lifestyle.Singleton.CreateRegistration(() => testableLogger, c);
         c.RegisterConditional(typeof(ILogger), loggerRegistration, pc => !pc.Handled);
-      }, settings => settings.PeriodicTaskInterval = TimeSpan.FromMilliseconds(100))
+      }, settings => settings.PeriodicMessageInterval = TimeSpan.FromMilliseconds(100))
       .InitializeAndIsolateRepository();
       var periodicTaskRunner = container.GetInstance<PeriodicTaskRunner>();
 

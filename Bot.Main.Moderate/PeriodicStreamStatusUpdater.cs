@@ -21,7 +21,7 @@ namespace Bot.Main.Moderate {
     }
 
     public void Handle() {
-      _periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => _streamStateServiceProvider.Get().Get());
+      _periodicTaskFactory.Create(_settings.PeriodicSteamCheckInterval, () => _streamStateServiceProvider.Get().Get());
     }
 
   }

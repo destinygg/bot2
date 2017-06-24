@@ -39,7 +39,7 @@ namespace Bot.Main.Moderate {
       var rng = new Random();
       var messageCount = _getMessages().Count();
       var i = rng.Next(messageCount);
-      _periodicTaskFactory.Create(_settings.PeriodicTaskInterval, () => {
+      _periodicTaskFactory.Create(_settings.PeriodicMessageInterval, () => {
         _pipelineManager.Enqueue(new SendablePublicMessage(_getMessages().Skip(i).First()));
         i++;
         if (i >= messageCount) {
