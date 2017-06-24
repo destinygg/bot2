@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Bot.Models.Interfaces;
 using Bot.Pipeline.Interfaces;
 using Bot.Tools.Interfaces;
@@ -11,12 +10,10 @@ using TwitchLib.Models.Client;
 namespace Bot.Pipeline {
   public abstract class TwitchBaseClient : BaseClient {
     private readonly IFactory<ChatMessage, IReceived<IUser, ITransmittable>> _twitchChatMessageParser;
-    private readonly IPipelineManager _pipelineManager;
-    private readonly ITimeService _timeService;
+    private readonly IPrivateConstants _privateConstants;
     private readonly ILogger _logger;
-    private DateTime _lastConnectedAt;
 
-    protected readonly TwitchClient Client;
+    protected TwitchClient Client;
 
     protected TwitchBaseClient(
       IFactory<ChatMessage, IReceived<IUser, ITransmittable>> twitchChatMessageParser,
@@ -24,15 +21,17 @@ namespace Bot.Pipeline {
       IPipelineManager pipelineManager,
       ITimeService timeService,
       ILogger logger
-    ) : base(logger) {
+    ) : base(logger, timeService, pipelineManager) {
       _twitchChatMessageParser = twitchChatMessageParser;
-      _pipelineManager = pipelineManager;
-      _timeService = timeService;
+      _privateConstants = privateConstants;
       _logger = logger;
 
-      _pipelineManager.SetSender(Send);
+      pipelineManager.SetSender(Send);
+      _constructClient();
+    }
 
-      var credentials = new ConnectionCredentials(privateConstants.TwitchNick, privateConstants.TwitchOauth);
+    private void _constructClient() {
+      var credentials = new ConnectionCredentials(_privateConstants.TwitchNick, _privateConstants.TwitchOauth);
       Client = new TwitchClient(credentials, "Destiny");
       Client.OnJoinedChannel += OnJoinedChannel;
       Client.OnMessageReceived += OnMessageReceived;
@@ -43,44 +42,21 @@ namespace Bot.Pipeline {
 
     private void OnJoinedChannel(object sender, OnJoinedChannelArgs e) => _logger.LogInformation($"Joined {e.Channel}");
 
-    public override void Connect() {
-      if (_lastConnectedAt - _timeService.UtcNow > TimeSpan.FromSeconds(MaximumBackoffTimeInSeconds)) {
-        ConnectionFailureCount = 0;
-      }
-      while (!Client.IsConnected) {
-        try {
-          Client.Disconnect();
-          Client.Connect();
-        } catch (Exception e) {
-          _logger.LogError($"{nameof(TwitchBaseClient)} had an error connecting.", e);
-        } finally {
-          if (!Client.IsConnected) {
-            _onConnectionFailure();
-          }
-          Thread.Sleep(TimeSpan.FromSeconds(1));
-        }
-      }
-    }
+    protected override Func<bool> IsConnected => () => Client.IsConnected;
 
-    private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
-      LatestReceivedAt = _timeService.UtcNow;
-      _pipelineManager.Enqueue(_twitchChatMessageParser.Create(e.ChatMessage));
-    }
+    protected override Action Connect => () => {
+      _constructClient();
+      Client.Connect();
+    };
 
-    private void OnConnected(object sender, OnConnectedArgs e) {
-      _lastConnectedAt = _timeService.UtcNow;
-      _logger.LogInformation("Connected!");
-    }
+    public override void Disconnect() => Client.Disconnect();
 
-    private void OnDisconnected(object sender, OnDisconnectedArgs e) {
-      _logger.LogWarning($"{nameof(TwitchBaseClient)} disconnected! Reconnecting...");
-      Connect();
-    }
+    private void OnMessageReceived(object sender, OnMessageReceivedArgs e) => Messaged(_twitchChatMessageParser.Create(e.ChatMessage));
 
-    private void OnConnectionError(object sender, OnConnectionErrorArgs e) {
-      _logger.LogError($"{nameof(TwitchBaseClient)} error! Reconnecting...", e.Error.Exception);
-      Connect();
-    }
+    private void OnConnected(object sender, OnConnectedArgs e) => Connected();
 
+    private void OnDisconnected(object sender, OnDisconnectedArgs e) => Disconnected();
+
+    private void OnConnectionError(object sender, OnConnectionErrorArgs e) => Errored(e.Error.Exception);
   }
 }

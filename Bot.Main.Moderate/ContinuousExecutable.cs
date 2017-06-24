@@ -6,7 +6,6 @@ using Bot.Models;
 using Bot.Models.Interfaces;
 using Bot.Pipeline;
 using Bot.Pipeline.Interfaces;
-using Bot.Tests;
 using Bot.Tools.Interfaces;
 using log4net;
 using SimpleInjector;
@@ -54,7 +53,7 @@ namespace Bot.Main.Moderate {
       logger.Info("Initialization complete.");
       logger.Info("Running...\r\n\r\n");
 
-      client.Connect();
+      client.TryConnect();
       periodicTaskRunner.Run();
       if (_runTwitter) twitterManager.MonitorNewTweets(pipelineManager.Enqueue);
 

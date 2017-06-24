@@ -30,8 +30,8 @@ namespace Bot.Main.Moderate {
     public void Handle() {
       _periodicTaskFactory.Create(_settings.ClientCheckerInterval, () => {
         if (_timeService.UtcNow - _client.LatestReceivedAt > _settings.ClientCheckerInterval) {
-          _logger.LogWarning($"Client's {nameof(_client.LatestReceivedAt)}/Now difference exceeds the {_settings.ClientCheckerInterval.ToPretty(_logger)} limit.");
-          _client.Connect();
+          _logger.LogWarning($"Client's {nameof(_client.LatestReceivedAt)}/Now difference exceeds the {_settings.ClientCheckerInterval.ToPretty(_logger)} limit. Disconnecting...");
+          _client.Disconnect();
         }
       });
     }
