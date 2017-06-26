@@ -48,6 +48,7 @@
     <Compile Include="BaseSendableFactory.cs" />
     <Compile Include="AegisPardonFactory.cs" />
     <Compile Include="Interfaces\IModCommandRepositoryLogic.cs" />
+    <Compile Include="LatestYoutubeFactory.cs" />
     <Compile Include="ModCommandRepositoryLogic.cs" />
     <Compile Include="PublicToPrivateMessageFactory.cs" />
     <Compile Include="SelfSpamPunishmentFactory.cs" />

@@ -13,5 +13,6 @@ namespace Bot.Logic.Interfaces {
     IEnumerable<ISendable<PublicMessage>> Song();
     IEnumerable<ISendable<PublicMessage>> PreviousSong();
     IEnumerable<ISendable<PublicMessage>> Live();
+    IEnumerable<ISendable<PublicMessage>> Youtube();
   }
 }

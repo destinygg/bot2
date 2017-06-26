@@ -44,6 +44,8 @@ namespace Bot.Logic {
         return _commandLogic.PreviousSong().ToList();
       if (message.StartsWith("!live"))
         return _commandLogic.Live().ToList();
+      if (message.StartsWith("!youtube", "!yt"))
+        return _commandLogic.Youtube().ToList();
 
       return new List<ISendable<PublicMessage>>();
     }

@@ -97,6 +97,7 @@ namespace Bot.Main.Moderate {
       Container.RegisterConditional<ICommandHandler, PeriodicMessages>(Lifestyle.Singleton, _notHandledAndMatchingClassName(nameof(PeriodicMessages)));
       Container.RegisterConditional<IFactory<TimeSpan, Action, Task>, PeriodicTaskFactory>(Lifestyle.Singleton, c => !c.Handled);
 
+      Container.RegisterConditional<IFactory<String>, LatestYoutubeFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IFactory<StreamingMessage, Status>, TwitterStatusFactory>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<IFactory<Status, string, IEnumerable<string>>, TwitterStatusFormatter>(Lifestyle.Singleton, c => !c.Handled);
       Container.RegisterConditional<ITwitterManager, TwitterManager>(Lifestyle.Singleton, c => !c.Handled);

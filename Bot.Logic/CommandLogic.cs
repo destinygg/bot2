@@ -22,6 +22,7 @@ namespace Bot.Logic {
     private readonly IProvider<IStreamStateService> _streamStateServiceProvider;
     private readonly ISettings _settings;
     private readonly IFactory<Status, string, IEnumerable<string>> _twitterStatusFormatter;
+    private readonly IFactory<string> _latestYoutubeFactory;
 
     public CommandLogic(
       ITimeService timeService,
@@ -30,7 +31,8 @@ namespace Bot.Logic {
       ITwitterManager twitterManager,
       IProvider<IStreamStateService> streamStateServiceProvider,
       ISettings settings,
-      IFactory<Status, string, IEnumerable<string>> twitterStatusFormatter
+      IFactory<Status, string, IEnumerable<string>> twitterStatusFormatter,
+      IFactory<string> latestYoutubeFactory
     ) {
       _timeService = timeService;
       _downloadMapper = downloadMapper;
@@ -39,6 +41,7 @@ namespace Bot.Logic {
       _streamStateServiceProvider = streamStateServiceProvider;
       _settings = settings;
       _twitterStatusFormatter = twitterStatusFormatter;
+      _latestYoutubeFactory = latestYoutubeFactory;
     }
 
     public ISendable<PublicMessage> Time() => new SendablePublicMessage($"{_timeService.DestinyNow.ToShortTimeString()} Central Steven Time");
@@ -131,6 +134,8 @@ namespace Bot.Logic {
           throw new NotSupportedException($"The stream status {status.StreamStatus} is not registered");
       }
     }
+
+    public IEnumerable<ISendable<PublicMessage>> Youtube() => new SendablePublicMessage(_latestYoutubeFactory.Create()).Wrap();
 
   }
 }
