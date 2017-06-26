@@ -47,7 +47,7 @@ namespace Bot.Main.Moderate.Tests {
       var twitterManager = container.GetInstance<ITwitterManager>();
       var latestDestinyTweetId = unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
       Assert.AreEqual(-1, latestDestinyTweetId);
-      twitterManager.LatestTweetFromDestiny();
+      twitterManager.LatestTweetFromDestiny("");
       latestDestinyTweetId = unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
       Assert.AreNotEqual(-1, latestDestinyTweetId);
 

@@ -9,7 +9,6 @@ using Bot.Models.Sendable;
 using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
-using CoreTweet;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -21,7 +20,6 @@ namespace Bot.Logic {
     private readonly ITwitterManager _twitterManager;
     private readonly IProvider<IStreamStateService> _streamStateServiceProvider;
     private readonly ISettings _settings;
-    private readonly IFactory<Status, string, IEnumerable<string>> _twitterStatusFormatter;
     private readonly IFactory<string> _latestYoutubeFactory;
 
     public CommandLogic(
@@ -31,7 +29,6 @@ namespace Bot.Logic {
       ITwitterManager twitterManager,
       IProvider<IStreamStateService> streamStateServiceProvider,
       ISettings settings,
-      IFactory<Status, string, IEnumerable<string>> twitterStatusFormatter,
       IFactory<string> latestYoutubeFactory
     ) {
       _timeService = timeService;
@@ -40,7 +37,6 @@ namespace Bot.Logic {
       _twitterManager = twitterManager;
       _streamStateServiceProvider = streamStateServiceProvider;
       _settings = settings;
-      _twitterStatusFormatter = twitterStatusFormatter;
       _latestYoutubeFactory = latestYoutubeFactory;
     }
 
@@ -82,14 +78,9 @@ namespace Bot.Logic {
       }
     }
 
-    public IEnumerable<ISendable<PublicMessage>> TwitterDestiny() => _twitterManager.LatestTweetFromDestiny().Apply(_format).Select(x => new SendablePublicMessage(x));
+    public IEnumerable<ISendable<PublicMessage>> TwitterDestiny() => _twitterManager.LatestTweetFromDestiny("").Item1.Select(x => new SendablePublicMessage(x));
 
-    public IEnumerable<ISendable<PublicMessage>> TwitterAslan() => _twitterManager.LatestTweetFromAslan().Apply(_format).Select(x => new SendablePublicMessage(x));
-
-    private IEnumerable<string> _format(Status status) {
-      var delta = (_timeService.UtcNow - status.CreatedAt.UtcDateTime).ToPretty(_logger);
-      return _twitterStatusFormatter.Create(status, $"twitter.com/{status.User.ScreenName} {delta} ago: ");
-    }
+    public IEnumerable<ISendable<PublicMessage>> TwitterAslan() => _twitterManager.LatestTweetFromAslan("").Select(x => new SendablePublicMessage(x));
 
     public IEnumerable<ISendable<PublicMessage>> Song() {
       var song = _downloadMapper.LastFm().recenttracks.track.First();

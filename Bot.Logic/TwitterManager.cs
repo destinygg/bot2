@@ -4,6 +4,7 @@ using System.Linq;
 using Bot.Logic.Interfaces;
 using Bot.Models.Sendable;
 using Bot.Repository.Interfaces;
+using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using CoreTweet;
@@ -14,27 +15,31 @@ namespace Bot.Logic {
     private readonly ILogger _logger;
     private readonly ITwitterStreamingMessageObserver _twitterObserver;
     private readonly IQueryCommandService<IUnitOfWork> _unitOfWork;
+    private readonly IFactory<Status, string, IEnumerable<string>> _twitterStatusFormatter;
     private IDisposable _twitterStream;
 
     public TwitterManager(
       IPrivateConstants privateConstants,
       ILogger logger,
       ITwitterStreamingMessageObserver twitterObserver,
-      IQueryCommandService<IUnitOfWork> unitOfWork
+      IQueryCommandService<IUnitOfWork> unitOfWork,
+      IFactory<Status, string, IEnumerable<string>> twitterStatusFormatter
     ) {
       _privateConstants = privateConstants;
       _logger = logger;
       _twitterObserver = twitterObserver;
       _unitOfWork = unitOfWork;
+      _twitterStatusFormatter = twitterStatusFormatter;
     }
 
-    public Status LatestTweetFromDestiny() {
+    public Tuple<IEnumerable<string>, Status> LatestTweetFromDestiny(string prefix) {
       var status = _getLatestStatus("OmniDestiny");
       _unitOfWork.Command(u => u.StateIntegers.LatestDestinyTweetId = status.Id);
-      return status;
+      var formatted = _twitterStatusFormatter.Create(status, prefix);
+      return Tuple.Create(formatted, status);
     }
 
-    public Status LatestTweetFromAslan() => _getLatestStatus("AslanVondran");
+    public IEnumerable<string> LatestTweetFromAslan(string prefix) => _getLatestStatus("AslanVondran").Apply(s => _twitterStatusFormatter.Create(s, prefix));
 
     public void MonitorNewTweets(Action<IReadOnlyList<SendablePublicMessage>> send) {
       _logger.LogInformation("Monitoring new tweets...");
