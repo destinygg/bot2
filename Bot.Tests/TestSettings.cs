@@ -1,4 +1,5 @@
 ﻿using System;
+using Bot.Logic;
 using Bot.Tools;
 
 namespace Bot.Tests {

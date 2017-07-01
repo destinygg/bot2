@@ -52,6 +52,7 @@
     <Compile Include="ModCommandRepositoryLogic.cs" />
     <Compile Include="PublicToPrivateMessageFactory.cs" />
     <Compile Include="SelfSpamPunishmentFactory.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SingleLineSpamPunishmentFactory.cs" />
     <Compile Include="RepositoryPunishmentFactory.cs" />
     <Compile Include="LongSpamPunishmentFactory.cs" />

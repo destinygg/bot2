@@ -1,6 +1,7 @@
 ﻿using System;
+using Bot.Tools;
 
-namespace Bot.Tools {
+namespace Bot.Logic {
   public class Settings : ISettings {
     public string ClientType { get; set; }
     public TimeSpan ClientCheckerInterval => PeriodicMessageInterval;
