@@ -115,9 +115,11 @@ namespace Bot.Main.Moderate {
       Container.RegisterDecorator(typeof(IFactory<>), typeof(FactoryTryCatchDecorator<>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IFactory<,>), typeof(FactoryTryCatchDecorator<,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IFactory<,,>), typeof(FactoryTryCatchDecorator<,,>), Lifestyle.Singleton, p => p.ImplementationType.Name != nameof(DownloadFactory));
+      Container.RegisterDecorator(typeof(IFactory<,,,>), typeof(FactoryTryCatchDecorator<,,,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IProvider<>), typeof(CachedProviderDecorator<>), Lifestyle.Singleton, p => p.ImplementationType.Name == nameof(StreamStateServiceProvider));
       Container.RegisterDecorator(typeof(IErrorableFactory<,>), typeof(ErrorableFactoryTryCatchDecorator<,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IErrorableFactory<,,>), typeof(ErrorableFactoryTryCatchDecorator<,,>), Lifestyle.Singleton);
+      Container.RegisterDecorator(typeof(IErrorableFactory<,,,>), typeof(ErrorableFactoryTryCatchDecorator<,,,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IGenericClassFactory<>), typeof(GenericClassFactoryTryCatchDecorator<>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(IGenericClassFactory<,,>), typeof(GenericClassFactoryTryCatchDecorator<,,>), Lifestyle.Singleton);
       Container.RegisterDecorator(typeof(ICommandHandler), typeof(CommandHandlerTryCatchDecorator), Lifestyle.Singleton);

@@ -102,4 +102,43 @@ namespace Bot.Tools {
     }
   }
 
+  public class FactoryTryCatchDecorator<T1, T2, T3, TOutput> : IFactory<T1, T2, T3, TOutput> {
+    private readonly IFactory<T1, T2, T3, TOutput> _factory;
+    private readonly ILogger _logger;
+
+    public FactoryTryCatchDecorator(IFactory<T1, T2, T3, TOutput> factory, ILogger logger) {
+      _factory = factory;
+      _logger = logger;
+      _logger.LogInformation($"{nameof(FactoryTryCatchDecorator<object, object, object, object>)} now decorates {_factory.GetType()}");
+    }
+
+    public virtual TOutput Create(T1 input1, T2 input2, T3 input3) {
+      try {
+        return _factory.Create(input1, input2, input3);
+      } catch (Exception e) {
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object, object, object>)}", e);
+        _logger.LogError(LogExtraInformation(input1, input2, input3));
+        throw;
+      }
+    }
+
+    protected string LogExtraInformation(T1 input1, T2 input2, T3 input3) {
+      try {
+        return
+          $"{nameof(_factory)} is of type {_factory.GetType()}\r\n" +
+          $"{nameof(T1)} is {typeof(T1)}\r\n" +
+          $"{nameof(input1)} is of type {input1.GetType()}\r\n" +
+          $"{nameof(input1)} is {ObjectDumper.Dump(input1, 10)}\r\n" +
+          $"{nameof(T2)} is {typeof(T2)}\r\n" +
+          $"{nameof(input2)} is of type {input2.GetType()}\r\n" +
+          $"{nameof(input2)} is {ObjectDumper.Dump(input2, 10)}\r\n" +
+          $"{nameof(T3)} is {typeof(T3)}\r\n" +
+          $"{nameof(input3)} is of type {input3.GetType()}\r\n" +
+          $"{nameof(input3)} is {ObjectDumper.Dump(input3, 10)}";
+      } catch (Exception e) {
+        return $"Error logging extra information: {e}";
+      }
+    }
+  }
+
 }
