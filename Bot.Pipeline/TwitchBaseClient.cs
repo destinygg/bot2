@@ -5,6 +5,7 @@ using Bot.Tools;
 using Bot.Tools.Interfaces;
 using Bot.Tools.Logging;
 using TwitchLib;
+using TwitchLib.Enums;
 using TwitchLib.Events.Client;
 using TwitchLib.Models.Client;
 
@@ -12,6 +13,7 @@ namespace Bot.Pipeline {
   public abstract class TwitchBaseClient : BaseClient {
     private readonly IFactory<ChatMessage, IReceived<IUser, ITransmittable>> _twitchChatMessageParser;
     private readonly IPrivateConstants _privateConstants;
+    private readonly ITimeService _timeService;
     private readonly ILogger _logger;
 
     protected TwitchClient Client;
@@ -26,6 +28,7 @@ namespace Bot.Pipeline {
     ) : base(logger, settings, timeService, pipelineManager) {
       _twitchChatMessageParser = twitchChatMessageParser;
       _privateConstants = privateConstants;
+      _timeService = timeService;
       _logger = logger;
 
       pipelineManager.SetSender(Send);
@@ -40,6 +43,12 @@ namespace Bot.Pipeline {
       Client.OnDisconnected += OnDisconnected;
       Client.OnConnectionError += OnConnectionError;
       Client.OnConnected += OnConnected;
+      Client.OnSendReceiveData += OnSendReceiveData;
+    }
+
+    private void OnSendReceiveData(object sender, OnSendReceiveDataArgs e) {
+      if (e.Direction == SendReceiveDirection.Received)
+        LatestReceivedAt = _timeService.UtcNow;
     }
 
     private void OnJoinedChannel(object sender, OnJoinedChannelArgs e) => _logger.LogInformation($"Joined {e.Channel}");

@@ -54,7 +54,7 @@ namespace Bot.Pipeline {
 
     public abstract void Send(string output);
 
-    public DateTime LatestReceivedAt { get; private set; }
+    public DateTime LatestReceivedAt { get; protected set; }
 
     private void _connectionBackoff() {
       _connectionFailureCount++;
