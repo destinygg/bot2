@@ -1,11 +1,134 @@
-﻿using Bot.Main.Moderate;
+﻿using System;
+using System.Linq;
+using System.Net;
+using Bot.Main.Moderate;
+using Bot.Pipeline.Tests;
 using Bot.Tests;
 using Bot.Tools.Interfaces;
+using Bot.Tools.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using NSubstitute.ExceptionExtensions;
+using SimpleInjector;
 
 namespace Bot.Tools.Tests {
   [TestClass]
   public class ErrorableDownloadFactoryTests {
+
+    private static TestContainerManager _createTestContainerManager(TestableLogger testableLogger, ITimeService timeService = null, Action<TestSettings> setSettings = null) {
+      var downloadFactory = Substitute.For<IFactory<string, string, string>>();
+      downloadFactory.Create(Arg.Any<string>(), Arg.Any<string>()).Throws(_ => new WebException());
+      return new TestContainerManager(c => {
+        var timeServiceRegistration = Lifestyle.Singleton.CreateRegistration(() => timeService, c);
+        if (timeService != null) {
+          c.RegisterConditional(typeof(ITimeService), timeServiceRegistration, pc => !pc.Handled);
+        }
+        var downloadFactoryRegistration = Lifestyle.Singleton.CreateRegistration(() => downloadFactory, c);
+        c.RegisterConditional(typeof(IFactory<string, string, string>), downloadFactoryRegistration, _ => true);
+        var loggerRegistration = Lifestyle.Singleton.CreateRegistration(() => testableLogger, c);
+        c.RegisterConditional(typeof(ILogger), loggerRegistration, pc => !pc.Handled);
+      }, settings => setSettings?.Invoke(settings));
+    }
+
+    [TestMethod]
+    public void ErrorableDownloadFactory_Real404_ReturnsErrorText_DoNotRunContinuously() {
+      var testContainerManager = new TestContainerManager();
+      var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
+      var errorText = Guid.NewGuid().ToString();
+
+      var html = errorableDownloadFactory.Create("https://httpbin.org/404", "", errorText);
+
+      Assert.AreEqual(errorText, html);
+    }
+
+    [TestMethod]
+    public void ErrorableDownloadFactory_Fake404_ReturnsErrorTextNoErrorLogsAndOneWarningLog() {
+      var testableLogger = new TestableLogger();
+      var testContainerManager = _createTestContainerManager(testableLogger);
+      var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
+      var errorText = Guid.NewGuid().ToString();
+
+      var html = errorableDownloadFactory.Create("", "", errorText);
+
+      testableLogger.ErrorOutbox.WriteDump();
+      Assert.AreEqual(errorText, html);
+      Assert.AreEqual(0, testableLogger.ErrorOutbox.Count);
+      Assert.AreEqual(1, testableLogger.WarningOutbox.Count);
+    }
+
+    [TestMethod]
+    public void ErrorableDownloadFactory_Fake404UntilMeetsErrorLimit_HasNoErrorLogsButSomeWarningLogs() {
+      var testableLogger = new TestableLogger();
+      var testContainerManager = _createTestContainerManager(testableLogger);
+      var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
+      var settings = testContainerManager.Container.GetInstance<ISettings>();
+
+      foreach (var i in Enumerable.Range(0, settings.DownloadErrorLimit)) {
+        errorableDownloadFactory.Create("google.com", "", "");
+      }
+
+      Assert.AreEqual(0, testableLogger.ErrorOutbox.Count);
+      Assert.AreNotEqual(0, testableLogger.WarningOutbox.Count);
+    }
+
+    [TestMethod]
+    public void ErrorableDownloadFactory_Fake404UntilExceedsErrorLimit_Has1ErrorLog() {
+      var testableLogger = new TestableLogger();
+      var testContainerManager = _createTestContainerManager(testableLogger);
+      var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
+      var settings = testContainerManager.Container.GetInstance<ISettings>();
+
+      foreach (var i in Enumerable.Range(0, settings.DownloadErrorLimit + 1)) {
+        errorableDownloadFactory.Create("google.com", "", "");
+      }
+
+      Assert.AreEqual(1, testableLogger.ErrorOutbox.Count);
+    }
+
+    [TestMethod]
+    public void ErrorableDownloadFactory_Fake404OutOfWindow_Has0ErrorLogsAnd3InfoLogs() {
+      var testableLogger = new TestableLogger();
+      var timeService = Substitute.For<ITimeService>();
+      var window = TimeSpan.FromHours(1);
+      var time0 = DateTime.Today;
+      var time1 = time0 + window + TimeSpan.FromTicks(1);
+      timeService.UtcNow.Returns(time0, time1);
+      var testContainerManager = _createTestContainerManager(testableLogger, timeService, s => {
+        s.DownloadErrorLimit = 2;
+        s.DownloadErrorWindow = window;
+      });
+      var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
+      var settings = testContainerManager.Container.GetInstance<ISettings>();
+
+      foreach (var i in Enumerable.Range(0, settings.DownloadErrorLimit + 1)) {
+        errorableDownloadFactory.Create("google.com", "", "");
+      }
+
+      Assert.AreEqual(0, testableLogger.ErrorOutbox.Count);
+      Assert.AreEqual(3, testableLogger.WarningOutbox.Count);
+    }
+
+    [TestMethod]
+    public void ErrorableDownloadFactory_Fake404InsideWindow_Has1ErrorLogAndTwoWarningLogs() {
+      var testableLogger = new TestableLogger();
+      var timeService = Substitute.For<ITimeService>();
+      var window = TimeSpan.FromHours(1);
+      var time0 = DateTime.Today;
+      timeService.UtcNow.Returns(time0);
+      var testContainerManager = _createTestContainerManager(testableLogger, timeService, s => {
+        s.DownloadErrorLimit = 2;
+        s.DownloadErrorWindow = window;
+      });
+      var errorableDownloadFactory = testContainerManager.Container.GetInstance<IErrorableFactory<string, string, string, string>>();
+      var settings = testContainerManager.Container.GetInstance<ISettings>();
+
+      foreach (var i in Enumerable.Range(0, settings.DownloadErrorLimit + 1)) {
+        errorableDownloadFactory.Create("google.com", "", "");
+      }
+
+      Assert.AreEqual(1, testableLogger.ErrorOutbox.Count);
+      Assert.AreEqual(3, testableLogger.WarningOutbox.Count);
+    }
 
     [TestMethod]
     public void ErrorableDownloadFactory_PlainCreate_Works_DoNotRunContinuously() {
