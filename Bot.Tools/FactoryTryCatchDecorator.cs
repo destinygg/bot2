@@ -17,8 +17,8 @@ namespace Bot.Tools {
       try {
         return _factory.Create();
       } catch (Exception e) {
-        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}", e);
-        _logger.LogError(LogExtraInformation());
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}\r\n" +
+                         $"{LogExtraInformation()}", e);
         throw;
       }
     }
@@ -47,8 +47,8 @@ namespace Bot.Tools {
       try {
         return _factory.Create(input);
       } catch (Exception e) {
-        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}", e);
-        _logger.LogError(LogExtraInformation(input));
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object>)}\r\n" +
+                         $"{LogExtraInformation(input)}", e);
         throw;
       }
     }
@@ -80,8 +80,8 @@ namespace Bot.Tools {
       try {
         return _factory.Create(input1, input2);
       } catch (Exception e) {
-        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object, object>)}", e);
-        _logger.LogError(LogExtraInformation(input1, input2));
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object, object>)}\r\n" +
+                         $"{LogExtraInformation(input1, input2)}", e);
         throw;
       }
     }
@@ -116,8 +116,8 @@ namespace Bot.Tools {
       try {
         return _factory.Create(input1, input2, input3);
       } catch (Exception e) {
-        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object, object, object>)}", e);
-        _logger.LogError(LogExtraInformation(input1, input2, input3));
+        _logger.LogError($"Error occured in {nameof(FactoryTryCatchDecorator<object, object, object, object>)}\r\n" +
+                         $"{LogExtraInformation(input1, input2, input3)}", e);
         throw;
       }
     }
