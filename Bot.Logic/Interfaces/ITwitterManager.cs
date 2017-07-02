@@ -5,8 +5,8 @@ using CoreTweet;
 
 namespace Bot.Logic.Interfaces {
   public interface ITwitterManager {
-    Tuple<IEnumerable<string>, Status> LatestTweetFromDestiny(string prefix);
-    IEnumerable<string> LatestTweetFromAslan(string prefix);
+    Tuple<IEnumerable<string>, Status> LatestTweetFromDestiny(bool isJustTweeted);
+    IEnumerable<string> LatestTweetFromAslan();
     void MonitorNewTweets(Action<IReadOnlyList<SendablePublicMessage>> send);
   }
 }

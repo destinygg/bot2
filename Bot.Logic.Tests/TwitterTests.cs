@@ -18,7 +18,7 @@ namespace Bot.Logic.Tests {
       var container = new TestContainerManager().InitializeAndIsolateRepository();
       var twitterManager = container.GetInstance<ITwitterManager>();
 
-      var latest = twitterManager.LatestTweetFromDestiny("");
+      var latest = twitterManager.LatestTweetFromDestiny(true);
 
       Console.WriteLine(ObjectDumper.Dump(latest));
     }
@@ -45,7 +45,7 @@ namespace Bot.Logic.Tests {
       var id = unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
       Assert.AreEqual(-1, id);
 
-      twitterManager.LatestTweetFromDestiny("");
+      twitterManager.LatestTweetFromDestiny(true);
 
       id = unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
       Assert.AreNotEqual(-1, id);

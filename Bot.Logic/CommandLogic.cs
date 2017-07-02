@@ -78,9 +78,9 @@ namespace Bot.Logic {
       }
     }
 
-    public IEnumerable<ISendable<PublicMessage>> TwitterDestiny() => _twitterManager.LatestTweetFromDestiny("").Item1.Select(x => new SendablePublicMessage(x));
+    public IEnumerable<ISendable<PublicMessage>> TwitterDestiny() => _twitterManager.LatestTweetFromDestiny(false).Item1.Select(x => new SendablePublicMessage(x));
 
-    public IEnumerable<ISendable<PublicMessage>> TwitterAslan() => _twitterManager.LatestTweetFromAslan("").Select(x => new SendablePublicMessage(x));
+    public IEnumerable<ISendable<PublicMessage>> TwitterAslan() => _twitterManager.LatestTweetFromAslan().Select(x => new SendablePublicMessage(x));
 
     public IEnumerable<ISendable<PublicMessage>> Song() {
       var song = _downloadMapper.LastFm().recenttracks.track.First();

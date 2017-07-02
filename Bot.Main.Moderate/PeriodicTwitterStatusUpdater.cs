@@ -33,7 +33,7 @@ namespace Bot.Main.Moderate {
     public void Handle() {
       _periodicTaskFactory.Create(_settings.TwitterStatusUpdaterInterval, () => {
         var latestDestinyTweetIdFromDb = _unitOfWork.Query(u => u.StateIntegers.LatestDestinyTweetId);
-        var formattedStatus = _twitterManager.LatestTweetFromDestiny("twitter.com/OmniDestiny just tweeted: ");
+        var formattedStatus = _twitterManager.LatestTweetFromDestiny(true);
         var formatted = formattedStatus.Item1;
         var status = formattedStatus.Item2;
         if (latestDestinyTweetIdFromDb != status.Id) {
