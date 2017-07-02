@@ -25,5 +25,7 @@ namespace Bot.Logic {
     public int RepeatCharacterSpamLimit => 45;
     public TimeSpan TwitterStatusUpdaterInterval => TimeSpan.FromSeconds(15);
     public TimeSpan MaximumBackoffTime => TimeSpan.FromMinutes(1);
+    public int DownloadErrorLimit => 5;
+    public TimeSpan DownloadErrorWindow => TimeSpan.FromDays(1);
   }
 }

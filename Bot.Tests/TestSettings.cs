@@ -29,5 +29,7 @@ namespace Bot.Tests {
     public int RepeatCharacterSpamLimit { get; set; } = Settings.RepeatCharacterSpamLimit;
     public TimeSpan TwitterStatusUpdaterInterval { get; set; } = Settings.TwitterStatusUpdaterInterval;
     public TimeSpan MaximumBackoffTime { get; set; } = Settings.MaximumBackoffTime;
+    public int DownloadErrorLimit { get; set; } = Settings.DownloadErrorLimit;
+    public TimeSpan DownloadErrorWindow { get; set; } = Settings.DownloadErrorWindow;
   }
 }

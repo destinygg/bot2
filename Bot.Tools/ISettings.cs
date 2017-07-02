@@ -24,5 +24,7 @@ namespace Bot.Tools {
     int RepeatCharacterSpamLimit { get; }
     TimeSpan TwitterStatusUpdaterInterval { get; }
     TimeSpan MaximumBackoffTime { get; }
+    int DownloadErrorLimit { get; }
+    TimeSpan DownloadErrorWindow { get; }
   }
 }
