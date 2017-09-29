@@ -63,6 +63,7 @@ namespace Bot.Logic {
     }
 
     public IEnumerable<ISendable<PublicMessage>> Streams() {
+      if (_settings.ClientType == "Twitch") yield break;
       dynamic overrustle = JsonConvert.DeserializeObject(_downloadMapper.OverRustle());
       var streamListArray = (JArray) overrustle.stream_list;
       foreach (var stream in streamListArray.Children().Take(3)) {
